@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 图形/显示/计算 每日动态 — 2026年6月17日</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --card: #181f2a;
+    --border: #252e3b;
+    --text: #cdd6e0;
+    --text-dim: #7c8998;
+    --accent-gpu: #50fa7b;
+    --accent-display: #8be9fd;
+    --accent-compute: #ffb86c;
+    --accent-npu: #bd93f9;
+    --accent-kernel: #ff79c6;
+    --accent-hl: #f1fa8c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  /* ---- header ---- */
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1a2d 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 900px 300px at 50% 0%, rgba(80,250,123,.06), transparent);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, #50fa7b, #8be9fd);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero .date {
+    font-size: 14px; color: var(--text-dim);
+    letter-spacing: .5px;
+  }
+  .hero .subtitle {
+    margin-top: 12px; font-size: 15px; color: var(--text-dim);
+    max-width: 580px; margin-left: auto; margin-right: auto;
+  }
+  .stats-bar {
+    display: flex; justify-content: center; gap: 32px;
+    margin-top: 24px; flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-item .num {
+    font-size: 22px; font-weight: 700; color: var(--accent-hl);
+  }
+  .stat-item .label {
+    font-size: 12px; color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  /* ---- container ---- */
+  .container {
+    max-width: 860px; margin: 0 auto; padding: 32px 20px 60px;
+  }
+  /* ---- card ---- */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: #3a4558; }
+  .card-num {
+    position: absolute;
+    top: -14px; left: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+    color: #0a0e14; box-shadow: 0 2px 12px rgba(0,0,0,.4);
+  }
+  .card-num.n1 { background: linear-gradient(135deg, #ff79c6, #bd93f9); }
+  .card-num.n2 { background: linear-gradient(135deg, #bd93f9, #8be9fd); }
+  .card-num.n3 { background: linear-gradient(135deg, #8be9fd, #50fa7b); }
+  .card-num.n4 { background: linear-gradient(135deg, #ffb86c, #ff79c6); }
+  .card-num.n5 { background: linear-gradient(135deg, #50fa7b, #ffb86c); }
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .card-title {
+    font-size: 18px; font-weight: 700; line-height: 1.35;
+  }
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: .3px;
+    white-space: nowrap;
+  }
+  .badge-gpu     { background: rgba(80,250,123,.12);  color: #50fa7b; }
+  .badge-display { background: rgba(139,233,253,.12);  color: #8be9fd; }
+  .badge-compute { background: rgba(255,184,108,.12);  color: #ffb86c; }
+  .badge-npu     { background: rgba(189,147,249,.12);  color: #bd93f9; }
+  .badge-kernel  { background: rgba(255,121,198,.12);  color: #ff79c6; }
+  .card-meta {
+    font-size: 13px; color: var(--text-dim);
+    margin-bottom: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .card-body p { margin-bottom: 10px; font-size: 14.5px; }
+  .card-body ul { padding-left: 20px; margin-bottom: 10px; }
+  .card-body li { font-size: 14px; margin-bottom: 6px; color: #b0b9c5; }
+  .card-body li::marker { color: var(--text-dim); }
+  .card-body strong { color: var(--text); }
+  .reason-box {
+    margin-top: 16px; padding: 14px 18px;
+    background: rgba(241,250,140,.05);
+    border-left: 3px solid var(--accent-hl);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px; line-height: 1.65;
+  }
+  .reason-box::before {
+    content: "关注理由";
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    color: var(--accent-hl); text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .source-link {
+    display: inline-block; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim); text-decoration: none;
+    border-bottom: 1px dashed #3a4558;
+  }
+  .source-link:hover { color: var(--text); border-color: var(--text-dim); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 6px 0 12px; }
+  /* ---- quick nav ---- */
+  .quick-nav {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .quick-nav a {
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-dim); transition: all .2s;
+  }
+  .quick-nav a:hover { border-color: #50fa7b; color: #50fa7b; }
+  /* ---- footer ---- */
+  .footer {
+    text-align: center; padding: 24px 20px 40px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  /* ---- responsive ---- */
+  @media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 22px; }
+    .card { padding: 22px 18px; }
+    .stats-bar { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<div class="hero">
+  <h1>Linux 图形 · 显示 · 计算 每日动态</h1>
+  <div class="date">2026 年 6 月 17 日（周三） &nbsp;|&nbsp; 覆盖 6 月 13 – 17 日</div>
+  <div class="subtitle">
+    本期聚焦 Linux 7.1 正式发布、7.2 合并窗口首轮特性、Intel NPU 进展与 Wayland 显示栈更新
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">5</div><div class="label">精选条目</div></div>
+    <div class="stat-item"><div class="num">3</div><div class="label">领域覆盖</div></div>
+    <div class="stat-item"><div class="num">7.1 → 7.2</div><div class="label">内核周期</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ====== Quick Nav ====== -->
+<div class="quick-nav">
+  <a href="#item1">内核升级</a>
+  <a href="#item2">Nova NPU</a>
+  <a href="#item3">Weston HDR</a>
+  <a href="#item4">AI 性能</a>
+  <a href="#item5">调度优化</a>
+</div>
+
+<!-- ====== Item 1 ====== -->
+<div class="card" id="item1">
+  <div class="card-num n1">1</div>
+  <div class="card-header">
+    <span class="card-title">Linux 7.1 稳定版正式发布</span>
+    <span class="badge badge-kernel">内核</span>
+    <span class="badge badge-gpu">GPU</span>
+    <span class="badge badge-npu">NPU</span>
+  </div>
+  <div class="card-meta">
+    <span>6月14日</span><span>·</span><span>Linus Torvalds</span><span>·</span><span>kernel.org</span>
+  </div>
+  <div class="card-body">
+    <p>Linus Torvalds 于 6 月 14 日正式发布 <strong>Linux 7.1 稳定版内核</strong>，距 7.0 仅 9 周，累计超 <strong>10,000+ 次提交</strong>。</p>
+    <hr>
+    <p><strong>与图形/显示/计算相关的核心更新：</strong></p>
+    <ul>
+      <li><strong>GPU 驱动增强</strong> — AMDGPU、Intel Xe、NVIDIA Nova 三个驱动栈均获得大量修复与优化，GPU 驱动补丁占 RC7 首位</li>
+      <li><strong>NPU 加速器驱动</strong> — 继续增强 AMD Ryzen AI NPU 监控与调度能力（<em>详见第 2 条</em>）</li>
+      <li><strong>全新 NTFS 内核驱动</strong> — 由 Namjae Jeon 开发，替代旧驱动，提供完整 NTFS 读写支持（a.k.a.「NTFS 的复兴」）</li>
+      <li><strong>文件系统 + BPF 扩展</strong> — Btrfs RAID 可靠性提升，bcachefs 逼近生产就绪，新 BPF 程序类型持续模糊内核与用户空间边界</li>
+      <li><strong>调度器增强</strong> — cgroup 感知调度合并，对容器和数据库场景意义重大</li>
+    </ul>
+    <hr>
+    <p>同步发布 7.0.12 稳定更新分支，安全修复持续跟进。GNU Linux-libre 7.1-gnu 亦于次日发布。</p>
+  </div>
+  <div class="reason-box">
+    Linux 7.1 是 7.x 系列首个功能更新，奠定了未来 9 周内所有上层发行版（Ubuntu、Fedora、Arch）的内核基线。对 GPU/NPU 驱动的增强直接影响桌面渲染、AI 推理和高性能计算三大工作负载。NTFS 驱动的重写则消除了跨平台数据交换的长期痛点。
+  </div>
+</div>
+
+<!-- ====== Item 2 ====== -->
+<div class="card" id="item2">
+  <div class="card-num n2">2</div>
+  <div class="card-header">
+    <span class="card-title">Intel Compute Runtime 宣布支持 Nova Lake NPU，引入实验性 "LEO"</span>
+    <span class="badge badge-npu">NPU</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月15日</span><span>·</span><span>Intel / Phoronix</span>
+  </div>
+  <div class="card-body">
+    <p>Intel 开源 Compute Runtime（面向 OpenCL 和 oneAPI Level Zero）发布 <strong>26.22.38646.4</strong> 版本：</p>
+    <ul>
+      <li>将 <strong>Nova Lake Xe3P</strong>（第六代 NPU 架构）支持状态正式升级为 <strong>"早期支持"（Early Support）</strong></li>
+      <li>同时引入代号 <strong>"LEO"</strong> 的实验性特性，标志着 Intel 正加速将 NPU 作为一等公民融入其统一计算堆栈</li>
+      <li>Nova Lake 预计 2026 年底出货，集成第六代 NPU，端侧 AI 算力预期大幅跃升</li>
+      <li>开源 Compute Runtime 的提前支持意味着开发者在硬件上市前即可进行软件适配与性能预热</li>
+    </ul>
+  </div>
+  <div class="reason-box">
+    NPU 正从"移动端的特色"变为"桌面/服务器的标配"。Intel 在硬件未上市前就通过开源驱动提前布局，这是非常明确的信号：端侧 AI 推理将成为下一代 CPU 平台的核心卖点。对从事 NPU/加速器开发的工程师而言，这意味着 Linux 下的统一编程模型（OpenCL / oneAPI）将覆盖 CPU、GPU 和 NPU 三类算力。
+  </div>
+</div>
+
+<!-- ====== Item 3 ====== -->
+<div class="card" id="item3">
+  <div class="card-num n3">3</div>
+  <div class="card-header">
+    <span class="card-title">Weston 16 Alpha 发布：HDR 改进 + Vulkan 渲染器修复 + Wine Wayland 分数缩放</span>
+    <span class="badge badge-display">显示</span>
+    <span class="badge badge-gpu">GPU</span>
+  </div>
+  <div class="card-meta">
+    <span>6月15日</span><span>·</span><span>freedesktop.org / Phoronix</span>
+  </div>
+  <div class="card-body">
+    <p>Wayland 参考合成器 <strong>Weston 16.0 Alpha 1</strong> 发布，多项图形与显示栈改进：</p>
+    <ul>
+      <li><strong>HDR 改进</strong> — 作为 Wayland 色彩管理协议（color-management-v1）落地后的首个参考实现更新，Weston 16 Alpha 进一步打磨 HDR 元数据处理与色调映射管线</li>
+      <li><strong>Vulkan 渲染器修复</strong> — 修复了 Weston 内嵌 Vulkan 后端在特定场景下的渲染异常，提升稳定性</li>
+    </ul>
+    <hr>
+    <p>同时期，<strong>Wine Wayland</strong> 驱动程序合并了<strong>分数缩放（Fractional Scaling）</strong>支持，从根本上解决了 HiDPI 显示器上 Windows 应用模糊/过小的问题。Wine 11.11（6月12日）及 Wine-Staging 11.11（289 个实验补丁）同步发布。</p>
+  </div>
+  <div class="reason-box">
+    HDR + 分数缩放是 Linux 桌面从"开发者可用"迈向"普通用户可用"的两大关键门槛。Weston 的 HDR 改进为 GNOME/KDE 合成器提供了参考路径；Wine Wayland 的分数缩放则直接提升 Linux 下运行 Windows 生产力软件（如 Office、Adobe）的可用性。三者叠加形成了图形/显示栈的"三位一体"进步。
+  </div>
+</div>
+
+<!-- ====== Item 4 ====== -->
+<div class="card" id="item4">
+  <div class="card-num n4">4</div>
+  <div class="card-header">
+    <span class="card-title">Intel 开源项目 "Performance Skills"：AI 驱动的 Linux 性能分析</span>
+    <span class="badge badge-compute">计算</span>
+    <span class="badge badge-npu">AI</span>
+  </div>
+  <div class="card-meta">
+    <span>6月15日</span><span>·</span><span>Intel / Phoronix</span>
+  </div>
+  <div class="card-body">
+    <p>Intel 发布全新开源项目 <strong>"Intel Performance Skills"</strong>：</p>
+    <ul>
+      <li>利用 <strong>AI 代理（Agent）</strong> 自动分析 Linux 上的 CPU 性能瓶颈，生成优化建议</li>
+      <li>目标是将 perf、top-down 微架构分析等工具链的经验知识编码为 AI 可消费的"技能"，降低性能调优门槛</li>
+      <li>开源并面向社区，鼓励第三方贡献新的分析技能</li>
+    </ul>
+    <hr>
+    <p>互补新闻：<strong>Linux 7.2 中 /proc/filesystems 读取性能提升 444%</strong>（该文件被 SELinux 库高频调用）。仅移动两行代码，EXT4/XFS 的 IOmap 就为 IOPS 带来 <strong>+5%</strong> 的提升——经典的内核微优化案例。</p>
+  </div>
+  <div class="reason-box">
+    AI 辅助性能分析工具的出现标志着 Linux 性能工程正在从"专家手工调优"向"AI 自动化诊断"转型。对于服务器端 GPU/NPU 计算场景（如 RDMA + GPU Direct），CPU 侧的性能瓶颈往往是整体吞吐的隐形天花板；Intel Performance Skills 这类工具可以直接帮助定位这些隐藏瓶颈。
+  </div>
+</div>
+
+<!-- ====== Item 5 ====== -->
+<div class="card" id="item5">
+  <div class="card-num n5">5</div>
+  <div class="card-header">
+    <span class="card-title">Linux 7.2 合并缓存感知调度（Cache-Aware Scheduling）</span>
+    <span class="badge badge-compute">计算</span>
+    <span class="badge badge-kernel">内核</span>
+  </div>
+  <div class="card-meta">
+    <span>6月15日</span><span>·</span><span>LKML / Phoronix</span>
+  </div>
+  <div class="card-body">
+    <p>Linux 7.2 合并窗口（6 月 15 日开启）首批合并的重大特性之一——<strong>缓存感知调度器</strong>：</p>
+    <ul>
+      <li>针对具有<strong>多个最后级缓存（LLC / Last-Level Cache）</strong>的现代 CPU 设计，能感知任务在不同 LLC 域间的迁移开销</li>
+      <li>对 <strong>AMD EPYC</strong>（多 CCD）、<strong>Intel Xeon</strong>（多 tile/chiplet）等 NUMA 拓扑下的大规模并行计算负载有显著收益</li>
+      <li>同时合并了匿名管道写入性能优化（提升 Shell 管道及进程间通信速度）和容器卸载延迟的大幅降低</li>
+    </ul>
+    <hr>
+    <p>其他 7.2 合并窗口亮点：<strong>Rust Zerocopy 库</strong>（40,000+ 行 Rust 代码）引入内核以消除更多 unsafe 代码；Btrfs 默认启用 Large Folios + 引入 Huge Folios；XFS Zone Allocator 脱实验；移除 40 年历史的 Hercules ISA 显卡驱动。</p>
+  </div>
+  <div class="reason-box">
+    缓存感知调度是现代多核 CPU 上高性能计算的基础设施。在 RDMA + GPU Direct 等高吞吐场景中，内存访问局部性（NUMA locality）与缓存命中率是决定端到端延迟的关键因素。7.2 的调度器改进意味着上层框架无需手动绑核/绑 NUMA 就能获得更好的近端访问性能，对分布式存储、数据库和大模型推理等场景是直接利好。
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Linux 图形/显示/计算 每日动态 · WorkBuddy 自动化生成 · 2026-06-17
+</div>
+
+</body>
+</html>

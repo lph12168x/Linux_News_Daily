@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 图形/显示/计算 每日动态 — 2026年6月18日</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --card: #181f2a;
+    --border: #252e3b;
+    --text: #cdd6e0;
+    --text-dim: #7c8998;
+    --accent-gpu: #50fa7b;
+    --accent-display: #8be9fd;
+    --accent-compute: #ffb86c;
+    --accent-npu: #bd93f9;
+    --accent-kernel: #ff79c6;
+    --accent-hl: #f1fa8c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  /* ---- header ---- */
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1a2d 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 900px 300px at 50% 0%, rgba(80,250,123,.06), transparent);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, #50fa7b, #8be9fd);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero .date {
+    font-size: 14px; color: var(--text-dim);
+    letter-spacing: .5px;
+  }
+  .hero .subtitle {
+    margin-top: 12px; font-size: 15px; color: var(--text-dim);
+    max-width: 580px; margin-left: auto; margin-right: auto;
+  }
+  .stats-bar {
+    display: flex; justify-content: center; gap: 32px;
+    margin-top: 24px; flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center;
+  }
+  .stat-item .num {
+    font-size: 22px; font-weight: 700; color: var(--accent-hl);
+  }
+  .stat-item .label {
+    font-size: 12px; color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  /* ---- container ---- */
+  .container {
+    max-width: 860px; margin: 0 auto; padding: 32px 20px 60px;
+  }
+  /* ---- card ---- */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: #3a4558; }
+  .card-num {
+    position: absolute;
+    top: -14px; left: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+    color: #0a0e14; box-shadow: 0 2px 12px rgba(0,0,0,.4);
+  }
+  .card-num.n1 { background: linear-gradient(135deg, #ff79c6, #bd93f9); }
+  .card-num.n2 { background: linear-gradient(135deg, #bd93f9, #8be9fd); }
+  .card-num.n3 { background: linear-gradient(135deg, #8be9fd, #50fa7b); }
+  .card-num.n4 { background: linear-gradient(135deg, #ffb86c, #ff79c6); }
+  .card-num.n5 { background: linear-gradient(135deg, #50fa7b, #ffb86c); }
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .card-title {
+    font-size: 18px; font-weight: 700; line-height: 1.35;
+  }
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: .3px;
+    white-space: nowrap;
+  }
+  .badge-gpu     { background: rgba(80,250,123,.12);  color: #50fa7b; }
+  .badge-display { background: rgba(139,233,253,.12);  color: #8be9fd; }
+  .badge-compute { background: rgba(255,184,108,.12);  color: #ffb86c; }
+  .badge-npu     { background: rgba(189,147,249,.12);  color: #bd93f9; }
+  .badge-kernel  { background: rgba(255,121,198,.12);  color: #ff79c6; }
+  .card-meta {
+    font-size: 13px; color: var(--text-dim);
+    margin-bottom: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .card-body p { margin-bottom: 10px; font-size: 14.5px; }
+  .card-body ul { padding-left: 20px; margin-bottom: 10px; }
+  .card-body li { font-size: 14px; margin-bottom: 6px; color: #b0b9c5; }
+  .card-body li::marker { color: var(--text-dim); }
+  .card-body strong { color: var(--text); }
+  .reason-box {
+    margin-top: 16px; padding: 14px 18px;
+    background: rgba(241,250,140,.05);
+    border-left: 3px solid var(--accent-hl);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px; line-height: 1.65;
+  }
+  .reason-box::before {
+    content: "关注理由";
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    color: var(--accent-hl); text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .source-link {
+    display: inline-block; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim); text-decoration: none;
+    border-bottom: 1px dashed #3a4558;
+  }
+  .source-link:hover { color: var(--text); border-color: var(--text-dim); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 6px 0 12px; }
+  /* ---- quick nav ---- */
+  .quick-nav {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .quick-nav a {
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-dim); transition: all .2s;
+  }
+  .quick-nav a:hover { border-color: #50fa7b; color: #50fa7b; }
+  /* ---- footer ---- */
+  .footer {
+    text-align: center; padding: 24px 20px 40px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  /* ---- responsive ---- */
+  @media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 22px; }
+    .card { padding: 22px 18px; }
+    .stats-bar { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<div class="hero">
+  <h1>Linux 图形 &middot; 显示 &middot; 计算 每日动态</h1>
+  <div class="date">2026 年 6 月 18 日（周四） &nbsp;|&nbsp; 覆盖 6 月 17 &ndash; 18 日</div>
+  <div class="subtitle">
+    本期聚焦 Linux 7.2 DRM 合并首日：AMDGPU HDMI 2.1 FRL 破冰、Rust DisplayLink 驱动问世、AI 补丁冲击内核社区
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">5</div><div class="label">精选条目</div></div>
+    <div class="stat-item"><div class="num">3</div><div class="label">领域覆盖</div></div>
+    <div class="stat-item"><div class="num">7.2 MW</div><div class="label">内核周</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ====== Quick Nav ====== -->
+<div class="quick-nav">
+  <a href="#item1">HDMI 2.1 FRL</a>
+  <a href="#item2">Vino 驱动</a>
+  <a href="#item3">Xe3 性能</a>
+  <a href="#item4">AI 补丁冲击</a>
+  <a href="#item5">Lemonade MCP</a>
+</div>
+
+<!-- ====== Item 1 ====== -->
+<div class="card" id="item1">
+  <div class="card-num n1">1</div>
+  <div class="card-header">
+    <span class="card-title">AMDGPU HDMI 2.1 FRL 支持成功合入 Linux 7.2，历史性破冰</span>
+    <span class="badge badge-gpu">GPU</span>
+    <span class="badge badge-display">显示</span>
+    <span class="badge badge-kernel">内核</span>
+  </div>
+  <div class="card-meta">
+    <span>6月17日</span><span>&middot;</span><span>Phoronix / DoNews / kernel.org</span>
+  </div>
+  <div class="card-body">
+    <p>Linux 7.2 DRM 合并窗口首日，最受瞩目的变更尘埃落定：<strong>AMDGPU 开源驱动对 HDMI 2.1 FRL（固定速率链路）的初步支持</strong>已成功合入主线。</p>
+    <hr>
+    <p><strong>核心要点：</strong></p>
+    <ul>
+      <li><strong>多年困局终破冰</strong> &mdash; 受 HDMI Forum 许可政策限制，AMD 开源驱动长期无法实现 HDMI 2.1。此次通过 Valve 等合作伙伴的幕后推动，以 FRL 路径绕过限制实现合规</li>
+      <li><strong>目前默认禁用</strong> &mdash; 功能仍处于早期阶段，需通过内核参数手动启用，但已为 4K@120Hz+ 高分辨率高刷新率显示奠定基础</li>
+      <li><strong>DC Power Module 同步合入</strong> &mdash; 新的显示核心电源管理模块，使 Radeon 显卡功耗控制更接近 Windows 水平</li>
+    </ul>
+    <hr>
+    <p>该补丁最初于 5 月初提交，经历多轮审查后成功在 Linux 7.2 合并窗口着陆。这是 AMD 在 Linux 显示栈上的里程碑事件。</p>
+  </div>
+  <div class="reason-box">
+    HDMI 2.1 在 Linux 上的缺失困扰了 AMD 用户近五年。FRL 支持的合并意味着 Linux 桌面/游戏用户终于可以期待原生 4K@120Hz HDR 体验，不再需要依赖 DisplayPort 或降级到 HDMI 2.0。这对 Steam Deck 生态、Linux 游戏和内容创作工作流都是直接利好。DC Power Module 的加入则改善了笔记本续航 &mdash; 两者叠加形成了桌面端和移动端的双重提升。
+  </div>
+</div>
+
+<!-- ====== Item 2 ====== -->
+<div class="card" id="item2">
+  <div class="card-num n2">2</div>
+  <div class="card-header">
+    <span class="card-title">Vino：AI 辅助逆向工程的 Rust DRM 驱动，面向现代 DisplayLink 硬件</span>
+    <span class="badge badge-display">显示</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月17日</span><span>&middot;</span><span>Phoronix / dri-devel</span>
+  </div>
+  <div class="card-body">
+    <p>开发者 Mike Lothian 发布了名为 <strong>"Vino"</strong> 的实验性内核驱动，专为较新的 DisplayLink USB 扩展坞打造：</p>
+    <ul>
+      <li><strong>净室逆向工程</strong> &mdash; 完全独立于 DisplayLink 官方闭源驱动，通过协议逆向分析实现，避免知识产权冲突</li>
+      <li><strong>Rust 内核驱动</strong> &mdash; 使用 Rust 编写，充分利用内存安全特性，并已将部分通用 Rust-for-Linux 绑定拆分为独立 RFC 补丁系列</li>
+      <li><strong>AI 辅助开发</strong> &mdash; 开发过程中使用了 <strong>Claude Code（Opus 4.8 模型）</strong> 辅助编写，是 AI 参与内核级驱动开发的前沿案例</li>
+      <li><strong>已初步测试</strong> &mdash; 已在 Dell Universal Dock D6000（DL-3xxx 系列）上完成基础验证</li>
+    </ul>
+  </div>
+  <div class="reason-box">
+    现代 DisplayLink 硬件（DL-3/5/6/7xxx）在 Linux 上长期依赖树外闭源驱动和专有用户空间守护进程，体验极差。Vino 的目标是将支持推入上游，从根本上解决多屏办公场景下的 Linux 痛点。更重要的是，这展示了 Rust-for-Linux 在复杂设备驱动中的可行性，以及 AI 工具（Claude Code）参与底层系统开发的实际路径 &mdash; 两者都是 Linux 生态现代化的重要方向。
+  </div>
+</div>
+
+<!-- ====== Item 3 ====== -->
+<div class="card" id="item3">
+  <div class="card-num n3">3</div>
+  <div class="card-header">
+    <span class="card-title">Intel Panther Lake Xe3 核显在 Linux 7.1 上获得显著性能提升</span>
+    <span class="badge badge-gpu">GPU</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月17日</span><span>&middot;</span><span>Phoronix 基准测试</span>
+  </div>
+  <div class="card-body">
+    <p>继 Arc Battlemage 独显在 Linux 7.1 上表现提升后，Phoronix 对 <strong>Core Ultra X7 358H "Panther Lake"</strong> 进行了 Linux 7.0 vs 7.1 的完整对比测试：</p>
+    <ul>
+      <li><strong>Xe3 iGPU 受益明显</strong> &mdash; Intel Arc B390（Xe3 架构）集成显卡在多项图形基准中跑出可观提升，证实 7.1 的 Battlemage 优化路径对 Xe3 同样有效</li>
+      <li><strong>FRED 默认启用</strong> &mdash; 灵活返回事件传递（FRED）在 7.1 中默认开启，为 Panther Lake 带来 CPU 侧性能增益</li>
+      <li><strong>调度器改进叠加</strong> &mdash; 7.1 的调度器优化与 FRED 形成合力，整体平台性能水涨船高</li>
+    </ul>
+    <hr>
+    <p>测试平台为 MSI Prestige 14 Flip AI+ 笔记本，使用相同内核配置，仅升级内核版本以确保变量唯一。</p>
+  </div>
+  <div class="reason-box">
+    Panther Lake 是 Intel 首款 18A 制程的移动平台，Xe3 核显性能对超薄本的游戏/内容创作能力至关重要。Linux 7.1 对其的提升说明 Intel 正在将开源图形驱动的优化节奏与硬件发布同步 &mdash; 用户不再需要等待数个内核版本才能获得完整性能。这对计划购入 Panther Lake 笔记本的 Linux 用户是重要的购前参考信号。
+  </div>
+</div>
+
+<!-- ====== Item 4 ====== -->
+<div class="card" id="item4">
+  <div class="card-num n4">4</div>
+  <div class="card-header">
+    <span class="card-title">AI 补丁狂热冲击内核开发 &mdash; ARM64 功能被迫延期至下一周期</span>
+    <span class="badge badge-kernel">内核</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月17日</span><span>&middot;</span><span>Phoronix / LKML</span>
+  </div>
+  <div class="card-body">
+    <p>Linux 7.2 合并窗口的 ARM64 架构更新中，维护者明确指出了 AI/LLM 生成补丁对开发的实际伤害：</p>
+    <ul>
+      <li><strong>"拖慢了功能开发"</strong> &mdash; ARM64 维护者在合并说明中直言，处理 AI 生成补丁的审查工作"在功能方面稍微拖慢了我们的进度"</li>
+      <li><strong>具体功能被推迟</strong> &mdash; 部分计划在 7.2 中合并的 ARM64 特性因审查资源被 AI 补丁占用而被迫延后</li>
+      <li><strong>连锁反应扩散</strong> &mdash; 40 年历史的 <strong>AppleTalk 协议被从内核中彻底移除</strong>，触发因素之一正是"近期 AI 生成补丁的激增"</li>
+    </ul>
+    <hr>
+    <p>这一现象并非孤立：AI 生成的"看起来合理但经不起推敲"的补丁正在多个子系统消耗维护者的注意力，从 ARM64 到网络协议栈无一幸免。</p>
+  </div>
+  <div class="reason-box">
+    这不是一个"AI 将取代内核开发者"的故事 &mdash; 恰恰相反，它揭示了 AI 工具在专业领域的现实困境：低质量的 AI 生成代码正在产生真实的人力成本。对于图形/计算领域的开发者而言，ARM64 是 ARM 服务器、AI 加速器（如 NVIDIA Grace）和边缘计算平台的基础 &mdash; ARM64 功能延期意味着这些平台的 Linux 支持节奏也会受到连锁影响。这是内核社区必须正视的治理挑战。
+  </div>
+</div>
+
+<!-- ====== Item 5 ====== -->
+<div class="card" id="item5">
+  <div class="card-num n5">5</div>
+  <div class="card-header">
+    <span class="card-title">AMD Lemonade AI Server v10.8 集成 MCP：本地 AI 推理生态加速成型</span>
+    <span class="badge badge-compute">计算</span>
+    <span class="badge badge-npu">NPU</span>
+  </div>
+  <div class="card-meta">
+    <span>6月17日</span><span>&middot;</span><span>Phoronix</span>
+  </div>
+  <div class="card-body">
+    <p>开源 <strong>Lemonade AI Server</strong> 发布 v10.8 版本，新增 MCP（模型上下文协议）服务器集成：</p>
+    <ul>
+      <li><strong>全栈本地 AI</strong> &mdash; 支持 AMD Ryzen AI NPU、Radeon GPU、Instinct 加速卡和 x86_64 CPU，实现"100% 免费且私密"的本地 AI 推理</li>
+      <li><strong>MCP 集成</strong> &mdash; v10.8 允许其他应用通过标准化 MCP 协议调用 Lemonade，将其从一个独立工具升级为可嵌入工作流的 AI 基础设施</li>
+      <li><strong>跨厂商扩展</strong> &mdash; 仅一周前发布的 v10.7 首次完成对 <strong>NVIDIA CUDA</strong> 的完整支持，打破了 AMD 生态壁垒</li>
+    </ul>
+    <hr>
+    <p>Lemonade 的目标是让任何拥有 AMD/NVIDIA 硬件的用户都能在本地运行大模型，无需依赖云端 API。</p>
+  </div>
+  <div class="reason-box">
+    Lemonade 的演进代表了一股重要趋势：本地 AI 推理正在从"极客玩具"变为"桌面基础设施"。MCP 集成意味着开发者可以将本地 LLM 无缝接入 IDE、自动化脚本和日常工具链。对于注重数据隐私的 Linux 工作站/服务器用户，Lemonade + AMD/NVIDIA GPU 的组合正在成为云端 API 的可行替代方案 &mdash; 而跨厂商支持（CUDA + ROCm + NPU）的完成使这一方案摆脱了硬件绑定的局限。
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Linux 图形/显示/计算 每日动态 &middot; WorkBuddy 自动化生成 &middot; 2026-06-18
+</div>
+
+</body>
+</html>
