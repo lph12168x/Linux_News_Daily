@@ -1,0 +1,37 @@
+# Linux 图形·显示·计算 每日动态
+
+> 自动化追踪 Linux 生态中 GPU 驱动、图形栈、显示协议与高性能计算领域的最新进展。
+
+## 项目简介
+
+每日通过 AI 自动筛选 Linux 领域 **3–5 条高价值动态**，侧重以下方向：
+
+- **GPU** — AMDGPU、Intel Xe、NVIDIA Nova/Mesa、Vulkan 驱动
+- **显示** — Wayland、Weston、HDR、分数缩放
+- **计算** — NPU 加速器、RDMA、内核调度、AI 推理
+- **内核** — Linux 合并窗口、DRM 子系统、Rust-for-Linux
+
+每期以美观的深色主题 HTML 仪表盘呈现，包含事件摘要与**关注理由**。
+
+## 浏览日报
+
+| 日期 | 主题亮点 |
+|------|----------|
+| [2026-06-18](linux-news-2026-06-18.html) | HDMI 2.1 FRL 合入 7.2 · Vino Rust 驱动 · Panther Lake Xe3 性能 |
+| [2026-06-17](linux-news-2026-06-17.html) | Linux 7.1 正式发布 · Nova Lake NPU 早期支持 · Weston 16 Alpha HDR |
+
+## 本地阅读
+
+```bash
+git clone https://github.com/lph12168x/Linux_News_Daily.git
+cd Linux_News_Daily
+# 用浏览器打开任意 .html 文件即可
+```
+
+## 自动化说明
+
+本项目由 WorkBuddy 自动化引擎每日定时生成并推送，无需人工干预。
+
+---
+
+*专注 Linux 图形与计算，记录开源驱动的每一次进步。*

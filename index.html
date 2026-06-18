@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 图形·显示·计算 每日动态</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --card: #181f2a;
+    --border: #252e3b;
+    --text: #cdd6e0;
+    --text-dim: #7c8998;
+    --accent-gpu: #50fa7b;
+    --accent-display: #8be9fd;
+    --accent-compute: #ffb86c;
+    --accent-npu: #bd93f9;
+    --accent-kernel: #ff79c6;
+    --accent-hl: #f1fa8c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1a2d 100%);
+    padding: 60px 32px 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 900px 300px at 50% 0%, rgba(80,250,123,.06), transparent);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: 32px; font-weight: 700;
+    background: linear-gradient(135deg, #50fa7b, #8be9fd);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .hero .subtitle {
+    font-size: 15px; color: var(--text-dim);
+    max-width: 600px; margin: 0 auto;
+  }
+  .hero .badges {
+    display: flex; justify-content: center; gap: 10px; margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .hero .badges span {
+    display: inline-block; padding: 4px 14px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: .3px;
+  }
+  .b-gpu     { background: rgba(80,250,123,.12);  color: #50fa7b; }
+  .b-display { background: rgba(139,233,253,.12);  color: #8be9fd; }
+  .b-compute { background: rgba(255,184,108,.12);  color: #ffb86c; }
+  .b-npu     { background: rgba(189,147,249,.12);  color: #bd93f9; }
+  .b-kernel  { background: rgba(255,121,198,.12);  color: #ff79c6; }
+
+  .container {
+    max-width: 860px; margin: 0 auto; padding: 40px 20px 60px;
+  }
+  .intro {
+    text-align: center; margin-bottom: 36px; color: var(--text-dim);
+    font-size: 14px; line-height: 1.8;
+  }
+  .intro a { color: var(--accent-display); text-decoration: none; }
+  .intro a:hover { text-decoration: underline; }
+
+  .entry {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 28px;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 20px;
+    transition: border-color .2s, transform .15s;
+    text-decoration: none; color: inherit;
+  }
+  .entry:hover {
+    border-color: #3a4558;
+    transform: translateX(4px);
+  }
+  .entry-date {
+    font-size: 13px; font-weight: 700; color: var(--accent-hl);
+    white-space: nowrap; min-width: 90px;
+  }
+  .entry-title {
+    font-size: 16px; font-weight: 600; flex: 1;
+  }
+  .entry-hint {
+    font-size: 13px; color: var(--text-dim);
+    max-width: 300px; text-align: right; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap;
+  }
+  .entry-arrow { color: var(--text-dim); font-size: 18px; }
+
+  .footer {
+    text-align: center; padding: 24px 20px 48px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  .footer a { color: var(--accent-display); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 40px 20px 32px; }
+    .hero h1 { font-size: 24px; }
+    .entry { flex-direction: column; align-items: flex-start; gap: 6px; padding: 18px; }
+    .entry-hint { text-align: left; max-width: 100%; }
+    .entry-arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Linux 图形·显示·计算 每日动态</h1>
+  <div class="subtitle">自动化追踪 GPU 驱动、Wayland 显示栈、NPU 计算领域最新进展</div>
+  <div class="badges">
+    <span class="b-gpu">GPU</span>
+    <span class="b-display">显示</span>
+    <span class="b-compute">计算</span>
+    <span class="b-npu">NPU</span>
+    <span class="b-kernel">内核</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="intro">
+    每日由 AI 自动筛选 <strong>3–5 条</strong> Linux 图形/显示/计算领域高价值动态，<br>
+    以美观的深色主题仪表盘呈现，包含事件摘要与关注理由。<br>
+    <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
+  </div>
+
+  <a class="entry" href="linux-news-2026-06-18.html">
+    <span class="entry-date">2026-06-18</span>
+    <span class="entry-title">HDMI 2.1 FRL · Vino Rust DRM · Xe3 性能</span>
+    <span class="entry-hint">AMDGPU HDMI 2.1 FRL 合入 Linux 7.2…</span>
+    <span class="entry-arrow">→</span>
+  </a>
+
+  <a class="entry" href="linux-news-2026-06-17.html">
+    <span class="entry-date">2026-06-17</span>
+    <span class="entry-title">Linux 7.1 正式发布 · Nova Lake NPU · Weston HDR</span>
+    <span class="entry-hint">GPU/NPU 驱动增强、Weston 16 Alpha…</span>
+    <span class="entry-arrow">→</span>
+  </a>
+</div>
+
+<div class="footer">
+  WorkBuddy 自动化生成 · <a href="https://github.com/lph12168x/Linux_News_Daily">lph12168x/Linux_News_Daily</a>
+</div>
+
+</body>
+</html>
