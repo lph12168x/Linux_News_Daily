@@ -13,6 +13,8 @@
 
 每期以美观的深色主题 HTML 仪表盘呈现，包含事件摘要与**关注理由**。
 
+> 在线浏览：[lph12168x.github.io/Linux_News_Daily](https://lph12168x.github.io/Linux_News_Daily/)
+
 ## 浏览日报
 
 | 日期 | 主题亮点 |
