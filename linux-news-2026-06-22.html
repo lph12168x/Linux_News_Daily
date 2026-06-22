@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 图形/显示/计算 每日动态 — 2026年6月22日</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --card: #181f2a;
+    --border: #252e3b;
+    --text: #cdd6e0;
+    --text-dim: #7c8998;
+    --accent-gpu: #50fa7b;
+    --accent-display: #8be9fd;
+    --accent-compute: #ffb86c;
+    --accent-npu: #bd93f9;
+    --accent-kernel: #ff79c6;
+    --accent-hl: #f1fa8c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  /* ---- header ---- */
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1a2d 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 900px 300px at 50% 0%, rgba(189,147,249,.07), transparent);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, #bd93f9, #8be9fd, #50fa7b);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero .date {
+    font-size: 14px; color: var(--text-dim);
+    letter-spacing: .5px;
+  }
+  .hero .subtitle {
+    margin-top: 12px; font-size: 15px; color: var(--text-dim);
+    max-width: 640px; margin-left: auto; margin-right: auto;
+  }
+  .stats-bar {
+    display: flex; justify-content: center; gap: 32px;
+    margin-top: 24px; flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-item .num {
+    font-size: 22px; font-weight: 700; color: var(--accent-hl);
+  }
+  .stat-item .label {
+    font-size: 12px; color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  /* ---- container ---- */
+  .container {
+    max-width: 860px; margin: 0 auto; padding: 32px 20px 60px;
+  }
+  /* ---- card ---- */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: #3a4558; }
+  .card-num {
+    position: absolute;
+    top: -14px; left: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+    color: #0a0e14; box-shadow: 0 2px 12px rgba(0,0,0,.4);
+  }
+  .card-num.n1 { background: linear-gradient(135deg, #ff79c6, #bd93f9); }
+  .card-num.n2 { background: linear-gradient(135deg, #bd93f9, #8be9fd); }
+  .card-num.n3 { background: linear-gradient(135deg, #8be9fd, #50fa7b); }
+  .card-num.n4 { background: linear-gradient(135deg, #ffb86c, #ff79c6); }
+  .card-num.n5 { background: linear-gradient(135deg, #50fa7b, #ffb86c); }
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .card-title {
+    font-size: 18px; font-weight: 700; line-height: 1.35;
+  }
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: .3px;
+    white-space: nowrap;
+  }
+  .badge-gpu     { background: rgba(80,250,123,.12);  color: #50fa7b; }
+  .badge-display { background: rgba(139,233,253,.12);  color: #8be9fd; }
+  .badge-compute { background: rgba(255,184,108,.12);  color: #ffb86c; }
+  .badge-npu     { background: rgba(189,147,249,.12);  color: #bd93f9; }
+  .badge-kernel  { background: rgba(255,121,198,.12);  color: #ff79c6; }
+  .card-meta {
+    font-size: 13px; color: var(--text-dim);
+    margin-bottom: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .card-body p { margin-bottom: 10px; font-size: 14.5px; }
+  .card-body ul { padding-left: 20px; margin-bottom: 10px; }
+  .card-body li { font-size: 14px; margin-bottom: 6px; color: #b0b9c5; }
+  .card-body li::marker { color: var(--text-dim); }
+  .card-body strong { color: var(--text); }
+  .card-body code {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 13px;
+    background: rgba(80,250,123,.08);
+    color: var(--accent-gpu);
+    padding: 1px 6px; border-radius: 4px;
+  }
+  .reason-box {
+    margin-top: 16px; padding: 14px 18px;
+    background: rgba(241,250,140,.05);
+    border-left: 3px solid var(--accent-hl);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px; line-height: 1.65;
+  }
+  .reason-box::before {
+    content: "关注理由";
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    color: var(--accent-hl); text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .source-link {
+    display: inline-block; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim); text-decoration: none;
+    border-bottom: 1px dashed #3a4558;
+  }
+  .source-link:hover { color: var(--text); border-color: var(--text-dim); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 6px 0 12px; }
+  /* ---- quick nav ---- */
+  .quick-nav {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .quick-nav a {
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-dim); transition: all .2s;
+  }
+  .quick-nav a:hover { border-color: #50fa7b; color: #50fa7b; }
+  /* ---- footer ---- */
+  .footer {
+    text-align: center; padding: 24px 20px 40px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  /* ---- responsive ---- */
+  @media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 22px; }
+    .card { padding: 22px 18px; }
+    .stats-bar { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<div class="hero">
+  <h1>Linux 图形 &middot; 显示 &middot; 计算 每日动态</h1>
+  <div class="date">2026 年 6 月 22 日（周一） &nbsp;|&nbsp; 覆盖 6 月 18 &ndash; 22 日</div>
+  <div class="subtitle">
+    本期聚焦 Linux 7.2 合并窗口关键变更：NVK 首次支持 DLSS、CAS 缓存感知调度合入、RMR/BRMR 单跳 RDMA 复制新方案
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">5</div><div class="label">精选条目</div></div>
+    <div class="stat-item"><div class="num">5</div><div class="label">领域覆盖</div></div>
+    <div class="stat-item"><div class="num">7.2 MW</div><div class="label">内核周</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ====== Quick Nav ====== -->
+<div class="quick-nav">
+  <a href="#item1">NVK DLSS</a>
+  <a href="#item2">CAS 调度</a>
+  <a href="#item3">RMR/BRMR</a>
+  <a href="#item4">Rust zerocopy</a>
+  <a href="#item5">硬件合入</a>
+</div>
+
+<!-- ====== Item 1 ====== -->
+<div class="card" id="item1">
+  <div class="card-num n1">1</div>
+  <div class="card-header">
+    <span class="card-title">NVK 开源驱动首次支持 DLSS：Mesa 26.2-devel 整合实验性实现</span>
+    <span class="badge badge-gpu">GPU</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月20日</span><span>&middot;</span><span>Phoronix / TechPowerUp / sina / freedesktop GitLab</span>
+  </div>
+  <div class="card-body">
+    <p>Mesa 26.2 开发分支正式合入一项里程碑式更新：<strong>开源 NVIDIA NVK Vulkan 驱动首次获得 DLSS（深度学习超采样）支持</strong>。</p>
+    <hr>
+    <p><strong>核心要点：</strong></p>
+    <ul>
+      <li><strong>实现路径</strong> &mdash; 通过 <code>VK_NVX_binary_import</code> Vulkan 扩展，NVK 驱动加载并执行 DLSS 预编译二进制，绕开 NVIDIA 专有闭源代码</li>
+      <li><strong>贡献来源</strong> &mdash; 补丁源自 Valve 开发者 Autumn Ashton 去年提交的工作，Collabora、Red Hat、Valve 共同推进</li>
+      <li><strong>默认实验性</strong> &mdash; 用户需设置环境变量 <code>NVK_EXPERIMENTAL=dlss</code> 显式启用，预计 8 月 Mesa 26.2 稳定版发布时随之上线</li>
+      <li><strong>性能差距仍在</strong> &mdash; 近期 Phoronix 基准显示 NVK 与 NVIDIA 闭源驱动仍存在 30-40% 性能差，DLSS 支持可部分缓解此差距</li>
+    </ul>
+  </div>
+  <div class="reason-box">
+    DLSS 是 NVIDIA 在 RTX 平台上推广 AI 升频的核心卖点，过去完全依赖闭源驱动。NVK 获得 DLSS 支持意味着：① Steam Deck、Linux 游戏玩家不再需要"DLSS 二选一" &mdash; 开源栈也能跑 AI 升频；② 配合 NVK 持续推进的功能对等（光追、网格着色器），Linux NVIDIA 显卡的体验正在快速逼近 Windows；③ Valve/Collabora 主导的开源 NVK 已具备冲击企业级工作站市场的潜力，对 NPU/GPU 生态格局有深远影响。
+  </div>
+</div>
+
+<!-- ====== Item 2 ====== -->
+<div class="card" id="item2">
+  <div class="card-num n2">2</div>
+  <div class="card-header">
+    <span class="card-title">Linux 7.2 合并窗口引入 Cache Aware Scheduling：现代多 LLC CPU 性能突破</span>
+    <span class="badge badge-kernel">内核</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月19日</span><span>&middot;</span><span>LWN.net / Phoronix / charlie27</span>
+  </div>
+  <div class="card-body">
+    <p>排程子系统合入了醞酿逾一年、由 Intel 工程师主导开发的 <strong>Cache Aware Scheduling（CAS）</strong>，由维护者 Peter Zijlstra 通过 <code>sched/cache</code> 分支合入主線：</p>
+    <ul>
+      <li><strong>核心机制</strong> &mdash; 任务迁移决策时感知<strong>末层缓存（LLC）边界</strong>，将频繁共享数据的执行緒固定于同一 LLC domain，降低跨域一致性流量与互连延迟</li>
+      <li><strong>运行时切换</strong> &mdash; 通过 <code>CONFIG_SCHED_CACHE</code>（默认关闭）控制编译期启用，提供 debugfs 开关 <code>/sys/kernel/debug/llc_balancing/enabled</code> 无需重启做 A/B 测试</li>
+      <li><strong>主要受益场景</strong> &mdash; AMD EPYC Turin（多 CCD 各持独立 L3）、Intel Xeon 6 Granite Rapids（多 tile 独立 LLC）、ARM 多集群服务器；<strong>MPI、数据库线程、DPDK、AI 推理后端</strong> 性能提升明显</li>
+      <li><strong>同批合入</strong> &mdash; <code>sched_ext</code> cgroup 子调度器（每 cgroup 挂载独立 BPF 调度逻辑）、<code>SD_ASYM_CPUCAPACITY</code> SMT 感知优化、cfs_rq 数据局部性分配</li>
+    </ul>
+    <hr>
+    <p>初步基准显示 AMD EPYC Turin 性能改善最显著，Intel Xeon 6 同样有正向增益，且未观察到主要调度回归。合并窗口预计 6 月 28 日关闭，7.2-rc1 释出，正式版 8 月中下旬发布。</p>
+  </div>
+  <div class="reason-box">
+    这是 2023 年 EEVDF 替代 CFS 之后，Linux 调度器最重要的架构升级。对图形/计算领域而言：① NPU/GPU 后端调度（如 vLLM、TensorRT-LLM）大量依赖 CPU 线程与 GPU 协作，CAS 可显著降低 PCIe/NVLink 通信的 CPU 侧等待；② 多卡训练/推理时，CPU-GPU 绑定关系更加稳定，K8s 上的 device plugin 调度器也能更好配合；③ 对运行模拟、渲染流水线的 NUMA 敏感工作负载（如 Blender Cycles、Vulkan Ray Tracing）是直接利好。
+  </div>
+</div>
+
+<!-- ====== Item 3 ====== -->
+<div class="card" id="item3">
+  <div class="card-num n3">3</div>
+  <div class="card-header">
+    <span class="card-title">RMR/BRMR：单跳 RDMA 多播为云端持久磁碟提供新方案</span>
+    <span class="badge badge-compute">计算</span>
+    <span class="badge badge-kernel">内核</span>
+  </div>
+  <div class="card-meta">
+    <span>6月19日</span><span>&middot;</span><span>LWN.net / LKML / kernel.org</span>
+  </div>
+  <div class="card-body">
+    <p>在 2026 年 LSFMM+BPF 峰会上，开发者 Jia Li 与合作者发布两个新核心模块：<strong>RMR（Reliable Multicast over RTRS）</strong> 与 <strong>BRMR（Block device over RMR）</strong>：</p>
+    <ul>
+      <li><strong>解决痛点</strong> &mdash; 裸 RDMA 不提供块设备所需的持久性与排序保证。传统方案（如 DRBD）采用双跳：写入先落主端本地磁盘，再同步至副本，两段延迟叠加</li>
+      <li><strong>单跳设计</strong> &mdash; RMR 在 RTRS 基础上加入可靠多播语义，一次写入通过 RDMA 同时扇出至多个副本节点，所有副本 ACK 后方视完成，实现原子性扇出。理论端到端写延迟可减半</li>
+      <li><strong>接口设计</strong> &mdash; BRMR 在 RMR 之上提供标准 Linux 块设备接口（<code>struct block_device_operations</code>），用户态可通过 <code>/dev/brmrX</code> 访问</li>
+      <li><strong>与现有栈的关系</strong> &mdash; 与 RNBD/RTRS（5.14 已合入）共存，RTRS 作为共享传输层，定位"需要跨多节点同步复制的高可用虚拟磁盘"，对标 AWS EBS / GCP Persistent Disk</li>
+    </ul>
+    <hr>
+    <p>目前仍处 RFC 与 PoC 阶段（patch series 00/13），尚未合入主线。峰会的目的是收集核心存储与 RDMA 维护者早期反馈。</p>
+  </div>
+  <div class="reason-box">
+    对关注 RDMA 的开发者来说，RMR/BRMR 的意义在于：① 给出了一条与 Ceph/iSCSI 完全不同的"内核态低延迟块复制"路径，避免了 userspace 代理的额外开销；② "单跳"是 RDMA 一直追求但难以达到的目标 &mdash; 该方案展示了 RDMA 多播语义可以弥补块设备的持久性短板；③ 对云数据库、分布式存储、AI 训练数据湖（需要跨 AZ 复制）等场景意义重大。对 NPU/RDMA 工作背景的开发者，这是值得持续追踪的方向 &mdash; 它的设计模式可能影响未来 Mooncake 类似的内存共享系统的 RDMA API 选型。
+  </div>
+</div>
+
+<!-- ====== Item 4 ====== -->
+<div class="card" id="item4">
+  <div class="card-num n4">4</div>
+  <div class="card-header">
+    <span class="card-title">Linux 7.2 引入 Rust zerocopy 库：4 万行 Rust 代码合入主线</span>
+    <span class="badge badge-kernel">内核</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月15日</span><span>&middot;</span><span>Phoronix / LWN.net / Miguel Ojeda 邮件列表</span>
+  </div>
+  <div class="card-body">
+    <p>Linux 7.2 合并窗口的 Rust 子系统迎来体量最大的一轮更新：</p>
+    <ul>
+      <li><strong>超 4 万行新 Rust 代码</strong> &mdash; 由 Rust-for-Linux 维护者 Miguel Ojeda 提交，体量堪比早期一轮独立的子系统升级</li>
+      <li><strong>zerocopy crate 引入</strong> &mdash; 让内核 Rust 代码得以消除更多 <code>unsafe</code> 块，特别是在内存布局与类型转换场景中显著减少 UB 风险</li>
+      <li><strong>AutoFDO 同步落地</strong> &mdash; Automatic Feedback Directed Optimization 支持，使 Rust 内核代码可在编译期利用性能剖析数据优化，缩小与 C 编译路径的差距</li>
+      <li><strong>更广泛使用</strong> &mdash; Nova DRM 驱动、Vino DisplayLink 驱动（已在 linux-next 树）、Pin 控制器、ASoC 声卡驱动均受益</li>
+    </ul>
+    <hr>
+    <p>此轮 Rust 改动的体量之大，是因为引入了完整的 zerocopy 库以及大量基础设施代码，预计后续 7.3 周期将看到更多 Rust 驱动的合入（如 Nova 主线化的最后阶段）。</p>
+  </div>
+  <div class="reason-box">
+    Rust 在 Linux 内核的渗透速度正在加快 &mdash; 从最初的小型驱动试点（PIN 控制器、ASoC），到 DRM 子系统（Nova、Vino），再到系统级基础设施（zerocopy 库、AutoFDO）。这反映了三层趋势：① 内存安全是 Linux 长期维护成本的痛点，Rust 是被验证过的解药；② NVIDIA、Red Hat、Collabora 等厂商愿意投入，说明商业回报已可预期；③ 对 NPU/GPU 驱动开发者意味着 &mdash; 未来新硬件的内核驱动 Rust 比例会持续上升，掌握 Rust for Linux 已成为进阶开发的硬技能。
+  </div>
+</div>
+
+<!-- ====== Item 5 ====== -->
+<div class="card" id="item5">
+  <div class="card-num n5">5</div>
+  <div class="card-header">
+    <span class="card-title">Linux 7.2 硬件合入潮：AMDGPU HDMI 2.1 FRL + Apple M3 初步支持 + USB4</span>
+    <span class="badge badge-display">显示</span>
+    <span class="badge badge-gpu">GPU</span>
+  </div>
+  <div class="card-meta">
+    <span>6月13-22日</span><span>&middot;</span><span>Phoronix / dri-devel / Asahi Linux</span>
+  </div>
+  <div class="card-body">
+    <p>Linux 7.2 合并窗口的硬件支持进入丰收期，多项备受期待的合入陆续着陆：</p>
+    <ul>
+      <li><strong>AMDGPU HDMI 2.1 FRL</strong> &mdash; 6/17 通过 DRM-Next 首次合入主线，DC Power Module 同步加入。受 HDMI Forum 许可限制多年，Valve 等合作伙伴幕后推动下绕过限制实现合规，默认禁用，需通过内核参数启用（4K@120Hz+）</li>
+      <li><strong>Apple M3 初步支持</strong> &mdash; Sven Peter 更新了 Apple SoC 设备树，Janne Grunau 提供 M3 设备树文件。这是 Asahi Linux 多年努力的成果 &mdash; 从 M1 启动到 M3 启动，主线支持迈出关键一步。iMac、MacBook Air/Pro 等机型受益</li>
+      <li><strong>USB4STREAM 协议栈</strong> &mdash; 提供 USB4 over 高速串行/PCIe 通道的设备驱动能力，为多设备外设/VR 头显铺路</li>
+      <li><strong>NVIDIA Nova Rust DRM 持续推进</strong> &mdash; Danilo Krummrich 持续提交 DRM Rust 框架改进，目标在 7.3 周期内完成 Nova 主线化</li>
+    </ul>
+  </div>
+  <div class="reason-box">
+    7.2 合并窗口的硬件层面有三个值得关注的信号：① AMD 用户终于有了可期的 Linux 原生 HDMI 2.1 体验，对内容创作者、HTPC 玩家意义重大；② Apple Silicon 设备的主流 Linux 支持进入新阶段，Asahi Linux 商业化（如 Fedora Asahi Remix）的潜力提升；③ USB4STREAM 暗示了未来 VR/AR、Thunderbolt 替代方案的 Linux 路径 &mdash; 这对 NPU + USB4 加速器外设的组合是利好信号。三个变更都指向同一个方向：Linux 在异构硬件上的"开箱即用"体验正在质变。
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Linux 图形/显示/计算 每日动态 &middot; WorkBuddy 自动化生成 &middot; 2026-06-22
+</div>
+
+</body>
+</html>
