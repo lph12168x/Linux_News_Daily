@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 图形/显示/计算 每日动态 — 2026年6月23日</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --card: #181f2a;
+    --border: #252e3b;
+    --text: #cdd6e0;
+    --text-dim: #7c8998;
+    --accent-gpu: #50fa7b;
+    --accent-display: #8be9fd;
+    --accent-compute: #ffb86c;
+    --accent-npu: #bd93f9;
+    --accent-kernel: #ff79c6;
+    --accent-hl: #f1fa8c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1a2d 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 900px 300px at 50% 0%, rgba(139,233,253,.07), transparent);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, #8be9fd, #50fa7b, #f1fa8c);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero .date {
+    font-size: 14px; color: var(--text-dim);
+    letter-spacing: .5px;
+  }
+  .hero .subtitle {
+    margin-top: 12px; font-size: 15px; color: var(--text-dim);
+    max-width: 680px; margin-left: auto; margin-right: auto;
+  }
+  .stats-bar {
+    display: flex; justify-content: center; gap: 32px;
+    margin-top: 24px; flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-item .num {
+    font-size: 22px; font-weight: 700; color: var(--accent-hl);
+  }
+  .stat-item .label {
+    font-size: 12px; color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .container {
+    max-width: 860px; margin: 0 auto; padding: 32px 20px 60px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: #3a4558; }
+  .card-num {
+    position: absolute;
+    top: -14px; left: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+    color: #0a0e14; box-shadow: 0 2px 12px rgba(0,0,0,.4);
+  }
+  .card-num.n1 { background: linear-gradient(135deg, #ff79c6, #bd93f9); }
+  .card-num.n2 { background: linear-gradient(135deg, #bd93f9, #8be9fd); }
+  .card-num.n3 { background: linear-gradient(135deg, #8be9fd, #50fa7b); }
+  .card-num.n4 { background: linear-gradient(135deg, #ffb86c, #ff79c6); }
+  .card-num.n5 { background: linear-gradient(135deg, #50fa7b, #ffb86c); }
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .card-title {
+    font-size: 18px; font-weight: 700; line-height: 1.35;
+  }
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: .3px;
+    white-space: nowrap;
+  }
+  .badge-gpu     { background: rgba(80,250,123,.12);  color: #50fa7b; }
+  .badge-display { background: rgba(139,233,253,.12);  color: #8be9fd; }
+  .badge-compute { background: rgba(255,184,108,.12);  color: #ffb86c; }
+  .badge-npu     { background: rgba(189,147,249,.12);  color: #bd93f9; }
+  .badge-kernel  { background: rgba(255,121,198,.12);  color: #ff79c6; }
+  .card-meta {
+    font-size: 13px; color: var(--text-dim);
+    margin-bottom: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .card-body p { margin-bottom: 10px; font-size: 14.5px; }
+  .card-body ul { padding-left: 20px; margin-bottom: 10px; }
+  .card-body li { font-size: 14px; margin-bottom: 6px; color: #b0b9c5; }
+  .card-body li::marker { color: var(--text-dim); }
+  .card-body strong { color: var(--text); }
+  .card-body code {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 13px;
+    background: rgba(80,250,123,.08);
+    color: var(--accent-gpu);
+    padding: 1px 6px; border-radius: 4px;
+  }
+  .reason-box {
+    margin-top: 16px; padding: 14px 18px;
+    background: rgba(241,250,140,.05);
+    border-left: 3px solid var(--accent-hl);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px; line-height: 1.65;
+  }
+  .reason-box::before {
+    content: "关注理由";
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    color: var(--accent-hl); text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .source-link {
+    display: inline-block; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim); text-decoration: none;
+    border-bottom: 1px dashed #3a4558;
+  }
+  .source-link:hover { color: var(--text); border-color: var(--text-dim); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 6px 0 12px; }
+  .quick-nav {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .quick-nav a {
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-dim); transition: all .2s;
+  }
+  .quick-nav a:hover { border-color: #8be9fd; color: #8be9fd; }
+  .footer {
+    text-align: center; padding: 24px 20px 40px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  @media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 22px; }
+    .card { padding: 22px 18px; }
+    .stats-bar { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Linux 图形 &middot; 显示 &middot; 计算 每日动态</h1>
+  <div class="date">2026 年 6 月 23 日（周二） &nbsp;|&nbsp; 覆盖 6 月 21 &ndash; 23 日</div>
+  <div class="subtitle">
+    本期聚焦：Valve 发布 RTI 光追调优工具、Steam Machine 正式上市、Mesa 26.2 合入 Vulkan Present Timing、NVIDIA Blackwell-Next 内核准备
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">5</div><div class="label">精选条目</div></div>
+    <div class="stat-item"><div class="num">5</div><div class="label">领域覆盖</div></div>
+    <div class="stat-item"><div class="num">7.2 MW</div><div class="label">内核周</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="quick-nav">
+  <a href="#item1">Valve RTI</a>
+  <a href="#item2">Steam Machine</a>
+  <a href="#item3">Present Timing</a>
+  <a href="#item4">Blackwell-Next</a>
+  <a href="#item5">Miracle-WM</a>
+</div>
+
+<!-- Item 1 -->
+<div class="card" id="item1">
+  <div class="card-num n1">1</div>
+  <div class="card-header">
+    <span class="card-title">Valve 发布 RTI 光线追踪检查器：为 Linux GPU 驱动优化提供专业级调试工具</span>
+    <span class="badge badge-gpu">GPU</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月22日</span><span>&middot;</span><span>Phoronix / freedesktop GitLab</span>
+  </div>
+  <div class="card-body">
+    <p>Valve 的开源 Linux 图形团队向 Mesa 26.1 合入了 <strong>Ray-Tracing Inspector</strong>（RTI），一款专为分析和优化 Vulkan 光线追踪性能而设计的 <strong>GUI 调试工具</strong>。</p>
+    <hr>
+    <p><strong>核心要点：</strong></p>
+    <ul>
+      <li><strong>开发者定位</strong> &mdash; RTI 用于检查 RT 加速结构（BVH）和光线追踪分发调用，非终端用户工具，面向驱动开发者和性能工程师</li>
+      <li><strong>技术栈</strong> &mdash; 基于 ImGUI + Vulkan + SDL3 构建，由 Valve 工程师 Konstantin Seurer 主导开发</li>
+      <li><strong>当前聚焦 RADV</strong> &mdash; 初期仅支持 Radeon RADV Vulkan 驱动，通过 <code>RADV_DEBUG=rti</code> 导出 BVH/射线历史数据至 <code>/tmp</code> 后加载分析</li>
+      <li><strong>可扩展架构</strong> &mdash; 设计上预留了多后端接口，未来可扩展至其他 GPU 厂商（NVK、ANV 等）</li>
+      <li><strong>编译方式</strong> &mdash; 通过 <code>-D tools=rti</code> Meson 构建选项启用</li>
+    </ul>
+  </div>
+  <div class="reason-box">
+    Linux 开源图形栈一直缺乏专业级光追调试工具，开发者通常依赖 GPU 厂商闭源工具链（如 NVIDIA Nsight）或打印日志。RTI 填补了开源领域的空白：① 对 RADV 驱动的光追优化将因可视化而显著提速 &mdash; 直接影响 Steam Deck / SteamOS 上的光追游戏体验；② Valve 持续投资开源图形工具链（此前已有 Fossilize、VKD3D-Proton），RTI 是光追时代的标志性基础设施；③ 可扩展架构意味着 NVK 等下一代开源驱动的光追优化也能受益。
+  </div>
+</div>
+
+<!-- Item 2 -->
+<div class="card" id="item2">
+  <div class="card-num n2">2</div>
+  <div class="card-header">
+    <span class="card-title">Steam Machine 正式发布：$1049&ndash;$1428，AMD Zen 4 + RDNA3，4K/60FPS Linux 游戏主机</span>
+    <span class="badge badge-gpu">GPU</span>
+    <span class="badge badge-display">显示</span>
+  </div>
+  <div class="card-meta">
+    <span>6月22日</span><span>&middot;</span><span>Phoronix / SteamPowered</span>
+  </div>
+  <div class="card-body">
+    <p>Valve 正式公布 Steam Machine 定价与规格，这台运行 <strong>SteamOS Linux</strong> 的客厅游戏 PC 将 Steam Deck 的开放生态延伸至桌面级性能：</p>
+    <ul>
+      <li><strong>硬件规格</strong> &mdash; 半定制 AMD Zen 4 APU（6C/12T）、RDNA3 28 CU 集显、16GB DDR5 系统内存 + 8GB GDDR6 显存</li>
+      <li><strong>性能目标</strong> &mdash; 宣称 6 倍于 Steam Deck 性能，支持 <strong>4K@60FPS + FSR</strong></li>
+      <li><strong>定价档位</strong> &mdash; 512GB 版 $1,049（含手柄 $1,128）、2TB 版 $1,349、顶配含手柄 $1,428</li>
+      <li><strong>发售机制</strong> &mdash; <strong>6 月 25 日</strong>开启一次性随机预购队列，应对产能受限</li>
+      <li><strong>软件生态</strong> &mdash; SteamOS 基于 Arch Linux，Mesa RADV 驱动默认就绪，VKD3D-Proton + DXVK 处理 Windows 游戏兼容</li>
+    </ul>
+  </div>
+  <div class="reason-box">
+    Steam Machine 是 Valve 自 2015 年首代 Steam Machines 失败后，<strong>时隔 11 年</strong>再次冲击 Linux 游戏主机市场。相较于首次尝试，这次的底气来自：① Steam Deck 已验证"Proton + Linux"的可行性，SteamOS 装机量已达数千万；② RDNA3 架构在 Mesa RADV 驱动下的表现已非常成熟，不存在 2015 年 NVIDIA 闭源驱动 + Big Picture 的散架局面；③ 对 GPU/显示领域而言，这意味着一台"出厂即支持 Vulkan 1.3、光追、HDR"的 Linux 游戏盒，将倒逼更多游戏厂商在开发阶段就考虑 Linux 兼容性与性能调优。
+  </div>
+</div>
+
+<!-- Item 3 -->
+<div class="card" id="item3">
+  <div class="card-num n3">3</div>
+  <div class="card-header">
+    <span class="card-title">Mesa 26.2 合入 Vulkan Present Timing：X11/XWayland 帧时序支持落地</span>
+    <span class="badge badge-display">显示</span>
+    <span class="badge badge-gpu">GPU</span>
+  </div>
+  <div class="card-meta">
+    <span>6月21日</span><span>&middot;</span><span>Phoronix / freedesktop GitLab (MR!39551)</span>
+  </div>
+  <div class="card-body">
+    <p>经过四个月代码审查，Mesa Vulkan WSI 代码正式合入 <strong>VK_EXT_present_timing</strong> 扩展的 X11/XWayland 后端支持，预计随 8 月 Mesa 26.2 稳定版发布：</p>
+    <ul>
+      <li><strong>解决的问题</strong> &mdash; 让应用获取 <strong>前一帧的实际呈现时间戳</strong> 反馈，实现精准帧节奏控制和 <strong>卡顿消除</strong>，同时降低输入延迟</li>
+      <li><strong>此前局限</strong> &mdash; Wayland 原生路径已有 Present Timing 支持，但大量 Steam Play 游戏仍运行在 X11/XWayland 上，一直无法受益</li>
+      <li><strong>贡献者</strong> &mdash; Valve 工程师 Hans-Kristian Arntzen（VKD3D-Proton 作者）主导，经历 4 个月代码审查后合并</li>
+      <li><strong>实现范围</strong> &mdash; 覆盖基础 X11 后端 + XWayland 路径，确保无论用户选择 X11 还是 Wayland 桌面，均能获得帧时序改进</li>
+    </ul>
+    <hr>
+    <p>VK_EXT_present_timing 于 2025 年 11 月随 Vulkan 1.4.335 正式发布，旨在替代不精确的 <code>vkAcquireNextImageKHR</code> 时序模型。</p>
+  </div>
+  <div class="reason-box">
+    帧时序问题是 Linux 游戏体验中的长期短板：① 缺乏精确的 present 时间反馈导致 <strong>微卡顿</strong> 难以消除，尤其在高刷新率显示器上更明显；② Wayland 原生游戏已受益一年，而占比更大的 XWayland 游戏群体一直"被搁置" &mdash; 此次合入终于消除了这一分裂；③ 无论对开发者还是用户，这意味着 Linux 上 Vulkan 游戏的流畅度将在 Mesa 26.2 发布后获得统一提升，不再依赖于"你用什么桌面协议"。
+  </div>
+</div>
+
+<!-- Item 4 -->
+<div class="card" id="item4">
+  <div class="card-num n4">4</div>
+  <div class="card-header">
+    <span class="card-title">Linux 7.2 开始为 NVIDIA "Blackwell-Next" 做准备：下一代 GPU VFIO/CXL 路径亮相</span>
+    <span class="badge badge-compute">计算</span>
+    <span class="badge badge-kernel">内核</span>
+  </div>
+  <div class="card-meta">
+    <span>6月21日</span><span>&middot;</span><span>Phoronix / LKML (VFIO pull request)</span>
+  </div>
+  <div class="card-body">
+    <p>Linux 7.2 合并窗口的 VFIO 子系统补丁中首次出现了 <strong>"Blackwell-Next"</strong> 代码引用，NVIDIA 软件工程师正在为下一代 GPU 的 Linux 内核支持提前铺路：</p>
+    <ul>
+      <li><strong>涉及路径</strong> &mdash; NVGrace-GPU VFIO 驱动中 <strong>CXL（Compute Express Link）</strong> DVSEC 处理逻辑的适配，以应对 Blackwell-Next 相比现有 Blackwell 的变化</li>
+      <li><strong>代号谜团</strong> &mdash; "Blackwell-Next"具体指向 Blackwell Ultra (B300)、Rubin 架构，还是全新的产品线，补丁中未明确披露</li>
+      <li><strong>CXL 意义</strong> &mdash; CXL 是 NVIDIA Grace-Hopper 超算平台上 CPU-GPU 互联的关键通道，线路变更意味下一代 GPU 的内存一致性模型或拓扑可能发生调整</li>
+      <li><strong>补丁时机</strong> &mdash; 2026 年 6 月初编写，6 月 15 日随 VFIO 拉取请求提交，目标 7.2 主线合入 &mdash; 比硬件发布提前 6&ndash;12 个月</li>
+    </ul>
+    <hr>
+    <p>NVIDIA 近年已显著改善上游 Linux 贡献节奏，从早期 Grace-Hopper 到 Blackwell 再到如今的 Blackwell-Next，内核前哨补丁的提前期越来越短，反映其对 Linux 生态的重视。</p>
+  </div>
+  <div class="reason-box">
+    对关注高性能计算和 GPU 的开发者而言：① 内核中的 "Blackwell-Next" 引用是 <strong>下一代 NVIDIA 数据中心 GPU 的早期信号</strong> &mdash; CXL 路径变更可能预示新的互联拓扑或内存架构；② NVIDIA 持续在上游合入 CXL/PCIe/VFIO 硬件使能代码，表明 <strong>Grace-Hopper 超算平台的 Linux 主线路线图仍在推进</strong>，并非只依赖 OEM 分支；③ 对于希望在下一代 GPU 上抢先适配的 HPC 和 AI 基础设施团队，这是开始评估兼容性的时间窗口。
+  </div>
+</div>
+
+<!-- Item 5 -->
+<div class="card" id="item5">
+  <div class="card-num n5">5</div>
+  <div class="card-header">
+    <span class="card-title">Miracle-WM 0.10 发布：Mir 基 Wayland 合成器引入插件化渲染管线，目标年底 v1.0</span>
+    <span class="badge badge-display">显示</span>
+  </div>
+  <div class="card-meta">
+    <span>6月22日</span><span>&middot;</span><span>Phoronix / GitHub (miracle-wm-org)</span>
+  </div>
+  <div class="card-body">
+    <p>Canonical 工程师 Matthew Kosarek 发布 <strong>Miracle-WM 0.10</strong>，这是基于 Mir 显示服务器的 Wayland 合成器项目的重大功能更新：</p>
+    <ul>
+      <li><strong>插件化渲染管线</strong> &mdash; 插件现可为每个窗口设置自定义着色器管线（如焦点模糊效果），也可为整个输出设置管线（如夜间模式/护眼）</li>
+      <li><strong>协议覆盖扩大</strong> &mdash; 新增支持 <code>ext_data_control_manager_v1</code>、<code>ext_image_copy_capture_manager_v1</code>、<code>ext_output_image_capture_source_manager_v1</code>、<code>ext_foreign_toplevel_list_v1</code>、<code>zwp_input_method_v1</code> 等协议</li>
+      <li><strong>生态就绪</strong> &mdash; Grimshot、wl-copy、xdg-desktop-portal-wlr 现已在 Miracle-WM 上正常运行</li>
+      <li><strong>GTK4 集成</strong> &mdash; 新增 GTK4 配置错误报告客户端和调试叠加层</li>
+      <li><strong>v1.0 路线图</strong> &mdash; 开发者明确目标在 2026 年底前发布 1.0 正式版</li>
+    </ul>
+  </div>
+  <div class="reason-box">
+    Wayland 合成器生态长期由 wlroots 主导（Sway、Hyprland、River 等），Miracle-WM 选择 Mir 作为基础是一种差异化路径：① Mir 本身由 Canonical 维护，拥有独立的输入/渲染管线实现，与 wlroots 形成良性竞争；② 插件化渲染管线设计更接近现代合成器架构（类似 KWin Effects），允许社区开发丰富的视觉效果而不修改核心代码；③ 如果 Miracle-WM 按计划在年底达到 1.0，Wayland 阵营将首次拥有一个由大厂背书的、非 wlroots 的成熟平铺/浮动混合合成器。
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Linux 图形/显示/计算 每日动态 &middot; WorkBuddy 自动化生成 &middot; 2026-06-23
+</div>
+
+</body>
+</html>
