@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 图形/显示/计算 每日动态 — 2026年6月24日</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --card: #181f2a;
+    --border: #252e3b;
+    --text: #cdd6e0;
+    --text-dim: #7c8998;
+    --accent-gpu: #50fa7b;
+    --accent-display: #8be9fd;
+    --accent-compute: #ffb86c;
+    --accent-npu: #bd93f9;
+    --accent-kernel: #ff79c6;
+    --accent-hl: #f1fa8c;
+  }
+  * { margin:0; padding:0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .hero {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1a2d 100%);
+    padding: 48px 32px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 900px 300px at 50% 0%, rgba(139,233,253,.07), transparent);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: 28px; font-weight: 700;
+    background: linear-gradient(135deg, #8be9fd, #50fa7b, #f1fa8c);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero .date {
+    font-size: 14px; color: var(--text-dim);
+    letter-spacing: .5px;
+  }
+  .hero .subtitle {
+    margin-top: 12px; font-size: 15px; color: var(--text-dim);
+    max-width: 680px; margin-left: auto; margin-right: auto;
+  }
+  .stats-bar {
+    display: flex; justify-content: center; gap: 32px;
+    margin-top: 24px; flex-wrap: wrap;
+  }
+  .stat-item { text-align: center; }
+  .stat-item .num {
+    font-size: 22px; font-weight: 700; color: var(--accent-hl);
+  }
+  .stat-item .label {
+    font-size: 12px; color: var(--text-dim); text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .container {
+    max-width: 860px; margin: 0 auto; padding: 32px 20px 60px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: #3a4558; }
+  .card-num {
+    position: absolute;
+    top: -14px; left: -14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px;
+    color: #0a0e14; box-shadow: 0 2px 12px rgba(0,0,0,.4);
+  }
+  .card-num.n1 { background: linear-gradient(135deg, #ff79c6, #bd93f9); }
+  .card-num.n2 { background: linear-gradient(135deg, #bd93f9, #8be9fd); }
+  .card-num.n3 { background: linear-gradient(135deg, #8be9fd, #50fa7b); }
+  .card-num.n4 { background: linear-gradient(135deg, #ffb86c, #ff79c6); }
+  .card-num.n5 { background: linear-gradient(135deg, #50fa7b, #ffb86c); }
+  .card-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .card-title {
+    font-size: 18px; font-weight: 700; line-height: 1.35;
+  }
+  .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: .3px;
+    white-space: nowrap;
+  }
+  .badge-gpu     { background: rgba(80,250,123,.12);  color: #50fa7b; }
+  .badge-display { background: rgba(139,233,253,.12);  color: #8be9fd; }
+  .badge-compute { background: rgba(255,184,108,.12);  color: #ffb86c; }
+  .badge-npu     { background: rgba(189,147,249,.12);  color: #bd93f9; }
+  .badge-kernel  { background: rgba(255,121,198,.12);  color: #ff79c6; }
+  .card-meta {
+    font-size: 13px; color: var(--text-dim);
+    margin-bottom: 12px; display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .card-body p { margin-bottom: 10px; font-size: 14.5px; }
+  .card-body ul { padding-left: 20px; margin-bottom: 10px; }
+  .card-body li { font-size: 14px; margin-bottom: 6px; color: #b0b9c5; }
+  .card-body li::marker { color: var(--text-dim); }
+  .card-body strong { color: var(--text); }
+  .card-body code {
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 13px;
+    background: rgba(80,250,123,.08);
+    color: var(--accent-gpu);
+    padding: 1px 6px; border-radius: 4px;
+  }
+  .reason-box {
+    margin-top: 16px; padding: 14px 18px;
+    background: rgba(241,250,140,.05);
+    border-left: 3px solid var(--accent-hl);
+    border-radius: 0 8px 8px 0;
+    font-size: 14px; line-height: 1.65;
+  }
+  .reason-box::before {
+    content: "关注理由";
+    display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    color: var(--accent-hl); text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .source-link {
+    display: inline-block; margin-top: 4px;
+    font-size: 12px; color: var(--text-dim); text-decoration: none;
+    border-bottom: 1px dashed #3a4558;
+  }
+  .source-link:hover { color: var(--text); border-color: var(--text-dim); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 6px 0 12px; }
+  .quick-nav {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+  }
+  .quick-nav a {
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 6px 14px; border-radius: 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-dim); transition: all .2s;
+  }
+  .quick-nav a:hover { border-color: #8be9fd; color: #8be9fd; }
+  .footer {
+    text-align: center; padding: 24px 20px 40px;
+    font-size: 12px; color: var(--text-dim);
+  }
+  @media (max-width: 600px) {
+    .hero { padding: 32px 20px 28px; }
+    .hero h1 { font-size: 22px; }
+    .card { padding: 22px 18px; }
+    .stats-bar { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Linux 图形 · 显示 · 计算 每日动态</h1>
+  <div class="date">2026 年 6 月 24 日（周二） &nbsp;|&nbsp; 覆盖 6 月 22 – 24 日</div>
+  <div class="subtitle">
+    本期聚焦：Linux 7.2 sched_ext 源码重构（Linus 亲自点评）、AMD EPYC Sorano 意外性能提升、AMD ROCDXG 优化 WSL ROCm 体验、Xfce Wayland 合成器首发 Alpha、Early AMD GCN GPU 恢复流程改进
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num">5</div><div class="label">精选条目</div></div>
+    <div class="stat-item"><div class="num">5</div><div class="label">领域覆盖</div></div>
+    <div class="stat-item"><div class="num">7.2 MW</div><div class="label">内核周</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="quick-nav">
+  <a href="#item1">sched_ext 重构</a>
+  <a href="#item2">EPYC Sorano</a>
+  <a href="#item3">ROCDXG WSL</a>
+  <a href="#item4">Xfce Wayland</a>
+  <a href="#item5">GCN 恢复改进</a>
+</div>
+
+<!-- Item 1 -->
+<div class="card" id="item1">
+  <div class="card-num n1">1</div>
+  <div class="card-header">
+    <span class="card-title">Linus Torvalds 亲自点评 sched_ext 源码布局"Disgusting"，内核 7.2 合入重构版本</span>
+    <span class="badge badge-kernel">内核</span>
+    <span class="badge badge-compute">计算</span>
+  </div>
+  <div class="card-meta">
+    <span>6月24日</span><span>·</span><span>Phoronix / LKML</span>
+  </div>
+  <div class="card-body">
+    <p>Linux 7.2 合并窗口期间，Linus Torvalds 对 <strong>sched_ext（可扩展调度框架）</strong> 的新增源码布局提出强烈批评，称其做法"disgusting"（恶心），随后相关代码迅速完成重构并合入主线：</p>
+    <hr>
+    <p><strong>事件经过：</strong></p>
+    <ul>
+      <li><strong>问题描述</strong> — sched_ext 的补丁在单个 C 文件中新增了大量子调度器（sub-scheduler）相关代码，Linus 认为这种做法破坏了内核代码的组织原则，评论道："Please don't do this kind of disgusting thing… hierarchical file systems have been available since 1965."</li>
+      <li><strong>迅速响应</strong> — 在 Linus 发帖后数小时内，sched_ext 开发者重新组织了代码结构，将子调度器支持代码拆分为合理的文件布局，新版本已合入 Linux 7.2</li>
+      <li><strong>sched_ext 背景</strong> — 该框架允许从用户空间通过 BPF 程序自定义 CPU 调度策略，已在 gaming、HPC、桌面等场景展示出显著的性能优势</li>
+      <li><strong>本次改进</strong> — 重构后的代码持续推动子调度器（sub-scheduler）支持，使得调度策略可以进一步嵌套和组合</li>
+    </ul>
+  </div>
+  <div class="reason-box">
+    sched_ext 是近年来 Linux 内核调度领域最具革命性的创新之一，而 Linus 的亲自介入说明该项目已走到舞台中央：① 内核最高维护者的关注意味着 sched_ext 的代码质量正在接受最严格的审查，这对项目长期稳定性是好事；② 子调度器支持的持续推进，将使得游戏、实时计算、异构工作负载等场景的调度优化更加灵活——对 Linux 桌面和计算的未来影响深远；③ 此次"Linus 点评 → 快速修复"的流程展示了 Linux 社区健康的技术审查机制，也为其他内核子系统贡献者提供了代码组织的最佳实践参考。
+  </div>
+</div>
+
+<!-- Item 2 -->
+<div class="card" id="item2">
+  <div class="card-num n2">2</div>
+  <div class="card-header">
+    <span class="card-title">Linux 7.2 在 AMD EPYC 8005 "Sorano" 上带来意外性能提升：本地网络/套接字收益显著</span>
+    <span class="badge badge-compute">计算</span>
+    <span class="badge badge-kernel">内核</span>
+  </div>
+  <div class="card-meta">
+    <span>6月24日</span><span>·</span><span>Phoronix</span>
+  </div>
+  <div class="card-body">
+    <p>Linux 7.2 合并窗口尚未关闭，Phoronix 已抢先进行了一轮 <strong>AMD EPYC 8005 Sorano</strong> 平台的基准测试，发现该版本在本地网络吞吐和套接字 I/O 方面带来了<strong>意料之外的显著性能提升</strong>：</p>
+    <ul>
+      <li><strong>测试平台</strong> — 2× AMD EPYC 8005 Sorano 处理器（服务器级），运行 Linux 7.1 vs 7.2-rc 开发版</li>
+      <li><strong>突出收益</strong> — 本地（loopback）网络性能和 Unix 域套接字 I/O 有可测量的提升，具体原因仍在分析中</li>
+      <li><strong>其他改进</strong> — Linux 7.2 包含缓存感知调度（CAS）、I/O 优化等多项通用改进，EPYC Sorano 作为 AMD 新一代服务器 APU 平台，对这些特性的响应尤为积极</li>
+      <li><strong>背景补充</strong> — Linux 7.2 的 CAS（Cache-Aware Scheduling）由 Intel 主导合入，但在 AMD EPYC Turin/Sorano 上也观察到了收益，显示该技术具有跨厂商的通用价值</li>
+    </ul>
+    <hr>
+    <p>Linux 7.2 正式版预计于 <strong>2026 年 8 月初</strong> 发布，目前正处于合并窗口期（约至 6 月 29 日）。</p>
+  </div>
+  <div class="reason-box">
+    服务器级 APU 的性能基准测试是 HPC 和云计算领域的重要参考：① EPYC Sorano 是 AMD 面向边缘和通信基础设施的新一代平台，Linux 7.2 对其的优化将直接影响电信、CDN、云游戏等场景的部署决策；② 本地网络/套接字性能的提升虽然看似"意外"，但很可能来自 7.2 中网络子系统或调度器的某次改进，值得内核网络开发者深入追溯；③ 对于在 AMD 平台上运行容器化工作负载或 AI 推理服务的团队，这一提前信号值得关注——7.2 正式发布时建议优先评估。
+  </div>
+</div>
+
+<!-- Item 3 -->
+<div class="card" id="item3">
+  <div class="card-num n3">3</div>
+  <div class="card-header">
+    <span class="card-title">AMD 更新 ROCDXG：大幅改善 ROCm 在 WSL 上的体验，架构更简洁、开源、健壮</span>
+    <span class="badge badge-compute">计算</span>
+    <span class="badge badge-gpu">GPU</span>
+  </div>
+  <div class="card-meta">
+    <span>6月22日</span><span>·</span><span>Phoronix / GitHub (ROCm)</span>
+  </div>
+  <div class="card-body">
+    <p>AMD 更新了 <strong>ROCDXG</strong> 库（ROCm Driver Extension for WSL/DXG），进一步改善了 ROCm 计算栈在 <strong>Windows Subsystem for Linux (WSL2)</strong> 上的支持质量和架构整洁度：</p>
+    <ul>
+      <li><strong>ROCDXG 定位</strong> — 让 Linux 用户空间 ROCm 库能通过 WSL 的 <code>/dev/dxg</code> 接口与 Windows 宿主机的 AMD GPU 驱动通信，实现"在 Windows 上原生运行 Linux AI/计算工作负载"</li>
+      <li><strong>本次改进</strong> — 相比传统 WSL GPU 支持代码，新版 ROCDXG 架构更简洁、完全开源、异常处理更健壮，降低了 WSL 环境下 ROCm 的崩溃和内存泄漏风险</li>
+      <li><strong>使用场景</strong> — 数据科学家可在 Windows 桌面上直接用 WSL2 运行 PyTorch/TensorFlow（ROCm 后端），无需双系统或远程 Linux 服务器</li>
+      <li><strong>支持的 GPU</strong> — 需 AMD Radeon 或 Instinct 系列 GPU，且 Windows 驱动版本与 ROCDXG 匹配</li>
+    </ul>
+    <hr>
+    <p>ROCDXG 是 AMD 推动 ROCm 生态"跨平台化"的关键组件，与 NVIDIA 的 CUDA-on-WSL 形成直接竞争。</p>
+  </div>
+  <div class="reason-box">
+    AI/计算工作负载的"Windows 开发 + Linux 生产"混合场景日益普遍：① ROCDXG 的改进意味着在 Windows 笔记本/工作站上用 WSL2 做 ROCm 开发将更加稳定——对不便于安装原生 Linux 的 AI 研究者和学生尤其重要；② 相比 NVIDIA CUDA 在 WSL2 上的成熟支持，ROCm 此前一直处于追赶状态，此次更新缩小了体验差距；③ 对 AMD 而言，WSL2 支持是扩大 ROCm 市场份额的重要抓手——大量开发者工作在 Windows 上，降低进入门槛就是扩大潜在用户群。
+  </div>
+</div>
+
+<!-- Item 4 -->
+<div class="card" id="item4">
+  <div class="card-num n4">4</div>
+  <div class="card-header">
+    <span class="card-title">Xfce 迎来首个 Wayland 合成器 Alpha：Xfwl4 开启桌面环境显示协议迁移新篇章</span>
+    <span class="badge badge-display">显示</span>
+  </div>
+  <div class="card-meta">
+    <span>6月22日</span><span>·</span><span>Phoronix / Xfce GitLab</span>
+  </div>
+  <div class="card-body">
+    <p>专注于轻量级桌面体验的 <strong>Xfce</strong> 项目发布了其 Wayland 合成器的<strong>首个 Alpha 预览版本</strong>，标志着这个经典桌面环境正式迈出了从 X11 向 Wayland 迁移的关键一步：</p>
+    <ul>
+      <li><strong>项目名称</strong> — <code>xfwl4</code>（Xfce Wayland for wlroots 4），基于 wlroots 库构建，开发已持续约半年</li>
+      <li><strong>当前状态</strong> — Alpha 阶段，核心 Wayland 协议支持已基本就位，但部分 Xfce 组件（面板、设置管理器）仍在适配中</li>
+      <li><strong>技术选型</strong> — 选择 wlroots 而非 Mir 或独立实现，与 Sway、Hyprland 等现代 Wayland 合成器共享底层基础设施，有助于生态协同</li>
+      <li><strong>Xfce 意义</strong> — Xfce 是众多轻量级 Linux 发行版（如 Xubuntu、MX Linux）的默认桌面，其 Wayland 迁移进度直接影响数百万用户的显示协议升级路径</li>
+    </ul>
+    <hr>
+    <p>与此同期，KDE Plasma 6.8 已确认 Wayland 为默认会话，GNOME 更早已完成迁移。Xfce 的跟进意味着<strong>最后一批主流桌面环境正在告别 X11</strong>。</p>
+  </div>
+  <div class="reason-box">
+    Xfce 的 Wayland 迁移具有特殊的生态意义：① Xfce 用户群体以"轻量、稳定、低资源占用"为核心诉求，这部分用户往往在对新技术的接受上更为保守——Xfce 迈出这一步，说明 Wayland 在非激进用户群体中的成熟度已足够；② 对显卡驱动开发者而言，Xfce 的 wlroots 选型意味着<code>xdg-desktop-portal-wlr</code> 和相关 Wayland 协议将成为更广泛的测试覆盖目标；③ 对 Linux 发行版维护者，Xfce Wayland 合成器的进展是制定"X11 弃用时间表"的重要参考——当 Xfce 也准备好时，整个 Linux 桌面生态的 X11 退出通道将基本清晰。
+  </div>
+</div>
+
+<!-- Item 5 -->
+<div class="card" id="item5">
+  <div class="card-num n5">5</div>
+  <div class="card-header">
+    <span class="card-title">Valve 主导修复 Early AMD GCN GPU 恢复流程：老 Radeon 显卡的 Linux 稳定性将迎来改善</span>
+    <span class="badge badge-gpu">GPU</span>
+    <span class="badge badge-display">显示</span>
+  </div>
+  <div class="card-meta">
+    <span>6月21日</span><span>·</span><span>Phoronix / AMDGPU DRM</span>
+  </div>
+  <div class="card-body">
+    <p>Valve 开源 Linux 图形团队正在改进<strong>早期 AMD GCN 架构 GPU</strong>（Radeon HD 7000 / R9 200 系列等）在 Linux 上的 <strong>GPU 挂起后恢复流程</strong>，相关补丁已提交至 amd-gfx 邮件列表：</p>
+    <ul>
+      <li><strong>问题背景</strong> — 部分早期 GCN GPU 在遭遇 GPU 挂起（hang）后，恢复（recovery）流程不够健壮，可能导致系统冻结或需要强制重启</li>
+      <li><strong>Valve 动机</strong> — Valve 持续投资开源 AMD Linux 驱动栈（Mesa RADV、AMDGPU 内核驱动），旨在改善 Steam Deck 及相关 AMD 硬件的游戏体验，此次改进也惠及老款硬件</li>
+      <li><strong>技术范围</strong> — 主要涉及 AMDGPU 内核驱动中的 GFX 区块恢复顺序和超时处理逻辑，确保挂起发生后能更可靠地重置 GPU 状态</li>
+      <li><strong>硬件覆盖</strong> — GCN 1.0 / 1.1 / 1.2 架构，对应 2012–2016 年发布的 Radeon 显卡，仍在大量旧款笔记本和台式机中使用</li>
+    </ul>
+    <hr>
+    <p>这也是 Valve 近期在 Linux 图形领域的系列投入之一，同期还包括 Vulkan 光追检查器（RTI）和 NVK DLSS 支持等。</p>
+  </div>
+  <div class="reason-box">
+    Valve 对 AMD 老硬件的持续投入体现了 Linux 游戏生态的一种"长尾关怀"：① 大量 Steam 用户仍在使用 GCN 架构的老款 AMD 显卡（尤其在新兴市场和教育场景），这些硬件的 Linux 体验直接影响 Steam on Linux 的用户留存；② GPU 恢复流程的改进看似底层，但对用户而言意味着"游戏卡死 → 不必强制重启"的体验升级，是稳定性口碑的关键细节；③ 从更广阔的视角看，Valve 正在以"游戏公司"的身份系统性地补强 Linux 图形基础设施——这种来自商业实体的持续投资，比纯社区驱动更具可持续性，也是 Linux 桌面近年来取得突破的重要动力。
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Linux 图形/显示/计算 每日动态 · WorkBuddy 自动化生成 · 2026-06-24
+</div>
+
+</body>
+</html>
