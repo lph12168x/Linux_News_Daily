@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-06-25](linux-news-2026-06-25.html) | Linux 7.2 合并窗口 · NVK DLSS 支持 · Xfce Wayland Alpha · AMD Gamma 曲线 |
 | [2026-06-24](linux-news-2026-06-24.html) | sched_ext 源码重构 · EPYC Sorano 意外性能 · ROCDXG WSL · Xfce Wayland Alpha |
 | [2026-06-23](linux-news-2026-06-23.html) | Valve RTI 光追调试 · Steam Machine $1049 上市 · Mesa 26.2 Present Timing · Blackwell-Next |
 | [2026-06-22](linux-news-2026-06-22.html) | NVK DLSS 支持 · CAS 缓存感知调度 · RMR/BRMR RDMA 单跳复制 |

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux 每日动态 - 2026年6月25日</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a68;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+            --border: #e5e7eb;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --tag-gpu: #f59e0b;
+            --tag-display: #10b981;
+            --tag-compute: #8b5cf6;
+            --tag-kernel: #ef4444;
+            --tag-driver: #06b6d4;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #60a5fa;
+            --accent-light: #1e3a5f;
+            --border: #334155;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 15s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .date {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .summary {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .summary h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .summary p {
+            color: var(--text-secondary);
+            font-size: 1.05em;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #7c3aed);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+
+        .card-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: white;
+        }
+
+        .tag-gpu { background: var(--tag-gpu); }
+        .tag-display { background: var(--tag-display); }
+        .tag-compute { background: var(--tag-compute); }
+        .tag-kernel { background: var(--tag-kernel); }
+        .tag-driver { background: var(--tag-driver); }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+            padding-right: 50px;
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .card-reason {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            color: var(--text-primary);
+        }
+
+        .card-reason strong {
+            color: var(--accent);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
+    
+    <div class="header">
+        <h1>🐧 Linux 每日动态</h1>
+        <div class="date">2026年6月25日 · 图形·显示·计算 专题</div>
+    </div>
+
+    <div class="container">
+        <div class="summary">
+            <h2>📋 今日概览</h2>
+            <p>本期聚焦 Linux 生态中图形、显示与计算方向的最新进展。Linux 7.2 内核合并窗口已开启，涵盖大量 GPU 驱动改进；AMD 持续推进 HDMI 2.1 合规与显示精度优化；开源 NVIDIA NVK 驱动实现 DLSS 支持，标志着开源图形栈的重要突破；Valve 发布光线追踪检查器工具助力驱动优化；Xfce 首个 Wayland 合成器预览版发布，桌面显示系统持续演进。</p>
+        </div>
+
+        <div class="news-grid">
+            <!-- 卡片 1 -->
+            <div class="news-card">
+                <div class="card-number">1</div>
+                <div class="card-tags">
+                    <span class="tag tag-kernel">内核</span>
+                    <span class="tag tag-gpu">GPU</span>
+                    <span class="tag tag-display">显示</span>
+                </div>
+                <div class="card-title">Linux 7.2 内核合并窗口开启 — 图形子系统大规模更新</div>
+                <div class="card-content">
+                    Linux 7.2 合并窗口于 6 月 14 日随 7.1 版本发布后正式开启，截至 6 月 18 日已有超过 7000 个非合并补丁合入主线。本次更新涵盖 AMDGPU、Intel i915、Nouveau 等主流 GPU 驱动的显著改进，包括 DRM 子系统优化、显示电源管理增强、以及对新 GPU 架构的前期支持。同时，sched_ext 调度框架持续优化，有望提升 GPU 异构计算场景下的任务调度效率。
+                </div>
+                <div class="card-reason">
+                    <strong>值得关注：</strong>Linux 7.2 内核将直接影响下一代 Linux 发行版的图形与计算能力。DRM 子系统的改进、AMD/Intel/NVIDIA 驱动的同步推进，意味着 Linux 在 AI 计算、游戏图形、专业显示等领域的竞争力将持续提升。建议 GPU 驱动开发者、Linux 桌面用户密切关注此版本的演进。
+                </div>
+            </div>
+
+            <!-- 卡片 2 -->
+            <div class="news-card">
+                <div class="card-number">2</div>
+                <div class="card-tags">
+                    <span class="tag tag-gpu">AMDGPU</span>
+                    <span class="tag tag-display">显示</span>
+                    <span class="tag tag-driver">驱动</span>
+                </div>
+                <div class="card-title">AMD 提交 Gamma 2.4/2.6 曲线支持补丁 — 专业显示色彩精度提升</div>
+                <div class="card-content">
+                    6 月 24 日，AMD 向 Linux 内核邮件列表提交了新补丁，为 AMDGPU 开源驱动新增 Gamma 2.4 和 Gamma 2.6 曲线支持。Gamma 曲线是专业色彩管理的关键参数，直接影响显示器的色彩准确性和 HDR 表现。此前 AMDGPU 驱动仅支持标准 sRGB Gamma 2.2，新补丁将大幅改善专业图形工作、视频后期等领域在 Linux 下的色彩体验。配合此前已开始的 HDMI 2.1 合规性测试准备，AMD 在 Linux 显示领域的投入持续加码。
+                </div>
+                <div class="card-reason">
+                    <strong>值得关注：</strong>对于从事专业图形、视频制作、色彩关键型工作的 Linux 用户而言，Gamma 曲线支持的完善是长期以来的痛点。此补丁将缩小 Linux 与 Windows/macOS 在专业显示领域的差距。同时，HDMI 2.1 合规准备的推进也预示着更高带宽、可变刷新率（VRR）等先进显示特性即将在 Linux 上全面到位。
+                </div>
+            </div>
+
+            <!-- 卡片 3 -->
+            <div class="news-card">
+                <div class="card-number">3</div>
+                <div class="card-tags">
+                    <span class="tag tag-gpu">NVIDIA</span>
+                    <span class="tag tag-compute">计算</span>
+                    <span class="tag tag-driver">开源</span>
+                </div>
+                <div class="card-title">开源 NVK Vulkan 驱动首次支持 DLSS — Linux 游戏图形重大突破</div>
+                <div class="card-content">
+                    6 月 19 日，Mesa 项目的开源 NVIDIA Vulkan 驱动 NVK 宣布初步支持 DLSS（深度学习超级采样）技术。DLSS 是 NVIDIA 基于 AI 的超分辨率技术，能在保持画质的同时显著提升游戏帧率。此前 DLSS 仅能在 NVIDIA 闭源驱动下使用，NVK 的开源实现意味着使用开源驱动栈的 Linux 用户也能享受这一先进图形技术。此进展得益于 NVK 驱动对 NVIDIA 专有扩展的逆向工程与实现，是开源图形生态的重要里程碑。
+                </div>
+                <div class="card-reason">
+                    <strong>值得关注：</strong>NVK 支持 DLSS 是开源 Linux 图形栈的历史性突破，将显著提升 Linux 游戏体验，缩小与 Windows 的差距。对于希望使用开源驱动、同时不牺牲图形性能的玩家而言，这标志着 NVK 已具备进入实用阶段的潜力。此外，这也对 NVIDIA 闭源驱动形成竞争压力，可能加速其开源化的进程。
+                </div>
+            </div>
+
+            <!-- 卡片 4 -->
+            <div class="news-card">
+                <div class="card-number">4</div>
+                <div class="card-tags">
+                    <span class="tag tag-compute">GPU计算</span>
+                    <span class="tag tag-gpu">工具</span>
+                    <span class="tag tag-driver">驱动优化</span>
+                </div>
+                <div class="card-title">Valve 发布光线追踪检查器 RTI — 助力 Linux GPU 驱动优化</div>
+                <div class="card-content">
+                    6 月 22 日，Valve 宣布创建光线追踪检查器（Ray-Tracing Inspector, RTI）工具，用于帮助图形开发者进一步优化 Linux 下的 GPU 驱动。RTI 支持 AMD RADV、Intel ANV、NVIDIA NVK 等主流开源 Vulkan 驱动，能够深入分析光线追踪工作负载的性能瓶颈，提供详细的流水线分析数据。该工具是 Valve 持续投入 Linux 图形生态的最新举措，此前 Valve 还推动了早期 AMD GCN GPU 的 Recovery 机制改进，以及修复了存在多年的 Radeon 显示 Bug。
+                </div>
+                <div class="card-reason">
+                    <strong>值得关注：</strong>Valve 作为 Linux 游戏生态的重要推动者，其发布的 RTI 工具将显著降低 GPU 驱动优化的门槛，帮助开源驱动追赶闭源驱动的光线追踪性能。对于 Linux 游戏开发者、GPU 驱动开发者而言，这是一款不可多得的调试利器。同时也预示着 Linux 上的光线追踪游戏体验即将迎来新的提升。
+                </div>
+            </div>
+
+            <!-- 卡片 5 -->
+            <div class="news-card">
+                <div class="card-number">5</div>
+                <div class="card-tags">
+                    <span class="tag tag-display">Wayland</span>
+                    <span class="tag tag-driver">桌面</span>
+                    <span class="tag tag-compute">显示服务器</span>
+                </div>
+                <div class="card-title">Xfce Wayland 合成器首个预览版发布 — 传统桌面迈向现代显示架构</div>
+                <div class="card-content">
+                    6 月 22 日，Xfce 桌面环境宣布其 Wayland 合成器 xfwl4 发布首个预览/Alpha 版本。经过近 6 个月的开发，xfwl4 已实现基本的功能集，目标是在 Wayland 下提供与 X11 会话尽可能接近的使用体验。Wayland 是现代Linux 显示架构的主流方向，具备更简单的代码架构、更好的安全性、以及原生支持高 DPI 和混合刷新率显示器等优势。Xfce 作为轻量级传统桌面，其 Wayland 迁移标志着 Linux 桌面生态整体向现代显示架构的转型进入新阶段。
+                </div>
+                <div class="card-reason">
+                    <strong>值得关注：</strong>Xfce Wayland 合成器的发布，意味着几乎所有主流 Linux 桌面环境（GNOME、KDE、Xfce、LXQt 等）均已启动或完成 Wayland 迁移。对于使用轻量级桌面的用户、以及企业 Linux 部署场景而言，这是重要的里程碑。Wayland 的全面普及将解决 Linux 长期存在的混合显卡、HiDPI 缩放、安全隔离等显示问题，是 Linux 桌面体验进阶的关键一步。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>数据来源：Phoronix · LWN.net · 各大开源项目官方仓库</p>
+        <p>生成时间：2026年6月25日 09:20 (GMT+8) | <a href="index.html">← 返回归档</a></p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // 初始化主题
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</body>
+</html>
