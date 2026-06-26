@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux 每日新闻 - 2026-06-26 - 图形·显示·计算</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a68;
+            --text-muted: #6c757d;
+            --accent: #4a90d9;
+            --accent-light: #e3f2fd;
+            --border: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --tag-gpu: #2196f3;
+            --tag-display: #9c27b0;
+            --tag-compute: #ff9800;
+            --tag-driver: #4caf50;
+            --tag-kernel: #f44336;
+            --hover-bg: #f5f5f5;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1c2333;
+            --text-primary: #e6edf3;
+            --text-secondary: #b1bac4;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-light: #1a2d4a;
+            --border: #30363d;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --tag-gpu: #58a6ff;
+            --tag-display: #d2a8ff;
+            --tag-compute: #ffa657;
+            --tag-driver: #7ee787;
+            --tag-kernel: #ff7b72;
+            --hover-bg: #21262d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--accent) 0%, #6366f1 100%);
+            color: white;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-toggle button {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .theme-toggle button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .summary {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .summary h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .summary p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .news-grid {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), #6366f1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .news-card:hover::before {
+            opacity: 1;
+        }
+
+        .news-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .news-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .news-title {
+            flex: 1;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .news-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            background: var(--accent-light);
+        }
+
+        .tag.gpu { color: var(--tag-gpu); }
+        .tag.display { color: var(--tag-display); }
+        .tag.compute { color: var(--tag-compute); }
+        .tag.driver { color: var(--tag-driver); }
+        .tag.kernel { color: var(--tag-kernel); }
+
+        .news-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 0.9em;
+            flex-wrap: wrap;
+        }
+
+        .news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .news-content p {
+            margin-bottom: 10px;
+        }
+
+        .news-why {
+            background: var(--accent-light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .news-why strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .news-why p {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+
+            .news-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()">🌓 切换主题</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🐧 Linux 每日新闻</h1>
+            <p class="subtitle">2026年6月26日 · 图形 · 显示 · 计算 方向</p>
+        </header>
+
+        <div class="summary">
+            <h2>📋 今日概览</h2>
+            <p>本期聚焦 Linux 图形栈、显示服务器和 GPU 计算领域的最新动态。Mesa 26.2 合并了 Vulkan Present Timing 支持，为 X11/XWayland 环境带来更精确的帧时序控制；Valve 开源了光线追踪检查器 RTI 工具，助力 Linux 游戏图形性能优化；开源 NVIDIA NVK 驱动迎来 DLSS 支持的重大突破；Linux 7.2 内核开始为 NVIDIA 下一代 Blackwell-Next GPU 做准备；AMD 提交了新的 Gamma 色彩曲线补丁，完善专业显示色彩管理能力。这些进展标志着 Linux 在图形性能和计算能力上的持续演进。</p>
+        </div>
+
+        <div class="news-grid">
+            <!-- 新闻 1 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">1</div>
+                    <div class="news-title">Mesa 26.2 合并 Vulkan Present Timing 支持，优化 X11/XWayland 帧时序控制</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag driver">Mesa</span>
+                    <span class="tag gpu">Vulkan</span>
+                    <span class="tag display">X11/XWayland</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-21</span>
+                    <span>🔗 Phoronix</span>
+                    <span>📦 Mesa 26.2-devel</span>
+                </div>
+                <div class="news-content">
+                    <p>Mesa 26.2 开发分支合并了对 <code>VK_EXT_present_timing</code> Vulkan 扩展的支持，该功能集成在 Mesa 的 Vulkan WSI（Window System Integration）代码中，允许应用程序精确控制帧的呈现时间。</p>
+                    <p>此功能同时覆盖 X11 显示服务器和 XWayland 兼容层，无需额外适配即可在两类显示环境下使用。支持该特性的驱动包括 Intel ANV、AMD RADV 和 NVIDIA NVK 等所有基于 Mesa 的 Vulkan 驱动实现。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>精确的帧时序控制是流畅图形体验的基础。该特性可以有效减少画面撕裂、掉帧和输入延迟，对 Linux 游戏、专业图形渲染和视频播放等实时图形应用意义重大。同时，它统一了 X11 和 XWayland 环境下的时序处理逻辑，降低了开发者的跨环境适配成本，进一步缩小了开源图形驱动与商业驱动的差距。</p>
+                </div>
+            </div>
+
+            <!-- 新闻 2 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">2</div>
+                    <div class="news-title">Valve 开源 Vulkan 光线追踪检查器 RTI，助力 Linux GPU 驱动优化</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag gpu">Vulkan</span>
+                    <span class="tag compute">Ray Tracing</span>
+                    <span class="tag driver">Valve</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-22</span>
+                    <span>🔗 Phoronix</span>
+                    <span>🎮 Mesa 26.1+</span>
+                </div>
+                <div class="news-content">
+                    <p>Valve 开源了其 Linux 图形团队开发的 <strong>Ray-Tracing Inspector (RTI)</strong> 工具，这是一个专用的图形化界面工具，用于分析和优化 Vulkan 光线追踪性能。</p>
+                    <p>RTI 可以直接对接 Mesa 图形栈的 Vulkan 实现，帮助开发者和驱动维护者定位光线追踪场景下的性能瓶颈。该工具是 Valve 持续推进 Linux 游戏生态建设的重要一环，特别针对 Radeon RADV 驱动的光线追踪性能优化提供了直接助力。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>光线追踪性能分析工具在开源图形栈中长期处于空白状态，RTI 的推出填补了这一缺口。它降低了 Vulkan 光线追踪功能的调试门槛，使第三方开发者能够更高效地参与驱动优化，加速开源驱动的迭代效率。对于 Linux 游戏玩家而言，这意味着未来 Steam Play (Proton) 环境下的光追游戏体验将得到持续改善。</p>
+                </div>
+            </div>
+
+            <!-- 新闻 3 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">3</div>
+                    <div class="news-title">开源 NVIDIA NVK Vulkan 驱动实验性支持 DLSS，Mesa 26.2 迎来重大里程碑</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag driver">NVK</span>
+                    <span class="tag gpu">NVIDIA</span>
+                    <span class="tag compute">DLSS</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-19</span>
+                    <span>🔗 TechPowerUp</span>
+                    <span>📦 Mesa 26.2</span>
+                </div>
+                <div class="news-content">
+                    <p>通过新的 Vulkan 扩展，Mesa 26.2 中的开源 NVIDIA "NVK" Vulkan 驱动现已实验性支持 DLSS（Deep Learning Super Sampling）技术。这是开源 NVIDIA Linux 驱动栈向商用驱动特性看齐的重要里程碑。</p>
+                    <p>NVK 驱动是社区驱动的开源 NVIDIA Vulkan 驱动实现，基于 Mesa 项目开发。DLSS 支持的加入将显著提升支持该特性的 Linux 游戏在 NVIDIA GPU 上的帧率和视觉质量。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>长期以来，NVIDIA Linux 用户若想使用 DLSS 等先进图形特性，必须依赖闭源的专有驱动。NVK 驱动对 DLSS 的实验性支持，标志着开源驱动在特性完整性上的重大突破。对于希望使用纯开源图形栈的 Linux 用户和发行版维护者而言，这是一个具有历史意义的进展，也为 NVIDIA GPU 在 Linux 上的开源驱动生态注入了新的活力。</p>
+                </div>
+            </div>
+
+            <!-- 新闻 4 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">4</div>
+                    <div class="news-title">Linux 7.2 内核开始为 NVIDIA "Blackwell-Next" GPU 做准备</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag kernel">Linux 内核</span>
+                    <span class="tag gpu">NVIDIA</span>
+                    <span class="tag compute">Blackwell-Next</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-21</span>
+                    <span>🔗 Phoronix</span>
+                    <span>🐧 Linux 7.2</span>
+                </div>
+                <div class="news-content">
+                    <p>在 Linux 7.2 合并窗口期的 VFIO（Virtual Function I/O）子系统补丁中，首次出现了针对 NVIDIA 下一代 "Blackwell-Next" 架构 GPU 的支持提及。这是 Linux 内核代码中第一次为这一未来架构做准备。</p>
+                    <p>本次改动属于前期准备阶段，主要面向内核底层的设备直通能力适配，为后续 Blackwell-Next GPU 在 Linux 下的虚拟化、设备直通等场景提供支持框架。虽然具体的驱动逻辑尚未实现，但这一早期铺垫对于确保新硬件发布时的 Linux 兼容性至关重要。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>Blackwell-Next 是 NVIDIA 继 Blackwell 架构之后的下一代 GPU 架构，预计将主要面向数据中心和 AI 计算场景。Linux 内核团队提前在 VFIO 子系统中为其做准备，意味着新一代 GPU 在发布时将能更顺畅地支持设备直通、虚拟化切分等能力，对于运行 Linux 的数据中心和云计算平台而言，这确保了硬件升级时的软件兼容性，避免了过去新硬件上市后因内核缺乏支持而导致的部署延迟。</p>
+                </div>
+            </div>
+
+            <!-- 新闻 5 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">5</div>
+                    <div class="news-title">AMD 提交 Gamma 2.4/2.6 曲线支持补丁，完善 Linux 专业显示色彩管理</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag driver">AMDGPU</span>
+                    <span class="tag display">色彩管理</span>
+                    <span class="tag display">HDR</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-24</span>
+                    <span>🔗 Phoronix</span>
+                    <span>🐧 Linux 内核</span>
+                </div>
+                <div class="news-content">
+                    <p>AMD 工程师提交了针对 AMDGPU 内核图形驱动的新补丁，将 Gamma 2.4 和 Gamma 2.6 曲线支持暴露到 Linux 系统的显示接口中。Gamma 校正曲线的支持是专业色彩工作流的基础需求。</p>
+                    <p>该补丁与 AMD 工程师正在推进的 HDMI 2.1 支持同属当前显示功能迭代的一部分，目前尚未正式合入主线内核，属于待发布的新特性。Gamma 2.4 和 2.6 是专业显示、影视后期领域的常用色彩标准。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>对于从事影视制作、专业设计和摄影等工作的 Linux 用户而言，精确的色彩管理一直是个痛点。Gamma 2.4/2.6 曲线的支持使得 Linux 系统能够准确匹配专业监视器和 HDR 设备的色彩特性，避免系统层和显示层之间的重复 Gamma 校正导致的色彩损失。这一改进，配合正在开发中的 HDMI 2.1 支持，将显著提升 Linux 作为专业创意工作平台的竞争力。</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🐧 Linux 每日新闻推送 · 聚焦图形、显示、计算方向</p>
+            <p>数据来源：Phoronix, TechPowerUp, Mesa 官方</p>
+            <p>📅 生成时间：2026-06-26</p>
+            <p>🔗 <a href="index.html">返回首页</a> · <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // 检查本地存储的主题偏好
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>
