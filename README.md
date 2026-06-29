@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-06-29](linux-news-2026-06-29.html) | Linux 7.2-rc1 发布 · CVE-2026-53293 AMDGPU 死锁修复 · Intel HDR over DP MST · DXVK 3.0 发布 · Nourish Vulkan 合成器 |
 | [2026-06-26](linux-news-2026-06-26.html) | Mesa 26.2 Present Timing · Valve RTI 光追检查器 · NVK DLSS 支持 · Linux 7.2 Blackwell-Next · AMD Gamma 2.4/2.6 |
 | [2026-06-25](linux-news-2026-06-25.html) | Linux 7.2 合并窗口 · NVK DLSS 支持 · Xfce Wayland Alpha · AMD Gamma 曲线 |
 | [2026-06-24](linux-news-2026-06-24.html) | sched_ext 源码重构 · EPYC Sorano 意外性能 · ROCDXG WSL · Xfce Wayland Alpha |

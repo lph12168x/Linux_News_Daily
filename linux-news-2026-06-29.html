@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux 每日新闻 - 2026-06-29 - 图形·显示·计算</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a68;
+            --text-muted: #6c757d;
+            --accent: #4a90d9;
+            --accent-light: #e3f2fd;
+            --border: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --tag-gpu: #2196f3;
+            --tag-display: #9c27b0;
+            --tag-compute: #ff9800;
+            --tag-driver: #4caf50;
+            --tag-kernel: #f44336;
+            --hover-bg: #f5f5f5;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1c2333;
+            --text-primary: #e6edf3;
+            --text-secondary: #b1bac4;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-light: #1a2d4a;
+            --border: #30363d;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --tag-gpu: #58a6ff;
+            --tag-display: #d2a8ff;
+            --tag-compute: #ffa657;
+            --tag-driver: #7ee787;
+            --tag-kernel: #ff7b72;
+            --hover-bg: #21262d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--accent) 0%, #6366f1 100%);
+            color: white;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-toggle button {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .theme-toggle button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .summary {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .summary h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .summary p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .news-grid {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), #6366f1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .news-card:hover::before {
+            opacity: 1;
+        }
+
+        .news-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .news-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .news-title {
+            flex: 1;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .news-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            background: var(--accent-light);
+        }
+
+        .tag.gpu { color: var(--tag-gpu); }
+        .tag.display { color: var(--tag-display); }
+        .tag.compute { color: var(--tag-compute); }
+        .tag.driver { color: var(--tag-driver); }
+        .tag.kernel { color: var(--tag-kernel); }
+
+        .news-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 0.9em;
+            flex-wrap: wrap;
+        }
+
+        .news-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .news-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .news-content p {
+            margin-bottom: 10px;
+        }
+
+        .news-why {
+            background: var(--accent-light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .news-why strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .news-why p {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+
+            .news-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()">🌓 切换主题</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🐧 Linux 每日新闻</h1>
+            <p class="subtitle">2026年6月29日 · 图形 · 显示 · 计算 方向</p>
+        </header>
+
+        <div class="summary">
+            <h2>📋 今日概览</h2>
+            <p>本期聚焦 Linux 7.2-rc1 发布后的图形与计算新动态。Linux 7.2-rc1 正式开启测试阶段，带来 AMD HDMI 2.1 FRL 初步支持、Intel Xe CRI 平台适配和 Rust zerocopy 库等重磅更新；AMDGPU 驱动修复了一个可导致系统死锁的高危漏洞 CVE-2026-53293，影响所有使用 AMD GPU 的 Linux 用户；Intel 提交 HDR over DP MST 补丁，为多显示器 HDR 场景铺路；DXVK 3.0 发布，采用全新 DXBC-SPIRV 着色器编译器并默认开启 Descriptor Heaps，大幅提升 Linux 游戏性能；基于 Vulkan 的新 Wayland 合成器 Nourish 亮相，支持无限缩放/平移工作区。这些进展共同推动了 Linux 在图形、显示和计算领域的能力边界。</p>
+        </div>
+
+        <div class="news-grid">
+            <!-- 新闻 1 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">1</div>
+                    <div class="news-title">Linux 7.2-rc1 发布：AMD HDMI 2.1、Intel Xe CRI、Rust zerocopy 齐亮相</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag kernel">Linux 内核</span>
+                    <span class="tag gpu">AMDGPU</span>
+                    <span class="tag display">HDMI 2.1</span>
+                    <span class="tag compute">Rust</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-28</span>
+                    <span>🔗 WindowsForum / Phoronix</span>
+                    <span>🐧 Linux 7.2-rc1</span>
+                </div>
+                <div class="news-content">
+                    <p>Linus Torvalds 于 2026 年 6 月 28 日发布 Linux 7.2-rc1，正式进入两周合并窗口后的公测稳定阶段。本次更新在图形与计算方向有多项实质性进展。</p>
+                    <p><strong>AMD HDMI 2.1 FRL 初步支持</strong>：AMDGPU 驱动新增 HDMI 2.1 固定速率链路（FRL）的基础支持，这是实现 HDMI 2.1 高分辨率/高刷新率传输的关键能力，缩小了 Linux 与 Windows 在消费级显示设备支持上的差距。</p>
+                    <p><strong>Intel Xe CRI 平台支持</strong>：Intel Xe 驱动新增 CRI 平台初步支持，对应 Intel 新一代显卡架构的驱动适配，提升 Intel 新架构显卡在 Linux 下的支持成熟度。</p>
+                    <p><strong>Rust zerocopy 库合入</strong>：新增 Rust `zerocopy` 库支持，用于简化内核中低开销内存操作，避免不必要内存拷贝带来的性能损耗，同时利用 Rust 的内存安全特性减少内存操作类 bug。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>Linux 7.2-rc1 的图形相关更新量非常大，AMD HDMI 2.1 FRL 支持是多年努力的初步成果，对使用 AMD GPU 连接 HDMI 2.1 显示器的用户意义重大；Intel CRI 平台支持则确保了新一代 Intel 显卡在 Linux 上的及时适配。Rust zerocopy 库的引入是 Linux 内核内存安全现代化的重要一步，长期来看将减少特权内存操作类漏洞。预计稳定版 Linux 7.2 将于 2026 年 8 月中旬发布。</p>
+                </div>
+            </div>
+
+            <!-- 新闻 2 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">2</div>
+                    <div class="news-title">CVE-2026-53293：AMDGPU 内核死锁漏洞修复，影响所有 AMD GPU Linux 用户</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag kernel">安全漏洞</span>
+                    <span class="tag gpu">AMDGPU</span>
+                    <span class="tag driver">内核驱动</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-26 披露</span>
+                    <span>🔗 NVD / MSRC</span>
+                    <span>⚠️ CVSS 待评分</span>
+                </div>
+                <div class="news-content">
+                    <p>Linux 内核安全团队于 2026 年 6 月 26 日披露 CVE-2026-53293，影响 AMDGPU 驱动中 `AMDGPU_INFO_READ_MMR_REG` 接口的死锁漏洞。该漏洞源于驱动中锁操作、内存分配与用户态数据拷贝的顺序不符合内核开发规范。</p>
+                    <p><strong>根本成因</strong>：驱动在持有 GPU 重置信号量和 `mm_lock` 的状态下调用 `copy_to_user` 并向用户态拷贝数据，同时还在持锁期间执行内存分配，违反内核锁使用规范，在并发场景下可触发死锁。</p>
+                    <p><strong>影响范围</strong>：运行 Linux 且加载了 AMDGPU 驱动的设备，包括 AMD 显卡台式机/笔记本、工作站、GPU 计算服务器、SteamOS 掌机等。已修复的稳定分支版本包括 6.6.141、6.12.91、6.18.33、7.0.10 及以上。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>该漏洞虽为本地触发，但可导致系统完全死锁（GPU 重置路径卡住，系统无响应，只能强制重启），对多用户工作站、共享 GPU 计算节点和云游戏场景构成可用性威胁。现代 GPU 驱动已不再是单纯的"显示适配组件"，而是包含调度器、内存管理、固件交互的复杂特权组件，属于系统安全边界的重要部分。建议所有 AMD GPU Linux 用户尽快更新至已修复的内核版本。</p>
+                </div>
+            </div>
+
+            <!-- 新闻 3 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">3</div>
+                    <div class="news-title">Intel 提交 HDR over DP MST 补丁，多显示器 HDR 输出迎来原生支持</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag driver">Intel i915</span>
+                    <span class="tag display">HDR</span>
+                    <span class="tag display">DP MST</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-26</span>
+                    <span>🔗 Phoronix</span>
+                    <span>🐧 Linux 内核 / Mesa</span>
+                </div>
+                <div class="news-content">
+                    <p>Intel 工程师提交了针对 Linux 显示驱动的新补丁，支持通过 DP MST（Multi-Stream Transport）连接实现 HDR 输出，解决了多显示器环境下 HDR 能力受限的问题。</p>
+                    <p>DP MST 是 DisplayPort 协议中的多显示器串联/分叉传输标准，广泛应用于通过单个 DP 接口或 Thunderbolt/USB4 扩展坞连接多台显示器的场景。此前，Linux 下通过 DP MST 连接的多显示器往往无法启用 HDR，限制了专业 HDR 工作流在多屏环境下的使用。</p>
+                    <p>该补丁属于 Intel Linux 图形驱动持续完善 HDR 支持的一部分，与之前合并的 Intel HDR 基础能力形成互补，进一步完善了 Intel GPU 在 Linux 上的专业显示功能集。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>对于使用 Intel GPU 且通过 DP MST 扩展坞或菊花链连接多台显示器的 Linux 用户（包括大量笔记本用户），该补丁填补了多屏 HDR 支持的关键空白。HDR 在视频剪辑、图像处理和专业内容创作中已成为标配需求，该更新使 Linux 在 Intel 平台上的 HDR 支持更加完整，缩小了与 macOS/Windows 在多显示器 HDR 体验上的差距。</p>
+                </div>
+            </div>
+
+            <!-- 新闻 4 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">4</div>
+                    <div class="news-title">DXVK 3.0 发布：DXBC-SPIRV 着色器编译 + Descriptor Heaps 默认开启</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag gpu">DXVK</span>
+                    <span class="tag compute">Vulkan</span>
+                    <span class="tag driver">Wine / Proton</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-25</span>
+                    <span>🔗 GitHub / Phoronix</span>
+                    <span>🎮 DXVK 3.0</span>
+                </div>
+                <div class="news-content">
+                    <p>Philip Rebohle 宣布发布 DXVK 3.0，这是将 Direct3D 8/9/10/11 映射到 Vulkan API 的重大版本更新，面向 Wine 和 Valve Steam Play (Proton) 用户。</p>
+                    <p><strong>DXBC-SPIRV 全新着色器编译器</strong>：取代原有的传统着色器转译代码，采用基于 SSA 的 D3D SM 5.1+ 编译器，生成的 SPIR-V 代码更紧凑，着色器编译完全卸载到工作线程，显著缩短游戏加载时间。</p>
+                    <p><strong>Vulkan Descriptor Heaps 默认启用</strong>：在支持 `VK_EXT_descriptor_heap` 的 Vulkan 驱动上默认开启 Descriptor Heaps，优化内存管理效率，提升游戏运行性能。DXVK 3.0 现在要求 Vulkan 1.4 驱动级别支持。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>DXVK 是 Linux 游戏生态的核心组件，Steam Deck 和所有使用 Proton 运行 Windows 游戏的 Linux 用户都间接依赖它。DXBC-SPIRV 编译器的引入解决了长期存在的着色器编译卡顿问题，游戏加载时间和运行时帧稳定性均有显著改善。Descriptor Heaps 的默认开启则进一步释放了现代 Vulkan 驱动的性能潜力。对于 Linux 游戏玩家而言，这是近年来 DXVK 最重要的版本更新之一。</p>
+                </div>
+            </div>
+
+            <!-- 新闻 5 -->
+            <div class="news-card">
+                <div class="news-header">
+                    <div class="news-number">5</div>
+                    <div class="news-title">Nourish：基于 Vulkan 的新 Wayland 合成器发布，支持无限缩放/平移工作区</div>
+                </div>
+                <div class="news-tags">
+                    <span class="tag display">Wayland</span>
+                    <span class="tag gpu">Vulkan</span>
+                    <span class="tag compute">Rust</span>
+                </div>
+                <div class="news-meta">
+                    <span>📅 2026-06-27</span>
+                    <span>🔗 Phoronix / GitHub</span>
+                    <span>🖥️ Nourish Compositor</span>
+                </div>
+                <div class="news-content">
+                    <p>Nourish 是一款全新发布的 Wayland 合成器，其核心设计理念是"不将桌面局限于屏幕大小"，通过基于 Vulkan API 的高性能渲染和无限缩放/平移（infinite zooming/panning）能力，提供可扩展的虚拟工作区体验。</p>
+                    <p><strong>技术架构</strong>：Nourish 使用 Rust 编写的 y5 Wayland 合成器框架，底层依赖 Smithay、WGPU、Iced 等项目。渲染优先使用 Vulkan API，同时可回退至 OpenGL ES 以兼容旧硬件。已在开源 AMD、Intel 驱动及 NVIDIA 官方驱动上测试。</p>
+                    <p><strong>分数缩放支持</strong>：利用 Wayland 分数缩放协议实现缩放功能，保持画面清晰无模糊。目前提供 Fedora Linux 二进制包，源码托管于 GitHub。</p>
+                </div>
+                <div class="news-why">
+                    <strong>💡 为什么值得关注</strong>
+                    <p>Wayland 合成器生态正在快速多样化，Nourish 的"无限工作区"概念为图形/创意工作者提供了类似无限画布的桌面体验，这在现有合成器（GNOME Shell、KWin、Sway、Hyprland）中较为少见。基于 Vulkan 渲染则确保了在现代 GPU 上的高性能表现。作为 Rust 编写的 Wayland 合成器，Nourish 也体现了 Linux 桌面组件向内存安全语言迁移的趋势，值得长期关注其发展。</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>🐧 Linux 每日新闻推送 · 聚焦图形、显示、计算方向</p>
+            <p>数据来源：Phoronix, WindowsForum, NVD, GitHub</p>
+            <p>📅 生成时间：2026-06-29</p>
+            <p>🔗 <a href="index.html">返回首页</a> · <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // 检查本地存储的主题偏好
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>
