@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux 每日新闻 - 2026-06-30</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --accent: #0d6efd;
+            --accent-light: #e7f1ff;
+            --tag-gpu: #198754;
+            --tag-display: #fd7e14;
+            --tag-compute: #6f42c1;
+            --tag-kernel: #dc3545;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-card: #333333;
+            --text-primary: #e9ecef;
+            --text-secondary: #adb5bd;
+            --border-color: #495057;
+            --accent: #4dabf7;
+            --accent-light: #1c3d5a;
+            --tag-gpu: #51cf66;
+            --tag-display: #ff922b;
+            --tag-compute: #b197fc;
+            --tag-kernel: #ff6b6b;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--accent) 0%, #6610f2 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .summary {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .summary h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .summary ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .summary li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .summary li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-number {
+            background: var(--accent);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-gpu { background: var(--tag-gpu); color: white; }
+        .tag-display { background: var(--tag-display); color: white; }
+        .tag-compute { background: var(--tag-compute); color: white; }
+        .tag-kernel { background: var(--tag-kernel); color: white; }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .card-reason {
+            background: var(--accent-light);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+        }
+
+        .card-reason strong {
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
+
+    <div class="header">
+        <h1>🐧 Linux 每日新闻</h1>
+        <p>2026 年 6 月 30 日 | 图形 · 显示 · 计算方向</p>
+    </div>
+
+    <div class="container">
+        <div class="summary">
+            <h2>📋 今日要闻概览</h2>
+            <ul>
+                <li><strong>Wine 11.12</strong> 发布，Wayland 驱动新增分数缩放支持，提升高分辨率显示体验</li>
+                <li><strong>RADV 驱动</strong> 默认启用 Vulkan 描述符堆，Mesa 26.2 带来 AMD GPU 性能提升</li>
+                <li><strong>ZLUDA v6</strong> 发布，AMD GPU 上 PhysX 运行良好，但项目再次失去商业资助</li>
+                <li><strong>Linux 7.2-rc1</strong> 发布，合并 AMDGPU HDMI 2.1 FRL、AMD ISP4 等重要功能</li>
+                <li><strong>Nourish</strong> 基于 Vulkan 的新 Wayland 合成器亮相，支持无限缩放/平移工作区</li>
+                <li><strong>DXVK 3.0</strong> 发布，采用 DXBC-SPIRV 着色器编译，默认启用描述符堆</li>
+            </ul>
+        </div>
+
+        <div class="news-grid">
+            <!-- 新闻条目 1 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">1</div>
+                    <div class="card-tags">
+                        <span class="tag tag-display">显示</span>
+                        <span class="tag tag-gpu">GPU</span>
+                    </div>
+                </div>
+                <div class="card-title">Wine 11.12 发布：Wayland 驱动支持分数缩放</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-29</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    Wine 11.12 正式发布，为 Wayland 驱动带来了期待已久的<strong>分数缩放支持</strong>（fractional scaling），用户在不同显示器上可以使用不同的缩放比例，极大提升了高分辨率显示屏上的 UI 体验。此外，该版本还修复了主显示器位置、调试队列命名等问题，并捆绑了 FFmpeg 的 libswresample 和 libswscale 库，更新了 Mono 11.2 引擎。共修复了 27 个已知 bug，涵盖 Corel 产品安装、图形问题、Microsoft Office 2007 等应用。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Wine 的 Wayland 原生支持正在快速成熟，分数缩放是高分辨率显示环境下的关键功能，对于 Linux 桌面用户运行 Windows 应用体验提升显著。
+                </div>
+            </div>
+
+            <!-- 新闻条目 2 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">2</div>
+                    <div class="card-tags">
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-compute">计算</span>
+                    </div>
+                </div>
+                <div class="card-title">RADV 驱动默认启用 Vulkan 描述符堆支持</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-29</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    随着 Mesa 26.2 稳定版预计在 8 月发布，Radeon RADV Vulkan 驱动现已<strong>默认启用 VK_EXT_descriptor_heap 描述符堆支持</strong>。此前在 Mesa 26.1 中该功能已引入，但需要设置 <code>RADV_EXPERIMENTAL=heap</code> 环境变量才能启用。Valve Linux 图形团队的 Samuel Pitoiset 在确认无已知问题后，决定默认开启该功能。描述符堆扩展允许对描述符和存储描述符的内存进行显式管理，相较 VK_EXT_descriptor_buffer 提供了更可移植的保证和更可预测的性能特征。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Vulkan 描述符堆是新一代 GPU 资源管理模式，对游戏和计算性能都有积极影响，RADV 默认启用标志着该技术已足够成熟。
+                </div>
+            </div>
+
+            <!-- 新闻条目 3 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">3</div>
+                    <div class="card-tags">
+                        <span class="tag tag-compute">计算</span>
+                        <span class="tag tag-gpu">GPU</span>
+                    </div>
+                </div>
+                <div class="card-title">ZLUDA v6 发布：AMD GPU 上 PhysX 运行良好，但失去商业资助</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-29</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    开源 CUDA 兼容项目 <strong>ZLUDA v6</strong> 正式发布，该项目曾秘密获得 AMD 资助开发，后在 2024 年底转向多 GPU CUDA 支持并专注于 AI。遗憾的是，商业资助再次被切断，项目维护者 Andrzej Janik 表示 ZLUDA 将回归"周末项目"状态。尽管如此，v6 版本带来了令人兴奋的进展：<strong>PhysX 现已在 AMD GPU 上良好运行</strong>，对老游戏的物理效果加速非常有意义。此外，v6 还新增纹理支持，并大幅改进了 Windows 支持（除 Linux 外）。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    ZLUDA 是 AMD GPU 用户摆脱 NVIDIA CUDA 生态锁定的重要希望，PhysX 支持的达成对游戏用户尤其有价值，但资助不稳定是隐忧。
+                </div>
+            </div>
+
+            <!-- 新闻条目 4 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">4</div>
+                    <div class="card-tags">
+                        <span class="tag tag-kernel">内核</span>
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-display">显示</span>
+                    </div>
+                </div>
+                <div class="card-title">Linux 7.2-rc1 发布：AMDGPU HDMI 2.1 FRL 等功能合并</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-28</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    Linux 7.2 的第一个候选版本（rc1）如约发布，标志着为期两周的合并窗口关闭。Linus Torvalds 表示"事情看起来相当正常"。Linux 7.2 合并了许多新特性，包括<strong>Cache Aware Scheduling</strong>、Intel USB4STREAM、AMD ISP4 驱动、AMDGPU HDMI 2.1 FRL 支持初始工作</strong>等。本次发布包含超过 4300 万行代码，其中约三分之一是 AMD GPU 寄存器定义头文件更新。Linux 7.2 稳定版预计在约八周后的性能测试后发布，将为 Fedora 45 和 Ubuntu 26.10 等发行版提供内核。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Linux 7.2 内核带来了多项图形和显示相关改进，AMDGPU HDMI 2.1 FRL 支持对于高清音视频用户非常重要，标志着内核图形栈的持续进化。
+                </div>
+            </div>
+
+            <!-- 新闻条目 5 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">5</div>
+                    <div class="card-tags">
+                        <span class="tag tag-display">显示</span>
+                        <span class="tag tag-gpu">GPU</span>
+                    </div>
+                </div>
+                <div class="card-title">Nourish：基于 Vulkan 的新 Wayland 合成器，支持无限工作区</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-27</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    一个新的 Wayland 合成器 <strong>Nourish</strong> 亮相，其独特卖点是提供"无限"缩放和平移功能，实质上创建了一个<strong>无限工作区</strong>。Nourish 使用 <strong>Vulkan API 进行渲染</strong>（可回退到 OpenGL ES 以支持旧硬件），设计理念是"不让用户受限于屏幕大小"。该项目已在开源 AMD、Intel GPU 驱动以及官方 NVIDIA 驱动上测试。Nourish 利用 y5（一个用 Rust 编写的 Wayland 合成器框架）进行底层开发，并使用了 Smithay、WGPU、Iced 等项目的代码。目前 Fedora Linux 已有二进制包可用。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Nourish 代表了 Wayland 合成器的新方向，Vulkan 渲染和无限工作区概念对创意工作者和高效能用户非常有吸引力，是 Linux 桌面创新的有益尝试。
+                </div>
+            </div>
+
+            <!-- 新闻条目 6 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">6</div>
+                    <div class="card-tags">
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-compute">计算</span>
+                    </div>
+                </div>
+                <div class="card-title">DXVK 3.0 发布：DXBC-SPIRV 着色器编译，默认启用描述符堆</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-25</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    DXVK 3.0 正式发布，这是用于 Wine 和 Valve Steam Play (Proton) 的 Direct3D 8/9/10/11 到 Vulkan 转译层的重要功能更新。主要变化包括：<strong>采用 DXBC-SPIRV 进行着色器编译</strong>，替代旧版着色器转译代码；<strong>默认使用 Vulkan 描述符堆</strong>（VK_EXT_descriptor_heap）；大量 Direct3D 改进、共享资源增强、帧率限制器支持等。DXBC-SPIRV 是基于 SSA 的 D3D SM 5.1+ 编译器，生成的代码更紧凑，着色器编译完全卸载到工作线程，有助于缩短游戏加载时间。DXVK 3.0 现在需要 Vulkan 1.4 驱动级别支持。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    DXVK 是 Linux 游戏体验的关键组件，3.0 版本的着色器编译改进和描述符堆支持将显著提升游戏性能和兼容性。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📌 数据来源：Phoronix、GitHub、各项目官方发布</p>
+        <p>🕐 生成时间：2026-06-30 09:20 GMT+8</p>
+        <p>🔗 项目仓库：<a href="https://github.com/lph12168x/Linux_News_Daily" target="_blank">Linux_News_Daily</a> | 
+            <a href="index.html">返回首页</a>
+        </p>
+    </div>
+
+    <script>
+        // 主题切换功能
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            document.documentElement.setAttribute('data-theme', newTheme);
+            updateButtonText(newTheme);
+        }
+
+        // 更新按钮文本
+        function updateButtonText(theme) {
+            const button = document.querySelector('.theme-toggle');
+            button.textContent = theme === 'light' ? '🌙 暗色主题' : '☀️ 亮色主题';
+        }
+
+        // 页面加载时恢复主题
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateButtonText(savedTheme);
+        })();
+    </script>
+</body>
+</html>
