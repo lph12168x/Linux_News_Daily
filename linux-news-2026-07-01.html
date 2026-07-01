@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux 每日新闻 - 2026-07-01 (Q2总结特刊)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --accent: #0d6efd;
+            --accent-light: #e7f1ff;
+            --tag-gpu: #198754;
+            --tag-display: #fd7e14;
+            --tag-compute: #6f42c1;
+            --tag-kernel: #dc3545;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-card: #333333;
+            --text-primary: #e9ecef;
+            --text-secondary: #adb5bd;
+            --border-color: #495057;
+            --accent: #4dabf7;
+            --accent-light: #1c3d5a;
+            --tag-gpu: #51cf66;
+            --tag-display: #ff922b;
+            --tag-compute: #b197fc;
+            --tag-kernel: #ff6b6b;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--accent) 0%, #6610f2 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .header .special-edition {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .summary {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .summary h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .summary ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .summary li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .summary li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-number {
+            background: var(--accent);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-gpu { background: var(--tag-gpu); color: white; }
+        .tag-display { background: var(--tag-display); color: white; }
+        .tag-compute { background: var(--tag-compute); color: white; }
+        .tag-kernel { background: var(--tag-kernel); color: white; }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .card-reason {
+            background: var(--accent-light);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+        }
+
+        .card-reason strong {
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
+
+    <div class="header">
+        <h1>🐧 Linux 每日新闻</h1>
+        <p>2026 年 7 月 1 日 | 图形 · 显示 · 计算方向</p>
+        <div class="special-edition">📊 Q2 总结特刊：回顾第二季度重要进展</div>
+    </div>
+
+    <div class="container">
+        <div class="summary">
+            <h2>📋 2026年Q2重要进展概览</h2>
+            <ul>
+                <li><strong>Intel Arc Pro B70</strong> 发布，32GB GDDR6显存，面向LLM/AI工作负载</li>
+                <li><strong>Linux 7.2-rc1</strong> 发布，合并AMDGPU HDMI 2.1 FRL、AMD ISP4等重要功能</li>
+                <li><strong>Mesa 26.2</strong> 带来Vulkan Present Timing支持、NVK驱动DLSS支持等特性</li>
+                <li><strong>Wine Wayland</strong> 原生驱动持续成熟，合并指针偏移支持、分数缩放等功能</li>
+                <li><strong>AMD Linux AI生态</strong> 持续完善，Lemonade SDK、GAIA工具更新</li>
+                <li><strong>NVIDIA开源驱动</strong> Nova项目持续推进，Blackwell架构支持逐步完善</li>
+            </ul>
+        </div>
+
+        <div class="news-grid">
+            <!-- 新闻条目 1 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">1</div>
+                    <div class="card-tags">
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-compute">计算</span>
+                    </div>
+                </div>
+                <div class="card-title">Intel Arc Pro B70 发布：32GB显存面向AI/LLM</div>
+                <div class="card-meta">
+                    <span>📅 2026-04-08</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    Intel正式发布<strong>Arc Pro B70</strong>专业显卡，搭载Battlemage G31核心，配备<strong>32GB GDDR6显存</strong>、32个Xe核心、32个光线追踪单元。这款显卡面向LLM/AI、专业视觉计算等场景，在Linux开源驱动栈上表现良好。Phoronix的测试显示，Arc Pro B70在OpenVINO、Llama.cpp等AI推理框架，以及OpenCL、OpenGL、Vulkan等图形API上都有不错表现。多卡配置下性能潜力更大，适合AI工作station和边缘计算场景。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Intel Arc Pro B70的大显存和高性价比使其成为Linux下AI/LLM推理的有吸引力的选择，开源驱动支持也使得部署更加便捷。
+                </div>
+            </div>
+
+            <!-- 新闻条目 2 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">2</div>
+                    <div class="card-tags">
+                        <span class="tag tag-kernel">内核</span>
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-display">显示</span>
+                    </div>
+                </div>
+                <div class="card-title">Linux 7.2-rc1 发布：AMDGPU HDMI 2.1 FRL 支持</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-28</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    Linux 7.2的第一个候选版本（rc1）于6月28日发布，标志着为期两周的合并窗口关闭。本次发布包含超过<strong>4300万行代码</strong>，其中约三分之一是AMD GPU寄存器定义头文件更新。图形/显示相关的重要合并包括：<strong>AMDGPU HDMI 2.1 FRL（固定速率链路）支持</strong>初始工作、<strong>AMD ISP4</strong>图像信号处理驱动、Intel <strong>Xe CRI</strong>平台支持、<strong>Cache Aware Scheduling</strong>等。HDMI 2.1 FRL支持对于高分辨率（4K/8K）高刷新率显示输出非常重要，是AMD GPU Linux驱动的重要里程碑。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Linux 7.2内核带来了多项图形和显示相关改进，AMDGPU HDMI 2.1 FRL支持对于高清音视频用户非常重要，标志着内核图形栈的持续进化。
+                </div>
+            </div>
+
+            <!-- 新闻条目 3 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">3</div>
+                    <div class="card-tags">
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-display">显示</span>
+                    </div>
+                </div>
+                <div class="card-title">Mesa 26.2 合并多项重要特性：Vulkan Present Timing、NVK DLSS</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-21</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    Mesa 26.2图形驱动栈在Q2合并了多项重要特性：<strong>Vulkan Present Timing支持</strong> for X11/XWayland，优化游戏画面帧同步，减少撕裂；<strong>开源NVIDIA NVK Vulkan驱动支持DLSS</strong>，可在Linux下用开源驱动获得NVIDIA GPU的AI画质提升能力；<strong>VK_GOOGLE_display_timing扩展支持</strong>，降低游戏输入延迟；<strong>Arm Mali G1 Pro支持</strong>，PanVK/Panfrost驱动已可支持新一代Mali GPU。这些特性使得Mesa 26.2成为2026年Linux图形栈的重要更新。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Mesa 26.2的多个重要特性将显著提升Linux下的游戏和图形应用体验，特别是Vulkan Present Timing和NVK DLSS支持。
+                </div>
+            </div>
+
+            <!-- 新闻条目 4 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">4</div>
+                    <div class="card-tags">
+                        <span class="tag tag-display">显示</span>
+                        <span class="tag tag-gpu">GPU</span>
+                    </div>
+                </div>
+                <div class="card-title">Wine Wayland 原生驱动持续成熟：指针偏移、分数缩放</div>
+                <div class="card-meta">
+                    <span>📅 2026-05-12</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    Wine的Wayland原生驱动在Q2持续成熟：<strong>合并指针偏移（pointer warp）支持</strong>，实现wp_pointer_warp_v1协议，对于第一人称射击游戏、应用内无限平移等场景非常重要；<strong>分数缩放（fractional scaling）支持</strong>在Wine 11.12中发布，用户在不同显示器上可以使用不同的缩放比例，极大提升了高分辨率显示屏上的UI体验。这些改进使得在Wayland环境下运行Windows应用和游戏的体验大幅提升，减少了对XWayland的依赖。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Wine的Wayland原生支持正在快速成熟，指针偏移和分数缩放是高分辨率显示环境下的关键功能，对于Linux桌面用户运行Windows应用体验提升显著。
+                </div>
+            </div>
+
+            <!-- 新闻条目 5 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">5</div>
+                    <div class="card-tags">
+                        <span class="tag tag-compute">计算</span>
+                        <span class="tag tag-gpu">GPU</span>
+                    </div>
+                </div>
+                <div class="card-title">AMD Linux AI 生态持续完善：Lemonade SDK、GAIA 工具</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-30</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    AMD在Q2持续完善其Linux AI生态：<strong>Lemonade SDK 10.8</strong>集成MCP服务器支持，10.3版本弃用Electron，体积缩小为原来的1/10；<strong>GAIA（AMD的AI驱动Bash代码辅助工具）</strong>0.17.6版本新增Gmail集成功能，后续版本支持通过对话构建自定义AI代理，成为跨Windows、Linux、macOS的"真正桌面应用"；<strong>AMD向FFmpeg贡献ONNX Runtime后端支持</strong>，可让FFmpeg的DNN滤镜调用AI模型时利用AMD GPU加速。这些工具和库的完善使得在Linux下使用AMD GPU进行AI开发和推理更加便捷。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    AMD持续投入Linux AI生态建设，Lemonade SDK和GAIA等工具降低了在Linux下使用AMD GPU进行AI开发的门槛。
+                </div>
+            </div>
+
+            <!-- 新闻条目 6 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">6</div>
+                    <div class="card-tags">
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-kernel">内核</span>
+                    </div>
+                </div>
+                <div class="card-title">NVIDIA 开源驱动 Nova 项目推进：Blackwell 架构支持</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-05</span>
+                    <span>🔗 Phoronix</span>
+                </div>
+                <div class="card-content">
+                    NVIDIA开源驱动项目<strong>Nova</strong>在Q2持续推进：<strong>Hopper & Blackwell GPU支持</strong>逐步完善，未来有望实现这些新一代显卡的开源驱动覆盖；<strong>Linux 7.2开始为NVIDIA "Blackwell-Next"做准备</strong>，包括VFIO虚拟化相关的适配；<strong>NVIDIA工程师向Linux内核提交ACPI CPPC v4支持</strong>，可优化NVIDIA GPU和CPU的协同能效调度。虽然NVIDIA的传统私有驱动仍然主导市场，但Nouveau/NVK/Nova等开源项目的进展为Linux用户提供了更多选择。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    NVIDIA开源驱动的进展对于Linux用户意义重大，减少了对私有驱动的依赖，提升了系统的开放性和自由度。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📌 数据来源：Phoronix、Intel、AMD、Mesa、Wine官方发布</p>
+        <p>🕐 生成时间：2026-07-01 09:20 GMT+8</p>
+        <p>📊 本期为Q2总结特刊，回顾2026年第二季度Linux图形/显示/计算重要进展</p>
+        <p>🔗 项目仓库：<a href="https://github.com/lph12168x/Linux_News_Daily" target="_blank">Linux_News_Daily</a> | 
+            <a href="index.html">返回首页</a>
+        </p>
+    </div>
+
+    <script>
+        // 主题切换功能
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            document.documentElement.setAttribute('data-theme', newTheme);
+            updateButtonText(newTheme);
+        }
+
+        // 更新按钮文本
+        function updateButtonText(theme) {
+            const button = document.querySelector('.theme-toggle');
+            button.textContent = theme === 'light' ? '🌙 暗色主题' : '☀️ 亮色主题';
+        }
+
+        // 页面加载时恢复主题
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateButtonText(savedTheme);
+        })();
+    </script>
+</body>
+</html>

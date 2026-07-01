@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-01](linux-news-2026-07-01.html) | Q2总结特刊：Intel Arc Pro B70 32GB显存 · Linux 7.2-rc1 AMDGPU HDMI 2.1 FRL · Mesa 26.2 Vulkan Present Timing/NVK DLSS · Wine Wayland 指针偏移/分数缩放 · AMD Linux AI生态 |
 | [2026-06-30](linux-news-2026-06-30.html) | Wine 11.12 Wayland 分数缩放 · RADV 默认启用描述符堆 · ZLUDA v6 PhysX 支持 · Linux 7.2-rc1 发布 · Nourish Vulkan 合成器 |
 | [2026-06-29](linux-news-2026-06-29.html) | Linux 7.2-rc1 发布 · CVE-2026-53293 AMDGPU 死锁修复 · Intel HDR over DP MST · DXVK 3.0 发布 · Nourish Vulkan 合成器 |
 | [2026-06-26](linux-news-2026-06-26.html) | Mesa 26.2 Present Timing · Valve RTI 光追检查器 · NVK DLSS 支持 · Linux 7.2 Blackwell-Next · AMD Gamma 2.4/2.6 |
