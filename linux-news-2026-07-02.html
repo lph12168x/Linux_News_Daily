@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux 每日新闻 - 2026-07-02</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --accent: #0d6efd;
+            --accent-light: #e7f1ff;
+            --tag-gpu: #198754;
+            --tag-display: #fd7e14;
+            --tag-compute: #6f42c1;
+            --tag-kernel: #dc3545;
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-card: #333333;
+            --text-primary: #e9ecef;
+            --text-secondary: #adb5bd;
+            --border-color: #495057;
+            --accent: #4dabf7;
+            --accent-light: #1c3d5a;
+            --tag-gpu: #51cf66;
+            --tag-display: #ff922b;
+            --tag-compute: #b197fc;
+            --tag-kernel: #ff6b6b;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--accent) 0%, #6610f2 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .summary {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .summary h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .summary ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .summary li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .summary li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-number {
+            background: var(--accent);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-gpu { background: var(--tag-gpu); color: white; }
+        .tag-display { background: var(--tag-display); color: white; }
+        .tag-compute { background: var(--tag-compute); color: white; }
+        .tag-kernel { background: var(--tag-kernel); color: white; }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .card-content a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .card-content a:hover {
+            text-decoration: underline;
+        }
+
+        .card-reason {
+            background: var(--accent-light);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+        }
+
+        .card-reason strong {
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
+
+    <div class="header">
+        <h1>🐧 Linux 每日新闻</h1>
+        <p>2026 年 7 月 2 日 | 图形 · 显示 · 计算方向</p>
+    </div>
+
+    <div class="container">
+        <div class="summary">
+            <h2>📋 今日速览</h2>
+            <ul>
+                <li><strong>NVIDIA Nova 驱动</strong> 采用新 TLV 固件格式，便于 Rust 代码解析</li>
+                <li><strong>COSMIC Epoch 1.2</strong> 修复 Intel Meteor Lake/Arrow Lake/Lunar Lake 闪烁问题</li>
+                <li><strong>Valve 工程师</strong> 持续改进 AMD GCN 1.0/1.1 老显卡驱动，修复 VM 故障</li>
+                <li><strong>Linux 7.3</strong> 引入 DRM 色彩格式属性，AMDGPU 率先支持</li>
+                <li><strong>Intel 砍掉 AMX-TF32</strong>，Diamond Rapids 的 AI 矩阵加速指令未出道即夭折</li>
+                <li><strong>Linux 7.3 修复 Gen5 NVMe 小 I/O 瓶颈</strong>，随机读取性能提升可达 14%</li>
+            </ul>
+        </div>
+
+        <div class="news-grid">
+            <!-- 新闻条目 1: NVIDIA Nova TLV Firmware -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">1</div>
+                    <div class="card-tags">
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-kernel">内核</span>
+                    </div>
+                </div>
+                <div class="card-title">NVIDIA 为 Nova 开源驱动开发新 TLV 固件二进制格式</div>
+                <div class="card-meta">
+                    <span>📅 2026-07-01</span>
+                    <span>🔗 <a href="https://www.phoronix.com/news/NVIDIA-Nova-Driver-TLV" target="_blank">Phoronix</a></span>
+                </div>
+                <div class="card-content">
+                    NVIDIA 工程师正在为正在开发中的开源 <strong>Nova 内核驱动</strong>设计一种新的 GPU 固件镜像二进制格式——<strong>TLV（Type-Length-Value）格式</strong>。TLV 是嵌入式系统和通信协议中广泛使用的数据结构，其自描述特性使得基于 <strong>Rust 语言</strong>编写的 Nova 驱动代码能更简洁地解析固件内容。Nova 是 NVIDIA 全新开发的 Rust 内核驱动，旨在为 Hopper、Blackwell 及后续 GPU 架构提供一流的开源支持，与现有的 Nouveau 驱动并行发展。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Nova 驱动代表着 NVIDIA 对 Linux 开源生态的战略投入。TLV 固件格式的选择体现了 Rust-first 的设计理念，有望降低固件解析的复杂度，加速 Nova 驱动的开发迭代。
+                </div>
+            </div>
+
+            <!-- 新闻条目 2: COSMIC Epoch 1.2 -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">2</div>
+                    <div class="card-tags">
+                        <span class="tag tag-display">显示</span>
+                        <span class="tag tag-gpu">GPU</span>
+                    </div>
+                </div>
+                <div class="card-title">COSMIC Epoch 1.2 修复 Intel 新显卡闪烁问题</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-30</span>
+                    <span>🔗 <a href="https://www.phoronix.com/news/COSMIC-Epoch-1.2" target="_blank">Phoronix</a></span>
+                </div>
+                <div class="card-content">
+                    System76 发布了基于 Rust 开发的 <strong>COSMIC Epoch 1.2</strong> 桌面环境。本次更新的重要修复针对 Intel 新一代显卡的显示问题：自 <strong>Meteor Lake</strong> 以来，用户在使用集成显卡与独立显卡（AMD/NVIDIA）混合配置的笔记本时，会遭遇画面<strong>闪烁</strong>。问题延续到了 <strong>Arrow Lake</strong> 和 <strong>Lunar Lake</strong>。COSMIC 合成器通过在 Intel iGPU 与独立 GPU 之间复制数据时<strong>不再尝试 DMA 拷贝</strong>来规避该问题。此外，还修复了工作区概览打开时的闪烁、新增 AVIF 图片支持等。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Intel 新平台（Meteor Lake / Arrow Lake / Lunar Lake）上的图形体验直接影响大量笔记本用户。COSMIC 的修复为 Rust 桌面生态在混合 GPU 场景下的可靠性树立了标杆。
+                </div>
+            </div>
+
+            <!-- 新闻条目 3: RADV/RadeonSI GCN 1.0/1.1 Fixes -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">3</div>
+                    <div class="card-tags">
+                        <span class="tag tag-gpu">GPU</span>
+                    </div>
+                </div>
+                <div class="card-title">Valve 工程师修复 AMD GCN 1.0/1.1 GPU 驱动 VM 故障</div>
+                <div class="card-meta">
+                    <span>📅 2026-07-01</span>
+                    <span>🔗 <a href="https://www.phoronix.com/news/RADV-L2-Flush-Fix-GFX6-GFX7" target="_blank">Phoronix</a></span>
+                </div>
+                <div class="card-content">
+                    Valve 的 Linux 图形驱动工程师 <strong>Timur Kristóf</strong> 持续关注 AMD 老一代 GPU 的开源驱动支持。最新修复针对 <strong>GCN 1.0 (GFX6)</strong> 和 <strong>GCN 1.1 (GFX7)</strong> GPU 的硬件/固件缺陷：<code>EVENT_WRITE_EOP</code> 无法等待 L2 缓存写回，导致栅栏（fence）在 L2 仍为脏状态时就发出信号，引发 <strong>VM 故障</strong>和 GPU 挂起。修复方案是在每次提交后<strong>等待着色器完成并刷新 L2 缓存</strong>。此外还回退了之前针对 Hawaii GPU 的 RADV 临时 workaround（内核端已有正式修复），避免了该 workaround 带来的性能退化。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    Valve 对老旧硬件的持续投入体现了 Linux 游戏生态的长尾价值——即使是近十年前的 GCN 1.0/1.1 显卡，仍能获得关键的稳定性修复，受益于 Steam Deck 生态的反哺效应。
+                </div>
+            </div>
+
+            <!-- 新闻条目 4: Linux 7.3 DRM Color Format -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">4</div>
+                    <div class="card-tags">
+                        <span class="tag tag-display">显示</span>
+                        <span class="tag tag-gpu">GPU</span>
+                        <span class="tag tag-kernel">内核</span>
+                    </div>
+                </div>
+                <div class="card-title">Linux 7.3 引入 DRM 色彩格式属性，AMDGPU 率先支持</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-28</span>
+                    <span>🔗 <a href="https://www.phoronix.com/news/Linux-7.3-DRM-Color-Format" target="_blank">Phoronix</a></span>
+                </div>
+                <div class="card-content">
+                    虽然 Linux 7.2 合并窗口刚刚关闭，<strong>Linux 7.3</strong> 周期的首个重要特性已经浮现：DRM 子系统将引入新的<strong>"色彩格式"属性</strong>，允许用户空间请求显示驱动以特定色彩格式输出。支持的初始值包括 <strong>AUTO、RGB、YUV 4:4:4、YUV 4:2:2、YUV 4:2:0</strong>。该特性经过 <strong>15 轮修订</strong>，最早可追溯到 2021 年的早期探索。<strong>AMDGPU</strong> 内核驱动在首批拉取请求中率先获得支持，Intel 和 Rockchip 驱动的补丁也已提交。Wayland 的 Weston 合成器已准备好利用该属性。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    DRM 色彩格式属性是 Linux 显示栈色彩管理的重要里程碑，YUV 格式的原生支持对视频播放、HDR 内容呈现和广色域显示器具有实际价值。AMD 在此领域继续保持领先。
+                </div>
+            </div>
+
+            <!-- 新闻条目 5: Intel AMX-TF32 Killed -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">5</div>
+                    <div class="card-tags">
+                        <span class="tag tag-compute">计算</span>
+                    </div>
+                </div>
+                <div class="card-title">Intel 砍掉 AMX-TF32：Diamond Rapids 的 AI 矩阵加速未出道即夭折</div>
+                <div class="card-meta">
+                    <span>📅 2026-06-30</span>
+                    <span>🔗 <a href="https://www.phoronix.com/news/Intel-Kills-AMX-TF32" target="_blank">Phoronix</a></span>
+                </div>
+                <div class="card-content">
+                    Intel 在最新版的 ISA 编程参考手册中<strong>移除了 AMX-TF32 指令扩展</strong>，同时删除的还有 User-Timer Events 和 Interrupts。AMX-TF32 原计划为 Advanced Matrix Extensions (AMX) 引入 <strong>NVIDIA TensorFloat-32 (TF32) 格式</strong>的原生支持——TF32 兼具 FP32 的数值范围和 FP16 的计算性能，是 AI/矩阵运算的关键加速格式。该特性自 2024 年被记录为 Diamond Rapids 的 ISA 能力，如今在处理器计划于 2027 年发布前被突然移除。Intel 工程师已同步从 <strong>GCC 编译器</strong>中剥离 AMX-TF32 支持，并需要向 GCC 15/16 回溯移除补丁。这与去年被砍掉的 AMX-TRANSPOSE 遭遇了相同命运。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    AMX-TF32 的取消可能反映 Intel 在数据中心 AI 加速路线图上的调整。对于依赖 AMX 进行 AI 推理加速的 Linux 计算生态而言，这意味着 Diamond Rapids 在矩阵计算方面的差异化优势减弱。
+                </div>
+            </div>
+
+            <!-- 新闻条目 6: Linux 7.3 Small I/O Fix -->
+            <div class="news-card">
+                <div class="card-header">
+                    <div class="card-number">6</div>
+                    <div class="card-tags">
+                        <span class="tag tag-compute">计算</span>
+                        <span class="tag tag-kernel">内核</span>
+                    </div>
+                </div>
+                <div class="card-title">Linux 7.3 修复 PCIe Gen5 NVMe 小 I/O 瓶颈，随机读取提升 14%</div>
+                <div class="card-meta">
+                    <span>📅 2026-07-01</span>
+                    <span>🔗 <a href="https://www.phoronix.com/news/Linux-7.3-Faster-Small-Direct" target="_blank">Phoronix</a></span>
+                </div>
+                <div class="card-content">
+                    字节跳动工程师 <strong>Fengnan Chang</strong> 在 Linux 内核中发现了一个影响 <strong>PCIe Gen5 NVMe SSD</strong> 小 I/O 性能的"显著瓶颈"。在进行 4K 随机读取时，CPU 将大量时间消耗在 <strong>IOmap 框架</strong>的内存分配和状态机处理上。解决方案是在 IOmap 的直接 I/O 路径中为小型请求（I/O 大小 ≤ inode 块大小）引入一条<strong>简化路径</strong>。测试结果显示，4K 随机读取从 <strong>1.92M IOPS 跃升至 2.19M IOPS</strong>；在 EXT4/XFS + io_uring + 高队列深度场景下，性能提升可达 <strong>10%</strong>。该补丁已合入 VFS 子系统的 vfs-7.3.iomap 分支。
+                </div>
+                <div class="card-reason">
+                    <strong>💡 关注理由</strong>
+                    PCIe Gen5 NVMe 正快速普及至工作站和数据中心。这个看似"微小"的内核优化在高性能计算、数据库和 AI 训练数据加载等 I/O 密集型场景能带来可观的吞吐量收益。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>📌 数据来源：<a href="https://www.phoronix.com" target="_blank">Phoronix</a></p>
+        <p>🕐 生成时间：2026-07-02 09:20 GMT+8</p>
+        <p>📊 本期共筛选 6 条动态，覆盖 GPU 驱动、显示协议与高性能计算方向</p>
+        <p>🔗 项目仓库：<a href="https://github.com/lph12168x/Linux_News_Daily" target="_blank">Linux_News_Daily</a> | 
+            <a href="index.html">返回首页</a>
+        </p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            document.documentElement.setAttribute('data-theme', newTheme);
+            updateButtonText(newTheme);
+        }
+
+        function updateButtonText(theme) {
+            const button = document.querySelector('.theme-toggle');
+            button.textContent = theme === 'light' ? '🌙 暗色主题' : '☀️ 亮色主题';
+        }
+
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateButtonText(savedTheme);
+        })();
+    </script>
+</body>
+</html>
