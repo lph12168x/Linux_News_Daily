@@ -5,7 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Linux 图形·显示·计算 每日动态</title>
 <style>
+  /* ===== Light Theme (default) ===== */
   :root {
+    --bg: #fafbfc;
+    --surface: #f0f2f5;
+    --card: #ffffff;
+    --border: #dce1e8;
+    --text: #1a1f36;
+    --text-dim: #6b7280;
+    --accent-gpu: #059669;
+    --accent-display: #0369a1;
+    --accent-compute: #c2410c;
+    --accent-npu: #7c3aed;
+    --accent-kernel: #db2777;
+    --accent-hl: #d97706;
+    --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,.08);
+    --hero-glare: rgba(5,150,105,.04);
+    --entry-glow: rgba(5,150,105,.06);
+    --badge-alpha: .1;
+    --tag-bg-gpu: rgba(5,150,105,.1);
+    --tag-bg-display: rgba(3,105,161,.1);
+    --tag-bg-compute: rgba(194,65,12,.1);
+    --tag-bg-npu: rgba(124,58,237,.1);
+    --tag-bg-kernel: rgba(219,39,119,.1);
+  }
+
+  /* ===== Dark Theme ===== */
+  [data-theme="dark"] {
     --bg: #0a0e14;
     --surface: #131820;
     --card: #181f2a;
@@ -18,210 +45,385 @@
     --accent-npu: #bd93f9;
     --accent-kernel: #ff79c6;
     --accent-hl: #f1fa8c;
+    --shadow: 0 1px 3px rgba(0,0,0,.3);
+    --shadow-lg: 0 10px 30px rgba(0,0,0,.4);
+    --hero-glare: rgba(80,250,123,.06);
+    --entry-glow: rgba(80,250,123,.04);
+    --badge-alpha: .12;
+    --tag-bg-gpu: rgba(80,250,123,.12);
+    --tag-bg-display: rgba(139,233,253,.12);
+    --tag-bg-compute: rgba(255,184,108,.12);
+    --tag-bg-npu: rgba(189,147,249,.12);
+    --tag-bg-kernel: rgba(255,121,198,.12);
   }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.7;
     min-height: 100vh;
+    transition: background .35s, color .35s;
   }
+
+  /* === Theme Toggle === */
+  .theme-toggle {
+    position: fixed; top: 16px; right: 16px; z-index: 999;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 28px;
+    color: var(--text);
+    padding: 8px 18px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+    transition: all .25s;
+    box-shadow: var(--shadow);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-display);
+  }
+
+  /* === Hero === */
   .hero {
-    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1a2d 100%);
-    padding: 60px 32px 48px;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+    padding: 64px 32px 52px;
     text-align: center;
     border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
   }
   .hero::before {
     content: "";
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse 900px 300px at 50% 0%, rgba(80,250,123,.06), transparent);
+    background: radial-gradient(ellipse 900px 300px at 50% 0%, var(--hero-glare), transparent);
     pointer-events: none;
   }
+  .hero-icon { font-size: 42px; margin-bottom: 10px; position: relative; }
   .hero h1 {
-    font-size: 32px; font-weight: 700;
-    background: linear-gradient(135deg, #50fa7b, #8be9fd);
+    font-size: 34px; font-weight: 800; letter-spacing: -.5px;
+    background: linear-gradient(135deg, var(--accent-gpu), var(--accent-display));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 12px;
-    position: relative;
+    margin-bottom: 10px; position: relative;
   }
   .hero .subtitle {
     font-size: 15px; color: var(--text-dim);
-    max-width: 600px; margin: 0 auto;
+    max-width: 560px; margin: 0 auto; position: relative;
   }
   .hero .badges {
-    display: flex; justify-content: center; gap: 10px; margin-top: 20px;
-    flex-wrap: wrap;
+    display: flex; justify-content: center; gap: 10px; margin-top: 22px;
+    flex-wrap: wrap; position: relative;
   }
   .hero .badges span {
-    display: inline-block; padding: 4px 14px; border-radius: 20px;
-    font-size: 11px; font-weight: 600; letter-spacing: .3px;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 16px; border-radius: 20px;
+    font-size: 12px; font-weight: 700; letter-spacing: .4px;
   }
-  .b-gpu     { background: rgba(80,250,123,.12);  color: #50fa7b; }
-  .b-display { background: rgba(139,233,253,.12);  color: #8be9fd; }
-  .b-compute { background: rgba(255,184,108,.12);  color: #ffb86c; }
-  .b-npu     { background: rgba(189,147,249,.12);  color: #bd93f9; }
-  .b-kernel  { background: rgba(255,121,198,.12);  color: #ff79c6; }
+  .hero .badges .dot {
+    width: 7px; height: 7px; border-radius: 50%; display: inline-block;
+  }
 
+  .b-gpu     { background: var(--tag-bg-gpu);       color: var(--accent-gpu); }
+  .b-display { background: var(--tag-bg-display);   color: var(--accent-display); }
+  .b-compute { background: var(--tag-bg-compute);   color: var(--accent-compute); }
+  .b-npu     { background: var(--tag-bg-npu);       color: var(--accent-npu); }
+  .b-kernel  { background: var(--tag-bg-kernel);    color: var(--accent-kernel); }
+  .dot-gpu     { background: var(--accent-gpu); }
+  .dot-display { background: var(--accent-display); }
+  .dot-compute { background: var(--accent-compute); }
+  .dot-npu     { background: var(--accent-npu); }
+  .dot-kernel  { background: var(--accent-kernel); }
+
+  /* === Stats Bar === */
+  .stats {
+    max-width: 860px; margin: 0 auto; padding: 20px 20px 0;
+    display: flex; justify-content: center; gap: 24px;
+  }
+  .stat-item {
+    text-align: center; padding: 14px 24px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .stat-num {
+    font-size: 24px; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-gpu), var(--accent-display));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  /* === Container === */
   .container {
-    max-width: 860px; margin: 0 auto; padding: 40px 20px 60px;
+    max-width: 860px; margin: 0 auto; padding: 28px 20px 60px;
   }
   .intro {
-    text-align: center; margin-bottom: 36px; color: var(--text-dim);
-    font-size: 14px; line-height: 1.8;
+    text-align: center; margin-bottom: 32px; color: var(--text-dim);
+    font-size: 14px; line-height: 1.9;
+    padding: 20px 24px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; box-shadow: var(--shadow);
+    border-left: 3px solid var(--accent-display);
   }
-  .intro a { color: var(--accent-display); text-decoration: none; }
+  .intro strong { color: var(--text); }
+  .intro a { color: var(--accent-display); text-decoration: none; font-weight: 600; }
   .intro a:hover { text-decoration: underline; }
 
+  /* === Entry List === */
   .entry {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 22px 28px;
-    margin-bottom: 16px;
+    padding: 20px 28px;
+    margin-bottom: 12px;
     display: flex; align-items: center; gap: 20px;
-    transition: border-color .2s, transform .15s;
+    transition: all .25s;
     text-decoration: none; color: inherit;
+    box-shadow: var(--shadow);
+    position: relative; overflow: hidden;
+  }
+  .entry::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--entry-glow), transparent);
+    opacity: 0; transition: opacity .25s;
+    pointer-events: none;
   }
   .entry:hover {
-    border-color: #3a4558;
+    border-color: var(--accent-display);
+    box-shadow: var(--shadow-lg);
     transform: translateX(4px);
   }
+  .entry:hover::after { opacity: 1; }
+
   .entry-date {
-    font-size: 13px; font-weight: 700; color: var(--accent-hl);
-    white-space: nowrap; min-width: 90px;
+    font-size: 12px; font-weight: 700; color: var(--accent-hl);
+    white-space: nowrap; min-width: 88px;
+    display: flex; align-items: center; gap: 6px;
   }
+  .entry-date::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent-hl); flex-shrink: 0;
+  }
+
+  .entry-main { flex: 1; min-width: 0; }
   .entry-title {
-    font-size: 16px; font-weight: 600; flex: 1;
+    font-size: 16px; font-weight: 600; color: var(--text);
+    line-height: 1.4; margin-bottom: 3px;
   }
   .entry-hint {
-    font-size: 13px; color: var(--text-dim);
-    max-width: 300px; text-align: right; overflow: hidden;
-    text-overflow: ellipsis; white-space: nowrap;
-  }
-  .entry-arrow { color: var(--text-dim); font-size: 18px; }
-
-  .footer {
-    text-align: center; padding: 24px 20px 48px;
     font-size: 12px; color: var(--text-dim);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    max-width: 420px;
+  }
+  .entry-arrow {
+    color: var(--text-dim); font-size: 20px;
+    transition: color .25s, transform .25s; flex-shrink: 0;
+  }
+  .entry:hover .entry-arrow {
+    color: var(--accent-display); transform: translateX(3px);
+  }
+
+  /* === Footer === */
+  .footer {
+    text-align: center; padding: 28px 20px 48px;
+    font-size: 12px; color: var(--text-dim); line-height: 2;
+    border-top: 1px solid var(--border);
   }
   .footer a { color: var(--accent-display); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  .footer .divider { color: var(--border); margin: 0 8px; }
 
+  /* === Responsive === */
   @media (max-width: 640px) {
     .hero { padding: 40px 20px 32px; }
     .hero h1 { font-size: 24px; }
-    .entry { flex-direction: column; align-items: flex-start; gap: 6px; padding: 18px; }
-    .entry-hint { text-align: left; max-width: 100%; }
+    .entry { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 18px; }
+    .entry-hint { max-width: 100%; }
     .entry-arrow { display: none; }
+    .stats { flex-wrap: wrap; gap: 10px; }
+    .stat-item { flex: 1; min-width: 100px; padding: 10px 14px; }
+    .theme-toggle { top: 8px; right: 8px; padding: 6px 14px; font-size: 12px; }
   }
 </style>
 </head>
 <body>
 
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="切换主题">
+  <span id="toggle-icon">🌙</span> <span id="toggle-text">暗色</span>
+</button>
+
 <div class="hero">
+  <div class="hero-icon">🐧</div>
   <h1>Linux 图形·显示·计算 每日动态</h1>
   <div class="subtitle">自动化追踪 GPU 驱动、Wayland 显示栈、NPU 计算领域最新进展</div>
   <div class="badges">
-    <span class="b-gpu">GPU</span>
-    <span class="b-display">显示</span>
-    <span class="b-compute">计算</span>
-    <span class="b-npu">NPU</span>
-    <span class="b-kernel">内核</span>
+    <span class="b-gpu"><span class="dot dot-gpu"></span>GPU</span>
+    <span class="b-display"><span class="dot dot-display"></span>显示</span>
+    <span class="b-compute"><span class="dot dot-compute"></span>计算</span>
+    <span class="b-npu"><span class="dot dot-npu"></span>NPU</span>
+    <span class="b-kernel"><span class="dot dot-kernel"></span>内核</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num" id="total-count">—</div>
+    <div class="stat-label">累计期数</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">每日</div>
+    <div class="stat-label">更新频率</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">AI驱动</div>
+    <div class="stat-label">筛选引擎</div>
   </div>
 </div>
 
 <div class="container">
   <div class="intro">
-    每日由 AI 自动筛选 <strong>3–5 条</strong> Linux 图形/显示/计算领域高价值动态，<br>
-    以美观的深色主题仪表盘呈现，包含事件摘要与关注理由。<br>
-    <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
+    📌 每日由 AI 自动筛选 <strong>3–6 条</strong> Linux 图形 / 显示 / 计算领域高价值动态<br>
+    以美观的仪表盘形式呈现，包含事件摘要与<strong>关注理由</strong>。<br>
+    支持 <strong>亮色 / 暗色</strong> 双主题切换。<br>
+    🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
   <a class="entry" href="linux-news-2026-07-02.html">
-    <span class="entry-date">2026-07-02</span>
-    <span class="entry-title">Nova TLV固件 · COSMIC Epoch 1.2 · GCN驱动修复 · DRM色彩格式 · AMX-TF32取消</span>
-    <span class="entry-hint">NVIDIA Nova TLV固件格式、COSMIC修复Intel显卡闪烁、Linux 7.3 DRM色彩格式…</span>
+    <span class="entry-date">07-02</span>
+    <span class="entry-main">
+      <div class="entry-title">Nova TLV固件 · COSMIC Epoch 1.2 · GCN驱动修复 · DRM色彩格式 · AMX-TF32取消</div>
+      <div class="entry-hint">NVIDIA Nova TLV固件、COSMIC修复Intel显卡闪烁、Linux 7.3 DRM色彩格式…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-07-01.html">
-    <span class="entry-date">2026-07-01</span>
-    <span class="entry-title">Q2总结特刊：Intel Arc Pro B70 · Linux 7.2-rc1 · Mesa 26.2 · Wine Wayland</span>
-    <span class="entry-hint">2026年Q2 Linux图形/显示/计算重要进展回顾…</span>
+    <span class="entry-date">07-01</span>
+    <span class="entry-main">
+      <div class="entry-title">Q2总结特刊：Intel Arc Pro B70 · Linux 7.2-rc1 · Mesa 26.2 · Wine Wayland</div>
+      <div class="entry-hint">2026年Q2 Linux图形/显示/计算重要进展回顾…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-30.html">
-    <span class="entry-date">2026-06-30</span>
-    <span class="entry-title">Wine 11.12 · RADV 描述符堆 · ZLUDA v6 · Linux 7.2-rc1</span>
-    <span class="entry-hint">Wine 11.12 Wayland 分数缩放、RADV 默认启用描述符堆…</span>
+    <span class="entry-date">06-30</span>
+    <span class="entry-main">
+      <div class="entry-title">Wine 11.12 · RADV 描述符堆 · ZLUDA v6 · Linux 7.2-rc1</div>
+      <div class="entry-hint">Wine 11.12 Wayland 分数缩放、RADV 默认启用描述符堆…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-29.html">
-    <span class="entry-date">2026-06-29</span>
-    <span class="entry-title">Linux 7.2-rc1 · CVE-2026-53293 · DXVK 3.0 · Nourish</span>
-    <span class="entry-hint">Linux 7.2-rc1 发布、AMDGPU 死锁漏洞修复、DXVK 3.0…</span>
+    <span class="entry-date">06-29</span>
+    <span class="entry-main">
+      <div class="entry-title">Linux 7.2-rc1 · CVE-2026-53293 · DXVK 3.0 · Nourish</div>
+      <div class="entry-hint">Linux 7.2-rc1 发布、AMDGPU 死锁漏洞修复、DXVK 3.0…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-26.html">
-    <span class="entry-date">2026-06-26</span>
-    <span class="entry-title">Mesa 26.2 Present Timing · Valve RTI · NVK DLSS · Blackwell-Next</span>
-    <span class="entry-hint">Mesa 26.2 合并 Vulkan Present Timing、Valve 开源 RTI 光追检查器…</span>
+    <span class="entry-date">06-26</span>
+    <span class="entry-main">
+      <div class="entry-title">Mesa 26.2 Present Timing · Valve RTI · NVK DLSS · Blackwell-Next</div>
+      <div class="entry-hint">Mesa 26.2 合并 Vulkan Present Timing、Valve 开源 RTI 光追检查器…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-25.html">
-    <span class="entry-date">2026-06-25</span>
-    <span class="entry-title">Linux 7.2 合并窗口 · NVK DLSS · Xfce Wayland · AMD Gamma</span>
-    <span class="entry-hint">Linux 7.2 图形子系统大规模更新、NVK 支持 DLSS、Xfce Wayland 合成器…</span>
+    <span class="entry-date">06-25</span>
+    <span class="entry-main">
+      <div class="entry-title">Linux 7.2 合并窗口 · NVK DLSS · Xfce Wayland · AMD Gamma</div>
+      <div class="entry-hint">Linux 7.2 图形子系统大规模更新、NVK 首次支持 DLSS…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-24.html">
-    <span class="entry-date">2026-06-24</span>
-    <span class="entry-title">sched_ext 重构 · EPYC Sorano 性能 · ROCDXG WSL</span>
-    <span class="entry-hint">Linus 点评 sched_ext 源码、AMD EPYC 意外性能提升…</span>
+    <span class="entry-date">06-24</span>
+    <span class="entry-main">
+      <div class="entry-title">sched_ext 重构 · EPYC Sorano 性能 · ROCDXG WSL</div>
+      <div class="entry-hint">Linus 点评 sched_ext 源码重构、AMD EPYC 意外性能提升…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-23.html">
-    <span class="entry-date">2026-06-23</span>
-    <span class="entry-title">Valve RTI · Steam Machine · Present Timing · Blackwell-Next</span>
-    <span class="entry-hint">Valve RTI 光追调试工具、Steam Machine 上市、Mesa 26.2 Present Timing…</span>
+    <span class="entry-date">06-23</span>
+    <span class="entry-main">
+      <div class="entry-title">Valve RTI · Steam Machine · Mesa 26.2 Present Timing · Blackwell-Next</div>
+      <div class="entry-hint">Valve RTI 光追调试工具、Steam Machine $1049 上市…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-22.html">
-    <span class="entry-date">2026-06-22</span>
-    <span class="entry-title">NVK DLSS · CAS 缓存调度 · RMR/BRMR RDMA</span>
-    <span class="entry-hint">Mesa 26.2 NVK 首次支持 DLSS，Linux 7.2 合并窗口…</span>
+    <span class="entry-date">06-22</span>
+    <span class="entry-main">
+      <div class="entry-title">NVK DLSS · CAS 缓存调度 · RMR/BRMR RDMA 单跳复制</div>
+      <div class="entry-hint">Mesa 26.2 NVK 首次支持 DLSS、Linux 7.2 合并窗口…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-18.html">
-    <span class="entry-date">2026-06-18</span>
-    <span class="entry-title">HDMI 2.1 FRL · Vino Rust DRM · Xe3 性能</span>
-    <span class="entry-hint">AMDGPU HDMI 2.1 FRL 合入 Linux 7.2…</span>
+    <span class="entry-date">06-18</span>
+    <span class="entry-main">
+      <div class="entry-title">HDMI 2.1 FRL · Vino Rust DRM 驱动 · Xe3 性能</div>
+      <div class="entry-hint">AMDGPU HDMI 2.1 FRL 合入 Linux 7.2…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 
   <a class="entry" href="linux-news-2026-06-17.html">
-    <span class="entry-date">2026-06-17</span>
-    <span class="entry-title">Linux 7.1 正式发布 · Nova Lake NPU · Weston HDR</span>
-    <span class="entry-hint">GPU/NPU 驱动增强、Weston 16 Alpha…</span>
+    <span class="entry-date">06-17</span>
+    <span class="entry-main">
+      <div class="entry-title">Linux 7.1 正式发布 · Nova Lake NPU · Weston HDR</div>
+      <div class="entry-hint">GPU/NPU 驱动增强、Weston 16 Alpha HDR…</div>
+    </span>
     <span class="entry-arrow">→</span>
   </a>
 </div>
 
 <div class="footer">
-  WorkBuddy 自动化生成 · <a href="https://github.com/lph12168x/Linux_News_Daily">lph12168x/Linux_News_Daily</a>
+  WorkBuddy 自动化引擎<span class="divider">·</span>
+  <a href="https://github.com/lph12168x/Linux_News_Daily">lph12168x/Linux_News_Daily</a><span class="divider">·</span>
+  专注 Linux 图形与计算
 </div>
+
+<script>
+  function toggleTheme() {
+    var cur = localStorage.getItem('ln-theme') || 'light';
+    var next = cur === 'light' ? 'dark' : 'light';
+    localStorage.setItem('ln-theme', next);
+    applyTheme(next);
+  }
+
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    var icon = document.getElementById('toggle-icon');
+    var txt  = document.getElementById('toggle-text');
+    if (t === 'dark') {
+      icon.textContent = '☀️'; txt.textContent = '亮色';
+    } else {
+      icon.textContent = '🌙'; txt.textContent = '暗色';
+    }
+  }
+
+  // Count entries
+  document.addEventListener('DOMContentLoaded', function() {
+    var cnt = document.querySelectorAll('.entry').length;
+    document.getElementById('total-count').textContent = cnt;
+    applyTheme(localStorage.getItem('ln-theme') || 'light');
+  });
+</script>
 
 </body>
 </html>
