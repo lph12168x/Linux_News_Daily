@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 每日新闻 — 2026-07-03 — 图形 / 显示 / 计算</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a2e; --card: #f5f6fa; --accent: #4f46e5;
+    --accent2: #06b6d4; --border: #e2e8f0; --muted: #64748b;
+    --tag-gpu: #dbeafe; --tag-gpu-fg: #1e40af;
+    --tag-display: #dcfce7; --tag-display-fg: #166534;
+    --tag-compute: #fef9c3; --tag-compute-fg: #854d0e;
+    --tag-kernel: #f3e8ff; --tag-kernel-fg: #6b21a8;
+  }
+  [data-theme="dark"] {
+    --bg: #0f172a; --fg: #e2e8f0; --card: #1e293b; --accent: #818cf8;
+    --accent2: #22d3ee; --border: #334155; --muted: #94a3b8;
+    --tag-gpu: #1e3a5f; --tag-gpu-fg: #93c5fd;
+    --tag-display: #14532d; --tag-display-fg: #86efac;
+    --tag-compute: #422006; --tag-compute-fg: #fde68a;
+    --tag-kernel: #2d1b4e; --tag-kernel-fg: #c4b5fd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    line-height: 1.7; padding: 24px 16px 80px; max-width: 960px; margin: 0 auto;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid var(--accent); padding-bottom: 16px; margin-bottom: 32px;
+    flex-wrap: wrap; gap: 12px;
+  }
+  header h1 { font-size: 1.5rem; color: var(--accent); }
+  header .meta { color: var(--muted); font-size: 0.9rem; }
+  .toggle {
+    background: var(--card); border: 1px solid var(--border); color: var(--fg);
+    padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem;
+  }
+  .toggle:hover { background: var(--accent); color: #fff; }
+  .intro {
+    background: var(--card); border-left: 4px solid var(--accent2); border-radius: 0 8px 8px 0;
+    padding: 16px 20px; margin-bottom: 32px; font-size: 0.95rem; color: var(--muted);
+  }
+  .intro strong { color: var(--fg); }
+  .item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px 24px; margin-bottom: 20px; position: relative;
+  }
+  .item-header { display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .num {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--accent);
+    color: #fff; font-weight: 700; font-size: 0.95rem; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .item-title { font-size: 1.1rem; font-weight: 700; flex: 1; }
+  .item-title a { color: var(--accent); text-decoration: none; }
+  .item-title a:hover { text-decoration: underline; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 8px 50px; }
+  .tag {
+    font-size: 0.75rem; padding: 2px 10px; border-radius: 12px; font-weight: 600;
+  }
+  .tag-gpu { background: var(--tag-gpu); color: var(--tag-gpu-fg); }
+  .tag-display { background: var(--tag-display); color: var(--tag-display-fg); }
+  .tag-compute { background: var(--tag-compute); color: var(--tag-compute-fg); }
+  .tag-kernel { background: var(--tag-kernel); color: var(--tag-kernel-fg); }
+  .item-meta { margin-left: 50px; color: var(--muted); font-size: 0.82rem; margin-bottom: 8px; }
+  .item-body { margin-left: 50px; font-size: 0.92rem; color: var(--fg); }
+  .item-body p { margin-bottom: 8px; }
+  .why {
+    margin: 14px 0 0 50px; background: var(--bg); border: 1px dashed var(--accent2);
+    border-radius: 8px; padding: 12px 16px; font-size: 0.85rem; color: var(--muted);
+  }
+  .why strong { color: var(--accent2); }
+  footer {
+    text-align: center; color: var(--muted); font-size: 0.8rem;
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+  }
+  @media (max-width: 600px) {
+    .item-meta, .item-body, .why, .tags { margin-left: 0; }
+    .item-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Linux 每日新闻 — 图形 / 显示 / 计算 动态</h1>
+    <div class="meta">2026-07-03 &nbsp;|&nbsp; 来源：Phoronix &nbsp;|&nbsp; 第 32 期</div>
+  </div>
+  <button class="toggle" id="themeBtn" onclick="toggleTheme()">切换暗色主题</button>
+</header>
+
+<div class="intro">
+  <strong>今日导读（2026-07-03）：</strong>
+  Intel 发布 x86 AI 计算扩展 ACE 规范的 GCC 编译器补丁，Rusticl OpenCL 驱动在 Mesa 26.2 中大幅提升硬件利用率，
+  Rust 编写的 X11 服务器 YSERVER 1.3 发布并支持 Xinerama，RADV/RadeonSI 修复 AMD 旧 GPU 的 L2 缓存漏洞，
+  RISC-V RVV 向量扩展性能基准测试首次公开。
+</div>
+
+<!-- ITEM 1 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">1</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/Intel-GCC-ACE-AI-Patches" target="_blank">
+        Intel 提交 GCC 编译器补丁：支持 x86 AI 计算扩展 ACE
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-compute">计算</span>
+    <span class="tag tag-kernel">编译器</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-02 · Intel / GCC</div>
+  <div class="item-body">
+    <p>
+      x86 生态系统咨询组（Intel + AMD 主导）近期正式定稿了
+      <strong>AI Compute Extensions (ACE) v1 规范</strong>，作为 Intel AMX 的跨厂商继任者，
+      专为矩阵乘法和机器学习工作负载优化 x86 架构。
+    </p>
+    <p>
+      ACE 定义了一组矩阵乘法原语，新增 ACE 寄存器状态（含 tile 和 block scale 寄存器）、
+      消耗 AVX 寄存器输入的数据处理操作、ACE 与 AVX 寄存器间的数据移动操作，
+      以及系统管理相关状态与操作。ACE 提供 AVX 向量与 ACE tile 寄存器之间的紧密集成，
+      将高计算密度的 tile 处理操作与 AVX 的 comprehensive 数据处理能力相结合。
+    </p>
+    <p>
+      Intel 工程师已于 7 月 2 日向 GCC 邮件列表提交了首批 ACE 编译器支持补丁。
+      该实现部分基于 Intel 现有的 AMX-TILE 编译器代码及部分 AVX-512 元素。
+      预计 ACEv1 支持有望在明年（2027 年）的 <strong>GCC 17 稳定版</strong>中正式发布。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    ACE 是 x86 架构在 AI 时代的关键扩展，将直接影响未来 CPU 的矩阵计算能力，
+    对 GPU 加速之外的 CPU 推理场景具有重要意义。作为 AMX 的跨厂商继任者，
+    ACE 有望获得 AMD 和 Intel 双方的处理器支持，是影响 Linux AI 计算生态的基础性进展。
+  </div>
+</div>
+
+<!-- ITEM 2 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">2</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/Rusticl-Better-Utilization-Mesa" target="_blank">
+        Rusticl OpenCL 驱动改进硬件利用率 — Mesa 26.2 性能提升
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-compute">计算</span>
+    <span class="tag tag-gpu">GPU</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-02 · Mesa / Red Hat</div>
+  <div class="item-body">
+    <p>
+      Red Hat 工程师 Karol Herbst 向 Mesa 26.2 提交了 Rusticl（基于 Rust 的 OpenCL 驱动）的最新优化工作，
+      重点改进了 <strong>workgroup 大小选择逻辑</strong>，以生成最佳的 block size。
+    </p>
+    <p>
+      此次改进通过更好地填充 workgroup 和 subgroup，显著提升了硬件利用率（"increase hardware utilization by a significant amount"）。
+      对于请求任意 global size 的应用，这一改动将带来可观的性能改善。
+      虽然合并请求中未提供真实工作负载的性能数据，但基于填充率的测试显示 GPU 利用率有巨大提升。
+    </p>
+    <p>
+      Rusticl 作为 Mesa 中基于 Rust 编写的 OpenCL 驱动，支持所有 Gallium3D 驱动后端，
+      是 Linux 上开源 GPGPU 计算的重要组件。该功能已合并至 Mesa 26.2 主线，
+      预计随 8 月稳定版一同发布。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    Rusticl 是 Linux 上摆脱专有 OpenCL 驱动（如 NVIDIA 闭源驱动）的重要开放方案，
+    此次硬件利用率优化直接提升了 AMD GPU 等平台上的 OpenCL 计算性能，
+    对科学计算、AI 推理等 GPGPU 场景有实际价值。
+  </div>
+</div>
+
+<!-- ITEM 3 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">3</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/YSERVER-1.3-Released" target="_blank">
+        YSERVER 1.3 发布：Rust 编写的 X11 服务器新增 Xinerama、FreeBSD 支持
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-display">显示</span>
+    <span class="tag tag-kernel">X11</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-02 · X.Org / Rust</div>
+  <div class="item-body">
+    <p>
+      <strong>YSERVER</strong> 是用 Rust 编写的现代化 X11 显示服务器（借助 Claude Code AI 辅助开发），
+      在发布 1.0 版本仅一个月后，已于今日发布 <strong>1.3 版本</strong>，功能快速迭代。
+    </p>
+    <p>1.3 版本新增的主要特性包括：</p>
+    <ul style="margin:8px 0 8px 20px; color:var(--fg);">
+      <li><strong>FreeBSD 支持</strong> — 已在 GhostBSD 上测试验证</li>
+      <li><strong>musl / Alpine Linux 构建</strong> 正常工作</li>
+      <li><strong>显示热插拔（Display hotplug）</strong> 支持</li>
+      <li><strong>Direct-mode VT 切换</strong></li>
+      <li><strong>Xinerama 扩展支持</strong> — 多显示器关键扩展</li>
+      <li><strong>XFIXES pointer barriers</strong> 和 <strong>XC-MISC XID 回收</strong></li>
+      <li><strong>RANDR gamma 校正</strong> — redshift 工具可正常工作</li>
+      <li><strong>运行时 XKB 布局切换</strong> 及键盘 LED 状态驱动</li>
+      <li><strong>xauth 支持</strong></li>
+    </ul>
+    <p>
+      桌面环境测试方面，YSERVER 1.3 已完整测试通过 MATE、Xfce、Cinnamon 会话，
+      窗口管理器方面测试了 Compiz、Openbox、Awesome、Enlightenment、FVWM3、WMaker 等。
+      硬件测试覆盖 AMD、Intel、Snapdragon 及 Apple Silicon 显卡。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    X11 在传统 Linux 桌面中仍占重要地位，YSERVER 用 Rust 重写有望解决 C 语言 Xorg 服务器的
+    内存安全历史包袱。Xinerama 和多显示器支持的加入，使其更接近生产可用状态，
+    是显示服务器生态中值得关注的新兴项目。
+  </div>
+</div>
+
+<!-- ITEM 4 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">4</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/RADV-L2-Flush-Fix-GFX6-GFX7" target="_blank">
+        RADV & RadeonSI 修复 AMD GCN 1.0/1.1 GPU 的 L2 缓存 / VM 故障
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-gpu">GPU</span>
+    <span class="tag tag-kernel">驱动</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-01 · Valve / AMD / Mesa</div>
+  <div class="item-body">
+    <p>
+      Valve Linux 图形驱动团队的 Timur Kristóf 持续推进 AMD GCN 1.0（GFX6）和
+      GCN 1.1（GFX7）老旧 GPU 的开源驱动支持，此次向 Mesa 提交了关键修复补丁。
+    </p>
+    <p>
+      根本原因是 <strong>GFX6/GFX7 硬件和固件缺陷</strong>：
+      EVENT_WRITE_EOP 无法等待 L2 writeback，导致在 L2 仍然 dirty 时就触发 fence 信号，
+      进而引发 VM faults；此外，如果 VMID 在 L2 仍忙时被无效化，GFX6/GFX7 会挂起。
+    </p>
+    <p>
+      修复方案：对 GFX6/GFX7 的每次 submission 后，<strong>等待 shader 完成并刷新 L2 缓存</strong>。
+      该修复同时应用于 RADV（Vulkan）和 RadeonSI（OpenGL）两个驱动，
+      并额外添加了 CB/DB/meta flush。作为配套，还还原了之前针对 Hawaii 问题的 RADV 变通补丁
+      （因为 Linux 内核侧的 AMDGPU 修复已上游合入，Mesa 侧补丁反而会 regress Hawaii GPU 性能）。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    AMD GCN 1.0/1.1 GPU（如 Radeon HD 7000 系列、R9 280/290 等）仍有大量用户在使用，
+    此次修复解决了长期存在的 VM fault 稳定性问题。Valve 的持续投入也说明
+    Steam Deck 生态之外，老旧 AMD GPU 的 Linux 驱动维护仍是社区重点。
+  </div>
+</div>
+
+<!-- ITEM 5 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">5</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/review/risc-v-rvv-vector-benchmarks" target="_blank">
+        RISC-V RVV 向量扩展性能基准测试 — SpacemiT K3 SoC 实测
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-compute">计算</span>
+    <span class="tag tag-gpu">SIMD</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-02 · RISC-V / 基准测试</div>
+  <div class="item-body">
+    <p>
+      Phoronix 对 <strong>SpacemiT K3 SoC</strong>（16 核，RVA23 配置，X100/A100 核心）进行了
+      RISC-V Vector Extension (RVV) 1.0 的性能影响专项基准测试，这是首批公开市售的支持 RVV 1.0 的 RISC-V 芯片之一。
+    </p>
+    <p>
+      测试环境：SpacemiT K3 Pico ITX 主板（16GB RAM），运行 Bianbu 4.0（Linux 6.18 内核，GCC 15.2）。
+      通过 <code>/proc/sys/abi/riscv_v_default_allow</code> 接口尝试运行时切换 RVV 支持，
+      但因 Bianbu 的 libc 构建中包含了无条件 RVV 指令，关闭该选项后系统无法执行任何二进制文件，
+      最终采用重新编译不含 RVV 支持的软件包的方式进行对比测试。
+    </p>
+    <p>
+      测试结果显示 RVV 1.0 对支持向量加速的软件包带来了显著的性能提升。
+      受限于 K3 SoC 当前未向 Linux 暴露任何功耗指标，本次测试未包含 RVV 开启/关闭的功耗对比数据。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    RISC-V 向量扩展（RVV）是 RISC-V 架构在 HPC 和 AI 计算领域追赶 ARM/Ax 的关键特性，
+    此次实测数据首次量化了 RVV 1.0 的实际性能收益，对评估 RISC-V 在
+    计算密集型场景的竞争力具有参考价值。
+  </div>
+</div>
+
+<footer>
+  Linux 每日新闻 · 图形 / 显示 / 计算 方向 · 数据来源：Phoronix<br>
+  由 WorkBuddy 自动生成 · 2026-07-03
+</footer>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    const cur = html.getAttribute('data-theme');
+    if (cur === 'dark') {
+      html.removeAttribute('data-theme');
+      btn.textContent = '切换暗色主题';
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      btn.textContent = '切换亮色主题';
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('themeBtn').textContent = '切换亮色主题';
+    }
+  })();
+</script>
+</body>
+</html>
