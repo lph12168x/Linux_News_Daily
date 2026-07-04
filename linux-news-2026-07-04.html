@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux 每日新闻 — 2026-07-04 — 图形 / 显示 / 计算</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1a1a2e; --card: #f5f6fa; --accent: #4f46e5;
+    --accent2: #06b6d4; --border: #e2e8f0; --muted: #64748b;
+    --tag-gpu: #dbeafe; --tag-gpu-fg: #1e40af;
+    --tag-display: #dcfce7; --tag-display-fg: #166534;
+    --tag-compute: #fef9c3; --tag-compute-fg: #854d0e;
+    --tag-kernel: #f3e8ff; --tag-kernel-fg: #6b21a8;
+  }
+  [data-theme="dark"] {
+    --bg: #0f172a; --fg: #e2e8f0; --card: #1e293b; --accent: #818cf8;
+    --accent2: #22d3ee; --border: #334155; --muted: #94a3b8;
+    --tag-gpu: #1e3a5f; --tag-gpu-fg: #93c5fd;
+    --tag-display: #14532d; --tag-display-fg: #86efac;
+    --tag-compute: #422006; --tag-compute-fg: #fde68a;
+    --tag-kernel: #2d1b4e; --tag-kernel-fg: #c4b5fd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: -apple-system, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    line-height: 1.7; padding: 24px 16px 80px; max-width: 960px; margin: 0 auto;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid var(--accent); padding-bottom: 16px; margin-bottom: 32px;
+    flex-wrap: wrap; gap: 12px;
+  }
+  header h1 { font-size: 1.5rem; color: var(--accent); }
+  header .meta { color: var(--muted); font-size: 0.9rem; }
+  .toggle {
+    background: var(--card); border: 1px solid var(--border); color: var(--fg);
+    padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem;
+  }
+  .toggle:hover { background: var(--accent); color: #fff; }
+  .intro {
+    background: var(--card); border-left: 4px solid var(--accent2); border-radius: 0 8px 8px 0;
+    padding: 16px 20px; margin-bottom: 32px; font-size: 0.95rem; color: var(--muted);
+  }
+  .intro strong { color: var(--fg); }
+  .item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px 24px; margin-bottom: 20px; position: relative;
+  }
+  .item-header { display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .num {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--accent);
+    color: #fff; font-weight: 700; font-size: 0.95rem; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .item-title { font-size: 1.1rem; font-weight: 700; flex: 1; }
+  .item-title a { color: var(--accent); text-decoration: none; }
+  .item-title a:hover { text-decoration: underline; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 8px 50px; }
+  .tag {
+    font-size: 0.75rem; padding: 2px 10px; border-radius: 12px; font-weight: 600;
+  }
+  .tag-gpu { background: var(--tag-gpu); color: var(--tag-gpu-fg); }
+  .tag-display { background: var(--tag-display); color: var(--tag-display-fg); }
+  .tag-compute { background: var(--tag-compute); color: var(--tag-compute-fg); }
+  .tag-kernel { background: var(--tag-kernel); color: var(--tag-kernel-fg); }
+  .item-meta { margin-left: 50px; color: var(--muted); font-size: 0.82rem; margin-bottom: 8px; }
+  .item-body { margin-left: 50px; font-size: 0.92rem; color: var(--fg); }
+  .item-body p { margin-bottom: 8px; }
+  .item-body ul { margin: 8px 0 8px 20px; }
+  .item-body li { margin-bottom: 4px; }
+  .why {
+    margin: 14px 0 0 50px; background: var(--bg); border: 1px dashed var(--accent2);
+    border-radius: 8px; padding: 12px 16px; font-size: 0.85rem; color: var(--muted);
+  }
+  .why strong { color: var(--accent2); }
+  footer {
+    text-align: center; color: var(--muted); font-size: 0.8rem;
+    margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border);
+  }
+  @media (max-width: 600px) {
+    .item-meta, .item-body, .why, .tags { margin-left: 0; }
+    .item-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Linux 每日新闻 — 图形 / 显示 / 计算 动态</h1>
+    <div class="meta">2026-07-04 &nbsp;|&nbsp; 来源：Phoronix &nbsp;|&nbsp; 第 33 期</div>
+  </div>
+  <button class="toggle" id="themeBtn" onclick="toggleTheme()">切换暗色主题</button>
+</header>
+
+<div class="intro">
+  <strong>今日导读（2026-07-04）：</strong>
+  GNOME Mutter 合成器实现 GPU 重置恢复功能（GSoC 2026 项目），
+  Vulkan 1.4.356 新增 OCP Microscaling MX 格式扩展以支持机器学习加速，
+  Intel 为 Linux 7.3 提交 Nova Lake Xe3P 集成显卡的显示驱动补丁（CMTG/DC3CO），
+  NVIDIA 将 Vera Rubin VR-NVL 超级计算机的 BMC Device Tree 上游化以支持 OpenBMC。
+</div>
+
+<!-- ITEM 1 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">1</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/GNOME-GPU-Reset-Recovery-2026" target="_blank">
+        GNOME Mutter 实现 GPU 重置恢复功能 — GSoC 2026 项目取得实质进展
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-display">显示</span>
+    <span class="tag tag-gpu">GPU</span>
+    <span class="tag tag-kernel">GNOME</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-03 · GNOME / GSoC</div>
+  <div class="item-body">
+    <p>
+      目前，在 Linux 下如果遇到 GPU 重置（GPU reset），GNOME 会话会直接崩溃退出。
+      这一长期存在的用户体验问题，正由 <strong>Google Summer of Code 2026</strong> 项目着手解决——
+      学生开发者 Toluwaleke Ogundipe 正在为 GNOME Mutter 合成器实现健壮的 GPU 重置恢复处理。
+    </p>
+    <p>
+      该项目基于 OpenGL 的 <strong>GL_EXT_robustness</strong> 扩展及类似基础设施，
+      目前已进展到 Mutter 合成器可以在 GPU 重置后保持会话稳定的阶段：
+      窗口能正确更新、输入设备恢复响应、会话不再崩溃或冻结。
+    </p>
+    <p>
+      待解决的项包括：帧缓冲区尚未自动重建、桌面背景渲染异常、以及部分残留的 OpenGL 错误。
+      这些项目仍在工作中，完成后将提交上游合并请求。
+      详细进展可参阅 <a href="https://blogs.gnome.org/anonymoux47/2026/07/02/gpu-reset-recovery-in-mutter-a-progress-update/" target="_blank">开发者博客文章</a>。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    GPU 重置恢复是 Linux 桌面稳定性的重要短板，尤其在使用 AMD 或 Intel 开源驱动时，
+    偶发的 GPU 挂起会导致整个桌面会话丢失。Mutter 的这一改进将显著提升 GNOME 桌面的
+    健壮性，是 Linux 桌面用户体验的关键底层改进。
+  </div>
+</div>
+
+<!-- ITEM 2 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">2</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/Vulkan-1.4.356-Released" target="_blank">
+        Vulkan 1.4.356 发布：新增 OCP Microscaling MX 格式扩展，加速机器学习推理
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-compute">计算</span>
+    <span class="tag tag-gpu">GPU</span>
+    <span class="tag tag-kernel">Vulkan</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-03 · Khronos / Vulkan</div>
+  <div class="item-body">
+    <p>
+      Vulkan 1.4.356 于今日发布，最大亮点是新增了 <strong>VK_EXT_shader_ocp_microscaling_types</strong> 扩展，
+      为 Vulkan 带来对 <strong>Open Compute Project (OCP) Microscaling Formats (MX)</strong> 的支持，
+      以提升机器学习工作负载的性能。
+    </p>
+    <p>
+      OCP Microscaling 格式包括 <strong>MXFP4、MXFP6、MXFP8 和 MXINT8</strong>，
+      旨在通过低精度数据格式提高 AI 训练和推理的计算吞吐量与降低内存带宽需求。
+      该扩展支持 OCP MX 格式规范中定义的浮点类型，但暂不提供对 microscaled tensors
+      或直接对 microscaled 数据进行操作的支持。
+    </p>
+    <p>
+      该扩展由 <strong>NVIDIA、Samsung、Imagination 和 Arm</strong> 共同贡献，
+      过去数月间持续开发。行业对新型 AI 数据格式的需求推动了这一扩展的落地，
+      使得 Vulkan 生态在机器学习推理场景下的竞争力进一步增强。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    Microscaling 格式是 AI 推理领域的重要技术方向（已获 NVIDIA Blackwell、AMD CDNA 4 等新一代架构支持），
+    Vulkan 生态对此的标准化支持，将使得跨平台（包括 Linux 上的 Vulkan 计算场景）的
+    AI 推理应用能更高效地利用低精度计算能力，是 GPU 计算生态的重要进展。
+  </div>
+</div>
+
+<!-- ITEM 3 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">3</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/Intel-DRM-First-For-Linux-7.3" target="_blank">
+        Intel 为 Linux 7.3 提交 Nova Lake 显示驱动补丁：启用 CMTG 与 DC3CO
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-display">显示</span>
+    <span class="tag tag-gpu">GPU</span>
+    <span class="tag tag-kernel">内核</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-03 · Intel / Linux DRM</div>
+  <div class="item-body">
+    <p>
+      Intel 于 7 月 2 日向 Linux 内核社区提交了首批面向 <strong>Linux 7.3</strong> 的
+      <strong>drm-intel-next</strong> 新特性补丁，重点继续围绕下一代 Nova Lake 处理器的
+      <strong>Xe3P 集成显卡/显示支持</strong>展开。
+    </p>
+    <p>本次提交的两个关键新特性：</p>
+    <ul style="margin:8px 0 8px 20px; color:var(--fg);">
+      <li><strong>CMTG（Common Mode Timing Generator）支持</strong> —
+        Nova Lake 显示模块的 CMTG 功能已接通。CMTG 首次出现在 Lunar Lake 硬件上，
+        可用于多显示器之间的时序同步（如 eDP 笔记本屏幕与外部 DisplayPort 显示器之间的时序协调）。</li>
+      <li><strong>DC3CO（Display C3 with Clock Off）支持</strong> —
+        一种先进的显示省电特性，在 PSR2 空闲期间允许显示引擎的电源域完全断电，
+        同时保持显示图像，可显著降低平台功耗，对电池供电设备尤为关键。</li>
+    </ul>
+    <p>
+      Linux 7.3 合并窗口预计将于 <strong>8 月下旬</strong>开启，Intel 未来数周还将提交更多
+      Nova Lake 图形驱动优化补丁。Nova Lake 预计 2026 年底或 2027 年初发布，
+      集成 Coyote Cove 性能核与 Arctic Wolf 能效核，以及 Xe3P 集成显卡。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    Nova Lake 是 Intel 下一代重要客户端处理器平台，其 Linux 图形驱动的早期上游化
+    体现了 Intel 对 Linux 桌面/工作站支持的持续投入。CMTG 和 DC3CO 的启用
+    尤其利好多显示器笔记本用户和移动平台的电池续航表现。
+  </div>
+</div>
+
+<!-- ITEM 4 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">4</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/NVIDIA-VR-NVL-BMC-DT" target="_blank">
+        NVIDIA 将 Vera Rubin VR-NVL 超级计算机 BMC 设备树上游化，支持 OpenBMC
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-gpu">GPU</span>
+    <span class="tag tag-compute">计算</span>
+    <span class="tag tag-kernel">数据中心</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-03 · NVIDIA / Linux 内核</div>
+  <div class="item-body">
+    <p>
+      NVIDIA 近期在 Linux 内核邮件列表上发布了其 <strong>Vera Rubin VR-NVL</strong> 服务器平台
+      的基板管理控制器（BMC）Device Tree 补丁，这是 NVIDIA 为支持开源
+      <strong>OpenBMC</strong> 软件而上游化的最新举措。
+    </p>
+    <p>
+      该补丁系列包含一份 <strong>901 行</strong>的 Device Tree 文件，描述 VR-NVL BMC 的硬件配置。
+      NVIDIA VR-NVL 是面向 <strong>Vera Rubin NVL72</strong> 机架级超级计算机的平台，
+      其 BMC 基于 <strong>ASpeed AST2600</strong> 控制器。
+    </p>
+    <p>
+      与此同时，NVIDIA 也向 U-Boot/OpenBMC 社区提交了配套补丁。
+      OpenBMC 是基于 Linux 的开源基板管理控制器固件栈，近年来在超大规模数据中心中
+      因其安全性和透明度优势而获得越来越广泛的采用（AMD 和 Intel 服务器平台也已大量采用）。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    NVIDIA 主动将 Vera Rubin 新一代 AI 超级计算机平台的 BMC 支持上游化至开源社区，
+    标志着 NVIDIA 在数据中心开源生态中的参与度持续提升。对运行 Linux 的
+    AI 训练集群管理员而言，OpenBMC 支持意味着更透明的硬件管理能力和更高的安全性。
+  </div>
+</div>
+
+<!-- ITEM 5 -->
+<div class="item">
+  <div class="item-header">
+    <div class="num">5</div>
+    <div class="item-title">
+      <a href="https://www.phoronix.com/news/GNOME-51-Alpha" target="_blank">
+        GNOME 51 Alpha 发布：大量增强功能，Mutter 与 Shell 同步改进
+      </a>
+    </div>
+  </div>
+  <div class="tags">
+    <span class="tag tag-display">显示</span>
+    <span class="tag tag-kernel">桌面</span>
+  </div>
+  <div class="item-meta">Phoronix · 2026-07-03 · GNOME</div>
+  <div class="item-body">
+    <p>
+      GNOME 51 的首个 Alpha 版本已正式发布，标志着这个备受期待的桌面环境新版本的
+      开发周期进入新阶段。GNOME 51 预计将于 <strong>2026 年 9 月</strong>正式发布。
+    </p>
+    <p>
+      Alpha 版本包含 GNOME Shell 和 Mutter 的大量增强功能。
+      结合近日报道的 Mutter GPU 重置恢复功能（GSoC 项目），
+      GNOME 51 在图形稳定性和显示处理方面有实质性改进。
+    </p>
+    <p>
+      GNOME 51 Alpha 的发布也意味着下游发行版（如 Fedora、Ubuntu 等）
+      可以开始早期集成测试，为秋季的正式发布做准备。
+    </p>
+  </div>
+  <div class="why">
+    <strong>关注理由：</strong>
+    GNOME 是 Linux 桌面最主要的环境之一，51 版本的 Alpha 发布意味着新特性已初步稳定。
+    结合 Mutter 的 GPU 重置恢复改进，GNOME 51 有望成为近年来图形稳定性提升最显著的版本，
+    对 Linux 桌面用户具有重要参考价值。
+  </div>
+</div>
+
+<footer>
+  Linux 每日新闻 · 图形 / 显示 / 计算 方向 · 数据来源：Phoronix<br>
+  由 WorkBuddy 自动生成 · 2026-07-04
+</footer>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    const cur = html.getAttribute('data-theme');
+    if (cur === 'dark') {
+      html.removeAttribute('data-theme');
+      btn.textContent = '切换暗色主题';
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      btn.textContent = '切换亮色主题';
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('themeBtn').textContent = '切换亮色主题';
+    }
+  })();
+</script>
+</body>
+</html>
