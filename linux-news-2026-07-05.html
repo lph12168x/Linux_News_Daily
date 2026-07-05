@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux 图形/显示/计算 每日动态 - 2026-07-05</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a2e;
+            --card-bg: #f8f9fa;
+            --border: #e0e0e0;
+            --accent: #4a90d9;
+            --accent-light: #e3f2fd;
+            --tag-bg: #4a90d9;
+            --tag-text: #ffffff;
+            --code-bg: #f5f5f5;
+            --shadow: rgba(0,0,0,0.08);
+            --muted: #666;
+        }
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --text: #c9d1d9;
+            --card-bg: #161b22;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --accent-light: #1a2d4a;
+            --tag-bg: #58a6ff;
+            --tag-text: #0d1117;
+            --code-bg: #1c2128;
+            --shadow: rgba(0,0,0,0.3);
+            --muted: #8b949e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background 0.3s, color 0.3s;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .header .date { font-size: 1rem; opacity: 0.8; }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+        }
+        .theme-toggle button {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .news-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.2s;
+        }
+        .news-item:hover { transform: translateY(-2px); }
+        .news-item .number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        .news-item h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        .news-item .meta {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+        }
+        .news-item .meta span { margin-right: 1rem; }
+        .tag {
+            display: inline-block;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-right: 0.3rem;
+            font-weight: 600;
+        }
+        .news-item .summary {
+            margin: 0.8rem 0;
+        }
+        .news-item .highlight {
+            background: var(--accent-light);
+            border-left: 3px solid var(--accent);
+            padding: 0.8rem;
+            margin: 0.8rem 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+        }
+        .news-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .news-item a:hover { text-decoration: underline; }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle">
+        <button onclick="toggleTheme()" id="themeBtn">🌙 暗色</button>
+    </div>
+
+    <div class="header">
+        <h1>🐧 Linux 图形/显示/计算 每日动态</h1>
+        <p class="date">2026年7月5日（周六）· 聚焦 GPU、显示、计算领域</p>
+    </div>
+
+    <div class="container">
+
+        <div class="news-item">
+            <span class="number">1</span>
+            <span class="tag">Intel</span>
+            <span class="tag">GPU</span>
+            <h2>Linux 7.3 为 Intel Nova Lake S 新增更多图形 PCI ID</h2>
+            <p class="meta"><span>📅 2026-07-04</span><span>📌 Intel</span><span>✍️ Michael Larabel</span></p>
+            <div class="summary">
+                Intel 本周向 Linux 7.3 内核提交了 <code>drm-xe-next</code> 的首批拉取请求，为下一代 Nova Lake S 处理器的集成 Xe3P 显卡新增了 <code>0xD74A</code> 和 <code>0xD74B</code> 两个 PCI 设备 ID，同时移除了早期工程样品的 <code>0xD744</code>。目前 Xe 驱动已识别 7 个不同的 Nova Lake S PCI 图形设备 ID。
+            </div>
+            <div class="highlight">
+                <strong>关注理由：</strong>Nova Lake 是 Intel 下一代客户端处理器平台，Xe3P 架构的 Linux 内核支持正在快速推进。本次更新还包含 Media 35 引擎的 PXP（Protected Xe Path）特性不再依赖 HuC 固件——从下一代硬件开始，HuC 改由用户空间加载，简化了内核侧安全路径的实现。
+            </div>
+            <p>🔗 原文：<a href="https://www.phoronix.com/news/Linux-7.3-More-Nova-Lake-S-IDs" target="_blank">Phoronix - Linux 7.3 Adding More Graphics PCI IDs For Intel Nova Lake S</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="number">2</span>
+            <span class="tag">Intel</span>
+            <span class="tag">显示</span>
+            <h2>Intel 为 Linux 7.3 准备更多 Nova Lake 图形/显示支持代码</h2>
+            <p class="meta"><span>📅 2026-07-03</span><span>📌 Intel DRM</span><span>✍️ Michael Larabel</span></p>
+            <div class="summary">
+                Intel 于周四发送了首批面向 Linux 7.3 的 <code>drm-intel-next</code> 特性物料，重点围绕 Nova Lake 的 Xe3P 集成显卡/显示支持。本次合并窗口启用了 Nova Lake 显示模块（Intel Display version 35）的 <strong>CMTG（Common Mode Timing Generator）</strong> 以及 <strong>DC3CO（Display C3 with Clock Off）</strong> 低功耗态支持。
+            </div>
+            <div class="highlight">
+                <strong>技术亮点：</strong>CMTG 最早出现于 Lunar Lake，可在多显示器间实现时序同步（如 eDP 笔记本屏幕与外部 DisplayPort 显示器的同步）；DC3CO 则在 PSR2 空闲状态下关闭显示引擎电源域，进一步降低集成显卡功耗。两项功能就位，标志着 Nova Lake 的 Linux 显示支持日趋完整。
+            </div>
+            <p>🔗 原文：<a href="https://www.phoronix.com/news/Intel-DRM-First-For-Linux-7.3" target="_blank">Phoronix - Intel Prepares More Nova Lake Graphics/Display Enablement For Linux 7.3</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="number">3</span>
+            <span class="tag">内核</span>
+            <span class="tag">计算</span>
+            <h2>Linux DRM 调度器补丁大幅降低任务提交延迟</h2>
+            <p class="meta"><span>📅 2026-07-04</span><span>📌 Linux Kernel</span><span>✍️ Michael Larabel</span></p>
+            <div class="summary">
+                Igalia 工程师 Tvrtko Ursulin 于周四发布了 RFC 补丁系列，将 Linux 内核 DRM 调度器的任务执行机制从 <code>workqueue</code> 替换为 <code>kthread_work</code>。在系统存在大量可运行 CPU 进程的高负载场景下，该改动可显著降低高优先级 DRM 客户端的 GPU 任务提交延迟。
+            </div>
+            <div class="highlight">
+                <strong>性能数据：</strong>测试显示，在负载饱和场景下，Panthor（Arm Mali）驱动的帧提交延迟获得"惊人的改善"，有效防止 Wayland 合成器丢帧。目前 Intel Xe 和 Panthor 驱动已适配该 RFC 补丁；AMDGPU 等将 DRM 调度器作为硬件调度器使用的驱动受影响较小。该补丁对未来高刷新率显示和实时计算场景意义重大。
+            </div>
+            <p>🔗 原文：<a href="https://www.phoronix.com/news/DRM-Scheduler-Lower-Job-Submit" target="_blank">Phoronix - Linux DRM Scheduler Patches Yield Massive Improvement For Job Submission Latency</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="number">4</span>
+            <span class="tag">Vulkan</span>
+            <span class="tag">计算</span>
+            <h2>Vulkan 新增 OCP 微缩放 MX 格式扩展，助力机器学习</h2>
+            <p class="meta"><span>📅 2026-07-03</span><span>📌 Vulkan</span><span>✍️ Michael Larabel</span></p>
+            <div class="summary">
+                Vulkan 1.4.356 于今日发布，唯一的新扩展是 <code>VK_EXT_shader_ocp_microscaling_types</code>，为 Vulkan 带来 Open Compute Project（OCP）Microscaling MX 数据格式支持，包括 <strong>MXFP4、MXFP6、MXFP8、MXINT8</strong> 四种类型，可提升机器学习工作负载的计算吞吐并降低内存带宽需求。
+            </div>
+            <div class="highlight">
+                <strong>行业背景：</strong>OCP 微缩放格式是 AI 训练与推理领域的重要新兴标准，NVIDIA、Samsung、Imagination、Arm 等均参与了该扩展的制定。虽然扩展本身不直接提供微缩放张量运算支持，但为着色器层面对这些新型数据类型的支持铺平了道路，是 GPU 计算生态向 AI 原生演进的重要一步。
+            </div>
+            <p>🔗 原文：<a href="https://www.phoronix.com/news/Vulkan-1.4.356-Released" target="_blank">Phoronix - Vulkan Adds Extension For OCP's Microscaling MX Formats To Help Machine Learning</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="number">5</span>
+            <span class="tag">NVIDIA</span>
+            <span class="tag">计算</span>
+            <h2>NVIDIA VR-NVL BMC 设备树上游化，支持 OpenBMC 管理</h2>
+            <p class="meta"><span>📅 2026-07-03</span><span>📌 NVIDIA</span><span>✍️ Michael Larabel</span></p>
+            <div class="summary">
+                NVIDIA 在 Linux 内核邮件列表上发布了 VR-NVL 服务器平台的基板管理控制器（BMC）设备树补丁（共 901 行），同时配套 U-Boot/OpenBMC 侧的补丁。VR-NVL 是 NVIDIA Vera Rubin NVL72 机架级超级计算机的平台代号，BMC 基于 ASpeed AST2600 控制器。
+            </div>
+            <div class="highlight">
+                <strong>开放生态意义：</strong>OpenBMC 是开源的基板管理固件项目， hyperscaler 客户日益要求其服务器支持 OpenBMC 以提升安全性和透明度。NVIDIA 主动上游化 VR-NVL BMC 设备树，显示出其超算平台对开源固件生态的持续投入，也为 Linux 用户自行构建基于 OpenBMC 的管理方案提供了可能。
+            </div>
+            <p>🔗 原文：<a href="https://www.phoronix.com/news/NVIDIA-VR-NVL-BMC-DT" target="_blank">Phoronix - NVIDIA VR-NVL BMC Device Tree Being Upstreamed For OpenBMC Support</a></p>
+        </div>
+
+        <div class="news-item">
+            <span class="number">6</span>
+            <span class="tag">Mesa</span>
+            <span class="tag">计算</span>
+            <h2>Rusticl OpenCL 驱动改进 workgroup 大小选择，提升硬件利用率</h2>
+            <p class="meta"><span>📅 2026-07-02</span><span>📌 Mesa</span><span>✍️ Michael Larabel</span></p>
+            <div class="summary">
+                Red Hat 工程师 Karol Herbst 将其最新的 Rusticl 优化工作合并入 Mesa 26.2。本次改进的核心是优化 workgroup 大小选择算法，通过更好地填充 workgroup 和 subgroup，显著提升硬件利用率。对于请求任意全局大小（global size）的应用，GPU 利用率可获得"显著提升"。
+            </div>
+            <div class="highlight">
+                <strong>技术价值：</strong>Rusticl 是 Mesa 中基于 Rust 编写的开源 OpenCL 驱动，支持多种 Gallium3D 后端（包括 AMD、Intel、NVIDIA Nouveau 等）。更好的 workgroup 填充策略意味着在科学计算、图像处理等 OpenCL 工作负载下，GPU 的 SIMD 单元闲置率降低，实际算力释放更充分。该改进将随 Mesa 26.2（预计 8 月发布）进入稳定版。
+            </div>
+            <p>🔗 原文：<a href="https://www.phoronix.com/news/Rusticl-Better-Utilization-Mesa" target="_blank">Phoronix - Rusticl OpenCL Driver Improving Hardware Utilization In Mesa 26.2</a></p>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>数据来源：Phoronix | 聚焦 Linux 图形、显示、计算领域</p>
+        <p>生成时间：2026-07-05 09:20 CST | 由 WorkBuddy 自动生成</p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById('themeBtn');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                btn.textContent = '🌙 暗色';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️ 亮色';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        (function () {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('themeBtn').textContent = '☀️ 亮色';
+            }
+        })();
+    </script>
+</body>
+</html>

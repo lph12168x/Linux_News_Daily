@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-05](linux-news-2026-07-05.html) | Linux 7.3 Nova Lake S PCI ID 新增 · DRM调度器kthread_work优化大幅降低提交延迟 · Vulkan 1.4.356 OCP Microscaling MX格式扩展 · NVIDIA VR-NVL BMC OpenBMC上游化 · Rusticl OpenCL硬件利用率提升 |
 | [2026-07-04](linux-news-2026-07-04.html) | Mutter GPU重置恢复（GSoC 2026）· Vulkan 1.4.356 OCP Microscaling MX格式扩展 · Intel Nova Lake CMTG/DC3CO显示支持 · NVIDIA VR-NVL BMC OpenBMC上游化 |
 | [2026-07-03](linux-news-2026-07-03.html) | Intel ACE x86 AI计算扩展GCC补丁 · Rusticl OpenCL硬件利用率提升 · YSERVER 1.3 Rust X11服务器Xinerama支持 · RADV/RadeonSI修复AMD GCN 1.0/1.1 L2缓存VM故障 · RISC-V RVV 1.0向量性能基准测试 |
 | [2026-07-02](linux-news-2026-07-02.html) | Nova TLV固件格式 · COSMIC Epoch 1.2 Intel显卡闪烁修复 · AMD GCN 1.0/1.1 驱动VM故障修复 · Linux 7.3 DRM色彩格式属性 · Intel取消AMX-TF32 · Gen5 NVMe小I/O性能提升 |
