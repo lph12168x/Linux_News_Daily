@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-06](linux-news-2026-07-06.html) | AMD Linux 7.3 图形/计算驱动提交（RDNA3/4 计算管道重置、DCN 4.2）· DXVK 3.0.1 游戏渲染修复 · Linux 6.19 修复 4K@60FPS USB 采集卡带宽降级 · GNOME Mutter 合并 ext-background-effect-v1 背景模糊 · KDE Plasma 6.8 KWin 仅保留 OpenGL ES |
 | [2026-07-05](linux-news-2026-07-05.html) | Linux 7.3 Nova Lake S PCI ID 新增 · DRM调度器kthread_work优化大幅降低提交延迟 · Vulkan 1.4.356 OCP Microscaling MX格式扩展 · NVIDIA VR-NVL BMC OpenBMC上游化 · Rusticl OpenCL硬件利用率提升 |
 | [2026-07-04](linux-news-2026-07-04.html) | Mutter GPU重置恢复（GSoC 2026）· Vulkan 1.4.356 OCP Microscaling MX格式扩展 · Intel Nova Lake CMTG/DC3CO显示支持 · NVIDIA VR-NVL BMC OpenBMC上游化 |
 | [2026-07-03](linux-news-2026-07-03.html) | Intel ACE x86 AI计算扩展GCC补丁 · Rusticl OpenCL硬件利用率提升 · YSERVER 1.3 Rust X11服务器Xinerama支持 · RADV/RadeonSI修复AMD GCN 1.0/1.1 L2缓存VM故障 · RISC-V RVV 1.0向量性能基准测试 |

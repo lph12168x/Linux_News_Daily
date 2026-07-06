@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-06</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 6 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-AMDKFD-Start-Linux-7.3" target="_blank">AMD 为 Linux 7.3 提交首批图形/计算驱动变更</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        AMD GPU/AMDKFD 维护者 Alex Deucher 向 DRM-Next 提交了针对 Linux 7.3 的首个拉取请求。主要变更包括：为 GFX11（RDNA3）和 GFX12（RDNA4）硬件实现计算管道重置（compute pipe reset）支持；用户队列（UserQ）更新；RAS 更新；支持从 DisplayID 解析显示面板类型信息；DCN 4.2 IP 更新；GFX 11.7 更新（针对 RDNA "4m" GPU）；以及大量代码加固更新（vBIOS 解析边界检查等）。此外，还包含了 Valve Linux 图形团队 Timur Kristóf 为早期 Radeon GCN GPU 实现的软重置和 GPU 恢复改进工作。AMDKFD 计算驱动现允许应用程序选择退出致命错误时的 SIGBUS 信号。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>AMD 官方开始为下一代 Linux 内核准备图形与计算驱动，RDNA3/RDNA4 用户将获得更好的 GPU 恢复能力和计算稳定性，DCN 4.2 显示引擎更新也值得关注。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/DXVK-3.0.1-Released" target="_blank">DXVK 3.0.1 发布：修复多款游戏渲染问题</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        DXVK 3.0.1 作为 DXVK 3.0（6 月底发布）的点版本正式推出，带来了多项游戏修复和改进。主要变更包括：在所有桌面 GPU 上禁用二级命令缓冲区使用（可能轻微影响少量游戏性能，但解决了难以调试的渲染问题和 GPU 挂起）；修复了多款 Direct3D 9 游戏的渲染回归；修复了一些可能的崩溃；改进了流输出周围的 GPU 同步；并解决了一些 Windows 特定处理问题。游戏特定修复包括：《帝国地球 2》《辐射 3》《水果忍者》《凯恩与林奇：死人》《国王的赏金：传奇》《恶霸鲁什》《细胞分裂 3》《中世纪 II：全面战争》。D3D9 渲染回归修复也惠及《GTA IV》《哥特王朝 3》和《黑色高地》。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>DXVK 是 Linux 游戏栈的关键组件（Valve Steam Play/Proton 的核心），此次修复涉及多款经典游戏的渲染问题，对 Linux 游戏用户体验有直接影响。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/4K-60-FPS-USB-Video-Capture" target="_blank">Linux 内核修复 4K@60FPS USB 视频采集卡带宽降级问题</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        长期以来，在 Linux 下进行 4K@60FPS USB 视频采集一直是个痛点。4K USB 视频采集卡通常会从 10 Gbps 带宽降级到 5 Gbps，足以支持 4K@30FPS，但无法满足 4K@60FPS。Linux 6.19 中，Johannes Brüderl 贡献了一个 <code>USB_QUIRK_NO_BOS</code> quirk 路径，针对 Elgato 4K X 采集卡（该设备在 BOS 描述符请求时挂起，从而降级到 5 Gbps）。有了这个 quirk 后，采集卡保持 10 Gbps 运行，可以采集 4K@60FPS。此后，其他 USB 视频采集卡也被发现需要相同的 quirk，包括 AverMedia Live Gamer Ultra 2.1、华硕 TUF 4K PRO、UGREEN 35871 和 EZXCAP401。使用最新上游 Linux 7.1 内核的用户应该可以正常使用这些设备。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>4K@60FPS 视频采集在 Linux 上长期存在问题，此次内核级修复让内容创作者在 Linux 上也能使用主流 USB 采集卡进行高质量直播/录制，是显示外设支持的重要进步。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNOME-Mutter-Background-Blur" target="_blank">GNOME Mutter 合并 ext-background-effect-v1 协议支持背景模糊效果</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Wayland Protocols 仓库早在 2025 年 5 月就新增了 <code>ext-background-effect-v1</code> 协议，用于支持背景模糊效果（自 2024 年初开始讨论）。该协议最初专注于在窗口背景或指定屏幕区域应用模糊效果。KDE Plasma 6.7 已添加对该协议的支持。在最新的 GNOME 51 Alpha 发布后，Mutter 现已合并其 <code>ext-background-effect-v1</code> 支持。由 Kristof Imerir 编写的代码允许向 Wayland 客户端暴露模糊能力，适用于希望在窗口上实现"磨砂玻璃"效果的应用程序/工具包。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>背景模糊是现代桌面环境的重要视觉特效，GNOME 51 跟进 KDE 实现 Wayland 背景模糊协议，将提升 Linux 桌面的视觉一致性和应用体验（如透明终端、模糊通知等场景）。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Plasma-6.8-KWin-No-Desktop-GL" target="_blank">KDE Plasma 6.8 的 KWin 合成器放弃桌面 OpenGL 支持，仅保留 OpenGL ES</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        KDE 开发者本周最令人惊讶的变动是：KWin 合成器放弃了桌面 OpenGL 支持。这并不是因为 KWin 的 Vulkan 渲染器已准备好登场，而是 Plasma 6.8 内部现在仅使用 OpenGL ES，直到 Vulkan 支持进一步成熟。OpenGL ES 提供了 KWin 所需的一切，而一些老 GPU 在 OpenGL ES 上的表现比受限的桌面 OpenGL Profile 更好。KWin 开发者预计不会因仅使用 OpenGL ES 而产生任何负面影响。Xaver Hugl 在合并请求中指出：桌面 GL 和 OpenGL ES 之间的各种不兼容性导致问题反复出现，代码在一个上编写和测试可能对另一个无效，从渲染错误到回退到软件渲染器甚至功能完全损坏。由于需要支持 OpenGL ES 以兼容旧硬件，KWin 今后将仅支持 OpenGL ES，这意味着所有人都运行相同的 OpenGL 代码，也可以删除一些几乎冗余的代码。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>KWin 合成器放弃桌面 OpenGL 是显示栈的重要架构决策，统一到 OpenGL ES 将减少兼容性问题和维护负担，对用户透明度较高，但标志着 Linux 桌面图形栈持续向精简和现代化演进。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-IPU8-With-Nova-Lake" target="_blank">Intel 为 Nova Lake 笔记本电脑准备 IPU8 图像处理单元 Linux 支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        近期的 Linux 内核补丁证实，下一代高端 Nova Lake 笔记本电脑将配备 IPU8 图像处理能力。目前的 Intel Panther Lake 笔记本电脑可使用基本 UVC 兼容摄像头，或更高端型号利用 Intel 图像处理单元（IPU）——Panther Lake 配备 IPU 7.5。自 Alder Lake 以来，Intel IPU 一直是 Linux 支持的痛点（用户空间依赖二进制 blob，至少到 IPU7.5 仍是如此，除非选择 libcamera 的软件 ISP）。近几个月的其他补丁已暗示 Intel Nova Lake "NVL" 将配备 IPU8，本周的最新补丁进一步确认 Nova Lake 将搭载 IPU8 作为 Panther Lake IPU7.5 的继任者。该补丁系列为下一代高端笔记本电脑准备了 Nova Lake Camera Vision Sensing / IPU8 摄像头支持，这些补丁正在进入主线内核，可能针对 Linux 7.3 周期。有迹象表明 Intel IPU8 可能采用更多"AI"功能进行图像处理，但不幸的是仍依赖用户空间二进制 blob。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Intel IPU 的 Linux 支持一直是一大痛点，Nova Lake 的 IPU8 若仍依赖闭源 blob 将延续这一困境；但同时 IPU8 的 AI 图像处理能力也值得关注，对笔记本电脑摄像头质量有直接影响。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-06</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
