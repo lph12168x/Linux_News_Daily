@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-07](linux-news-2026-07-07.html) | Microsoft Mesa 26.2 落地 DX12+HMFT AV1 编码 · Intel ANV Alchemist Vulkan Video H.264/H.265 编码 · Marek RADV VRS 重构部分场景性能翻倍 · Linux 7.3 "Flatten The Pick" 调度改进游戏帧率 · Intel i915 接近支持 RT 实时内核 · D7VK 1.12 老 D3D 性能提升 |
 | [2026-07-06](linux-news-2026-07-06.html) | AMD Linux 7.3 图形/计算驱动提交（RDNA3/4 计算管道重置、DCN 4.2）· DXVK 3.0.1 游戏渲染修复 · Linux 6.19 修复 4K@60FPS USB 采集卡带宽降级 · GNOME Mutter 合并 ext-background-effect-v1 背景模糊 · KDE Plasma 6.8 KWin 仅保留 OpenGL ES |
 | [2026-07-05](linux-news-2026-07-05.html) | Linux 7.3 Nova Lake S PCI ID 新增 · DRM调度器kthread_work优化大幅降低提交延迟 · Vulkan 1.4.356 OCP Microscaling MX格式扩展 · NVIDIA VR-NVL BMC OpenBMC上游化 · Rusticl OpenCL硬件利用率提升 |
 | [2026-07-04](linux-news-2026-07-04.html) | Mutter GPU重置恢复（GSoC 2026）· Vulkan 1.4.356 OCP Microscaling MX格式扩展 · Intel Nova Lake CMTG/DC3CO显示支持 · NVIDIA VR-NVL BMC OpenBMC上游化 |

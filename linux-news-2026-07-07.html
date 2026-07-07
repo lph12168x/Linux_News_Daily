@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-07</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 7 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Microsoft-AV1-Encode-DX12-HMFT" target="_blank">Microsoft 在 Mesa 26.2 落地基于 DX12 + HMFT 的 GPU 加速 AV1 编码</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Microsoft 工程师向 Mesa 代码库合入了一项出人意料的新增功能：基于 DirectX 12 与 Hardware Media Foundation Transform（HMFT，Windows Media Foundation 的一部分）的 GPU 加速 AV1 视频编码。该方案面向 Windows 上跨厂商的 WSL（Windows Subsystem for Linux）视频编码需求。本次合入 Mesa 26.2 的是"原型"实现，足以支持 I 帧与 P 帧编码，高级特性需待后续集成。该 Mesa 侧代码约 900 行，由 Microsoft 工程师直接开发，将于本季度发布的 Mesa 26.2 中随版本上线。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>AV1 硬件编码此前在 Linux/Mesa 上支持薄弱，Microsoft 直接在 Mesa 中落地 DX12+HMFT 编码路径，将显著改善 WSL 下的跨厂商 GPU 视频编码能力，是 GPU 视频管线的重要补强。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-ANV-Gen125-H265-Encode" target="_blank">Intel ANV 驱动在 Alchemist（Gen12.5）上实现 Vulkan Video H.264/H.265 编码</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        今年早些时候，因 Intel ANV 开源驱动测试不足，Vulkan Video 编码在 Gen12.5 及更新硬件（Alchemist 及更新架构）上被禁用。现在，Gen12.5 图形（如 Arc A 系列）的 H.264 与 H.265 编码已重新启用。Igalia 的 Hyunjun Ko 在 Intel Arc A750 上完成测试，使 H.264/H.265 编码在 ANV 驱动下正常工作。该工作是基于 Vulkan Video 的 AV1 编码的铺垫。今日合入 Mesa 26.2 后，Intel ANV 已能正确处理 Alchemist 的 H.264/H.265 编码，AV1 编码有望很快跟进。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Vulkan Video 编码在 Linux 上的进展长期落后于 VA-API，此次 Alchemist 重新启用 H.264/H.265 编码并指向 AV1，对 Linux 视频创作、录屏与串流场景意义重大。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Marek-Double-VRS-RADV-Perf" target="_blank">Valve 的 Marek Olšák 在 RADV 落地 VRS 重构，部分场景性能翻倍</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        长期深耕 AMD Linux 图形驱动的 Marek Olšák（今年初加入 Valve，现更多聚焦 RADV 而非 RadeonSI）将其 VRS（可变速率着色）代码的大规模重构合入 Mesa 26.2。他部分重写了 RADV Vulkan 驱动的 VRS 状态代码，修复若干遗留 bug、简化代码并提升性能；该工作同时惠及 VKD3D（Vulkan 之上的 Direct3D 12 API，用于 Steam Play/Proton）。在部分情况下，VRS flat shading 优化可使性能翻倍，另一处解除 RB+ 禁用限制的场景同样可带来翻倍性能。该合并请求包含 22 个补丁，将随 8 月发布的 Mesa 26.2 一同到来。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>VRS 是现代图形降低着色开销的关键特性，Marek 的重构在部分场景带来翻倍性能并简化代码，对 AMD GPU 上的原生 Vulkan 与 Proton/DX12 游戏均有直接收益。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Flattens-The-Pick" target="_blank">Linux 7.3 将引入 "Flatten The Pick" 调度改进，游戏帧率提升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        自 5 月初起用于改善老旧"土豆"硬件游戏性能的调度补丁（"flatten the pick" 系列）已计划引入 Linux 7.3。Intel 工程师 Peter Zijlstra 将 EEVDF 移动到单一运行队列，保留 cgroup 层级与 shares_weight 近似，从而解决长期存在的 cgroup 延迟与开销问题；该系列还将默认 cgroup_mode 改为 "concur"。在老旧 Intel Sandy Bridge 系统搭配 AMD Radeon Polaris 显卡的基准中，FPS 明显提升、帧时间显著下降。这些补丁已排入 tip 树的 sched/core 分支，预计在 8 月下旬的 Linux 7.3 合并窗口提交。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>cgroup 调度延迟长期困扰桌面与游戏用户，该改动在低端硬件上显著改善帧率与帧时间稳定性，是 Linux 游戏与交互体验的基础性内核优化。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-i915-RT-Linux-Kernel" target="_blank">Intel i915 驱动接近可在 RT 实时内核良好运行（不含显示支持）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        针对 Linux 实时（RT）补丁集，其中近半数涉及 Intel i915 内核 DRM 图形驱动调整——主线和 RT 支持当前在构建 i915 驱动时不启用 PREEMPT_RT。Maarten Lankhorst 今日发布了最新修订补丁，让 i915 模块能在 PREEMPT_RT 下"良好工作"，但前提是禁用显示支持。当前补丁系列尚未移除 i915 驱动的 "depends on !PREEMPT_RT" Kconfig 限制。一旦这些补丁进入主线，外部 RT 补丁队列将仅剩部分 PowerPC 补丁待上游化，整体 RT 化进程接近完成。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>实时 Linux 在工业、嵌入式与低延迟场景需求强烈，i915 驱动"去 RT 依赖"将减少外部补丁负担，推动实时内核更好地支持 Intel 图形（显示部分仍需后续工作）。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/D7VK-1.12" target="_blank">D7VK 1.12 发布：老版 Direct3D 在 Vulkan 上的性能持续提升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        继 DXVK 3.0.1 发布后，D7VK 1.12 作为该 Vulkan 之上 Direct3D 7 及更旧版本实现的独立版本发布。D7VK 1.12 带来更多优化：相较 D7VK 1.0 的 Direct3D 7 性能提升 53%，相较引入 D3D6 支持的 D7VK 1.2，D3D6 性能提升 6.5%。此外，代码已基于新 DXVK 3.0.1 状态重新同步，并修复若干回归、做了各种代码改进。下载与详情见 GitHub 发布页。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>D7VK 让老款 Direct3D 游戏在 Vulkan 上获得现代驱动优化，1.12 的性能提升与 DXVK 3.0.1 同步进一步改善 Linux 老游戏兼容性与帧率。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-07</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
