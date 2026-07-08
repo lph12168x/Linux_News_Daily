@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-08</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 8 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Proton-11.0-1" target="_blank">Valve 发布 Proton 11.0-1 稳定版：基于 Wine 11.0 重构，新增多款游戏支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Valve 今日发布 Proton 11.0-1 稳定版，这是驱动 Steam Play、Steam Deck 与新款 Steam Machine 的关键组件。该版本将 Proton 重新基于上游 Wine 11.0 重构，自 4 月起历经多轮测试版后首发稳定版。相比 Proton 10.0，它新增支持一批 Windows 游戏：包括 Universe Generator: The Golden Sword、DCS World、生化危机（1996/1998）、恐龙危机 1/2、X-Plane 12、Deadly Premonition 等首次可在 Proton 下运行；并修复 Rockstar Launcher 弹窗渲染、诸多 EA 游戏在 EA Desktop 更新后无法运行、Steam Overlay 失效等问题。组件方面同步升级至 Xalia 0.4.9、FEX 2605（ARM64EC）、VKD3D 1.19 Git、DXVK 2.7 Git、DXVK-NVAPI 0.9.1、Wine Mono 11.0、VKD3D-Proton 20260410。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Proton 是 Linux 游戏生态的核心引擎，11.0-1 基于 Wine 11.0 重构并带来大量新游戏支持与渲染修复，DXVK/VKD3D 同步升级直接改善 AMD/NVIDIA 显卡上的游戏兼容性与帧表现。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-Clearing-Out-BUGs" target="_blank">AMD 着手清除 AMDGPU 内核驱动中全部 BUG() 调用（30 补丁系列）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        AMDGPU 内核驱动维护者 Alex Deucher 今日发布一组 30 个补丁，着手清除该 Linux 内核图形驱动中全部 BUG() 宏的使用。Linux 的 BUG() 宏用于在遇到不可恢复状况时主动使内核崩溃并转储调试信息，但调用它会引发完整内核 panic，也可能被攻击者用于制造拒绝服务。Deucher 逐一审查 AMDGPU 中的 BUG() 调用，将无需主动崩溃且可恢复的场景改为仅告警（warn）或输出错误但让驱动安全继续运行。该 30 补丁系列已发布至 AMD 图形邮件列表评审。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>大量 BUG() 调用使 AMDGPU 在遇到异常时直接拖垮整个系统，改为优雅降级后用户设备在遇到驱动问题时能继续运行而非内核崩溃，显著提升 AMD 显卡 Linux 系统的稳定性与可用性。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-Rigel-Upstream-GCC" target="_blank">NVIDIA 将下一代 Rosa CPU 的 Rigel 核心初始支持上游化至 GCC</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在 NVIDIA 公布下一代 Rosa CPU 的 Rigel 核心细节后数分钟，针对该核心的初始 GCC 支持即被上游化至 GNU Compiler Collection 代码库。Rosa CPU 采用 Rigel 核心，是采用 Olympus 核心的 Vera CPU 的继任者；NVIDIA 确认 Rigel 为基于 Armv9.2-A 的自研核心。编译器工程师 Dhruv Chawla 将初始 CPU target 合入 GCC Git，新增 -mcpu=rigel 以瞄准下一代 Rosa CPU，首批提交复用 Olympus 的 ISA 能力（part ID 0x11，Olympus 为 0x10），暂未包含专门调优。该支持赶在明年的 GCC 17 稳定版之前落地。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>NVIDIA 自研 Arm CPU 生态进入工具链上游，意味着 Linux 发行版与开发者能在 GCC 17 中直接为 Rigel 生成优化代码，对 agentic AI 时代的高性能计算与超算（Vera Rubin 路线）意义重大。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-Rosa-CPU-Rigel-Core" target="_blank">NVIDIA 公布下一代 Rosa CPU 细节：Rigel 核心（Armv9.2-A）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        NVIDIA 在一篇主打 Vera CPU 单线程性能的博客中，确认了下一代 Rosa CPU 及其 Rigel 核心的部分细节。Rosa 是 Vera（Olympus 核心）的继任者，沿用相同硅片面积。NVIDIA 表示 Rigel 是其下一代 Arm v9.2 CPU 核心，相比 Olympus 提供更高的每核性能，关键改进包括更好的指令派发、更大的 L2 缓存与更高效的内存处理。Rosa 将延续 Vera 作为 agentic AI 处理器的定位，在更高单核性能、更大 L2 与更高效内存处理之间取得平衡，后续将与 AMD EPYC Venice、Intel Xeon Diamond Rapids 等服务器 CPU 正面竞争。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>NVIDIA 的 CPU 路线图（Vera→Rosa）直接服务于 AI 超级计算，Rigel 核心在单核性能与内存效率上的改进将影响下一代 Grace/Blackwell 平台的 Linux 体验与 HPC 应用表现。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-610.43.03-Linux-Driver" target="_blank">NVIDIA 610.43.03 Linux 驱动发布（R610 分支首更，小幅修复）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        NVIDIA 今日发布 R610 分支的最新稳定 Linux 驱动 610.43.03，这是该分支一个多月以来的首个新构建。相较以往，本次发布说明异常简略，仅列出「Minor bug fixes and improvements（小修复与改进）」，未披露具体改动。考虑到发布时机，该驱动很可能已针对 Linux 7.1 稳定版做了适配优化，但除了小幅修复与改进外官方未给出更多细节。用户可从 NVIDIA.com 下载该驱动。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>作为 R610 分支的月度更新，610.43.03 主要面向 Linux 7.1 稳定支持的稳定性打磨，NVIDIA 闭源驱动对最新内核的及时适配是 Linux 桌面与工作站用户持续关注的重点。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/razer-blade-18-linux" target="_blank">Razer 认证首款 Linux 笔记本：Blade 18（RTX 5090 + 4K 屏）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Razer 在 2026 年首次为其笔记本申请 Ubuntu Linux 认证，机型为 Razer Blade 18 RZ09-0582。该机搭载 Intel Core Ultra 9 290HX Plus（24 核：8P+16E，5.5GHz，Arrow Lake）与 NVIDIA GeForce RTX 5090（24GB GDDR7）独显，配 3840×2400 显示屏。在 Ubuntu 26.04 LTS（Linux 7.0 内核）上，得益于成熟的 Arrow Lake 支持与状态良好的 RTX 5090 Blackwell 驱动，整机运行顺畅，ACPI 平台配置等也正常工作。Razer 表示该机型尚不被社区维护的 OpenRazer 支持，但 RGB 控制之外核心体验良好；目前认证仍在进行中。顶配（128GB RAM）售价达 $6999，低配约 $3499。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>游戏硬件大厂 Razer 首次推进 Linux 认证，标志着高端游戏本对 Ubuntu 的官方支持起步；Arrow Lake + RTX 5090 Blackwell 在 Linux 上的顺畅体验，也印证了 Intel/NVIDIA 图形栈与最新内核的成熟度。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-08</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
