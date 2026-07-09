@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-09</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 9 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ZenDNN-6.0" target="_blank">AMD 发布 ZenDNN 6.0：大幅加速 Ryzen / EPYC CPU 上的 AI 推理</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 今日发布 ZenDNN 6.0，这是面向 AMD Zen 处理器（从 Ryzen 到 EPYC）的开源深度神经网络库重大更新，用于加速本地 AI 推理。ZenDNN 是 AMD 对标 Intel / UXL Foundation oneDNN 的方案，可通过插件与 TensorFlow、PyTorch 协作。值得注意的是，本次发布早于官方 AMD Zen 6 处理器登场。6.0 版本在 Low Overhead API（LowOHA）、扩展的 MoE 分组 GEMM 与 FP16 算子覆盖、以及后处理（post-op）与权重缓存方面做了大量改进，下载与细节见 GitHub 发布页。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>ZenDNN 是 AMD CPU 上 AI 推理的关键加速库，6.0 在 MoE / FP16 与权重缓存上的改进直接利好本地大模型推理与生成式 AI 负载，对 Linux 上的 CPU 计算生态意义重大，也为 Zen 6 平台预热。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LinuxMint-Cinnamon-Wayland-Good" target="_blank">Linux Mint 下一代 Cinnamon 中 Wayland 不再标记为「实验性」</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Linux Mint 发布 6 月开发小结，其中最引人注目的是 Cinnamon 的 Wayland 支持已准备「毕业」。从下一代 Cinnamon 版本起，Wayland 支持将不再被视为「实验性」，且 X11 与 Wayland 都将获得完整支持。开发团队表示 Wayland 体验已「几乎与 X11 持平」。期间完成了新窗口 / 菜单的正确映射、焦点窃取防护、更多 Wayland 崩溃场景修复、多显示器支持改进、硬件加速增强、完整 HiDPI 与窗口进度等。此外 Muffin 现在会对所有 Clutter 对象的坐标与尺寸做取整。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>作为最流行的桌面发行版之一，Linux Mint 将 Wayland 从实验性提升为完整支持，标志着 Wayland 在主流桌面的最终落地又迈进一步，对 Linux 显示栈的普及具有风向标意义。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/XWayland-24.1.13-Released" target="_blank">XWayland 24.1.13 发布：修复 X.Org 代码库中两处新安全漏洞</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        X.Org Server 代码库今日披露两处新安全漏洞，XWayland 同样受影响。Trend Micro Zero Day Initiative 在 Claude Opus 4.6 协助下持续发现新的 X.Org 漏洞。Red Hat 的 Peter Hutterer 公布 CVE-2026-55999（GLAMOR 字体代码中的缓冲区溢出）与 CVE-2026-56000（GLX 代码路径中的释放后使用 UAF）。XWayland 24.1.13 已包含这些修复及若干其他修复；X.Org Server 21.1.24 也已发布相应安全更新。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>GLAMOR 依赖 GPU 加速的 2D 渲染，GLX 则是 X11 下的 OpenGL 扩展，这两处漏洞直接关系到运行 X11 程序（通过 XWayland）时显卡相关代码路径的安全，Linux 桌面用户应及时更新。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Ends-Quantum-Intrinsics" target="_blank">Intel 本周归档 Quantum Intrinsics 等多个开源 AI / 计算项目</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Intel 本周正式归档了多个不再维护的开源项目。继 2 月归档 Quantum Passes 后，本周又归档了 Quantum Intrinsics——一个基于 LLVM/Clang 的 C++ 前端，用于 Intel Quantum Compiler。此外，尽管 AI 热潮正盛，Intel 仍在持续收缩部分 AI 开源项目：此前已归档 BigDL 时间序列工具包与 IPEX-LLM，本周 OAP-MLLIB 成为最新被归档的项目。OAP-MLLIB 提供优化的 Spark MLlib 机器学习加速包，底层依赖已移交 UXL 基金会的 oneDAL，并面向 Intel CPU 与 GPU 能力。同时被放弃的还有面向 Intel Xeon 服务器压缩算法优化的 Intel FastGo（Go 语言包）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这反映了 Intel 在 AI 与 HPC 开源生态上的战略收缩，oneDAL / oneCCL 已移交 UXL 基金会；对依赖 OAP-MLLIB 等在 Intel CPU / GPU 上做 Spark ML 加速的用户而言，需关注迁移路径。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/single-dual-memory-linux" target="_blank">Intel Core Ultra 7 270K Plus 单 / 双通道内存性能基准（含代码编译）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        应付费读者请求，Phoronix 在 Intel Core Ultra 7 270K Plus（Arrow Lake）桌面上实测了单通道与双通道 DDR5 内存的性能差异。测试在 Ubuntu 26.04（Linux 7.0 内核）上进行，仅更换内存配置（单条 Crucial Pro DDR5-6400 32GB vs 双条 2×16GB DDR5-6400），运行大量 Linux 性能基准，读者特别关注代码编译性能。在当前内存价格高企背景下，该测试为「先买单条、待降价再补双通道」的装机思路提供了量化参考。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>内存带宽直接影响 CPU 计算与编译密集型任务，对 Linux 开发者与 HPC 工作站的硬件选型具有实际指导意义，也侧面印证 Arrow Lake 平台在最新 Ubuntu / Linux 7.0 上的成熟度。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-09</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
