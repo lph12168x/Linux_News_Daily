@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-10</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 10 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-DC-Enabling-CACP" target="_blank">AMD 在 Linux 启用 CACP：为 OLED 显示屏带来更强省电</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        在今日发布的 AMDGPU Display Core（DC）补丁集中，最引人注目的是在 Linux 上启用了「CACP」特性——Content Adaptive Contrast and Power（内容自适应对比度与功耗），属于 AMD Adaptive Backlight Management（ABM）机制的一部分，旨在让 OLED 显示面板在 Linux 下节省更多功耗。该特性此前已随 Windows 驱动使用多年（代码版权注释可追溯到 2022 年）。本轮 DC 补丁还将 DCN42b 变体的 Panel Self Refresh（PSR）与 Panel Replay 启用，并单独为 DCN42b 开启 IPS 支持，整体呈现明显的省电倾向；此外还修复了部分 8K@120 / 8K@240 时序在 DisplayID 扩展块（HDMI 2.1 处理）下未被正确解析的问题。补丁已发往 amd-gfx 邮件列表，按时间判断大概率排入 Linux v7.3 周期。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>CACP / PSR / Panel Replay / IPS 等一连串省电特性的落地，直接利好笔记本与迷你 PC 上的 OLED 屏幕续航，也意味着 AMDGPU 显示栈的电源管理能力正快速补齐与 Windows 驱动的差距；8K 时序解析修复则关系到高端显示器的开箱体验。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Wayland-1.26-RC1" target="_blank">Wayland 1.26 RC1 发布：新增事件确保指针坐标正确</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Wayland 1.26 的首个候选版本（RC1）已发布。最值得关注的是新增 wl_pointer.warp 事件：原先的 wl_pointer.button 事件不包含位置信息，在某些场景下（例如鼠标焦点停在按钮上、窗口尺寸变化但鼠标未移动）客户端无法通过 motion 事件更新坐标，导致光标位置错误。该事件会在 surface 被移动 / 缩放 / 全屏而本地坐标发生变化时主动下发正确坐标，无需用户主动移动鼠标。KDE KWin、GNOME Mutter、wlroots 均已提交支持补丁，Qt 与 SDL 工具箱也已就绪。RC1 还新增 wl_fixes.ack_global_remove 请求以处理可能的竞态，并改进了 WAYLAND_DEBUG 时间戳的格式化。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>指针坐标错位是 Wayland 下长期存在的体验痛点，wl_pointer.warp 是显示协议层的关键修正；随着主流合成器与工具箱同步跟进，它将为 Linux 桌面（尤其是窗口缩放 / 全屏场景）带来更稳定、可预期的交互。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Ryzen-AI-Halo-RGB-LED-v8" target="_blank">AMD Ryzen AI Halo 机箱 RGB LED 驱动接近进入主线内核</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-npu">NPU</span>
+      </div>
+      <div class="news-body">
+        搭载 Ryzen AI Max+「Strix Halo」的 AMD Ryzen AI Halo 迷你 PC 本周开始出货，其 Debian 系 Ryzen AI Developer Platform 开箱即拥有不错的 Linux 支持。对于想自行安装 x86_64 发行版的用户，唯一的小遗憾是灯带 RGB LED 暂缺主线内核驱动——不过该驱动正稳步推进：自 4 月以来 AMD 工程师已迭代至第 8 版（v8），不仅能开关灯带，还可操控 RGB 颜色。本轮主要是上一轮代码审查后的小幅改动，代码评审已接近收尾，有望进入 x86 平台驱动的「-next」分支。如无意外，预计将在 8 月下旬的 Linux 7.3 合并窗口上游化；手持这台 3999 美元迷你主机的用户已可通过 v8 补丁控制灯条。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Strix Halo 凭借超大一体化内存带宽成为 Linux 上本地大模型 / AI 推理的高人气平台，灯带驱动的补齐意味着其开箱即用体验进一步完整；驱动随 7.3 合并窗口上游化也印证了 AMD 对新一代 AI APU 平台 Linux 支持的持续投入。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Apple-M4-DT-Linux" target="_blank">Linux 启动 Apple M4 的初始补丁发布</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        继 Linux 7.2 初步支持启动 Apple M3 SoC（仅能进入简单控制台）之后，开源开发者 Yureka Lilian 本周发布了面向 Apple Silicon M4（t8132）SoC 的初始设备树（Device Tree）与绑定（dt-bindings）。由于 M4 相对 M3 改动不大，其 bring-up 比 M2→M3 更直接，但现阶段同样仅能启动内核、外设与可用桌面尚不可用。补丁说明指出，CPU 配置位（🐔-bits）现由 iBoot 设置并锁定，m1n1 引导加载程序不再负责；SMP 启动还依赖早前提交的 idle=nop 补丁，且即便如此仍不稳定。GPU 加速等特性则需更长时间才能就绪。补丁已在内核邮件列表开放审阅，作为后续 M4 支持的基础。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Apple Silicon 在 Linux 上从 M3 迈向 M4 的第一步，虽离可用桌面尚远，但为后续设备树与驱动开发奠定了基线；对于关注异构 ARM 平台在主线内核中演进、以及未来 GPU 加速上游化路线的开发者而言，是值得追踪的起点。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-10</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
