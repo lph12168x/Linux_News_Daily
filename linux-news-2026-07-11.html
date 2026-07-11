@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-11</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 11 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Second-Pipe-GFX11-APU" target="_blank">Linux 7.3 为现代 AMD APU 启用第二图形管道（pipe1）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        7 月 9 日（EDT）AMD 向 DRM-Next 提交了又一轮 AMDGPU 内核图形驱动与 AMDKFD 内核计算驱动更新，瞄准 Linux 7.3 合并窗口。本轮最亮眼的变化是为 GFX11 APU 启用 graphics「pipe1」支持——即第二图形管道。AMD 工程师 Alex Deucher 在补丁中说明：该硬件特性仅在使用 F32 微控制器的 GFX11 芯片上可用（即 APU，涵盖 RDNA3 与 RDNA3.5 APU），使用 RS64 微控制器的芯片无法启用第二 gfx pipe。启用后，每个 MicroEngine（ME）可多出一个图形管道，有助于硬件优先级任务调度并扩充图形工作队列，从而提升稳定性与性能。本轮还附带 PSP 15.0.9 / SMU 15.0.9 的 IP 更新、RAS 修复，以及部分「清除 AMDGPU 驱动中 BUG() 调用」的补丁。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>第二图形管道意味着现代 AMD APU（如 Strix Point / Strix Halo 一代）在 Linux 下具备更细粒度的硬件图形任务调度能力，对多任务图形负载与稳定性有直接助益；该变更随 7.3 周期进入 DRM-Next，是追踪 RDNA3/3.5 APU 平台 Linux 图形成熟度的重要信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-HiZ-Plane-Optimization" target="_blank">Intel ANV Vulkan 驱动合并 HiZ Plane 优化，游戏帧率小幅提升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        一个在 Mesa TODO 列表上搁置约两年的性能优化，终于合并进了 Intel 开源「ANV」Vulkan 驱动（将随 Mesa 26.2 于 8 月发布）。该 Hierarchical-Z（HiZ）plane 优化针对 GFX12 及更新的 Intel 硬件：此前为避免渲染损坏而关闭的某个有利位，现在对「只读深度测试（read-only depth tests）」重新启用，从而在绘制会计算深度并执行只读深度测试的调用时跳过不必要的 HiZ plane 处理。实测中，Cyberpunk 2077 在 Alchemist 与 Battlemage 显卡上约提升 3% 帧率，Hogwarts Legacy 在 Alchemist 到 Panther Lake 核显上提升 1~2%，另可多支持一款游戏（Sons of the Forest）启用 HiZ 而不引入性能回退。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>HiZ 是经典的隐藏面消除加速技术，此次优化以「几行代码」级别的成本换来了免费的游戏性能提升，且覆盖从 Alchemist 到 Panther Lake 的广泛 Intel 显卡；它体现了 Mesa 26.2 在持续打磨 Intel 开源 Vulkan 栈的底层效率。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-Clang-NVIDIA-Rosa-Rigel" target="_blank">LLVM/Clang 合并 NVIDIA Rigel 核心（下一代 Rosa CPU）初始支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        继 NVIDIA 本周披露下一代 Rosa CPU（接替 Vera）并公布其自研「Rigel」Armv9.2-A 核心、随后将 -mcpu=rigel 上游化进 GCC 之后，NVIDIA 编译器工程师又将其 Rigel 核心的初始支持合入 LLVM/Clang。新增的 -mcpu=rigel 目标与 GCC 侧类似，目前仅包含基本的 ISA 能力与检测，尚无专门的调优 / cost 表——但已足以让「-mcpu=rigel」可用并启用全部 Rigel 核心能力。该补丁赶在 LLVM 23.1 分支创建前合入 Git，将随 LLVM/Clang 23.1.0（预计 8 月底）稳定版一同发布。NVIDIA 表示，未来数月还会有更多面向 Rosa/Rigel 的 Linux 内核及其他组件补丁。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 NVIDIA 在主流开源编译器（GCC 与 LLVM/Clang）中同步铺开下一代数据中心 CPU 支持的关键一步，且远早于其实际发布；对于面向 Agentic AI 工作负载、依赖极致单线程性能的 Linux AI 工厂而言，工具链的提前就绪意味着生态适配将更早启动。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Scaler-vLLM-0.21-b1" target="_blank">Intel-Scaler-vLLM 0.21.0-b1 发布：面向 Intel 显卡的 vLLM 推理栈更新</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-npu">NPU</span>
+      </div>
+      <div class="news-body">
+        7 月 10 日（EDT）Intel 发布了 Intel-Scaler-vLLM 的最新版本——一套基于 Docker、为在 Intel Arc（Pro）显卡硬件上运行 vLLM 而优化的软件栈。0.21.0-b1 重新基线到上游 vLLM 0.21，并实验性引入了 XPU graph 支持；同时新增对 diffusiongemma-26B-A4B-it、gemma-4-12B-it、gemma-4-31B-it、gemma-4-26B-A4B-it 等一批 Gemma 4 系列模型的支持。作为相对直接的常规更新，本次变更主要围绕刷新上游 vLLM 与扩充模型覆盖。用户可通过 GitHub 获取发布包，或直接从 Docker Hub 拉取对应镜像试用。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>随着 Arc Pro B60/B70 等 24GB/32GB 大显存显卡铺开，Intel 正通过 llm-scaler 持续缩小与 CUDA 生态在本地大模型推理上的差距；XPU graph 实验性支持与 Gemma 4 模型覆盖扩充，让 Intel 显卡在 vLLM 路线上的可用性又往前推了一步。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/plasma-67-wayland-cachyos" target="_blank">KDE Plasma 6.7 X11 vs Wayland 在 NVIDIA 上的游戏性能对比（CachyOS）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        在 KDE Plasma 6.8 将彻底转向 Wayland-only、彻底移除 X11 会话之前，Phoronix 在 CachyOS 上对 Plasma 6.7.2 的 X11 与 Wayland 会话做了一次 NVIDIA 游戏性能对照。测试平台为 Razer Blade 18（GeForce RTX 5090 独立显卡 + Intel Core Ultra 9 290HX 24 核 Arrow Lake 处理器 + 2×16GB DDR5-6400），整套软件栈在 X11 与 Wayland 两次跑分间保持一致，仅切换会话类型。结论延续此前趋势：KDE Plasma 的 Wayland 会话在近期版本中已相当成熟，通常可匹配甚至超过 X11 会话的表现。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Plasma 6.8 砍掉 X11 前的「最后对照」，对仍在使用 NVIDIA 显卡、纠结是否切到 Wayland 的 Linux 桌面用户具有直接参考价值；结果再次印证 Wayland 在现代 NVIDIA 驱动下已不再是性能短板。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-DT-Apple-M3-Pro-Max-Ultra" target="_blank">Linux 设备树补丁为 Apple M3 Pro / Max / Ultra 提供基础启动支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        在 Linux 7.2 初步支持启动 Apple M3 基础 SoC（仅能进入简单控制台）之后，Asahi Linux 贡献者 Janne Grunau 又发布了设备树（Device Tree）补丁，用于在主线程 Linux 内核上启动 M3 Pro / M3 Max / M3 Ultra 设备。补丁涵盖 14/16 英寸 MacBook Pro（M3 Pro、M3 Max）以及唯一的台式设备 M3 Ultra Mac Studio，提供与基础 M3（T8122）同级的硬件覆盖：CPU 核心、中断控制器、电源状态、看门狗、串口、引脚控制器、I2C 与启动帧缓冲。值得注意的是，M3 Pro 是与 M3 Max 设计上相互独立的新 SoC，不再像 M1/M2 时代那样共享同一个兼容前缀；这些 DT 目前仅处于审阅阶段，若顺利预计随 Linux v7.3 合并窗口上游化，但仍无任何加速图形。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Apple Silicon 在主线内核中从 M3 基础款走向完整 Pro/Max/Ultra 产品线的重要一步，为后续统一的设备支持打下基线；对于追踪异构 ARM 平台在 Linux 内核演进、以及未来 Asahi 图形驱动上游化路线的开发者而言，是值得关注的进度节点。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-11</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>

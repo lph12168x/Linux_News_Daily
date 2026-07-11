@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-11](linux-news-2026-07-11.html) | Linux 7.3 为 GFX11 AMD APU 启用第二图形管道（pipe1，RDNA3/3.5）· Intel ANV Vulkan 合并 HiZ Plane 优化（Mesa 26.2，游戏帧率 +1~3%）· LLVM/Clang 合并 NVIDIA Rigel 核心（下一代 Rosa CPU）初始支持（-mcpu=rigel）· Intel-Scaler-vLLM 0.21.0-b1 发布（XPU graph + Gemma 4 模型）· KDE Plasma 6.7 X11 vs Wayland NVIDIA 游戏性能对比（CachyOS）· Linux DT 补丁为 Apple M3 Pro/Max/Ultra 提供基础启动支持 |
 | [2026-07-10](linux-news-2026-07-10.html) | AMDGPU DC 启用 CACP 为 OLED 屏省电（含 DCN42b PSR/Panel Replay/IPS 与 8K 时序修复）· Wayland 1.26 RC1 新增 wl_pointer.warp 修正指针坐标 · AMD Ryzen AI Halo（Strix Halo）RGB 灯带驱动 v8 接近主线 · Apple M4 初始 DT 补丁发布（仅能启动、GPU 加速未就绪） |
 | [2026-07-09](linux-news-2026-07-09.html) | AMD ZenDNN 6.0 CPU 推理加速（MoE/FP16/权重缓存）· Linux Mint Cinnamon Wayland 不再实验性 · XWayland 24.1.13 修复 GLAMOR/GLX 安全漏洞（CVE-2026-55999/56000）· Intel 归档 Quantum Intrinsics/OAP-MLLIB 等开源 AI 项目 · Arrow Lake 单/双通道内存基准 |
 | [2026-07-08](linux-news-2026-07-08.html) | Valve Proton 11.0-1 稳定版（基于 Wine 11.0）· AMD 30 补丁清除 AMDGPU BUG() · NVIDIA Rigel 核心进 GCC · NVIDIA Rosa CPU Rigel 核心细节 · NVIDIA 610.43.03 Linux 驱动 · Razer Blade 18 首款 Linux 认证笔记本 |
