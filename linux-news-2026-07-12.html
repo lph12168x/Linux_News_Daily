@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-12</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 12 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-rc3-Multi-GPU-Fix" target="_blank">Linux 7.2-rc3 改进多 GPU 系统的显示检测逻辑</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        7 月 11 日（EDT）随本周 x86 修复合入 Linux 7.2-rc3 的一处改动，修复了部分多 GPU 系统在启动阶段的 x86 VGA 显示回退逻辑。该问题最初由 Canonical 工程师 Aaron Ma 提出：某些同时搭载 AMD 与 NVIDIA 显卡的设备上，由于枚举顺序不当，会出现错误的默认 VGA 选择，导致多个设备都暴露 boot_display 属性、混淆用户空间。AMD 工程师 Mario Limonciello 重写了补丁——当 screen info 有效时，仅依据它来定位主显示设备，从而只上报真正承载帧缓冲的那个设备；只有在没有任何帧缓冲被建立时，才回退到默认 VGA 设备，保证「至多一个主图形设备」。这修复的是自 Linux 6.18（2025 年 9 月）起就存在的 FBCON 代码变更，后续很可能被反向移植到近期稳定内核版本。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对同时使用 AMD + NVIDIA 显卡（常见于带独显的笔记本 / 工作站）的 Linux 用户而言，错误的主显示判定曾导致 Plymouth 显示异常、Wayland/X11 选错输出设备等恼人问题；该修复让多 GPU 系统的启动显示与用户空间判定回归「唯一主设备」的正确语义，是稳定内核体验的关键一行修正。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-x86-LFI-Merged" target="_blank">LLVM 合并 x86 LFI「轻量级故障隔离」目标，用于进程内沙箱</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Stanford 研究人员开发的 Lightweight Fault Isolation（LFI）编译器 Pass 与目标已合入 LLVM，作为高效、原生的代码沙箱方案。继 AArch64 LFI 目标上游化之后，本周 x86/x86_64 LFI 目标也随 LLVM 23 合入主干。LFI 是一种基于编译器、面向进程内沙箱的方法，以「极小的性能开销与工程成本」为已有 C/C++/汇编代码提供内存安全隔离。其沙箱上下文切换仅需数十个周期，往往比基于进程的沙箱快约 100 倍；在 Spec2017 上，AArch64 全量沙箱仅带来约 7% 开销，仅沙箱写入（提供完整性而非保密性）时仅 2%。该研究与 Google 等合作推进，被视为以最低代价为 C/C++ 代码补充内存安全的途径。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>LFI 把「内存安全沙箱」的运行时开销压到一个前所未有的量级（相比 Wasm 工具链降低 3~10 倍），且与系统调用 / 库接口无关，可支持未修改的库甚至设备驱动。对依赖大量 C/C++ 原生代码、又希望在 Linux 上获得更强隔离保证的 AI / 计算场景而言，x86_64 目标的上游化意味着该技术正式进入主流 LLVM 工具链视野。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Plasma-6.8-Spectacle-Audio" target="_blank">KDE Plasma 6.8 持续落地新特性：Spectacle 支持录音、vRAM 百分比监控等</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        在 KDE Plasma 6.8 发布前的这个夏天，开发者们仍在密集合入新特性。本周「This Week in Plasma」汇总了多项进展：截图 / 录屏工具 Spectacle 现在支持在屏幕录制时录制音频——可单独或同时录制系统音频与麦克风音频；此外 Spectacle 还找到了无需 OpenCV 库即可实现模糊效果的方式，从而移除了对 OpenCV 的依赖。KDE 系统监视器新增以「显存占用百分比」衡量 vRAM 用量（类似常规系统 RAM 的百分比展示）。Plasma 登录管理器的自动登录现在可兼容较旧版本的 systemd；在「亮度与色彩」小组件中拖动亮度滑块时，外接显示器的亮度变化也会更快地反映出来。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这些改动虽属桌面体验层面，却直接关乎日常图形工作流的可用性——录屏带系统音、去掉 OpenCV 依赖（更小的体积）、显存百分比监控对排查 GPU 显存溢出尤其实用。它们共同描绘了 Plasma 6.8（在转向 Wayland-only 之前）对图形 / 显示相关细节的打磨方向。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-Rusticl-Panfrost-Default" target="_blank">Mesa 的 Rusticl 现在默认启用 Arm Mali Panfrost 驱动支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        一位 Arm 工程师提交到 Mesa 的改动，使面向 Arm Mali 图形的 Panfrost Gallium3D 驱动现在默认可与 Rusticl 驱动协同工作。此前 Panfrost 虽已能与 Rusticl（基于 Rust 的 OpenCL 驱动）配合，但必须设置环境变量 _RUSTICL_ENABLE=panfrost 才能启用——与其他尚未完全验证、未正式官宣的驱动处境相同。随着 Mesa 26.2 的最新代码，Panfrost 改为默认启用 Rusticl，省去了手动 override。此举意在为想在 Arm Mali 图形硬件上获得现代、开源 OpenCL 体验的用户提供更好的开箱即用支持。Mesa 26.2 稳定版预计 8 月发布。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是开源 OpenCL 在 ARM 移动 / 嵌入式 GPU 上「开箱即用」的重要一步：不再需要环境变量 hack，Arm Mali 用户即可直接获得 Rusticl 通用计算能力。结合 Rusticl 近期在硬件利用率上的持续改进，ARM 平台的 Linux 计算生态正加速补齐「能跑通用 GPU 计算」的最后一块拼图。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-12</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
