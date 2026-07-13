@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-14</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 14 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/graviton5-epyc-xeon" target="_blank">AWS Graviton5 性能评测：超 Intel Xeon Granite Rapids，仍不及 AMD EPYC Turin</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        随着搭载全新 Graviton5 CPU 的 AWS M9g 实例正式 GA，Phoronix 在 Amazon EC2 上对比了 Graviton5、Intel Xeon 6 Granite Rapids 与 AMD EPYC Turin 三款服务器处理器。Graviton5 基于 Arm Neoverse-V3 核心，内存由上代 DDR5-5600 升级到 DDR5-8800，相较 Graviton4（Neoverse-V2）代际提升明显。测试在 Ubuntu 26.04 LTS（Linux 7.0 内核、GCC 15.2）下进行，对比 M9g、M8a（AMD EPYC 9R45「Turin」）、M8i（Intel Xeon 6975P-C「Granite Rapids」）三种 4xlarge 实例。结果显示 Graviton5 在多数项目中超越 Intel Xeon Granite Rapids，但在与 AMD EPYC Turin 的正面对决中仍落后。价格上 Graviton5 的 m9g.4xlarge（$0.78272/小时）反而低于 EPYC 的 m8a（$0.97376）与 Xeon 的 m8i（$0.84672），性价比突出。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Arm 服务器 CPU 在 Linux 云原生计算场景下的一次重要基准验证。对关注异构计算与云成本的团队而言，Graviton5 凭借 Neoverse-V3 与高频 DDR5 在「每美元性能」上展现出竞争力，意味着在容器、CI、推理等计算密集型负载中，Arm 实例正成为 x86 之外的务实选项；而 EPYC Turin 仍守住绝对性能高地，也为 AMD 在数据中心保留筹码。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/COSMIC-Frosted-Glass-Arrives" target="_blank">System76 COSMIC 桌面推出「磨砂玻璃」Frosted Glass 视觉效果</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        System76 为 Pop!_OS 的 COSMIC 桌面环境带来了期待已久的「Frosted Glass（磨砂玻璃）」半透明模糊效果。该功能并非皮肤层面的花活，而是直接实现在 cosmic-comp（COSMIC 的 Wayland 合成器）与 libcosmic 中，采用标准 Wayland 背景特效协议，因此效果是系统级的、对整个桌面统一生效。用户可在「设置 › 桌面 › 外观 › Frosted Glass」中按需为四类 UI 分别开关：窗口与对话框、面板与坞站、小程序、系统界面（启动器 / 应用库 / 工作区切换 / 锁屏）；并提供「磨砂厚度」与「玻璃透明度」两个滑块进行精细调节。当前 Pop!_OS 24.04 LTS 用户通过更新即可启用，其他发行版（Fedora Atomic、Artix 等）将在数日内随仓库更新获得。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是开源 Linux 桌面在视觉表现力上追赶主流商业系统的又一里程碑。它复用 Wayland 标准背景特效协议（与 GNOME Mutter 的 ext-background-effect-v1 同源思路），说明「磨砂玻璃」一类现代 UI 特效正在各 Wayland 合成器间形成共识方案；对 Wayland 生态与全栈 Rust 的 COSMIC 桌面的采用者而言，既是体验升级，也是生态成熟的信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Rework-Sysclal-Entry-Linux-7.3" target="_blank">Linux 7.3 将迎来系统调用入口处理重构（Thomas Gleixner）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        资深内核开发者 Thomas Gleixner 在审视一处系统调用号处理补丁时，顺势对内核的系统调用入口（syscall entry）处理做了一轮清理与改进，预计随 Linux 7.3 合入。核心改动包括：让所有架构统一采用通用 syscall entry 代码、并在尽可能早的时机（关中断区）正确地做内核栈随机化（新增 add_random_kstack_offset_irqsoff()，避免原先 get/put_cpu_var() 的无谓开销）；修正了 PowerPC 此前「错误 / 次优」的栈随机化时机；清理了 x86 历史遗留的若干「怪异」实现；并让 ptrace / tracer 相关函数以布尔值返回系统调用是否被允许。改动后 x86_64 的 syscall 入口代码体积略减，syscall 密集型负载与微基准测试显示有小幅性能提升，且无预期的功能性变化。相关补丁已进入 tip 树的 core/entry 分支。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>系统调用入口处于每次用户态↔内核态切换的热路径，其随机化正确性直接关系到内核栈保护（对抗栈溢出类攻击）的安全基线；统一各架构实现也降低了长期维护成本。对运行大量 syscall 的计算 / IO 密集型负载（如高频交易、数据库、容器化服务）而言，入口路径的微小开销下降会随调用频次被放大，是 7.3 中值得关注的底层收益。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-14</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>

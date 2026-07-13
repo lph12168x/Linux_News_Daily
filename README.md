@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-14](linux-news-2026-07-14.html) | AWS Graviton5 性能评测超 Intel Xeon Granite Rapids、仍不及 AMD EPYC Turin（Arm Neoverse-V3 vs x86 服务器 CPU，Ubuntu 26.04）· System76 COSMIC 桌面推出 Frosted Glass 磨砂玻璃视觉效果（cosmic-comp Wayland 合成器，系统级模糊）· Linux 7.3 将迎来 Thomas Gleixner 系统调用入口处理重构（统一架构栈随机化、小幅性能提升） |
 | [2026-07-13](linux-news-2026-07-13.html) | Linux 7.2-rc3 发布，逼近 8 月稳定版（一半改动为驱动、含 AI 辅助补丁，将为 Ubuntu 26.10 内核基础）· Linux 7.2 默认内核构建启用 UltraRISC RISC-V 支持（UR-DP1000 八核 C100 进 defconfig）· 知名 LLVM/Clang 内核开发者 Nick Desaulniers 回归 Google 重启内核贡献 |
 | [2026-07-12](linux-news-2026-07-12.html) | Linux 7.2-rc3 改进多 GPU 系统显示检测逻辑（AMD+NVIDIA 双显卡主显示判定修复）· LLVM 合并 x86 LFI 轻量级故障隔离目标（进程内沙箱，Spec2017 仅 2~7% 开销）· KDE Plasma 6.8 落地 Spectacle 音频录制 / vRAM 百分比监控等 · Mesa 26.2 Rusticl 默认启用 Arm Mali Panfrost 驱动支持 |
 | [2026-07-11](linux-news-2026-07-11.html) | Linux 7.3 为 GFX11 AMD APU 启用第二图形管道（pipe1，RDNA3/3.5）· Intel ANV Vulkan 合并 HiZ Plane 优化（Mesa 26.2，游戏帧率 +1~3%）· LLVM/Clang 合并 NVIDIA Rigel 核心（下一代 Rosa CPU）初始支持（-mcpu=rigel）· Intel-Scaler-vLLM 0.21.0-b1 发布（XPU graph + Gemma 4 模型）· KDE Plasma 6.7 X11 vs Wayland NVIDIA 游戏性能对比（CachyOS）· Linux DT 补丁为 Apple M3 Pro/Max/Ultra 提供基础启动支持 |
