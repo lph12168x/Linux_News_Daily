@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-13</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 13 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.2-rc3-Released" target="_blank">Linux 7.2-rc3 发布：逐步回归「新常态」</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        7 月 12 日（EDT）Linus Torvalds 发布 Linux 7.2-rc3，面向 8 月的 7.2 稳定版持续推进。本周变更包括：为 RISC-V 默认内核配置加入 UltraRISC 支持、SEGA Dreamcast 驱动修复、面向部分多 GPU 系统的显示检测改进，以及标志着资深 LLVM Linux 开发者 Nick Desaulniers 回归。约一半改动集中在驱动层（GPU 与网络一如既往，另有不少杂项驱动），其余分散在网络、文件系统、文档、核心内核与架构修复中。Torvalds 称提交量维持「新常态」的略高水平，但因暑期休假开始有所平衡，「没有特别吓人或奇怪的东西」。值得注意的是，本轮修复中已包含多个「AI 辅助生成」的补丁。Linux 7.2 也将成为今秋 Ubuntu 26.10 的内核基础。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>7.2-rc3 是本周期最新的开发里程碑，直接决定 8 月稳定版与 Ubuntu 26.10 的基线特性。对图形/计算方向而言，「一半改动是驱动」意味着 GPU 驱动仍在密集修 bug；而「AI 辅助补丁」进入主线 rc 阶段，也是内核开发流程持续演进的一个信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.2-UltraRISC-RISC-V" target="_blank">Linux 7.2 默认内核构建启用 UltraRISC RISC-V 支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        7 月 12 日，继此前为 Eswin SoC 默认启用之后，UltraRISC 的 RISC-V 覆盖也在 Linux 7.2 的 RISC-V「defconfig」中默认开启。赶在 7.2-rc3 前合入的这批 RISC-V 修复新增了 ARCH_ULTRARISC Kconfig 选项，用于启用 UltraRISC RISC-V 硬件支持——目前在主线内核中对应的是搭载 8 个 UltraRISC C100 核心的 UR-DP1000。该 SoC 支持随后被纳入 RISC-V defconfig 默认构建。ARCH_ULTRARISC 属于合并窗口后期的追加项，但此前已被部分驱动引用，本次通过合入 Linus 的主线 Git 一并落地。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>RISC-V 服务器/多核 SoC 正稳步进入主线内核默认构建——UR-DP1000 的 8 核 C100 配置代表国产及新兴 RISC-V 计算平台的开箱即用度提升。对关注异构计算与自主指令集生态的团队而言，defconfig 默认启用意味着发行版内核将直接可跑，降低了适配门槛。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Nick-Desaulniers-LLVM-Linux" target="_blank">知名 LLVM Linux 开发者 Nick Desaulniers 回归内核开发</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        推动「用 LLVM/Clang 而非 GCC 编译 Linux 内核」的原始开发者之一 Nick Desaulniers 重返内核开发。他曾在 Google 担任内核 LLVM 支持的维护者，负责各类 LLVM 组件的上游化与后续维护；2025 年 2 月离开 Google 加入 Tesla 后，其内核贡献一度停滞。如今他已回到 Google 并将再次贡献 Linux 内核——在把维护者邮箱改回 Google 的补丁中，他以颇为张扬的措辞写道：「我回来了。我会回归，我会附身于你，让 LKML 燃烧。」该补丁已被 Torvalds 采纳并合入 Linux 7.2 Git，也是本周 7.2-rc3 的看点之一。LLVM/Clang 构建内核对代码可移植性、规避「GCC 惯用法」、利用 GNU 工具链尚未提供的编译器特性、GCC 与 Clang 性能对比，以及当下日益重要的内核 Rust 集成都意义重大。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Clang/LLVM 构建内核是 Rust-for-Linux 与现代编译器安全特性（如 CFI、sanitizer）落地的关键基础设施。核心维护者回归意味着这条工具链路线将重获投入——对希望在生产内核中启用 Clang 特性、或推进 Rust 驱动的团队是积极信号。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-13</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
