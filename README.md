@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-15](linux-news-2026-07-15.html) | Weston 16.0 合成器发布，HDR 改进与 Vulkan 渲染器修复（Wayland 参考实现）· Intel ANV Vulkan 驱动新增 H.265 10-bit 视频编码（Igalia，Vulkan Video）· 开源软 GPU GlandaGPU 提交 Linux DRM 内核驱动 RFC（FPGA VHDL 全链路开源）· Intel 图形编译器 IGC 2.38.2 编译优化 · System76 Adder Pro 笔记本（NVIDIA 独显 + 2K OLED + 最高 96GB）· Blender 5.2 LTS 发布 |
 | [2026-07-14](linux-news-2026-07-14.html) | AWS Graviton5 性能评测超 Intel Xeon Granite Rapids、仍不及 AMD EPYC Turin（Arm Neoverse-V3 vs x86 服务器 CPU，Ubuntu 26.04）· System76 COSMIC 桌面推出 Frosted Glass 磨砂玻璃视觉效果（cosmic-comp Wayland 合成器，系统级模糊）· Linux 7.3 将迎来 Thomas Gleixner 系统调用入口处理重构（统一架构栈随机化、小幅性能提升） |
 | [2026-07-13](linux-news-2026-07-13.html) | Linux 7.2-rc3 发布，逼近 8 月稳定版（一半改动为驱动、含 AI 辅助补丁，将为 Ubuntu 26.10 内核基础）· Linux 7.2 默认内核构建启用 UltraRISC RISC-V 支持（UR-DP1000 八核 C100 进 defconfig）· 知名 LLVM/Clang 内核开发者 Nick Desaulniers 回归 Google 重启内核贡献 |
 | [2026-07-12](linux-news-2026-07-12.html) | Linux 7.2-rc3 改进多 GPU 系统显示检测逻辑（AMD+NVIDIA 双显卡主显示判定修复）· LLVM 合并 x86 LFI 轻量级故障隔离目标（进程内沙箱，Spec2017 仅 2~7% 开销）· KDE Plasma 6.8 落地 Spectacle 音频录制 / vRAM 百分比监控等 · Mesa 26.2 Rusticl 默认启用 Arm Mali Panfrost 驱动支持 |

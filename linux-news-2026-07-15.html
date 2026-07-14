@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-15</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 15 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Wayland-Weston-16.0" target="_blank">Weston 16.0 合成器发布：HDR 改进与 Vulkan 渲染器修复</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Wayland 的参考合成器 Weston 迎来 16.0 正式版。作为验证 Wayland 协议、驱动新协议落地的「样板」实现，本轮更新重点强化了 HDR 相关能力，并对基于 Vulkan 的渲染后端做了一系列修复与打磨。此外还包含对多显示输出、色彩管理路径以及底层 GL/Vulkan 渲染器的稳定性改进。虽然 Weston 更多用于嵌入式、汽车座舱、测试与协议参考场景，而非普通桌面用户的日常主力，但它承载着 Wayland 新特性的「首发验证」职责，其对 HDR 与 Vulkan 渲染的持续投入，往往预示这些能力将在 KWin、Mutter、wlroots 等主流合成器中陆续铺开。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>HDR 与 Vulkan 渲染是当前 Wayland 显示栈演进的两条主线。Weston 作为参考实现率先把这些能力做扎实，等于为整个生态趟平了路——对做嵌入式/车载图形栈、以及关注 Linux 桌面 HDR 落地的开发者而言，Weston 16.0 是观察 Wayland 显示能力成熟度的重要风向标。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Vulkan-Video-10-bit-H265" target="_blank">Intel ANV Vulkan 驱动新增 H.265 10-bit 视频编码支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Igalia 的开发者继续为 Intel 开源 ANV Vulkan 驱动扩展视频编码能力，此番为其实现了 H.265（HEVC）10-bit 视频编码支持。相较 8-bit，10-bit HEVC 编码能提供更高的色彩精度与更好的压缩质量，尤其利好 HDR 内容、专业视频制作与高质量串流场景。该特性依托 Vulkan Video 编码扩展，通过 Intel Arc 独显与近几代核显的硬件编码引擎加速完成，避免占用 CPU。这也是继此前 H.264、H.265 8-bit 编码之后，Intel Vulkan Video 编码路线图的又一步推进。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Vulkan Video 正逐渐成为 Linux 下跨厂商、免专利授权纠葛的统一硬件编解码接口。Intel 在 ANV 上持续补齐 HEVC 10-bit 等高价值编码能力，意味着开源栈在视频转码、录制、云游戏推流等 GPU 加速场景下的可用性进一步向商业方案看齐——对做媒体处理与串流的团队是实打实的能力增量。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GlandaGPU-Linux-Driver-RFC" target="_blank">开源「软 GPU」GlandaGPU 提交 Linux DRM 内核驱动 RFC</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        社区开发者向内核提交了一份为 GlandaGPU 编写的 DRM 图形驱动 RFC。GlandaGPU 是一个用 VHDL 实现、运行在 FPGA 上的开源「软 GPU」核心——即完全开源、可综合到现场可编程门阵列上的图形处理器设计。这份 RFC 补丁为其接入标准的 Linux DRM/KMS 图形子系统，让这块开源硬件核心能够走通「内核驱动—用户态—显示输出」的完整链路。尽管性能远不能与商用 GPU 相提并论，但它代表了从硬件 RTL 到内核驱动全链路开源的一次完整尝试。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>在 GPU 硬件与固件普遍闭源的当下，一个 RTL 设计、内核驱动、用户态栈全部开源的「软 GPU」具有独特的教学与研究价值。它为学习 GPU 架构、DRM 驱动开发、以及探索完全可审计的可信图形硬件提供了难得的实验载体——对学术界、安全敏感场景与开源硬件爱好者尤其有意义。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-IGC-2.38.2" target="_blank">Intel 图形编译器 IGC 2.38.2 发布：新一轮编译优化</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Intel 发布开源图形编译器 IGC（Intel Graphics Compiler）2.38.2 版本。IGC 负责把着色器与计算内核（OpenCL、Level Zero、Vulkan/SPIR-V 等）编译为 Intel GPU 可执行的机器码，是 Intel 计算与图形运行时（Compute Runtime、oneAPI 等）的关键底座。本轮更新带来新一轮编译优化与缺陷修复，覆盖 Intel 核显与 Arc 独显。对于依赖 Intel GPU 做 OpenCL/oneAPI 计算负载、或运行 Vulkan/OpenGL 图形应用的用户，IGC 的持续迭代直接影响着色器编译质量与实际运行性能。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>编译器是 GPU 性能「隐形的一半」——同样的硬件，编译优化的好坏可能带来可观的性能差异。IGC 作为 Intel 图形/计算栈的编译核心持续打磨，意味着 Intel GPU 在 OpenCL 计算、AI 推理与图形渲染上的实际表现会随之受益，是关注 Intel GPU 计算生态者需要跟进的底层组件。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/System76-Adder-Pro-2026" target="_blank">System76 推出全新 Adder Pro 笔记本：NVIDIA 独显 + 2K OLED + 最高 96GB 内存</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Linux 硬件厂商 System76 发布了新款 Adder Pro 笔记本。该机型主打游戏与创作场景，配备 NVIDIA 独立显卡、2K 分辨率 OLED 显示屏，并支持最高 96GB 内存扩展。作为深耕 Linux 桌面（Pop!_OS 与全栈 Rust 的 COSMIC 桌面）的 OEM，System76 的机型在硬件选型上会优先照顾 Linux 驱动兼容性与开箱即用体验。2K OLED 面板带来更高的对比度与色彩表现，配合 NVIDIA 独显，面向的是希望在 Linux 上获得高刷、高色准显示与强图形性能的专业用户与游戏玩家。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>OLED 高色域面板与 NVIDIA 独显在 Linux 上的支持成熟度，长期是桌面用户的关注焦点。System76 这类「Linux 优先」OEM 敢于在旗舰机型上标配 OLED + NVIDIA，本身就是 Linux 桌面在显示与图形栈（含 Wayland 下 NVIDIA 体验、HDR/色彩管理）日趋成熟的信号，也为想入手 Linux 生产力/游戏本的用户提供了省心之选。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Blender-5.2-Released" target="_blank">Blender 5.2 LTS 发布：大量增强的开源 3D 创作套件</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        开源 3D 建模与渲染软件 Blender 发布全新长期支持版本 5.2 LTS，带来大量功能增强。作为跨平台的旗舰级开源图形创作工具，Blender 在 Linux 上广泛依赖 GPU 加速：其 Cycles 渲染器支持 NVIDIA CUDA/OptiX、AMD HIP、Intel oneAPI 等多种 GPU 后端，EEVEE 实时渲染与视口交互也高度依赖 OpenGL/Vulkan 图形栈。5.2 LTS 作为长期支持分支，将获得更长周期的稳定性维护与修复，适合工作室与生产环境作为稳定基线部署。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Blender 是检验 Linux 桌面图形与 GPU 计算生态成熟度的绝佳标尺——它同时压榨渲染（Cycles/EEVEE）、视口显示与多厂商 GPU 加速。一个 LTS 版本的落地，意味着 Linux 上的专业 3D 创作有了更可靠的长期基座,也从侧面印证了开源图形栈对高强度 GPU 负载的支撑能力。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-15</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
