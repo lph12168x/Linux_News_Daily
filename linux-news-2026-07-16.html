@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-16</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 16 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-26.2-rc1-Released" target="_blank">Mesa 26.2-rc1 发布：本季度 3D 图形栈特性冻结，开放 26.3 开发</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Mesa 26.2 今日从 Git 主线切出独立分支并发布首个候选版本 26.2-rc1，标志本季度图形栈的特性开发告一段落，主线随即开启 26.3-devel。稳定版预计 8 月发布，期间每周推出候选版本。本轮更新覆盖面极广：Intel ANV 与 AMD RADV 两个 Vulkan 驱动获得大量优化；Vulkan Video 持续打磨；KosmicKrisp（Vulkan→Apple Metal 转译驱动）已支持 Vulkan 1.4；Rusticl 的 OpenCL 能力继续增强，并首次为 asahi/iris/radeonsi/llvmpipe/zink 提供 OpenCL 3.1 支持；NVIDIA NVK 驱动日趋成熟；Arm Mali Panfrost/PanVK 合并了全新 KRAID 编译器；AMD GFX12.1 图形支持启动早期工作；并合入一批新 Vulkan 扩展。甚至连老旧的 Radeon R600g/R300g 驱动也在本期得到多轮修复。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Mesa 是 Linux 图形与计算栈的「公共底座」，几乎囊括所有开源 GPU 驱动（ANV/RADV/NVK/Panfrost/Rusticl 等）。26.2-rc1 一次性把 Vulkan 扩展、OpenCL 3.1 一致性、新编译器与新一代硬件支持集中落地，等于为下半年 Linux 桌面与 GPU 计算的体验定下了基线。无论是游戏（DXVK/Proton）、专业渲染（Blender）还是异构计算（OpenCL），用户都将直接受益于这一版。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Lemonade-11.0" target="_blank">AMD Lemonade 11.0 本地 AI 服务发布：新增文本转语音与 3D 生成</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 在 Advancing AI 大会前夕发布了本地 AI 服务 Lemonade 11.0。Lemonade 是面向 AMD Ryzen CPU、Radeon GPU 以及 Ryzen AI NPU 加速的开源本地 AI 服务，可在 Windows 与 Linux 上一键跑起最新大语言模型。11.0 带来多项新能力：基于 OpenMOSS 后端的文本转语音（TTS），支持声音克隆与声音设计模型并集成进 GUI；全新的 3D 生成模态，移植 Trellis.2 图生 3D 管线，提供 `/v1/3d/generations` 接口与内置模型查看器；新增 ModelScope 作为继 Hugging Face 之后的第二个远程模型仓库；对 Linux 用户尤其友好的是，FastFlowLM NPU 后端现在会在 Linux 上自动安装，不再需要手动装系统包。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 AMD 在「本地 AI 全栈」上的一步实招——把 LLM、TTS、3D 生成统一到一个开源服务里，并优先照顾 Linux 与自家的 CPU/GPU/NPU 加速。对想在 Linux 上免云、低延迟做 AI 推理与创作的开发者而言，Lemonade 11.0 降低了门槛；而 NPU 后端在 Linux 上「自动装好即用」，也反映出 AMD 对 Linux AI 生态的投入正在从口头走向开箱即用。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/razer-blade18-windows-linux" target="_blank">$5399 顶配游戏本横评：Ubuntu 26.04 vs Windows 11 vs CachyOS（RTX 5090）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Phoronix 对 Razer Blade 18 RZ09-0582 进行了跨系统性能对比——这是 Razer 首款通过 Canonical 硬件认证、官方支持 Linux 的笔记本。机型配置为 Intel Core Ultra 9 290HX Plus 与 NVIDIA GeForce RTX 5090 笔记本显卡，整机售价 5399 美元。测试对比了 Razer 出厂预装的 Windows 11、Ubuntu 26.04 LTS（Linux 7.0 内核），以及滚动发行版 CachyOS（当时已用 Linux 7.1 内核、GCC 16.1.1、NVIDIA R610 驱动，而 Windows 11 与 Ubuntu 26.04 仍为 R595）。所有图形测试均使用各发行版仓库自带的官方 NVIDIA Windows/Linux 驱动，未做 Nouveau 对比。该机在此前 Ubuntu 26.04 的单系统评测中已展现出相当出色的性能。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>RTX 5090 是当下桌面级图形性能的顶端，而「同一台顶配硬件、不同系统的真实表现」是检验 Linux 图形与计算栈成熟度最直观的标尺。把 Ubuntu LTS（稳定基线）、滚动版 CachyOS（激进前沿）与 Windows 11 同台对比，不仅关乎游戏帧率，更触及 NVIDIA 闭源驱动在 Linux 下的调度、CPU 调度与编译器差异——对既玩 Linux 又关心高性能 GPU 工作负载的用户极具参考价值。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Is-Not-Anti-AI" target="_blank">Linus Torvalds 重申：Linux 不是「反 AI」项目，AI 只是工具</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Linux 创始人 Linus Torvalds 在邮件列表中再次明确表态：Linux 内核项目并非「反 AI」，也不做「社会斗士」。他直接回应了部分内核开发者对 AI/LLM 的排斥情绪，强调 AI 是与其他工具一样的辅助手段，内核开发既不强制使用、也绝不反对他人使用 AI 方案。这番表态紧随 Software Freedom Conservancy 关于 AI/LLM 的建议，以及近几个月在社群中日益普遍的 Sashiko AI 代码审查实践。Torvalds 写道：「AI 是一个工具，和其他我们使用的工具一样，而且显然是个有用的工具……这不是要强制任何人使用它，但我会非常大声地无视那些试图阻止别人使用它的人。」同时他重申，内核项目「关乎技术本身」，决策以技术价值而非对新工具的恐惧为依据。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>作为内核最高维护者，Torvalds 的立场实质上为 AI 辅助开发（包括 Sashiko 这类自动化代码审查）在 Linux 内核中的常态化扫清了政治与社区阻力。这对 GPU/计算领域尤为关键——AI 驱动的工具链正深度卷入驱动开发与性能调优，而内核层的态度决定了这些工具能在多大程度上进入主线。换言之，这是 Linux 计算生态「拥抱 AI 工具」的顶层信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/OpenCL-3.1-Conformance-Apple" target="_blank">首个 OpenCL 3.1 一致性实现：Apple M1/M2 经 Asahi Linux + Rusticl 通过</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        OpenCL 3.1 于今年 5 月发布（聚焦 AI 与 HPC 负载），仅两个多月后就出现了首个通过官方一致性测试套件（conformance）的实现——而且出人意料地落在 Apple Silicon 上：M1/M2 图形核心运行于 Asahi Linux，使用 Mesa 的 Rusticl 通用 OpenCL 实现。Rusticl 由 Red Hat 的 Karol Herbst 主导开发，他确认「rusticl 已成为首个 OpenCL 3.1 一致性实现，官方认证于 Apple 硬件运行 Linux（即 Asahi Linux）」。他同时透露 AMD/radeonsi 与 zink 的 3.1 提交也在推进中。这一结果颇具戏剧性：苹果官方并不支持 Linux，却由 Asahi Linux 逆向工程团队与开源贡献者把 M 系列芯片的 OpenCL 能力推到了标准最前沿。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>十多年前开源 Linux 图形栈总是慢半拍、追不上厂商的新 OpenGL/OpenCL 版本；而如今首个通过 OpenCL 3.1 一致性的竟是 Linux 上的开源驱动，这是生态话语权的标志性反转。Rusticl 是跨 Mesa Gallium3D 驱动的通用 OpenCL 实现，它在 Apple Silicon 上率先达标，意味着后续 AMD/Intel 等硬件的 OpenCL 3.1 认证只是时间问题——对依赖 OpenCL 做科学计算、AI 推理与专业视觉的 Linux 用户，是底层能力的一次实质跃升。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-16</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
