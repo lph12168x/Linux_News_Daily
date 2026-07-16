@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-17</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fdcb6e;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 17 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Wayland-1.26-Released" target="_blank">Wayland 1.26 正式发布：新增 wl_pointer.warp 指针定位事件</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Simon Ser 今日宣布 Wayland 1.26 稳定版发布。本次最重磅的改动是新增 wl_pointer.warp 事件——它解决了一个长期痛点：在当前 Wayland 下，某些场景中客户端无法获取正确的指针位置信息。例如鼠标焦点停在按钮上、窗口被移动/缩放/全屏但鼠标并未移动时，客户端无法通过 motion 事件更新坐标，导致鼠标位置错判。wl_pointer.warp 能在「指针因 surface 变化而局部坐标改变」时主动通知新位置，而无需用户发起指针移动事件。此外 1.26 还新增 wl_fixes.ack_global_remove 以消除全局移除事件的竞态、新增 wl_display_remove_socket_fd() 函数用于移除已添加的 socket，以及把 WAYLAND_DEBUG 时间戳改为 HH:MM:ss.xxx 格式以便比对日志。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>指针「位置错判」是 Wayland 上游戏、远程桌面、WINE/Proton 指针捕获等场景长期被诟病的顽疾。作为 RC1 之后的正式稳定版（7/10 已报道 RC1），1.26 意味着 KWin / Mutter / wlroots / Qt / SDL 等合成器与工具库可以放心跟进采纳；wl_pointer.warp 一旦普及，将直接改善大量既有应用的交互正确性，是显示协议栈走向成熟的关键一步。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Ubuntu-7.0-AMDGPU-Regress" target="_blank">Ubuntu 内核团队警告：下一版内核含 AMD GPU 性能回退，计算负载最高慢 42 倍</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Ubuntu 内核团队今晨主动发声明提醒 Ubuntu 26.04 与 24.04 LTS HWE 用户：即将推送的 7.0.0-28.28 内核更新，会在 AMD GPU 的 ROCm 重计算负载上引入性能回退，最高可达 42 倍。典型表现为跑 Stable Diffusion XL（SDXL）推理（ComfyUI）时处理时间暴涨——有报告称从 9 秒恶化到 388 秒。该回退源自 Linux 7.0.12 在 AMDGPU 异构内存管理（HMM）代码里的重试循环（retry loop）回归，已在 Linux 7.0.13 上游修复（commit dd03ceed9）。由于 Ubuntu 内核更新节奏的错配，7.0.0-28.28 仍会随安全修复一并推出，但内核团队建议依赖 AMD ROCm 计算的用户暂时避开该版本，等后续内核发布再升级。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是所有在 Ubuntu 上用 AMD GPU 做 AI/计算的用户的「现实雷区」——单条 HMM 重试循环 bug 就能让 ROCm 吞吐崩塌到 1/42。所幸上游已修复，但时间差意味着 Ubuntu 用户会先踩坑。它既是一次重要的实用告警，也直观展示了「上游一个点回归 → 发行版计算栈雪崩」的连锁效应，提醒我们升级内核前先核验 GPU 计算回归。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Server-SIde-Drop-Shadows" target="_blank">KDE KWin 引入服务端阴影支持，将于 Plasma 6.8 落地</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        KDE 开发者 Vlad Zahorodnii 今日的博客披露，KWin 已合并对「服务端阴影（server-side drop shadows）」的支持，该功能将随 KDE Plasma 6.8 推出。它针对那些既不自行绘制阴影、也不向合成器请求阴影的应用窗口：通过新增的「Window manager draws titlebar, frame, and shadows」窗口规则，可强制合成器为这类窗口补画阴影；KWin 还会自动为缺少服务端装饰与客户端阴影的 X11 窗口补加阴影。Vlad 以 Discord 窗口为例，展示了开启服务端阴影前后的对比效果。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是显示层视觉一致性的小但实在的改进——大量遗留 X11 应用与部分客户端应用「扁平无影」长期拉低了桌面观感。由合成器统一补画阴影，既避免窗口发「飘」，也体现了 KDE 在迈向 Plasma 6.8 过程中持续打磨 Wayland 服务端特效（与早前的背景模糊等一脉相承），让开箱即用的视觉体验更完整。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-GAIA-0.22" target="_blank">AMD GAIA 0.22 发布：本地 AI 邮件代理进一步成熟（含 Linux 支持）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在 AMD Advancing AI 大会前夕，AMD 推出本地 AI 应用 GAIA 0.22。本轮以「邮件代理」为核心：可追踪「你在等回复的邮件」与「邮件里说要做的事」，并能模仿你的写作风格起草回信——它读取你的 Sent 历史、推导问候语/落款/长度/正式度等风格特征，且只存储派生特征、绝不上传邮件内容；还支持按 cron 定时发送/暂存（snooze）、处理附件。邮件代理现作为独立 sidecar 从 Agent Hub 安装运行；此外 gaia schedule 为 CLI 带来 cron 调度，智能体开始从重复工作中提炼流程，RAG 也能读取 Word 文档。GAIA 可运行于 Ryzen / Radeon / Ryzen AI NPU，Linux 同样涵盖。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>继 Lemonade 11.0、ROCm 7.14 之后，AMD 的本地 AI 攻势再下一城。GAIA 0.22 展示了一个完全在本地、跑在 AMD 硬件（含 Linux）上的桌面 AI 代理：隐私设计为「仅存风格特征、绝不上传内容、未经确认不发送」，对重视数据主权的 Linux 用户颇具吸引力。它释放出的信号是——端侧 AI 正从「跑模型」走向「常驻式桌面智能体」。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/IMG-PowerVR-BXM-4-64-FW" target="_blank">Imagination PowerVR BXM-4-64 GPU 固件上游化：T-Head TH1520 开源 GPU 栈补齐最后一块</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        现在，启用阿里平头哥 T-Head TH1520 SoC 中 Imagination PowerVR BXM-4-64 Rogue GPU 所需的固件二进制，已进入上游 linux-firmware.git 中央仓库（131KB blob）。Imagination 的 PowerVR DRM 内核驱动与 Mesa 中的 PowerVR Vulkan 驱动对 BXM-4-64 的适配已推进多时，固件一直是「体验闭环」缺失的最后一块。Imagination 的 Frank Binns 表示，TH1520 上的 BXM-4-64 支持在上游内核中已就绪且状态良好。TH1520 采用四核 RISC-V（玄铁 C910）+ BXM-4-64 GPU，常见于 Lichee Pi4A、BeagleV Ahead 等开发板。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>固件上游化补全了热门 RISC-V 开发板开源 GPU 栈的「最后一公里」——Lichee Pi4A / BeagleV Ahead 用户终于能在 Linux 上获得开箱即用的 GPU 体验，无需再折腾闭源 blob。这也是 x86/ARM 之外、开源 GPU 驱动生态走向成熟的一个样本：从内核 DRM 驱动、Mesa Vulkan 驱动到固件，全链路打通。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/amd-ryzen-7-7700x3d" target="_blank">AMD Ryzen 7 7700X3D Linux 性能评测：最便宜的 3D V-Cache 处理器开售</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD Ryzen 7 7700X3D 今日开售，是面向游戏玩家的最便宜的 AMD 3D V-Cache 处理器：8 核 16 线程、4.5GHz 加速、104MB 总缓存，基于较老的 Zen 4 架构，建议价约 329 美元——明显低于 Ryzen 7 7800X3D（约 416 美元）与 9800X3D（约 444 美元）。Phoronix 在 Ubuntu 26.04 LTS（Linux 7.0）上完成评测，AM5 平台对 Zen 4 的 znver4 编译器目标支持已相当成熟，全程无兼容性问题；该芯片 TDP 同为 120W。对受益于 3D V-Cache 的游戏与缓存敏感负载，它以预算价位提供颇具吸引力的性价比。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对 Linux 游戏玩家与追求性价比的计算用户，7700X3D 是把 3D V-Cache 拉到 329 美元档位的实惠之选。Zen 4 + 3D V-Cache 在 Linux 上支持成熟、开箱即用，无论是游戏帧率还是缓存敏感型工作负载都能直接受益；对想低成本升级 AM5 平台、或给闲置主板配一颗高性价比 3D V-Cache 处理器的用户，是值得关注的选项。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-17</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
