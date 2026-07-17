@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-18</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 18 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-More-AMDGPU" target="_blank">AMD 为 Linux 7.3 准备更多图形 / 计算驱动改进（DCN4.2、GFX12.1、OLED 省电、8K 修复）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在 7 月底合并窗口开启前，AMD 本周向 DRM-Next 推送了又一批面向 Linux 7.3 的 AMDGPU 图形驱动与 AMDKFD 计算驱动特性代码。本轮涵盖众多新图形 IP 块的更新：DCN 4.2 显示 IP、MMHUB 4.2、SMU 15、GFX 12.1 等。其中值得关注的是此前报道过的「内容自适应对比度与功耗（CACP）」特性正式落地，可为配备 OLED 面板的现代 AMD Linux 系统显著省电。AMDGPU 还修复了 8K 高刷显示的时序解析问题——由于 8K120 / 8K240 的 timing 位于 DisplayID 块的特殊位置，此前驱动未能正确处理，带 8K@120/240 屏的用户有望因此解决异常。旧显卡也获修复：Valve 的 Timur Kristóf 再次贡献了 GCN 1.0（Southern Islands）的 AC/DC 切换修复，以及 Bonaire 的内存时钟 DPM 修复。AMDKFD 计算侧则新增 CWSR 尺寸计算的边界检查与 DQM 初始化失败修复；调度上把 system_unbound_wq 改用 system_dfl_wq。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Linux 7.3 图形/计算子系统在合并窗口前最密集的一次集中更新。从面向未来硬件（DCN4.2 / GFX12.1）到当下体验痛点（OLED 省电、8K@240 时序、旧卡 AC/DC 切换），覆盖面很广；其中 CACP 省电与 8K 时序修复是普通桌面/创作者用户最能直接感知的改进。对追踪 AMD 开源驱动主线进展的人来说，本批 pull 是 7.3 发布前必读的「特性清单」。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/FastFlowLM-Joins-AMD" target="_blank">FastFlowLM 开发者加入 AMD，助推开源 NPU 软件栈</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-npu">NPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在 ROCm 7.14 生产版、Lemonade 11.0 本地 AI 服务、GAIA 0.22 之后，AMD 在 Advancing AI 大会前夕再添开源利好：FastFlowLM 背后的开发者团队已正式加入 AMD。FastFlowLM 长期聚焦 AMD Ryzen AI NPU 加速，提供类 ollama 的开发者体验（最初面向 Windows），是实际可用地驱动 Ryzen AI NPU 的少数优选方案之一。该团队由学术研究者创立，主攻并行 NPU 架构上的 AI/LLM。加入后他们将进入 AMD AI Group，专注客户端与工作站的 AI 软件，以及最新模型的「day-zero」启用。FastFlowLM 代码以 MIT 许可开源，与 ROCm、Lemonade、GAIA 等 AMD 开源 AI 努力一脉相承。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Ryzen AI NPU 在 Linux 上的软件生态一直是薄弱项，而 FastFlowLM 恰恰是把它「真正用起来」的代表项目。团队被 AMD 收编意味着 NPU 推理软件将获得第一方持续投入，且明确承诺继续开源——这与 ROCm/Lemonade/GAIA 形成合力，对想在 Linux 端侧跑大模型、多模态推理的用户是实质利好，也坐实了 AMD 围绕端侧 AI 的全面布局。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/OpenBLAS-0.3.34-Released" target="_blank">OpenBLAS 0.3.34 发布：多线程优化 + 支持内存安全 C 工具链 Fil-C</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        开源 BLAS 库 OpenBLAS 7/17 释出 0.3.34。本轮为一批内核新增或收紧了多线程阈值：受影响的包括 SPR、SPR2、SYR、SYR2、TBMV、TPMV、GETRS、LAED3、LASWP、LAUUM、TRTRS、ZTRTRI。它还新增了用 Fil-C 编译的支持——Fil-C 是一个基于 LLVM 的实验性 C 工具链，目标是提供内存安全的 C/C++ 实现。0.3.34 也做了对齐即将发布的 Reference-LAPACK 3.13 的改动、各类修复，以及多项 CPU/架构特定优化：ARM 上 SGEMM 内核「显著更快」、更多 ARM64 内核优化、若干 RISC-V 64 位新优化内核、改进的兆芯（Zhaoxin）x86_64 CPU 检测，以及针对旧 AMD Opteron/Barcelona 平台的修复。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>OpenBLAS 是科学计算、ML 推理底层矩阵运算的事实标准之一，其性能直接牵动 NumPy、PyTorch（CPU 路径）、各类 HPC 负载。本轮既榨干现有 CPU 的多线程潜力（SPR/SYR 等多为常见线性代数原语），又拥抱 Fil-C 内存安全 C 工具链——后者是 C/C++ 生态「渐进式内存安全」的重要风向标。对 Linux 上跑 CPU 计算的用户，升级可期待实打实的吞吐提升。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Arm-Core-Local-Accelerator" target="_blank">Arm 发布 Core Local Accelerator（CLA）Linux 驱动 RFC：加速器通用编程接口</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Arm 今日公布了一个全新开源 Linux 驱动：Arm Core Local Accelerator（CLA）驱动，作为「CPU 本地（CPU-local）」编程附加加速器的接口。据 Arm 工程师 Ryan Roberts 在 RFC 中说明，该接口与加速器类型无关（agnostic），但初始（也是目前唯一）目标是一个计算引擎（compute engine）。CLA 最多支持 8 个附加加速器，设计上亦允许加速器之间互相协作。不过 Arm 目前只公开了内核侧的原型代码，尚未有用户态驱动可分享——他们正在推进用户态驱动的开源，但 ETA 未定。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>随着 AI 推理走向端侧，CPU 旁挂各类专用加速器（NPU、DSP、计算引擎）已成趋势。Arm CLA 想做的是一套「与加速器类型无关」的通用编程抽象，让内核以统一方式调度这些贴近 CPU 的算力——这是异构计算标准化的一步，潜在影响面很大。虽然目前仅有内核侧原型、无用户态，但 RFC 已勾勒出未来 Arm 硬件上加速器软件栈的雏形，值得持续关注。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Llamafile-0.10.4" target="_blank">Mozilla AI 发布 Llamafile 0.10.4：新增基于 Transcribe.cpp 的语音转写 Transcribefile</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Mozilla AI 发布了 Llamafile 0.10.4。Llamafile 是其「单文件、跨硬件跨操作系统」易用 LLM 方案。本轮最大亮点是新增 Transcribefile——它建立在 6 月底刚发布的 Transcribe.cpp 之上。Transcribe.cpp 是一个 C/C++ 语音转文字推理库，定位类似语音界的 Llama.cpp，基于 GGML，可由 Vulkan、NVIDIA CUDA、Apple Metal 加速。如今 Llamafile 0.10.4 将其打包为单文件构建的 Transcribefile，支持 16+ 个 TTS/语音模型。此外该版本同步了 Llama.cpp 上游构建、改进了 Vulkan API 与 AMD ROCm 加速的处理、加入 HTTPS 下载支持，以及 pledge/SECCOMP 沙箱支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Llamafile 把「下载一个文件就能跑大模型」的体验做到了极致，0.10.4 又把语音转写（Transcribe.cpp）塞进同一范式——意味着本地、跨平台、零依赖的语音→文本流水线也变得「单文件即可」。它对 Linux 用户尤其友好：Vulkan / ROCm 加速路径同步增强，且带来 pledge/SECCOMP 沙箱，兼顾了易用与安全。对想在本地做离线语音处理的开发者，这是一步重要的能力补全。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Frame-X11-Server-Assembly" target="_blank">Frame：一个用纯 x86_64 汇编写就的全新 X11 服务器</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        此前我们报道过用 Rust 写的 X11 服务器 YSERVER；如今有读者分享了一个更「硬核」的实现：Frame 是一个纯 x86_64 汇编写成的 X11 服务器。它仅由一个汇编源文件构成，截至目前接近 2.5 万行汇编，不依赖 Mesa、FreeType、Xlib，甚至不依赖 libc——直接调用 Linux 系统调用，并通过 DRM/KMS 接口与 evdev 处理显示与输入。Frame 是过去一个月里主要靠 Claude Code 生成的。作者 Geir Isene 用其替换了 gdm/X11/i3/conky/wezterm/zsh 等整条桌面栈（统称为 CHasm，约 10 万行汇编），并称只为省电——实测空闲时与 Xorg 耗电相当，但 Xorg 的「什么都不做」都消耗近三倍于 Frame 的 CPU，窗口管理器与终端在测量三分钟内 CPU 占用为零毫秒。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>在 Wayland 已成主流、X11 渐成遗留的当下，用一个汇编文件重写 X11 服务器是极致的「返祖实验」，也顺带印证了 X 协议栈「理论上可被彻底重实现」。对显示技术爱好者，它提供了关于 DRM/KMS 直接编程、evdev 输入、光标绘制与事件循环的生动一手样本；更重要的是——作者用实测数据展示了「更薄、更省 CPU 的显示服务」的可能，为讨论「X11 还能多轻」提供了真实参照。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-18</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
