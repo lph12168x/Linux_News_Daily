@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-19</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 19 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVK-Mesa-26.2-Performance" target="_blank">Mesa 26.2 中 NVK 开源 Vulkan 驱动逼近 NVIDIA 闭源驱动性能</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Red Hat 工程师 Karol Herbst（Nouveau / Rusticl 长期贡献者）在 Mastodon 上分享了由 NVK 贡献者 Phomes 提供的最新基准：Mesa 26.2 Git 相较 26.1 稳定版持续进步，正稳步缩小与 NVIDIA 官方闭源 Vulkan 驱动的差距。在《Serious Sam 2017》中 NVK 性能已极接近闭源驱动，不过在较新的游戏中两者仍有明显差距。Herbst 还提到，随着 NVIDIA 与社区持续推进现代 Nova 内核驱动，未来有望进一步拉升 NVK 的性能。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>NVK 是 Mesa 中完全开源的 NVIDIA Vulkan 驱动，其成熟直接关系到「在 NVIDIA 显卡上能不能摆脱闭源驱动」这一长期痛点。从 26.1 到 26.2 的逐版本逼近，加上 Nova 内核驱动同步推进，让开源栈在部分老游戏上已可与闭源驱动正面竞争。对追求纯开源图形栈、关注 Nouveau/NVK 主线进展的用户，这是最值得跟踪的年度进展曲线之一。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-DC-Apple-Studio-Display" target="_blank">AMDGPU DC 准备修复 Apple Studio Display 在 Linux 上的显示问题</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        本周的 AMDGPU Display Core（DC）更新一口气带来 70 个新补丁，用于完善 Radeon 显卡的开源显示支持。其中对想在 Linux 上用 AMD 显卡驱动 Apple Studio Display 的用户尤为关键：这块 27 寸 5K Retina 屏通过两条 SST DisplayPort link 组成 2×1 tiled panel，第一条 link 含正确的 5120×2880 模式与 Display Stream Compression，而第二条 link 此前会被错误地暴露给用户态，导致合成器「聪明地」试图分别驱动两个 tiled stream。新补丁隐藏/断开第二条 link，让用户只看到主 link 上的单一 5K 流。补丁集还把 HDMI AV mute 等待从 2 帧增至 3 帧（避免从休眠唤醒时花屏），并带来 SPL UPSP 上采样、YUV422 缩放与 KUnit 测试覆盖增强。按时间节点，这批 DC 补丁预计赶得上即将到来的 Linux 7.3。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Apple Studio Display 是高端 5K 屏中少见的「在 Linux 上体验割裂」的案例——之前的 tiled panel 双 link 暴露会让桌面环境给出混乱的副屏流。这处修复是典型「修好之后用户才意识到原来一直别扭」的显示栈问题，对用 AMD 显卡外接该屏的创作者、开发者是实打实的体验修复；同时也体现了 AMDGPU DC 仍在持续打磨消费级外接显示的细节。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/oneDNN-3.13" target="_blank">UXL 的 oneDNN 3.13 为 Intel Nova Lake（AVX10.2）做准备，并带来更多 Intel 优化</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        继本月早些时候 AMD 的 ZenDNN 6.0 之后，曾由 Intel 作为 oneAPI 一部分开发、现归属 UXL Foundation 的神经网络库 oneDNN 也迎来特性更新 3.13。本轮为搭载 AVX10.2 指令集（即 Nova Lake）的 Intel Core Ultra 提升性能；除 AVX10.2 调优外，也为现有带 AMX 指令集的 Intel Xeon 带来 MATMUL 性能改进。此外还有面向无 AVX-512/AVX10/AMX 的 CPU 的 AVX2 优化、其他 CPU 调优，以及 AArch64 与 RISC-V 处理器优化。图形侧亦有亮点：提升 Nova Lake P 的 Xe3P-LPG 核显性能，并为当前 Arc B 系列（Battlemage）独显带来卷积性能优化。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>oneDNN 是深度学习推理在 CPU 与 Intel 核显/独显上的关键底层库，几乎牵动所有主流推理框架的 Intel 路径性能。3.13 同时为下一代 Nova Lake（AVX10.2 + Xe3P-LPG）和现有 AMX Xeon、Battlemage 独显做优化，意味着从云端到端侧的 Intel AI 算力都会被同步喂涨；对想在 Linux 上跑 Intel 硬件 AI 负载的用户，升级 oneDNN 往往能直接换来吞吐提升。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/D7VK-2.0-Released" target="_blank">D7VK 2.0 发布：部分场景性能翻倍或更高</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        D7VK 是构建于 Vulkan API 之上的老版 Direct3D 7 及更早版本实现，紧随 DXVK 3.0.2 之后迎来了 2.0 这一重大特性版本。它带来多项性能优化，在部分 CPU 受限场景下可达两倍或更高性能——这正是版本号跳到 2.0 的原因。实测中《Half-Life》从 19 FPS 升至 59 FPS（撞上 60 上限），《Toy Story 2》从约 10 FPS 跳到 40 FPS；3DMark 99 Max 从 75.2k 提升到 111.3k 3DMarks，3DMark 2000 从 69.5k 跃至 154k。D7VK 2.0 还改进了调试日志以降低热路径开销，并同步合入了新的 DXVK 3.0.2 基座。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>老游戏在 Linux 上的流畅度长期依赖 Vulkan 转译层，D7VK 把 D3D7 及更早的 3D API 搬到 Vulkan，让二十多年前的经典游戏也能吃到现代驱动与 GPU 的红利。2.0 的「翻倍」提升说明即便是老 API 仍有可观优化空间，对怀旧游戏玩家与 Wine/Proton 生态都是实打实的体验增益，也印证了 Vulkan 转译路线在 Linux 游戏上的生命力。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/DXVK-3.0.2-Released" target="_blank">DXVK 3.0.2 发布：改进 GPU 挂起调试、修复多款游戏</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Valve 的 DXVK（把 Direct3D 8/9/10/11 通过 Vulkan 实现以运行 Windows 游戏）释出 3.0.2。本轮带来一批游戏修复，受益作品包括《Dying Light：The Beast》《Granblue Fantasy Relink》《Halo CE》《Overwatch》《Splinter Cell：Chaos Theory》，修复内容涵盖渲染 bug、NVIDIA 硬件上的虚假 GPU 挂起、以及启用 FSR 时的性能回退。除游戏修复外，DXVK 3.0.2 还让调试 GPU 挂起 / 驱动崩溃变得更轻松——新增 <code>DXVK_DEBUG=hang</code> 环境变量，在底层 Vulkan 设备丢失时输出更多调试信息，至少对 AMD 与 NVIDIA GPU 当前已能提供有用线索。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>DXVK 是 Proton/Steam Play 的基石之一，几乎决定了 Linux 上 Windows 游戏的上限。3.0.2 既是常规的游戏兼容性补丁，更关键的是引入了 <code>DXVK_DEBUG=hang</code> 挂起调试钩子——GPU 挂起是 Wine 游戏最让人头疼的「黑屏卡死」来源之一，这个官方调试通道能让玩家与开发者更快定位是游戏、驱动还是转译层的问题，对整个 Linux 游戏排障生态价值很高。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-19</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
