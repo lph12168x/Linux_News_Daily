@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-20](linux-news-2026-07-20.html) | Linux 7.2-rc4 发布（修复节奏进入「新常态」、AMDGPU 仍是 diff 噪声大户、AI 辅助修复常态化）· FFmpeg 落地 AVX-512 VPERMB 优化（RGB24→RGBA 1920×1080 转换快 1.372×，惠及 Zen 4+/Xeon）· 联想 Legion Y700 Gen4（骁龙 8 Elite）现身 Linux 支持补丁（frame-buffer 显示可用、下游可驱动 Adreno GPU 与触摸屏） |
 | [2026-07-19](linux-news-2026-07-19.html) | NVK（Mesa 26.2）持续逼近 NVIDIA 闭源 Vulkan 驱动（Serious Sam 2017 已极接近）· AMDGPU DC 70 补丁修复 Apple Studio Display 5K 屏（隐藏第二条 tiled link）· oneDNN 3.13 为 Intel Nova Lake（AVX10.2）+ AMX Xeon + Xe3P-LPG/Arc B 优化 · D7VK 2.0 老 D3D 性能翻倍（Half-Life 19→59 FPS）· DXVK 3.0.2 游戏修复 + DXVK_DEBUG=hang 调试钩子 |
 | [2026-07-18](linux-news-2026-07-18.html) | AMD 为 Linux 7.3 准备更多图形/计算驱动（DCN4.2·GFX12.1·OLED 省电·8K@240 修复）· FastFlowLM 团队加入 AMD 助推开源 NPU 软件 · OpenBLAS 0.3.34 多线程优化 + Fil-C 内存安全编译 · Arm Core Local Accelerator 驱动 RFC（加速器通用接口）· Mozilla Llamafile 0.10.4 新增 Transcribefile 语音转写 · Frame：纯 x86_64 汇编写的 X11 服务器 |
 | [2026-07-17](linux-news-2026-07-17.html) | Wayland 1.26 正式发布（新增 wl_pointer.warp 修复指针位置错判）· Ubuntu 内核团队警告下一版 7.0.0-28.28 含 AMD GPU 计算回退最高慢 42×、上游 7.0.13 已修 · KDE KWin 引入服务端阴影将于 Plasma 6.8 落地 · AMD GAIA 0.22 本地 AI 邮件代理（仿写风格、cron 调度，含 Linux）· Imagination PowerVR BXM-4-64 固件上游化解锁 T-Head TH1520 RISC-V 板卡 GPU · AMD Ryzen 7 7700X3D Linux 性能评测（最便宜 3D V-Cache） |

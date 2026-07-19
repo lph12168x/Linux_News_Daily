@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-20</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 20 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.2-rc4-Released" target="_blank">Linux 7.2-rc4 发布：修复节奏进入「新常态」</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Linux 7.2 的第四个每周候选版本（rc4）现已可供测试。Linus Torvalds 在公告中形容本周「看起来相当正常」，只是这个「正常」已变成大量散落各处的修复并存的「新常态」——rc4 并不算小。统计上仍以大量一两行的细小改动居多，较大的修复出现在 can/bcm（syzbot 与 sashiko 修复）和 selftests 上；Linus 还特别提到 diff 里有一处「较大的 AMD GPU 噪声」，但解释称主要是代码搬运与新增注释，并非以往那种庞大的头文件删减。他同时指出，本周不少修复仍是由 AI / LLM 辅助发现的。Linux 7.2 预计将在 8 月以稳定版形式登场。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>rc4 是 7.2 周期中段的关键检查点。本期要点不在新特性，而在两方面：一是 AI/LLM 辅助发现修复已成为内核常态化的「新常态」节奏；二是 AMDGPU 仍是内核中改动最密集、最易制造 diff「噪声」的子系统之一，侧面印证 GPU 驱动主线活跃度。对跟踪 7.2 特性集（8 月稳定、将作为 Ubuntu 26.10 等发行版内核基础）的用户，rc4 是判断稳定性走向的合适节点。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/FFmpeg-AVX-512-1.372x" target="_blank">FFmpeg 落地最新 AVX-512 优化：像素格式转换快 1.372 倍</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        资深 FFmpeg 开发者 Niklas Haas 扩展了 FFmpeg 的 libswscale，使其利用 AVX-512 的「按字节向量置换」（Vector Permute Byte, VPERMB）指令来加速视频缩放与像素格式转换。借助 VPERMB，代码可在跨通道（cross-lane）层面实现更高效的字节置换，从而改善非 lane 对齐场景的表现。实测下来，在支持 AVX-512 的处理器上，RGB24 → RGBA 的 1920×1080 转换速度提升了 1.372 倍。这对 AMD Zen 4 及更新 CPU、以及支持 AVX-512 的 Intel Xeon 等处理器是好消息。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>像素格式转换是视频管线中最频繁的基础操作之一，FFmpeg 这种手写 AVX-512 汇编优化能直接加速现代 x86 Linux 上的转码、缩放与串流负载。1.372 倍提升看似 modest，却落在「每一帧都会跑到」的热路径上，累积收益可观；同时它也延续了业界对 CPU 计算侧（而非仅 GPU）在媒体栈持续投入的趋势，对跑在服务器/工作站 CPU 上的视频处理用户尤其有意义。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Lenovo-Y700-Gen4-Linux-Patches" target="_blank">联想 Legion Y700 Gen4（骁龙 8 Elite）现身 Linux 支持补丁</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        搭载高通骁龙 8 Elite 的 8.8 英寸 Android 平板联想 Legion Y700 Gen4（最高 16GB RAM、1TB 存储、1904×3040 IPS 显示屏）如今出现了脱离 Android、启用主线 Linux 支持的初步补丁。开源贡献者 Pengyu Luo 今天发出了建立该平板 Device Tree 的初版补丁，可让按键、USB、frame-buffer 显示等基础功能正常工作；借助下游（downstream）补丁还能进一步驱动 GPU 与触摸屏。不过 WiFi、蓝牙、摄像头、麦克风、传感器与振动马达等仍仅在下游代码中可用，离「主线可用」还有距离，但有望随时间完善。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>又一台主流 Android 设备向主线 Linux 迈进：初版补丁已点亮 frame-buffer 显示，配合下游补丁更能跑通 Adreno（骁龙 8 Elite 内置）GPU 与触摸屏，与本项目关注的「显示 / 图形」方向直接相关。它体现了在骁龙 8 Elite 这类现代 ARM 平台上运行纯主线 Linux 的持续努力，对移动 Linux、ARM 图形栈与平板 DIY 用户都具有跟踪价值——尽管当前仍是「能用基础功能」的早期阶段。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-20</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
