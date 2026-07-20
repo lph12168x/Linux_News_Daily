@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-21</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 21 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KNOD-Network-Offload-AMD-GPUs" target="_blank">Linux 内核补丁引入 "KNOD"：网络卸载直接进 AMD GPU（无需 ROCm）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Taehee Yoo 在 Linux 内核邮件列表（LKML）发布了 KNOD 的 RFC 补丁——这是一个完全由内核驱动、面向 AMD GPU 的网络卸载设备，不依赖 ROCm 或任何用户态组件。内核直接管理 GPU 队列、把每包程序 JIT 编译成 GPU 机器码并下发；网卡把收到的数据包通过 DMA 直接写入 GPU 显存，GPU 以 SIMT 方式并行处理批量数据包，仅把「裁决结果 + 命中主机的包」回传 CPU。它还能以透明方式卸载现有 XDP 程序与 IPsec SA。因 AMD 全开源且已主线化的驱动栈，当前代码在 GCN（Radeon RX Vega）与 RDNA2 硬件上开发，NVIDIA/Intel 暂未跟进。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是把 GPU 用于「数据面」处理的范式突破：把原本受主机 CPU 核数限制的网络包处理（XDP L4 负载均衡、IPsec 加密）下沉到 GPU，吞吐随 GPU 占用率而非 CPU 核数线性扩展。最妙的是它完全在内核态完成，不需要 CUDA/ROCm 这类用户态运行时驻留数据通路，可直接挂到既有 XDP/xfrm 卸载路径。对高性能网络、SmartNIC 替代、DPU 思路是重要信号，也再次凸显 AMD 全开源驱动栈在 kernel↔GPU 协同上的独特优势。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/linux-72-panther-lake" target="_blank">Linux 7.2 提升 Intel Panther Lake Xe3 Arc B390 图形性能（实测对比 7.1）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Michael Larabel 在 MSI Prestige 14 Flip AI+（Core Ultra X7 358H，Arc B390 Xe3 显卡，Intel 提供的 Panther Lake 评测样机）上对比了 Linux 7.1 稳定版与 Linux 7.2 Git（7 月 17 日状态）。除内核从 7.1 切到 7.2 Git 外，其余完全一致（Ubuntu 26.04 LTS、Mesa 26.0.3、GNOME 50.1 Wayland）。结果显示：即将于 8 月以稳定版形式登场的 Linux 7.2，为 Panther Lake 的 Intel Xe3 图形带来了可见的性能提升。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Panther Lake 是 Intel 下一代 Core Ultra 移动平台，Arc B390 Xe3 是其内置显卡。Linux 7.2 在「同配置只换内核」下就带来可见的图形性能改进，说明 7.2 合并窗口里 Intel Xe3/图形子系统的改动已显现收益。对准备采购或已持有 Panther Lake 设备、又依赖 Linux 图形栈（Wayland/Mesa）的用户，7.2 是值得期待的稳定版；也再次印证「内核版本」对 Intel 集显体验的直接影响。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ROCm-SPIR-V-Reality-2026" target="_blank">AMD 谈 ROCm 中 SPIR-V IR 的巨大机遇（统一二进制、跨 GPU 可移植）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        继上周 ROCm 7.14（首个基于 TheRock 的生产版本）之后，AMD 发文阐述 ROCm 中 SPIR-V IR 的进展与前景。SPIR-V 是通常与 Vulkan 关联的中间表示，也被 OpenGL/OpenCL 支持。ROCm 正推进以 SPIR-V 为统一 IR，减少为每个 GPU 目标单独构建、提升跨硬件可移植性。ROCm 7.2+ 已具备基础支持：LLVM/Clang 的 AMD GCN SPIR-V target、生产级 SPIRV-LLVM Translator、每进程 JIT 缓存；下一步是让 in-tree LLVM SPIR-V 后端取代 translator 成为默认降级路径，并完善打包期 JIT 与调试体验。该方案已在 PyTorch 上验证有效。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>统一 IR 是 ROCm 生态「对标 CUDA 易用性」的关键一步——一个 ROCm 二进制「开箱即用」跑在多种 GPU 上、构建时间与二进制体积变平、获得「免费」的前向兼容。对 Linux 上的 AMD GPU 计算/AI 用户，这意味着更少的目标特化构建、更好的可移植性。代价是首启 JIT 延迟与架构特定编译期比特的 workaround，但方向明确；本周 AMD Advancing AI 大会或有更多进展。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Firefox-153-Downloads" target="_blank">Firefox 153 发布：支持 Vulkan 视频解码、实验性 JPEG-XL（同时是 ESR）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Mozilla 发布 Firefox 153.0，本月度更新同时是新的 ESR（Extended Support Release）长期支持版。亮点之一是引入 Vulkan Video 解码支持——此前 Firefox on Linux 主要依赖 VA-API（NVIDIA 官方不支持，需社区 NVIDIA-VAAPI 项目在 NVDEC 上层包裹 VA-API，诸多嵌入式驱动也不支持 VA-API）；现在新增了跨厂商、跨平台的现代视频加速接口。此外还有 PDF 增强、JPEG-XL 持续启用（可在 Firefox Labs 开启实验性支持）、Windows 端 HDR 视频播放等。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Vulkan Video 解码让 Firefox 在 Linux 上获得「不依赖厂商特定 VA-API 后端」的跨平台硬件视频加速路径，对 NVIDIA 用户尤其重要（无需再靠社区包裹层）。作为 ESR，这项能力还将随企业/学校等长期部署广泛渗透。加上 JPEG-XL 实验性支持，Firefox 在图形/媒体格式现代化上继续补齐，对日常浏览体验与 GPU 解码负载有实际意义。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Hyprland-0.56" target="_blank">Hyprland 0.56 发布：滚动/主从布局、新 Lua API、可拖拽装饰栏等</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Hyprland 0.56 是该独特 Wayland 合成器近三个月开发的特性更新。带来多项布局改进（新增滚动 scrolling 与 master 主从能力），并新增若干 Lua API 以便进一步自定义；还加入新的窗口规则效果、XDG 交互式拖拽（可拖拽客户端装饰标题栏）、glow 支持渐变等细化。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Hyprland 是当前人气最高的第三方 Wayland 合成器之一，0.56 的布局与脚本化（Lua API）能力增强，继续巩固其在「高度可定制平铺 Wayland 桌面」赛道的地位。新滚动/master 布局与窗口规则效果、可拖拽标题栏等，直接提升日常显示与窗口管理体验，对追求极致桌面定制的 Linux 用户价值明显。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GCC-AVX10-V2-AUX-Patches" target="_blank">AMD 提交 AVX10_V2_AUX ISA 的 GCC 支持补丁（AI/ML 数据格式转换）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        继本月初 Intel 编译器工程师为 AI 计算扩展 ACE 提交首批 GCC 补丁后，AMD 工程师 Dipesh Sharma 在周末发布 7 个补丁，为 GCC 接入 AVX10_V2_AUX ISA 支持（cpuid 检测、builtins 与 intrinsics）。AVX10_V2_AUX 是 x86 新 ISA，为加速 AI 工作负载提供专用数据处理与格式转换：在标准数据类型与压缩格式（FP4、FP6）之间转换，支持更多 OCP microscaling 格式、新舍入模式等，涵盖 FP32↔FP8、FP8↔FP4、FP8↔FP6 及其逆操作。补丁已在 GCC 邮件列表评审，目标赶在明年 GCC 17.1 稳定版就绪。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 x86 Ecosystem Advisory Group 下 AMD 与 Intel 围绕 ACE/AVX10 紧密协作的又一体现——面向 AI/ML 的低位宽（FP4/FP6/FP8）与 OCP microscaling 格式正成为硬件加速焦点。GCC 层面落地这些指令，意味着 Linux 上以 CPU 运行/量化推理的 AI 负载将获得编译器原生加速，无需手写内联汇编。对 AMD 用户尤其直接，也是 CPU 侧 AI 计算持续升温的信号。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-21</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
