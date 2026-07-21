@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-22</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 22 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Cold-Reset-Recovery-Linux" target="_blank">Intel 显卡「冷复位恢复」机制成型：DRM 新增冷复位楔形恢复（Xe 驱动先行）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        一套已迭代近十余版的补丁系列为 DRM（Direct Rendering Manager）驱动引入「冷复位恢复（cold reset recovery）」方法，初期以 Intel Xe 内核图形驱动为目标。冷复位用于处理那些必须整机掉电/上电循环才能清除的错误——部分硬件错误即便热复位、重载驱动也无法消除，必须彻底冷复位方可让设备恢复。Intel 工程师当前的主要动机是 PMU（PUNIT）错误：该错误会在热复位与驱动重载后持续存在，只有冷复位能恢复。补丁向通用 DRM 代码新增 <code>_DRM_WEDGE_RECOVERY_COLD_RESET_</code> 这一新的楔形（wedging）恢复方式；DRM 核心通过 uevent 通知用户态「需要冷复位」，再经 udev 按系统情况采取相应动作。补丁已在 dri-devel 列表发布。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Linux 图形驱动可靠性的重要底层补强——把「只能整机重启才能恢复」的致命 GPU 错误，变成可由内核/用户态协同完成的局部冷复位，大幅提升 Intel 独显/核显在长时间运行或错误状态下的可用性。对数据中心 GPU、桌面 Xe 用户都意味着更少的意外宕机；Xe 驱动先行也体现 Intel 新驱动栈在健壮性上的持续投入，后续有望推广到更多 DRM 驱动。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/cachyos-desktops-july-2026" target="_blank">KDE Plasma 6.7 vs GNOME Shell 50.3 vs Xfce 4.20 桌面横评（CachyOS + NVIDIA RTX 5090）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        继本月初「KDE Plasma 6.7 的 Wayland vs X11 游戏性能」测试后，Phoronix 应读者要求把对比扩展到更多桌面：在 CachyOS 上对比 KDE Plasma 6.7.2、Wayland-only 的 GNOME Shell 50.3，以及基于 X11 的 Xfce 4.20。测试平台为已通过 Linux 认证的 Razer Blade 18 2026（NVIDIA GeForce RTX 5090 Laptop GPU，NVIDIA R610 驱动），各桌面均保持默认配置。值得注意：CachyOS/Arch 虽有实验性 Xfce Wayland 会话，但登录后仅黑屏，故 Xfce 4.20 在本轮以 X11 代表登场。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是目前少有的「三大主流 Linux 桌面 + 高端 NVIDIA 独显」同台基准，直接关系 Wayland 在 NVIDIA 上的成熟度与不同桌面对图形/游戏负载的取舍。Xfce Wayland 仍黑屏、只能以 X11 参战，再次印证 NVIDIA + Wayland 生态的碎片化现实；对选择桌面环境的 Linux 玩家与发行版打包者都有实际参考价值。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-CR-26.27.39122.11" target="_blank">Intel Compute Runtime 26.27.39122.11 持续推进实验性 "LEO"（OpenCL 重构于 Level Zero 之上）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        紧接上周 Intel Graphics Compiler 2.38.2 发布，Intel 推出 Compute Runtime 26.27.39122.11。最引人注目的是继续构建仍属实验性的 LEO 特性——LEO 即「Level Zero Executing OpenCL」，是从零开始、在 Intel Level Zero 接口之上重新实现的 OpenCL API，目标是让 OpenCL 作为一层叠在 Level Zero 之上，而非维护两套独立驱动栈。当前 LEO 默认关闭，需设 <code>EnableLEO</code> 发布变量开启；开启后 OpenCL 版本信息会显示「OpenCL 3.0 LEO」而非「OpenCL 3.0 NEO」。核心功能已可用，但并非全部 OpenCL 扩展都已实现、性能调优仍在进行。本版还带来通用性能调优：USM 池大小降到 2MB、新增 AVX2/AVX-512 优化的内存拷贝函数、在设备 USM 上启用 USM 池管理器；并新增 zeGraphGetIdExt、Sysman 的 Linux Fan API、新的 Zebin 段等。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>LEO 是 Intel GPU 计算栈的架构级演进方向：把 OpenCL 收敛到 Level Zero 单一后端，有望带来更高 OpenCL 性能与更统一的测试覆盖，减少双栈维护成本。对依赖 Intel 核显/Arc 做 OpenCL 计算的 Linux 用户，这是值得跟踪的路线；新版的 AVX 优化内存拷贝与 USM 池调整也属立即可用的性能改进。需注意 LEO 仍实验性，扩展覆盖与稳定性尚未达标。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Zen-6-More-EILVT-Registers" target="_blank">AMD 为 Zen 6 准备更多 EILVT 寄存器：Linux 性能剖析（perf/IBS）能力增强</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在面向下一代 AMD Zen 6 处理器的内核准备补丁中，有一项让内核感知更多 EILVT 寄存器（至少在 EPYC Venice 平台上）。EILVT（Extended Interrupt Local Vector Table）寄存器用于 AMD CPU 的基于指令的采样（IBS，Instruction-Based Sampling）性能监控与剖析、机器检查异常（MCE）错误上报等。Zen 6 将把 EILVT 表从 4 项翻倍到 8 项。相关补丁让代码动态跟踪 EILVT 寄存器数量，为支持新增寄存器做好准备；公开文档也列出了 Zen 6 的 IBS 扩展与新特性。若顺利，这部分 Zen 6 准备有望合入即将到来的 Linux v7.3 合并窗口。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>EILVT 翻倍直接增强 Linux 上以 perf/IBS 进行的性能剖析与错误上报能力，对内核/HPC/性能工程场景是基础但重要的底层改进。它体现了 AMD 在「让 Linux 充分发挥新一代 CPU 可观测性」上的持续投入，也预示 Zen 6（EPYC Venice 等）在 Linux 性能分析工具链上的体验提升。属于 CPU 侧计算/内核方向的扎实进展。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-22</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>

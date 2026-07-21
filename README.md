@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-22](linux-news-2026-07-22.html) | Intel 显卡「冷复位恢复」机制成型（DRM 新增冷复位楔形恢复、Xe 驱动先行，处理 PUNIT 等需整机掉电才能清除的 GPU 错误）· KDE Plasma 6.7 vs GNOME Shell 50.3 vs Xfce 4.20 桌面横评（CachyOS + NVIDIA RTX 5090，Xfce Wayland 仍黑屏只能走 X11）· Intel Compute Runtime 26.27.39122.11 持续推进实验性 LEO（OpenCL 重构于 Level Zero 之上、新增 AVX2/AVX-512 内存拷贝优化）· AMD 为 Zen 6 准备更多 EILVT 寄存器（EILVT 表 4→8 项、增强 Linux perf/IBS 性能剖析） |
 | [2026-07-21](linux-news-2026-07-21.html) | KNOD：网络卸载直接进 AMD GPU（无需 ROCm、完全内核态下沉 XDP/IPsec 包处理）· Linux 7.2 提升 Panther Lake Xe3 Arc B390 图形性能（对比 7.1 实测）· AMD 谈 ROCm 中 SPIR-V IR 机遇（统一二进制跨 GPU 可移植）· Firefox 153 支持 Vulkan 视频解码 + 实验性 JPEG-XL（同时是 ESR）· Hyprland 0.56 发布（滚动/master 布局 + Lua API）· AMD 提交 AVX10_V2_AUX GCC 补丁（FP4/FP6/FP8 转换加速 AI/ML） |
 | [2026-07-20](linux-news-2026-07-20.html) | Linux 7.2-rc4 发布（修复节奏进入「新常态」、AMDGPU 仍是 diff 噪声大户、AI 辅助修复常态化）· FFmpeg 落地 AVX-512 VPERMB 优化（RGB24→RGBA 1920×1080 转换快 1.372×，惠及 Zen 4+/Xeon）· 联想 Legion Y700 Gen4（骁龙 8 Elite）现身 Linux 支持补丁（frame-buffer 显示可用、下游可驱动 Adreno GPU 与触摸屏） |
 | [2026-07-19](linux-news-2026-07-19.html) | NVK（Mesa 26.2）持续逼近 NVIDIA 闭源 Vulkan 驱动（Serious Sam 2017 已极接近）· AMDGPU DC 70 补丁修复 Apple Studio Display 5K 屏（隐藏第二条 tiled link）· oneDNN 3.13 为 Intel Nova Lake（AVX10.2）+ AMX Xeon + Xe3P-LPG/Arc B 优化 · D7VK 2.0 老 D3D 性能翻倍（Half-Life 19→59 FPS）· DXVK 3.0.2 游戏修复 + DXVK_DEBUG=hang 调试钩子 |
