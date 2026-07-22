@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-23</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 23 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/SDL-HDR10-Rendering-Support" target="_blank">SDL 落地 HDR10 渲染支持：SDL3 的 D3D11 / D3D12 / Vulkan 渲染器现已支持 HDR10 显示</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Valve 的 SDL 维护者 Sam Lantinga 将 HDR10 渲染支持合入 Simple DirectMedia Layer。在使用 SDL 的 Direct3D 11、Direct3D 12 或 Vulkan 渲染器时，SDL3 Git 现已具备 HDR10 显示输出能力。SDL 3.0 此前已引入 colorspace（色彩空间）支持，并为 HDR 做了诸多准备，包括 Wayland 色彩管理。HDR 支持在 Linux 与开源生态中持续扩展，对依赖 SDL 的跨平台游戏与应用的色彩表现是直接利好。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>HDR 是近年来 Linux 桌面显示体验的关键短板之一。SDL 作为无数跨平台游戏/应用（含大量通过 Proton/Wine 运行的游戏、模拟器、媒体播放器）的底层渲染库，原生支持 HDR10 意味着在启用 HDR 的显示器上，SDL 应用无需绕路即可输出正确的高动态范围画面。结合此前 SDL3 的 colorspace 支持与 Wayland 色彩管理落地，开源生态的 HDR 拼图正快速补齐，是游戏与媒体类图形负载的直接利好。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/COSMIC-Epoch-1.4" target="_blank">System76 发布 COSMIC Epoch 1.4：Rust 桌面带来大量修复与 COSMIC Monitor 强制退出</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        System76 开发者今日发布 COSMIC Epoch 1.4，这是其 Rust 编写桌面环境的最新稳定版。该版带来大量修复、cosmic-sound-theme 打包、翻译更新以及若干组件的小幅功能增强。COSMIC Compositor（合成器）修复了输入与窗口处理若干问题，并改进了分数缩放下屏幕边缘指针的精度；COSMIC Panel 修复了崩溃问题。COSMIC Monitor 新增应用退出与强制退出选项，并可切换 CPU/GPU 图表类型、采集 GPU 频率等。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>COSMIC 是 Pop!_OS 的下一代 Rust 桌面，基于 Wayland（cosmic-comp 合成器），是 Linux 原生 Wayland 体验的重要代表之一。本版的合成器输入/窗口修复与分数缩放指针精度改进，直接关乎日常使用手感；COSMIC Monitor 加入 GPU 频率采集与图表切换，则让系统监视更贴合图形/计算用户。对关注 Wayland 桌面成熟度与 Rust 生态的 Linux 用户有实际参考价值。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/libx11-compat" target="_blank">libx11-compat：在 SDL 之上重新实现 Xlib，让 X11 客户端跑在 Wayland / macOS / Android</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        为了在 Wayland 当道的现代 Linux 桌面、乃至 macOS、Android 上继续运行 X11 客户端，开发者 Ching-Chun (Jim) Huang 正在推进 libx11-compat——一个轻量级 X11 客户端兼容层。该项目在 SDL2/SDL3 接口之上重新实现 Xlib 客户端库，以覆盖广泛的底层平台；它是一个进程内（in-process）的 X Window System 客户端库实现，构建于 SDL2/SDL3、SDL_ttf 与 Pixman 之上，目前已能在无 X Server 的情况下运行 XMosaic、Qt2 应用、XCircuit、XMMS 等一批经典 X11 程序。无需修改源码即可在「无 XQuartz 的 macOS」「纯 Wayland 的 Linux 会话」「无头 CI 环境」「Android」等非原生 X11 平台上运行 Xlib 依赖应用。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>随着主流发行版逐步默认纯 Wayland、X.Org 进入维护停滞，老旧 X11 应用的可运行性成了现实问题。libx11-compat 选择「在 SDL 之上重建 Xlib」而非另起炉灶，复用 SDL 既有的跨平台渲染/输入能力，用一层兼容层保住大量无源码或不再维护的经典 X11 程序。它与 XWayland（仍跑真实 X Server）路线互补，为「Wayland-only 世界」提供轻量逃生舱，对复古软件、科研/EDA 工具（如 XCircuit）用户尤为实用。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/10-inch-Raspberry-Pi-Touch-2" target="_blank">Raspberry Pi Touch Display 2 推出 10 英寸型号：1200×1920、十点触控、$80</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        在 7 英寸与 5 英寸型号之后，Raspberry Pi 今日为 Touch Display 2 系列新增 10 英寸型号。该 10 英寸屏定价 $80，分辨率 1200×1920、可视角度 85 度，触控控制器支持最多十点触控。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>树莓派是 Linux 单板机与嵌入式显示的事实标准，Touch Display 2 系列（5/7/10 英寸）为 DIY 信息屏、控制台、工控 HMI 与教学项目提供了开箱即用的官方触摸屏方案。10 英寸型号补齐了大屏档位，竖屏 1200×1920 分辨率适合仪表盘/相框类应用，十点触控与 $80 定价保持了一贯的高性价比，对基于 Linux 的嵌入式显示项目是直接利好。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-23</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
