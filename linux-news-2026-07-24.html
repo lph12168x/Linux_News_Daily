@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-24</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 24 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Instinct-MI455X-Helios" target="_blank">AMD 发布 Instinct MI455X 与 Helios AI 机架：432GB HBM4、2nm、峰值 MXFP8/MXFP4 达 MI355X 的 4 倍</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在 San Francisco 举行的 AMD Advancing AI 2026 上，Lisa Su 正式发布新一代数据中心加速器 Instinct MI455X。该 GPU 采用 2nm 工艺制造，配备 432GB HBM4 显存（较上代增加 50% 容量，可承载更大的 AI 模型），峰值 MXFP8 与 MXFP4 算力最高达 Instinct MI355X 的 4 倍。与之配套的 Helios 机架平台将 EPYC Venice CPU、Instinct MI455X GPU 与 AMD Pensando 网络整合于一体，现已全面量产，本季度晚些开始出货并在 Q4 与 2027 上半年放量——单机架可提供 4,600 个 CPU 核心与 18,000 个 GPU 计算单元。AMD 同时重申 Instinct MI500 系列将于 2027 年、MI600 系列于 2028 年如期推进。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>MI455X 是 AMD 在数据中心 AI 计算上正面对标 NVIDIA 的旗舰武器，而 AMD GPU 计算生态完全建立在开源 ROCm + Linux 内核 AMDGPU/AMDKFD 驱动之上。432GB HBM4 与 4× 低精度算力意味着上游 ROCm 与内核驱动需要持续跟进新架构的计算管线、内存管理与固件支持。对关注 Linux GPU 计算、HPC 与开源 AI 基础设施的用户而言，这是本年度最重要的硬件节点之一。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ROCm-AI" target="_blank">AMD 宣布 ROCm.AI：面向开发者的 AI 驱动 GPU 计算平台</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        在 Advancing AI 2026 年度活动上，AMD 宣布推出 ROCm.AI——一个面向开发者的 AI 驱动平台，作为其开源 ROCm GPU 计算栈生态的延伸。此次发布与近期一系列 AMD 开源 AI 软件更新（Lemonade 11.5 本地 AI 服务、Ryzen AI Software 1.8 等）一同亮相，进一步完善从数据中心 Instinct 到消费级 Ryzen AI 的端到端软件版图。ROCm 作为 AMD 在 Linux 上的开源异构计算平台，是驱动 MI455X 等新硬件、支撑 PyTorch/推理框架的软件底座。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>长期以来 AMD GPU 计算的短板不在硬件而在软件生态成熟度。ROCm.AI 的推出显示 AMD 正加码开发者体验与 AI 工作流工具链，这与其开源 ROCm 路线一脉相承。对 Linux 上做 GPU 计算/AI 开发的用户来说，一个更完善、更易用的官方平台意味着更低的迁移门槛与更强的 CUDA 替代竞争力。（注：原文页面受访问保护，本条依据 Phoronix 摘要整理。）
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/amd-epyc-9006-venice" target="_blank">AMD 正式发布 EPYC 9006 "Venice"：Zen 6C 最高 256 核 / 512 线程、DDR5-8000 + MRDIMM-12800、PCIe Gen6</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Lisa Su 在 Advancing AI 2026 上正式发布第六代 EPYC 9006 "Venice" 服务器处理器。Zen 6C 版本单路最高提供 256 核 / 512 线程，96 核型号频率最高 5.0GHz，单路每核性能较上代提升约 20%。内存方面 Venice 支持 DDR5-8000 与第二代 MRDIMM-12800、单路最高 16 通道，抹平了此前 Intel Granite Rapids 在内存带宽上的优势；同时新增 AVX-512 BMM 指令强化 AI 相关负载（但不支持 Intel AMX）。I/O 支持 PCIe Gen6、双路最高 160 通道，并引入 FAST / UBPS / UPP 等新电源管理特性。Venice 含 SP7、SP8 及 2027 年登场的 Venice-X 3D V-Cache 型号，SP7 预计 Q4 上市。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>EPYC 是 Linux 服务器与 HPC 的主力平台，Venice 的 256 核、PCIe Gen6 与新内存/电源特性都需要内核调度器、cpufreq、PCI 子系统与 perf 工具链的上游适配，也直接影响 Ubuntu 26.10 等年底发行版的服务器体验。AVX-512 BMM 的引入还与今日发布的 LLVM 23.1 编译器支持形成呼应，对代码编译、科学计算等 CPU 密集型 Linux 负载意义重大。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-EPYC-Zen-7-Florence-Zen-8" target="_blank">AMD 确认 EPYC Zen 7 "Florence"：搭载 ACE AI 计算扩展，Zen 8 "Ravenna" 已在研发</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在发布 Venice 之后，Lisa Su 在主题演讲收尾时确认了 EPYC Zen 7 "Florence" 的关键细节：将采用下一代工艺节点、ACE AI 计算扩展，以及包含最新 MRDIMM 与 LPDDR 技术的新一代内存。ACE 是 AMD 与 Intel 组建的 x86 顾问工作组的成果，被定位为 Intel AMX 的继任者、用于强化 AI 软件能力；AMD 工程师此前已在为 GCC 提交 ACE（AVX10_V2_AUX）编译器补丁。此外 AMD 还确认 EPYC Zen 8 "Ravenna" 正在研发，并披露了后续 Helios 500（EPYC Verano + Instinct MI500）与 Helios 600（EPYC Ferrara + Instinct MI600）平台路线图。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>ACE 作为跨 AMD/Intel 的 x86 统一 AI 矩阵扩展，将取代碎片化的 AMX，对 Linux 编译器（GCC/LLVM）、数学库与深度学习框架的长期演进有决定性影响。提前确认 Florence 与 Zen 8 路线图，也让内核与工具链社区可以更早规划支持。对追踪 x86 计算指令集与开源编译器生态的开发者是重要前瞻信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Ryzen-AI-Software-1.8" target="_blank">AMD 发布 Ryzen AI Software 1.8：新增大量模型支持、可在低内存系统跑更大模型</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-npu">NPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        赶在 Lisa Su 主题演讲之前，AMD 在 GitHub 发布了用于在 Ryzen AI PC 上部署 AI 模型的 Ryzen AI Software 1.8。这是自今年 1 月以来的一次大更新，核心是新增模型支持与更多优化：支持一批新的大语言模型、新增文本转语音（TTS）、嵌入（embedding）与翻译模型支持，并对多款 Stable Diffusion 模型做了更新与性能优化。1.8 版还支持在低内存系统上运行更大的模型、改进了 Whisper.cpp 集成等。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Ryzen AI Software 面向 Ryzen AI PC 的 NPU 端侧推理，是 AMD 在 Linux/开源端侧 AI 栈（配合 Lemonade、GAIA、FastFlowLM）的重要一环。低内存跑更大模型、扩展 TTS/翻译/嵌入模型覆盖，直接提升本地化、隐私友好的 AI 应用可用性，对关注 NPU 加速与端侧计算的 Linux 用户有实际价值。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-23.1-rc1" target="_blank">LLVM 23.1-rc1 发布：AMD Zen 6 与 AVX-512 BMM 支持、AMDGPU GFX1310、HIP 卸载驱动</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        随着 LLVM 23 系列代码分支，LLVM 23.1-rc1 今日发布，目标是在 8 月底推出 23.1.0 稳定版。这一半年度更新内容丰富：x86 轻量级故障隔离（LFI）目标支持、NVIDIA Rosa 处理器的 Rigel 核心初始支持、Arm C1-Ultra 调度模型、全新的 AMD HIP 卸载驱动、部分 C++26（-std=c++2c）与更多 C2Y 语言功能、LLD 链接器改进、AMDGPU GFX1310 目标支持、SpacemiT X100 RISC-V 支持，以及随 AMD Zen 6 引入的 AVX-512 BMM 支持。LLVM 23 预计被 Ubuntu 26.10、Fedora 45 等年底发行版采用。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>LLVM/Clang 是 Linux 图形与计算栈的基础——Mesa 着色器编译、Rusticl/OpenCL、ROCm/HIP 乃至内核 Rust 组件都依赖它。新增 AMDGPU GFX1310 目标与 HIP 卸载驱动直接服务于 AMD GPU 计算；AVX-512 BMM 则与今日发布的 EPYC Venice/Zen 6 相互印证。对编译器、图形驱动与高性能计算开发者，这是承上启下的关键版本。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-24</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
