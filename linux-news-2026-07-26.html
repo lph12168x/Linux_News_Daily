@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-26</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 26 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNU-C-Library-glibc-2.44" target="_blank">GNU C Library 2.44 发布：新增 /etc/tunables.conf、cosh 提速约 35%，LoongArch/AArch64/RISC-V 全面优化</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        GNU 开发者发布 glibc 2.44 特性版本，这是现代 Linux 系统最核心的基础库之一。本次亮点包括：引入 /etc/tunables.conf 系统级可调参数配置文件——作为现有 GLIBC_TUNABLES= 环境变量的更持久替代方案，每行一条 tunable 并支持多种过滤器与选项；x86_64 上采用 FMA 指令实现的 cosh 函数带来约 35% 的性能提升；从 CORE-MATH 项目导入了更多经过优化且正确舍入（correctly-rounded）的数学函数；LoongArch CPU 获得新一轮优化并首次引入 LoongArch32 32 位支持；AArch64 与 RISC-V 上的多个函数也得到进一步优化。glibc 2.44 将进入 Ubuntu 26.10、Fedora 45 等后续发行版。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>glibc 的数学函数与字符串/内存例程是所有 Linux 计算负载的底层热路径，FMA 加速的 cosh、CORE-MATH 正确舍入函数以及 LoongArch/AArch64/RISC-V 架构优化会「免费」惠及科学计算与 HPC 应用；/etc/tunables.conf 则让 hugepage、malloc 等性能调优在系统级持久生效，对性能敏感的部署很实用。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Plasma-6.8-kscreenctl" target="_blank">KDE Plasma 6.8 引入全新 kscreenctl 屏幕控制工具，另修复新款 NVIDIA GPU 色彩管理登录崩溃</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        本周 KDE「This Week in Plasma」披露：Plasma 6.8 正引入 kscreenctl 作为新的屏幕控制命令行工具，用于最终取代现有的 kscreen-doctor，提供修改显示输出配置（分辨率、排列等）的多种选项。同期其他与显示相关的进展包括：Plasma 6.6.7 修复了在新款 NVIDIA GPU + 最新 NVIDIA 驱动且启用多项色彩管理特性时 KWin 登录即崩溃的问题；Plasma 6.7.4 修复了多款笔记本上 KWin 登录崩溃；Plasma 6.8 内置的 RDP 远程桌面服务器新增「最后一个客户端断开后自动锁定会话」选项；Plasma 登录管理器将按用户记忆上次使用的会话；KDE Frameworks 6.29 还修复了 QTextFrame::begin 中一个常见但看似随机的 Plasma 崩溃。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>kscreen-doctor 是 Wayland 时代脚本化管理显示输出（分辨率/刷新率/缩放/排列）的事实标准工具，kscreenctl 作为其继任者值得所有 KDE 多显示器用户关注；NVIDIA 色彩管理相关的 KWin 登录崩溃修复也直击近期新驱动 + HDR/色彩管理组合的实际痛点。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Wine-11.14-Released" target="_blank">Wine 11.14 发布：WoW64 模式登陆 FreeBSD、开始菜单支持图标，修复 21 个 bug</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Wine 11.14 作为双周开发版发布，继续向 2027 年 1 月的 Wine 12.0 稳定版推进。本版亮点：WoW64 模式（用纯 64 位系统库运行 32 位 Windows 软件、无需 32 位 multi-lib）在 Linux 上成熟运作已久，现开始初步支持 FreeBSD；Wine Explorer 的开始菜单现可在菜单项旁显示图标（Andrea Faulds 的合并请求）；DirectSound 新增 7.1 声道格式转换；BCrypt 支持 AES-GMAC 算法。过去两周共修复 21 个已知 bug，涉及 Adobe Reader、《风暴英雄》《帝国时代 I/II》等应用与游戏。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Wine 是 Linux 游戏/图形栈（Proton、DXVK、VKD3D 生态）的地基，WoW64 的持续完善决定了未来发行版彻底甩掉 32 位库后老游戏还能否顺畅运行；本版虽属常规迭代，但 WoW64 跨平台扩展与游戏兼容性修复对关注 Linux 游戏图形的用户仍有实际意义。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-26</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
