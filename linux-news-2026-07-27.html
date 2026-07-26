@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-27</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 27 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.2-rc5-Released" target="_blank">Linux 7.2-rc5 发布：又是一个「相当庞大」的 rc5，稳定版预计 8 月 16 日到来</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Linus Torvalds 发布 Linux 7.2-rc5，并在公告中表示「这周日下午，我们再次迎来一个相当庞大的 -rc5」。他分析称 7.1 周期也发生过同样情况，一部分是「新常态」，但这次更大的原因是网络子系统因上周会议分心积压了工作——超过三分之一的补丁来自网络（主要是驱动侧）。驱动方面罕见地出现「USB 变更多于 GPU 驱动」的情况，声卡、tty、块设备、Firewire 等常规修复齐全；rc5 还修复了自 2009 年就存在于主线的 IEEE-1394 Firewire IPv4 网络老 bug，并延续了大量由 AI/LLM 代理发现的音频修复「新常态」。Linus 总结「体量比我希望的大了点，但没有什么特别奇怪或吓人的东西」。Linux 7.2 稳定版预计 3 周后的 8 月 16 日发布。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Linux 7.2 携带 AMDGPU/Intel Xe 多项图形改进（如 Panther Lake Xe3 性能提升、多 GPU 显示检测修复），rc5 的收敛节奏直接关系 8 月稳定版质量；「GPU 驱动修复少于 USB」也侧面说明本周期图形驱动已趋稳定，是升级观察窗口的重要信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KVM-Chainsaw-Linux-7.3" target="_blank">「KVM 电锯」重构预计进入 Linux 7.3：拆解 kvm_mmu「上帝数据结构」</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Red Hat 工程师、KVM 维护者 Paolo Bonzini 已将名为「KVM Chainsaw（电锯）」的大型代码清理分支合入 KVM 的 next Git 分支，预计随 8 月下旬开启的 Linux 7.3 合并窗口进入主线。该系列针对被称为「上帝数据结构」的 kvm_mmu——它同时承担描述客户机页表格式、遍历客户机页表、构建页表三种职责——将其一拆为三：kvm_pagewalk 负责页表遍历（每 vCPU 两个实例 gva_walk/ngpa_walk）、kvm_mmu 保留页表构建功能、kvm_page_format 让 KVM 能操作已存在的 PTE 并整合保留位校验代码。重构消除了 guest_mmu 与 nested_mmu 长期的命名混乱，最后一个补丁还展示了代码复用带来的新特性可能：通过适配 permission_fault() 机制，未来可经由 memory attributes 支持 XS!=XU 的 SPTE。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>KVM 是 Linux 虚拟化计算的基石，云上 GPU 直通、机密计算与嵌套虚拟化都构建在 kvm_mmu 之上；这次十余年来最大规模的 MMU 结构拆解将显著改善代码可维护性，并为影子页表/内存属性等新特性铺路，值得虚拟化与云计算方向开发者跟进。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNU-Binutils-2.47" target="_blank">GNU Binutils 2.47 发布：新增大批 RISC-V 向量点积扩展、链接器 -O 0 快速模式</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        继本周末 glibc 2.44 之后，GNU 工具链另一基石 Binutils 2.47 也正式发布。汇编器新增 --reloc-section-sym=[all|internal|none] 选项控制本地绑定符号重定位；objdump/readelf 新增 --debug-dir=[DIR] 指定分离调试信息目录，objdump 还增加 -map-global-vars 显示全局变量位置与类型；链接器新增 --start-lib/--end-lib 与 --no-link-mapless/--link-mapless 选项。BFD 链接器引入 -O 0 优化级别——停止合并 mergeable 节以大幅加快链接速度（代价是二进制更大）。RISC-V 方面新增支持 zalasr、svrsw60t59b、zvabd、smpmpmt 以及 zvqwdota8i/zvqwdota16i/zvfwdota16bf 等一大批向量点积（dot product）标准扩展 v1.0，还有 SpacemiT 厂商扩展 xsmtvdot/xsmtvdotii；32 位 s390 目标被弃用（s390x 继续维护）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>新增的 zvqwdota/zvfwdota 系列 RISC-V 向量点积扩展正是面向 AI/ML 矩阵计算的指令基础（SpacemiT xsmtvdot 亦然），Binutils 率先落地意味着 GCC/LLVM 后端与内核 RVV 优化即将跟进；BFD 的 -O 0 快速链接对大型项目的开发迭代也有实际收益。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Ubuntu-Touch-24.04-2.0-Release" target="_blank">Ubuntu Touch 24.04-2.0 发布：Lomiri 支持刘海屏与圆角显示，Chromium 87 → 134 大跃升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        UBports 发布 Ubuntu Touch 24.04-2.0，这一基于 Ubuntu 24.04 LTS 的移动操作系统迎来重要显示改进：Lomiri 界面现可正确处理带「刘海」（notch）与圆角屏幕的智能手机——对前摄开孔区域的适配是现代手机上迟来已久的补课。本版还带来 Lomiri shell 的截图编辑器、Morph 浏览器内核从陈旧的 Chromium 87 大幅升级到 Chromium 134、移动数据连接可靠性改进、FSCRYPT v2 设备的用户数据加密转正（不再是实验特性）等。新增支持 Zinwa Q25 手机，既有支持设备包括 Fairphone 4/5、F(x)tec Pro1X、Volla 全系、小米 Poco X3 等二十余款。团队下一个大目标是将底座迁移到 Ubuntu 26.04 LTS。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Lomiri 的刘海屏/圆角适配是 Linux 移动显示栈（Mir/Wayland 体系）对异形屏输出管理的实质进展，相关经验可反哺 Phosh/Plasma Mobile 等其他 Linux 移动界面；浏览器内核跨越 47 个大版本的升级也直接决定了移动端 GPU 加速渲染与 Web 标准的可用性。
+      </div>
+    </div>
+
+  </div>
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-27</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
