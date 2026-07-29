@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-28</title>
+  <title>Linux 每日新闻 - 2026-07-30</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -168,106 +168,107 @@
     }
     .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
     .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
-/* PAGE-NAV-CSS-END */
+  /* PAGE-NAV-CSS-END */
   </style>
 </head>
 <body data-theme="dark">
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 28 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 7 月 30 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-07-30.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-27.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-29.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-07-30.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-07-29.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/16-Tile-32-Tile-AMX-Performance" target="_blank">神秘厂商披露 16-Tile 与 32-Tile AMX 实现：超越 Intel 8-Tile 的矩阵计算性能</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-AMDGPU-GFX6-Modifiers" target="_blank">AMDGPU 为旧 AMD GPU 带来 DRM 格式修饰符（Linux 7.3，Valve 赞助）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-compute">计算</span>
-        <span class="tag tag-npu">AI</span>
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
       </div>
       <div class="news-body">
-        去年 10 月曾在内核邮件列表暗示存在「Intel/AMD 之外的企业实体」x86 实现的 x86 架构专家 Christian Ludloff（Sandpile.org 站长，曾任职 Google/AMD/TI），再次向 LKML 发出半加密风格的消息：他「受托」公开记录 16-tile 与 32-tile 的 AMX/ACE 行为文档。迄今 Intel Xeon 的 AMX 实现仅有 8 个 tile 寄存器。Ludloff 明确表示：更大 tile 配置的目标是让主要运行计算内核（compute kernel）的软件获得额外性能，适用场景是尽量少进程切换、中断处理程序中避免使用 tile；且「支持 16/32 tile 的实现已经大规模运行了一段时间」。文档还指出了 AMX、APX 与 ACE 规范中的多处疏漏。此事发生在 AMX 即将演进为 AMD/Intel 下一代通用 AI Compute Extensions（ACE）的关口，而背后委托方身份依然成谜。
+        在逼近下月 Linux 7.3 合并窗口的特性截止前，AMD 本周又向 AMDGPU 内核图形驱动与 AMDKFD 内核计算驱动推送了一批功能与改动。其中面向老旧 GCN 1.0/1.1（GFX6/GFX7）GPU 的 DRM 格式修饰符（format modifiers）支持尤为引人注目——这类显式描述缓冲区布局/tiling/压缩元数据的机制，是现代 Wayland/X11 合成器（gamescope、Weston、Mutter）与 Vulkan WSI 实现零拷贝扫描输出（scanout）的关键。HD 7000/8000、Sea Islands 等老架构仍被广泛使用，此前在 Linux 上缺乏完善的修饰符支持，限制了合成与串流效率。标题点名「Thanks Valve」，表明这项工作由 Valve 赞助，与其推动 Steam Deck / Proton / gamescope 跨 GPU 代际显示一致性的目标一致。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>「已大规模运行」的 16/32-tile AMX 硬件强烈暗示某超大规模云厂商（非 Intel/AMD）已有自研 x86 AI 加速实现；这直接关系 Linux 内核 AMX/ACE 状态管理（XSTATE、tile 上下文切换）未来需要适配的硬件形态，是 x86 AI 计算生态的重磅信号。
+        <strong>关注理由：</strong>DRM 格式修饰符是现代合成器/WSI 走零拷贝显示路径的底层基石；让仍存量巨大的 GCN 1.0/1.1 老卡也能享受现代修饰符语义，对 gamescope 串流与跨代 GPU 一致性意义重大，也体现 Valve 在开源图形栈上的持续投入。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Low-Power-Core-Linux-7.3" target="_blank">AMD「低功耗」第三种 CPU 核心类型补丁已排队进入 Linux 7.3</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Steam-Beta-Video-Streaming" target="_blank">Steam 客户端 Beta 新增 HDR 串流（Steam Deck OLED）+ AV1 视频串流</a></div>
       </div>
       <div class="news-meta">
+        <span class="tag tag-display">显示</span>
         <span class="tag tag-compute">计算</span>
-        <span class="tag tag-kernel">内核</span>
       </div>
       <div class="news-body">
-        为 AMD 引入 TOPO_CPU_TYPE_LOW_POWER 全新第三种核心类型的补丁，近日已合入 tip.git 的 x86/cpu 分支，预计随 8 月下旬开启的 Linux 7.3 合并窗口进入主线。在性能核（P core）与密集效率核（dense E core）之外，「低功耗核」将出现在部分下一代 AMD Zen 6 客户端平台上。在 Linux 7.3 之前，这类核心虽然可以工作，但会被内核识别为「unknown」未知类型；正确的类型识别是内核调度器进行异构核心任务分配（类似 Intel 混合架构的 ITMT/HFI 机制）的前提。这一时间点恰好赶在下一代 AMD Ryzen 平台首发之前，AMD Linux 工程师今年一直在为 Zen 6 平台的开箱即用体验做密集准备。
+        今日 Steam 客户端 Beta 更新为 Linux 玩家带来了两项串流增强。其一，Steam Deck OLED 机型新增高动态范围（HDR）串流支持，直接内化进最新 Beta 客户端；其二，Steam Deck 新增 AV1 视频串流——需配合实验性 SteamRT3 客户端使用，偏好用开放的 AV1 格式替代专有视频编解码器。两项之外还有若干修复，详见 Steam 客户端 Beta 发布说明。HDR 串流补齐了 OLED 掌机在远程畅玩时的高动态范围体验，而 AV1 串流则兼顾带宽与开放性。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>AMD 客户端首次走向「三种核心类型」的异构架构，调度器能否正确识别核心类型直接决定 Zen 6 笔记本/桌面在 Linux 上的性能与能效表现；提前一个内核周期完成铺垫，意味着 Zen 6 发布时主流发行版即可获得正确调度支持。
+        <strong>关注理由：</strong>HDR + AV1 串流对 Steam Deck OLED 远程游戏体验是直接利好：HDR 还原高动态范围画面，AV1 以开放格式降低带宽并契合 Linux 玩家对开放生态的偏好；这类客户端侧改进无需内核/驱动升级即可惠及广大用户。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Wayfire-0.11-Released" target="_blank">Wayfire 0.11 发布：v1.0 前最后一版，补齐显式同步与多项 Wayland 协议</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Linux-7.3-Peak-Bandwidth" target="_blank">Intel 图形驱动为 Xe3 带来「峰值带宽阈值」省电特性（Linux 7.3）</a></div>
       </div>
       <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
         <span class="tag tag-display">显示</span>
       </div>
       <div class="news-body">
-        受 Compiz 启发、基于 wlroots 的模块化可扩展 Wayland 合成器 Wayfire 于周日发布 0.11 版——按计划这将是 1.0 里程碑之前的最后一个版本。Wayfire 曾是 Raspberry Pi 单板机的默认合成器。0.11 带来大量改进：新增对 security-context-v1（沙箱应用安全上下文）、ext-copy-capture（屏幕捕获）、ext-foreign-toplevel-list、ext-data-control-v1 等 Wayland 协议的支持；新增显式同步（explicit sync）支持——这是 NVIDIA 等驱动在 Wayland 下流畅运行的关键；还有指针 warp 提示支持、XWayland 集成改进、触控与网格（grid）改进、新键位绑定及数十项修复。
+        Intel 今日送出了为下月 Linux 7.3 合并窗口准备的最新一批内核图形驱动更新。对终端用户而言，本次特性拉取中最有趣的是 Xe3 Panther Lake 及更新架构上的「峰值带宽阈值」（Peak Bandwidth Threshold）省电特性：在 Xe3+ 上，当显示所需带宽低于最小 GV 点时，SoC 可以主动下调 fabric 频率；该阈值定义为 20 GB/s，驱动在「平台为 Xe3+、至少存在一个 QGV 点、QGV 点数量低于上限 8」的条件下新增一个 peak/derated 带宽均设为 20 GB/s 的 QGV 条目，当所需数据率低于 20 GB/s 时即选用该点。补丁未给出具体省电幅度。同期还启用了 Thunderbolt 隧道链路的 UHBR（超高比特率）链路速率、为支持 alpha 混合的平面添加 blend mode 属性及若干修复。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>显式同步与 security-context/copy-capture 等新协议的落地，代表着独立 Wayland 合成器阵营（wlroots 系）在图形栈现代化上与 KWin/Mutter 看齐；Wayfire 逼近 1.0 也为偏好 Compiz 式特效的用户提供了成熟度信号。
+        <strong>关注理由：</strong>这是 Xe3/Panther Lake 全新的功耗管理特性——显示带宽需求低时主动降 fabric 频率，对笔记本/掌机续航有现实意义；Thunderbolt 隧道 UHBR 与全平面 alpha 混合 blend mode 也拓宽了高带宽显示与合成能力。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">4</div>
-        <div class="news-title"><a href="https://www.phoronix.com/review/framework-laptop-13-pro" target="_blank">Framework Laptop 13 Pro 评测：Panther Lake + Arc B390，力争最强可升级 Linux 笔记本</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Valve-Sponsors-RADV-Windows" target="_blank">Valve 赞助 Collabora 将开源 RADV Vulkan 驱动移植到 Windows</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
         <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        Phoronix 发布 Framework Laptop 13 Pro 首发评测：这是 Framework 对其模块化可升级笔记本的彻底重新设计——6063 CNC 铝合金一体机身（1.4kg，媲美 MacBook Pro 质感）、74Wh 大电池、LPCAMM2 可升级内存（16/32/64GB @ 7467 MT/s）、触觉反馈触控板，以及全新的省电触控屏。搭载 Intel Core Ultra Series 3「Panther Lake」SoC（测试机为 Core Ultra X9 388H，集成 Arc B390 显卡），官方宣称最长 20 小时续航。Ubuntu 26.04 LTS（Linux 7.0 内核）开箱即用：新显示套件、触控板、Arc B390 核显全部正常工作，且保持跨代兼容——新主板/显示套件可装入旧机身。唯一问题是第三方 150W USB-C 充电器会导致 SoC 功耗被锁在 6W 以下、性能大跌，换官方充电器即恢复，有望通过 PD 固件更新解决。
+        Valve 正在赞助 Collabora 工程师开展早期探索性工作，试图把开源的 Radeon Vulkan「RADV」驱动带到 Microsoft Windows。RADV 是 Linux 玩家广用的开源 Vulkan 实现，也是 AMD 系 Steam Deck / Steam Machine 成功的重要部分。本次工作范围不包括把 AMDGPU Linux 内核驱动移植到 Windows，而是复用 AMD 官方 Windows 内核驱动——为此需要反向工程其专有内核驱动的数据结构，并可能通过稳定/有据的接口或 shim 库来跨驱动版本适配。Collabora 的 Louis-Francis Ratté-Boulianne 已发布博客，并演示了在 Windows 上用 RADV 跑起《Counter-Strike 2》；实验代码可在 freedesktop GitLab 的 wddm2 开发分支找到。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>Panther Lake + Xe3 Arc B390 核显是 Intel 新一代 Linux 图形/显示栈的落地载体，Framework 的开箱即用体验验证了 Linux 7.x + Mesa 对 Xe3 的支持成熟度；省电触控屏与 LPCAMM2 也是 Linux 笔记本硬件生态的重要风向标。
+        <strong>关注理由：</strong>用开源 RADV 挑战 Windows 上闭源厂商驱动，是跨平台开源 Vulkan 的重要一步；当 RADV 能在 Windows 跑起 3A 游戏，Steam Deck/Steam Machine 的图形栈一致性将不再受平台束缚，长远看会反哺整个 Mesa 生态。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">5</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Open-Secure-AI-Alliance" target="_blank">NVIDIA 联合二十余家公司成立开放安全 AI 联盟（Open Secure AI Alliance）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/YSERVER-1.4" target="_blank">YSERVER 1.4：Rust 编写的 AI 生成 X11 服务器，让 Steam / 全屏游戏跑起来（Cinnamon）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-npu">AI</span>
-        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-display">显示</span>
       </div>
       <div class="news-body">
-        NVIDIA 与 Microsoft、Adobe、IBM、Red Hat、SpaceX、Palantir 等二十多家公司共同发起 Open Secure AI Alliance，致力于保障开源 AI 模型的安全，工作将构建于 Linux 基金会 Akrites 计划与 OpenSSF 之上，以开放技术进行漏洞修复与披露。NVIDIA 在公告中援引近期 Hugging Face 安全事件：当闭源 AI 工具因无法区分攻击者与防御者而阻断关键取证分析时，Hugging Face 在自有基础设施上运行开源权重的 GLM 5.2 模型，分析了超过 1.7 万条操作记录并成功遏制入侵。联盟主张「防御者需要可检视、可适配、可在自有基础设施上运行的开放前沿模型」，让关键行业能在多供应商生态中构建安全体系、避免单点故障。
+        YSERVER 是今年夏天登场、主要由 AI（Claude Code）编写的现代化 X11 服务器（Rust 实现），并持续补齐 X11 协议以让更多桌面环境/应用在其上跑起来。1.4 版的关键进展是让 Chrome 与 Steam 拿到 GPU 加速：GLX pixel buffer 现由真实 GPU pixmap 支撑，从而让 Chrome/Steam 获得 WebGL 加速；同时 KDE Plasma 的 RandR 调整尺寸与 ARGB 弹窗可用、Cinnamon 下全屏游戏与视频播放可用，KDE Plasma X11 分支 Sonic DE 也已测试通过。scanout buffer 现经 GBM 分配并导入 Vulkan，带来更好的驱动与 DRM 修饰符覆盖；此外还有 Present 与 vblank 对齐、键盘布局切换、RANDR 输出属性/EDID 透传、Xorg 兼容输出名、XI2 改进，以及 Fedora/Debian/Ubuntu/Alpine 的二进制包与 AUR。它已在 openSUSE Tumbleweed + NVIDIA 硬件上的 KDE Plasma 下通过验证。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>开源模型在自有 GPU 基础设施上的可控运行正成为安全刚需，这将直接拉动 Linux 平台上开源推理栈（vLLM/llama.cpp/ROCm/CUDA）在安全关键场景的部署；Red Hat 与 Linux 基金会的深度参与也预示相关工具链将快速开源落地。
+        <strong>关注理由：</strong>在「AI 辅助编写开源图形栈」的浪潮中，YSERVER 1.4 用真实 GPU pixmap 撑起 Chrome/Steam 的 WebGL、靠 GBM+Vulkan 提升 DRM 修饰符兼容性，既是 X11 存续的另类样本，也直观展示了 AI 生成代码撑起完整显示服务的可能性。
       </div>
     </div>
 
@@ -275,13 +276,13 @@
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-07-30.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-27.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-29.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-07-30.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-07-29.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-28</p>
+    <p>数据来源：Phoronix | 生成时间：2026-07-30</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>
