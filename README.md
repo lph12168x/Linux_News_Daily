@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-07-31](linux-news-2026-07-31.html) | Linux 7.3 将 Intel Nova Lake S 核显视为「稳定」（摘掉 force_probe 要求）· AMD 提交 HDMI 2.1 自动低延迟模式 ALLM 与 HDMI VRR 补丁 · 华为考虑开源「半吊子」Mesa Vulkan 驱动（NIR→机器码编译器仍为 blob）· 补丁为 Intel Alchemist（DG2）在 Xe 驱动补齐 HuC 媒体加速 · Intel Media Driver / VPL GPU Runtime 2026Q2（Nova Lake AV1/HEVC/AVC 编码）· Nouveau+NVK vs NVIDIA R610 实测（RTX 5090 Laptop 约半性能）· COSMIC Epoch 1.5 |
 | [2026-07-30](linux-news-2026-07-30.html) | AMDGPU 为旧 AMD GPU（GCN 1.0/1.1 GFX6/GFX7）带来 DRM 格式修饰符（Linux 7.3，Valve 赞助）· Steam 客户端 Beta 新增 HDR 串流（Steam Deck OLED）+ AV1 视频串流 · Intel Xe3「峰值带宽阈值」省电特性进 Linux 7.3（Panther Lake）· Valve 赞助 Collabora 将开源 RADV Vulkan 驱动移植到 Windows · YSERVER 1.4（Rust 编写 AI 生成 X11 服务器，Chrome/Steam WebGL 加速 + Cinnamon 全屏游戏） |
 | [2026-07-29](linux-news-2026-07-29.html) | AMD P-State 按核 EPP boost 补丁：游戏 1% Low 帧率提升 31.8%（Steam Deck）· Starling：Swift 编写的新 Linux 桌面（自研 Wayland 合成器 + 内置 X11 服务器·AI 辅助编写）· Ryzen AI 9 HX 470 四系统横评（CachyOS 快 Windows 11 约 11%） |
 | [2026-07-28](linux-news-2026-07-28.html) | 神秘厂商披露 16/32-Tile AMX 实现（超越 Intel 8-Tile·已大规模运行）· AMD「低功耗」第三种核心类型进 Linux 7.3（Zen 6 铺垫）· Wayfire 0.11 发布（v1.0 前最后一版·显式同步）· Framework Laptop 13 Pro 评测（Panther Lake + Arc B390）· NVIDIA 等成立开放安全 AI 联盟 |

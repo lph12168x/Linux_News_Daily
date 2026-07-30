@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-07-31</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 7 月 31 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-07-31.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-07-30.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Intel-NVL-S-Stable" target="_blank">Linux 7.3 将把 Intel Nova Lake S 核显视为「稳定」，不再需要 force_probe</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        在下一代 Intel Nova Lake 处理器预计于 2027 年初开始铺货之前，即将到来的 Linux 7.3 内核周期将开始把 Nova Lake S 及其集成显卡视为稳定（stable）。Intel 软件工程师数月来持续上游化 Xe3P 图形支持，其中就包含 Nova Lake 的核显；此前主线内核中的 Nova Lake 核显支持仍属实验性，用户必须用 <code>force_probe=</code> 模块参数配合 Intel 图形 PCI 设备 ID 手动启用。这次的补丁直接摘掉了 NVL-S 的 force_probe 要求，提交信息只留下一句「NVL-S is stable enough for us to drop force_probe requirement」。该补丁属于本轮发往 DRM-Next 暂存、面向下月 Linux 7.3 合并窗口的最后一批 drm-xe-next 拉取请求，同批还包含多项新 workaround、GuC 更新与 RAS（可靠性/可用性/可服务性）改进及其他修复。今后想在 Linux 上使用 Nova Lake S 核显，Linux 7.3 将成为安全的最低基线版本。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>去掉 force_probe 意味着新平台核显从「极客手动开启」正式转为「开箱即用」，是 Intel 新一代 Xe3P 图形栈成熟度的官方信号；同时也为发行版明确了 Nova Lake 桌面平台的内核最低要求。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-HDMI-2.1-ALLM" target="_blank">AMD 提交 HDMI 2.1 自动低延迟模式 ALLM 与 HDMI VRR 的 Linux 补丁</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        继此前 AMDGPU 提交 HDMI 2.1 FRL 支持补丁（HDMI 2.1 开源支持曾长期被 HDMI Forum 卡住）、随后又落地 HDMI 2.1 显示流压缩（DSC）之后，AMD 今日又在完整 HDMI 2.1 实现路线上迈出一步：同时启用自动低延迟模式（ALLM）与 HDMI 可变刷新率（VRR）。HDMI ALLM 允许电脑或游戏主机通知显示设备自动打开「游戏模式」，以降低现代电视/显示器的延迟与拖影；在 AMDGPU 补丁中，当用户态请求把内容类型（content-type）设为「Game」，或启用了「Gaming-VRR」时，ALLM 即自动开启。另一大看点是 HDMI 2.1 VRR——DisplayPort VRR 早已被 AMDGPU 支持，如今 HDMI 侧终于补齐，对使用电视/HDMI 显示器的 Radeon Linux 玩家意义重大。补丁目前仍在邮件列表评审中，作者 Michael Larabel 指出距离 DRM-Next 面向 Linux 7.3 合并窗口的截止时间已相当紧张，能否赶上 8 月下半月的下一个内核周期尚未可知，否则将顺延至 v7.4。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>HDMI 2.1 在 Linux 上的开源支持长期受制于 HDMI Forum，FRL → DSC → ALLM/VRR 的逐步落地是 AMD 绕开僵局、补齐能力的实质进展；对客厅 HDMI 电视接驳的 Linux 游戏体验（低延迟 + 可变刷新）是直接改善。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Huawei-Half-Open-Mesa-Vulkan" target="_blank">华为考虑开源一款「半吊子」Mesa Vulkan 驱动：着色器编译器不开源</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        一位华为工程师今日在 Mesa 邮件列表询问，能否把他们为自研 GPU 开发的 Vulkan 驱动上游化到 Mesa。从技术角度看，华为基于 Mesa Vulkan Runtime（MVR）实现自研 GPU 的 Vulkan 驱动本身颇有意思，但这次开源尝试并不彻底：该工程师明确表示着色器编译器无法开源——因为其 GPU ISA 不能公开，所以把 Mesa 通用中间表示 NIR 翻译为华为 GPU 机器码的后端也无法公开。因此他们的诉求是：驱动上游进 Mesa，同时把 NIR→机器码编译器以运行时可加载的二进制 blob 形式保留。对上游 Mesa 而言这基本不可能被接受，因为缺了这个 blob 驱动就完全无法工作。Red Hat 的 David Airlie 在回复中表示这几乎不可能上游，建议华为干脆公开 GPU ISA——尤其在 AI/LLM 时代，这类 blob 很容易被逆向。该工程师未透露这颗自研 GPU 的具体设计；华为目前并不生产游戏或通用显卡，但拥有昇腾（Ascend）与 Atlas AI 加速器产品线。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是国产 GPU 走向上游开源图形栈的一次真实碰撞：Mesa 对「blob 依赖」的红线清晰可见，而 ISA 保密与上游开源之间的张力，正是所有自研 GPU 厂商都必须面对的抉择；结局如何将成为后来者的重要参照。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-HuC-DG2-Alchemist-Xe" target="_blank">补丁为 Intel Alchemist（DG2）在 Xe 驱动下补齐 HuC 媒体加速</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Intel Arc A 系列显卡（DG2）在 Linux 上正处于从 i915 内核驱动迁往功能更完备的 Xe 内核驱动的过渡尴尬期：只有 Alchemist 之后的产品才官方支持并默认使用 Xe 驱动，而 A 系列用户若手动切到 Xe 往往能获得更好的性能与功能——唯一的重大缺口就是媒体加速。长期以来在 Arc A 系列上启用 Xe 驱动都缺少 HuC 支持，而 HuC 微控制器正是 H.265/HEVC 等编解码 GPU 加速所必需；HuC 在 i915 上对 Alchemist 可用，但迄今未在 Xe 上为 DG2 接通，这也阻碍了不少用户为更好性能而切换驱动。今日一个合并请求给出了 DG2/Alchemist 在 Xe 驱动下的 HuC 微控制器支持方案，由开源开发者 Daniil Seliverstov 完成 DG2 专有的 GSC/MEI 处理，内容包括：新增 DG2 MEI GSC 接口支持、针对 GSC BPDT/CPD 布局的 HuC 固件解析、改进 HuC 加载与认证流程、新增 GSC 寄存器定义与固件 ABI 更新、新增 Xe MEI DG2 模块，以及为 HuC/GSC 更新 Xe workaround 与引擎处理。代码目前挂在 freedesktop GitLab 的 drm/xe 内核仓库合并请求中待评审。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>媒体加速缺失是 Arc A 系列用户迁移到 Xe 驱动的最后一道坎；一旦 HuC 在 Xe 上跑通，Alchemist 老用户就能同时拿到 Xe 的性能红利与完整的 HEVC 硬件编解码，i915→Xe 的过渡也将更彻底。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Media-Driver-2026Q2" target="_blank">Intel Media Driver 与 VPL GPU Runtime 2026Q2 发布：继续为 Nova Lake 铺路</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Intel 今日发布了 VA-API Media Driver 与 oneVPL GPU Runtime 的季度特性版本，延续此前数版为 Nova Lake 视频加速所做的准备。Intel Media Driver 2026Q2（intel-media-26.2.4）继续为向下兼容至 Broadwell 的 Intel 硬件提供 VA-API 视频加速，本次重点仍是 Nova Lake 使能：Nova Lake 现已可用 AV1、HEVC 与 AVC 编码，并新增带 VDAQM 直方图支持的 AVC/HEVC 解码。Nova Lake 专项之外，2026Q2 还落地了 UYVY 格式支持以及 Y416/RGBA64 解码支持。同日发布的还有 VPL GPU Runtime 2026Q2（intel-onevpl-26.2.4），这一视频处理层（VPL）API 原属 oneAPI 项目，本次更新新增 Nova Lake P 平台支持，修复了 AV1 / H.264 / H.265 解码器销毁时的异常处理，并将 API 升级至 v2.17。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>用户态媒体栈（Media Driver + VPL）与内核 Xe 驱动同步推进，是新平台视频硬件加速真正可用的另一半；Nova Lake 的 AV1/HEVC/AVC 编码链路成型，意味着 2027 年新平台在 Linux 上的流媒体与转码体验将开箱即用。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/nvidia-rtx-5090-laptop-linux" target="_blank">Nouveau+NVK vs NVIDIA R610 实测：RTX 5090 Laptop 上开源栈约为闭源一半性能</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        借着雷蛇 Blade 18（RZ09-0582，首款获雷蛇 Ubuntu Linux 认证的笔记本）归还前的窗口期，Phoronix 补做了一轮开源 Nouveau+NVK 与官方 NVIDIA R610 驱动栈的对比。测试机为 Intel Core Ultra 9 290HX Plus + 2×16GB DDR5-6400 + 2TB 三星 NVMe + GeForce RTX 5090 Laptop GPU（24GB 显存），系统为 CachyOS：官方栈用 NVIDIA 610.43.02 + Linux 7.1，开源栈用 Linux 7.1.3 + Mesa 26.1.4。结论是：部分游戏在 Nouveau+NVK 下确实能跑到可玩帧率，但大致只有官方 R610 驱动的一半；DiRT Rally 2.0 表现相当低，Strange Brigade 干脆不可玩，而 Xonotic、Unvanquished 等 OpenGL 开源游戏可玩但性能损失明显。除性能外，开源栈目前还缺 Vulkan 光线追踪、NVENC/NVDEC 视频编解码、OpenCL，以及最关键的 CUDA——对花 5000 美元以上买这类笔记本、多用于 AI/LLM 与开发的用户而言，官方驱动栈仍是唯一现实选择。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Blackwell 旗舰移动 GPU 上开源 NVIDIA 栈的一次难得实测：能点亮、能玩，但性能约半、且缺 RT/CUDA/NVENC——为「NVK 何时可堪大用」提供了清晰的量化坐标，也侧面反映 Nova 内核驱动与 NVK 仍有较长的路要走。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/COSMIC-Epoch-1.5-Released" target="_blank">COSMIC Epoch 1.5 发布：修复分数缩放下 Chromium 应用异常、改进 GPU 复位处理</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        System76 与 Pop!_OS 开发者继续以极快节奏迭代其 Rust 桌面环境 COSMIC——距离带来 COSMIC Monitor 改进的 Epoch 1.4 仅一周，Epoch 1.5 已经发布。1.5 版中，COSMIC 背景处理开始利用 EXIF 方向信息；COSMIC 合成器修复了分数缩放小于 1.0 时 Chromium 系应用异常的问题，并改善了 GPU 复位（GPU reset）期间的处理；COSMIC Greeter 现可使用 cosmic-keymap-unstable-v1 Wayland 协议。此外 COSMIC Panel 也获得多项修复，包括针对新近加入的磨砂玻璃（Frosted Glass）特效的修复，以及锁屏状态下面板 CPU 占用过高的问题修复。其余大量修复详见 GitHub 上的 epoch-1.5.0 发布说明。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>分数缩放下的 Chromium 渲染异常与锁屏高 CPU 占用是日常可感知的痛点；合成器对 GPU 复位的更好处理则关系到崩溃后能否优雅恢复——COSMIC 正以周级节奏把 Rust 桌面从「可用」推向「好用」。
+      </div>
+    </div>
+
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-07-31.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-07-30.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-07-31</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
