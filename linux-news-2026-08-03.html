@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-03</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 3 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-03.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-07-31.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-DCN6-Linux-Start" target="_blank">AMD 开始提交 DCN6 显示引擎 Linux 补丁，指向下一代 RDNA5 GPU</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        AMD 以一批新的 AMDGPU Display Core（DC）补丁为 7 月收尾，其中最引人注目的是开始为下一代显示 IP「Display Core Next 6（DCN6）」奠定基础。补丁把 DCN6 与 AMD GFX13 图形引擎绑定，而 GFX13 被普遍认为对应下一代 RDNA5 显卡（补丁中出现 GC/GFX 13.0.1 的引用）。这是 DCN6 首次公开露面，有趣的是 DCN 6.0.0 直接接替 DCN 4.2.1——DCN5 去哪了？通读补丁只发现至少一处 DCN5 引用，但 AMDGPU 驱动中尚无任何 DCN5 的 bring-up 代码，DCN5 可能面向未来某些移动平台、也可能因不明原因被直接跳过。DCN6 本身带来平面（plane）的新缩放线性度与 cositing 表面特性、用于在缩放前对 420/422 内容做上采样的 UPSP 前置缩放器（Pre-Scaler），以及更多像素格式和一系列底层改动。同批补丁还继续扩展显示代码的 KUnit 单元测试覆盖、围绕显示流校验（display stream validation）做重构并修复若干问题。RDNA5 显卡预计要到 2027 年才会发布。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>AMD 惯例是在新架构发布前一两年就把显示/图形驱动代码上游化，DCN6 首次现身意味着 RDNA5 的开源 Linux 支持已进入实质开发期；对做显示栈的人来说，UPSP 前置缩放器与新的 cositing/缩放线性度属性，是判断下一代显示管线能力边界的第一手信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-MSM-DRM-Driver" target="_blank">Linux 7.3 将支持高通 Adreno 704 与 Adreno 722 GPU</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        面向即将开启的 Linux 7.3 合并窗口，高通 MSM DRM 内核图形/显示驱动的更新已于周六发出。这批发往 DRM-Next 的 MSM 特性拉取请求新增了对 Adreno 704 与 Adreno 722 两款 GPU 的支持：Adreno 704 见于 UNO-Q 等嵌入式平台，而更强的 Adreno 722 则搭载于骁龙 7 Gen 4 等 SoC。此外，该拉取请求还加入了支持即将到来的高通 Shikra SoC 的设备树（Device Tree）绑定——Shikra 近来在 Linux 上的使能补丁相当密集，现在其 GPU 支持也已就位、有望随主线 Linux 7.3 落地。本轮 MSM 更新同时改进了 FBDEV 模拟、修复了驱动卸载（teardown）问题以及其他若干缺陷。Linux 7.3 合并窗口预计在 8 月下半月开启。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Adreno 在主线内核的支持节奏，直接决定了骁龙笔记本/嵌入式板卡能否摆脱 LLVMpipe 软件渲染；本次 704/722 与 Shikra 设备树同批上游，说明高通在主线 GPU 使能上的投入正在从「补课」转向「与产品同步」。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Plasma-6.8-Faster-eGPU" target="_blank">KDE Plasma 6.8 多 GPU / 外接显卡性能大幅提升：eGPU 场景 40 → 120 FPS</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        对 Plasma 6.8 开发而言，这是激动人心的一周——KWin 在多 GPU / 外接显卡（eGPU）处理上的性能优化取得突破。Xaver Hugl 为 KWin 实现了 DMA-BUF v6 支持，并把多 GPU 之间的缓冲区拷贝改由 KWin 直接管理。由于 KWin 本身具备直接扫描输出（direct scan-out）能力，在由它显式管理拷贝之后，某些场景下可以直接复用原始缓冲区做扫描输出，从而完全避免拷贝。Xaver 在自己的外接显卡环境实测中，配合最新的 KWin 代码与 Mesa，帧率从 40 FPS 提升到 120 FPS；用《赛博朋克 2077》测试则从 27 FPS 提升到 50 FPS。他在博客中详细介绍了这套改进方案。此外，Plasma 6.8 的系统设置「显示配置」页在布局编辑模式下现已支持用方向键逐像素移动屏幕；KDE Frameworks 6.29 也修复了一个性能问题——当通知中包含大量 emoji 时可能导致 Plasma 冻结。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>多 GPU 拷贝一直是 Linux 桌面 eGPU / 双显卡笔记本的最大性能黑洞，KWin 把拷贝从驱动隐式行为收回到合成器显式管理、并借 direct scan-out 直接消除拷贝，是架构级而非调参级的改进，帧率翻倍到三倍的量级足以改变 eGPU 在 Linux 上的可用性判断。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Nouveau-Atomic-Mode-Setting-26" target="_blank">Nouveau 准备默认启用原子模式设置（Atomic Mode-Setting）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        除了内核侧为 NVK 解锁 Vulkan Video 之外，开源 NVIDIA 驱动 Nouveau 还有另一项重要变更在路上：终于准备默认启用原子模式设置。Nouveau 早就支持 atomic KMS，但一直未默认打开。原子模式设置允许用户态合成器/程序把一整套完整的硬件配置作为单个原子事务提交给内核，从而减少屏幕闪烁、让现代 Linux 桌面的模式设置更可靠；如今绝大多数 Linux 桌面软件与主流开源 DRM 驱动都早已支持。Red Hat 的 Lyude Paul 正在推进这组补丁，影响范围为 NVIDIA NV50 / GeForce 8 系列及更新的 GPU。她在补丁中解释：Nouveau 是内核中极少数没有默认启用原子模式设置的现代硬件驱动之一，部分原因是当年 Ben 最初编写时还没有多少好的原子 KMS 客户端可供测试；而如今原子模式设置已成常态，用户态对非原子驱动的支持反而开始「腐化」并引发新问题，而这些问题很多只要在 Nouveau 打开原子模式就能解决。她自己日常使用的多数机器已默认开启原子模式，并已修复相当多问题、整体相当稳定（仅剩桌面上一个屏幕闪烁 bug，且她并不认为与原子模式有关）。补丁只覆盖 NV50 及更新代际，NV04 保持原样并被强制禁止原子模式，同时把 nouveau.atomic 的取值加入内核调试输出。按当前时间点，这项默认变更大概率赶不上 Linux 7.3 周期，但有望在其后不久落地。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Nouveau 十余年历史遗留问题的收口：非原子路径在用户态正加速腐化，切换到 atomic 不仅减少闪烁、提升模式设置可靠性，也让 Nouveau 与其余 DRM 驱动的行为终于对齐——对仍在用开源 NVIDIA 栈的用户是实打实的稳定性收益。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Nouveau-NVDEC" target="_blank">Linux 7.3 的 Nouveau 补丁让 NVK 可基于 NVIDIA NVDEC 实现 Vulkan Video</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        本周为 Linux 7.3 合并窗口暂存的 drm-misc-next 补丁中，开源 NVIDIA 驱动迎来一项令人期待的变化：Red Hat 的 David Airlie 提交的 Nouveau 内核驱动补丁支持通过 ABI16 接口分配 NVDEC 通道。这项内核侧的 NVIDIA 视频解码（NVDEC）通道分配能力，将被 Mesa 的 NVK 驱动用于实现 Vulkan Video。Mesa 侧已有一个依赖该内核补丁的合并请求在等待中——初期 NVK 将通过 Vulkan Video 声明支持 H.264 视频解码；H.265 的 Vulkan Video 支持也在推进，但目前卡在 NVIDIA GPU 系统处理器（GSP）上。由于依赖 GSP 固件支持，这套 Nouveau + NVK 的 Vulkan Video 能力面向 NVIDIA Turing 及更新的 GPU，Turing 之前的老卡不受支持。该补丁已进入面向 Linux 7.3 的 drm-misc-next，Linux 7.3 合并窗口将于 8 月下半月开启。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>视频解码长期是开源 NVIDIA 栈相对闭源驱动最明显的短板之一（此前 Nouveau vs R610 实测中缺 NVENC/NVDEC 就是硬伤）；内核解锁 NVDEC 通道分配后，NVK 终于能沿 Vulkan Video 标准路径补齐硬件解码，是开源栈可用性的关键一环。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Vulkan-1.4.358" target="_blank">Vulkan 1.4.358 发布：新增图像 Tiling 控制扩展 VK_EXT_image_tiling_control</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        在两周没有规范更新之后，Vulkan 1.4.358 于日前发布。除常规的措辞澄清与修复外，本次引入了一个新扩展：VK_EXT_image_tiling_control。该扩展由来自 AMD、Valve、三星、NVIDIA、Intel 与任天堂的开发者共同参与制定，允许按单张图像（per-image）选择最优的 tiling 排布方式。其设计意图是让应用能够按自身需求调优 tiling 排布。提案文本解释道：图像 tiling 排布是典型的时间-空间权衡——最小化内存占用与最小化 GPU 访问时间是矛盾的；现有的 VkImageTiling 只能让应用在 VK_IMAGE_TILING_OPTIMAL（偏向访问速度）与 VK_IMAGE_TILING_LINEAR（偏向内存占用）之间二选一。但如果某个实现支持多种各具访问特性与内存占用的最优 tiling 排布，就只能由实现自行决定选哪一种；虽然驱动在创建图像时往往有足够信息做启发式判断，但应用开发者除了这些信息之外还掌握更高层的使用预期与平台知识，能更准确地确定目标指标——现实中已发现驱动在缺少更多细节时无法为所有应用做出最佳选择的案例。此外，Vulkan 1.4.358 还把安全关键（safety critical）规范 Vulkan SC 1.0.22 的变更上游合入。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>把 tiling 选择权从驱动启发式交还给应用，是显存受限场景（移动/掌机/APU）与带宽敏感渲染路径的重要调优杠杆；参与方横跨 AMD/NVIDIA/Intel/Valve/三星/任天堂，说明这是各家实现中都真实存在的痛点，落地面会比较广。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-CDNA5-ISA-Documentation" target="_blank">AMD 公开 Instinct MI455X 的 CDNA5 指令集架构（ISA）文档</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        继上周 AMD Instinct MI455X 发布之后，AMD 延续惯例，公开了这一最新 CDNA5 架构的 ISA 文档。AMD 持续为其新 GPU/加速器架构公开 ISA 文档，与其开源 Linux 驱动支持相辅相成。近几个世代中，AMD 已从提供完整硬件文档后撤，转而聚焦对开发者更实用的 ISA 文档——其开源 Linux 驱动栈本身就是硬件设计的活体样本，相比当年为发布完整硬件文档所需投入的大量内部时间与法务审查，这种方式对终端用户/客户最终更有价值。目前主线 Linux 内核的 AMDGPU 与 AMDKFD 驱动、AMDGPU LLVM 后端以及相关 ROCm 基础设施均已具备 Instinct MI455X 的上游开源支持；本周公开的 CDNA5 ISA 文档则帮助开发者更好地理解该架构，用于底层调试与优化工作。文档以 PDF 形式发布于 AMD 官网。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做算子优化、内核级性能调试和编译器后端的人来说，ISA 文档是不可替代的一手材料；AMD 在硬件发布后一周内即公开 CDNA5 ISA，配合已经上游的 AMDGPU/AMDKFD/LLVM 支持，意味着 MI455X 的软件栈从第一天起就是可深挖的。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">8</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.2-rc6-Released" target="_blank">Linux 7.2-rc6 发布：Linus 直言「这个 rc 太庞大了」，GPU 驱动修复占大头</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Linux 7.2-rc6 已如期发布，稳定版 Linux 7.2 有望在两周后到来。7.2-rc6 又是一轮密集的错误修复——延续了近期因 AI/LLM 编码代理带来的修复与补丁数量上升趋势。本阶段的音频修复量「远超预期」，Linux DRM 内核图形驱动的修复同样来势凶猛；本周合入的其他改动还包括为若干有缺陷的西部数据 SATA 硬盘添加规避措施，以及修复部分 AMD Zen 5 处理器被误识别为 Zen 6 的问题。Linus Torvalds 在发布公告中写道：「嗯。这个 rc 太庞大了。即便以『新常态』的标准衡量这也是个大 rc，我认为至少按提交数算是这些年来最大的 rc6。统计数据本身看起来并不奇怪：略低于 60% 是驱动、20% 是网络、20% 是其余部分（架构、工具、文件系统——没什么特别古怪的）。驱动那一侧照例是 GPU 和网络驱动，但也不止于此——音频、SPI、ATA 等等都在其中。所以网络方面的东西很多，这至少部分是会议时间安排造成的持续积压。我希望原因仅止于此，但在这个时间点上改动量之大还是有点让人不安，即便里面并没有什么看起来真的很奇怪的东西。这里没有任何东西在尖叫『糟糕』或暗示发布需要推迟，但我真心希望接下来两周能平静下来。」
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>连续几个 rc 的「膨胀」已成常态，而驱动（尤其 GPU）始终是 diff 主力；对跟踪内核质量的人而言，rc6 体量创多年新高、且 Linus 明确表达不安，是判断 7.2 是否会延期、以及 AI 辅助补丁如何改变内核修复节奏的重要观察点。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">9</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Starfire-Starts-Linux-7.3" target="_blank">Linux 7.3 开始为 Intel「Starfire」太空级 SoC 铺路</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Intel 近期公布了 Starfire——一款基于 Panther Lake 衍生的太空级 SoC，面向极端环境（包括在太空中的生存能力）设计。从 Linux 7.3 开始，内核中将出现首批 Starfire 专属补丁。Intel 于 7 月宣布这款太空级 Starfire SoC，工程样片将在本季度开始出货；这些在美国本土制造的 18A 工艺 SoC 面向极端环境，而在这类场景中 Linux 远比 Windows 常见。上周进入错误检测与纠正（EDAC）子系统 edac-for-next Git 分支的一个补丁，添加了 Intel Starfire SoC 支持。从 EDAC 与内存架构的角度看，Starfire 与 Panther Lake 非常接近，可复用 IGEN6 驱动中现有的代码路径——最终只需为 Starfire 增加一个新的设备 ID 即可完成错误检测与纠正处理的支持。这是目前所见 Starfire 在 Linux 上的第一个补丁，预计后续还会有更多补丁，且多半只是增加新设备 ID 并沿用现有 Panther Lake 驱动代码路径。也有可能 Starfire 实质上就是此前在 Linux 内核中出现过的「三防版」Panther Lake。鉴于 Panther Lake 的 Linux 支持目前状态良好，只要必要的设备 ID 补齐，Starfire 的 Linux 支持应当也会相当顺利。另需提及的是，主线内核中还存在一个同名的 Adaptec Starfire 网络驱动，二者并无关系。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>太空级/极端环境计算平台正成为 x86 的新战场，而 Linux 是这类场景的事实标准操作系统；Starfire 复用 Panther Lake 代码路径也说明 Intel 在做派生 SoC 时的软件成本正在显著下降——对内核维护者而言，这类平台今后大概率只是「一串新设备 ID」。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-03.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-07-31.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-03</p>
+    <p>覆盖范围：2026-07-31 ~ 2026-08-02（含周末）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>

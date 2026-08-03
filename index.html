@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-08-03.html">
+    <span class="entry-date">08-03</span>
+    <span class="entry-main">
+      <div class="entry-title">AMD 开始提交 DCN6 显示引擎补丁（指向 RDNA5/GFX13）· Linux 7.3 支持高通 Adreno 704/722 · KDE Plasma 6.8 多 GPU/eGPU 性能 40→120 FPS · Nouveau 拟默认启用原子模式设置 · Nouveau NVDEC 解锁 NVK Vulkan Video · Vulkan 1.4.358 新增图像 Tiling 控制扩展 · AMD 公开 CDNA5 ISA 文档 · Linux 7.2-rc6「这个 rc 太庞大了」· Linux 7.3 为 Intel Starfire 铺路</div>
+      <div class="entry-hint">DCN6 首次公开露面并绑定 GFX13（普遍认为即 RDNA5），带来 UPSP 前置缩放器与新的缩放线性度/cositing 特性，而 DCN5 至今无 bring-up 代码；高通 MSM DRM 发往 DRM-Next 的拉取新增 Adreno 704（UNO-Q 等嵌入式）与 Adreno 722（骁龙 7 Gen 4），并加入 Shikra SoC 设备树绑定；Xaver Hugl 为 KWin 实现 DMA-BUF v6 并把多 GPU 拷贝收归合成器显式管理、借 direct scan-out 直接免除拷贝，eGPU 实测 40→120 FPS、《赛博朋克 2077》27→50 FPS；Lyude Paul 推动 Nouveau 在 NV50/GeForce 8 及更新代际默认开启 atomic KMS（NV04 保持禁用），大概率赶不上 7.3；David Airlie 的 Nouveau 补丁支持经 ABI16 分配 NVDEC 通道，Mesa NVK 将据此先行提供 H.264 Vulkan Video（Turing+，H.265 卡在 GSP）；VK_EXT_image_tiling_control 由 AMD/Valve/三星/NVIDIA/Intel/任天堂共同制定，允许按图像选择最优 tiling 排布；AMD 于 MI455X 发布一周后公开 CDNA5 ISA PDF；Linus 称 7.2-rc6 按提交数是多年来最大的 rc6（约 60% 驱动、20% 网络），稳定版仍指向 8 月中；Intel 太空级 18A SoC Starfire 首个补丁进入 EDAC 子系统，复用 Panther Lake IGEN6 代码路径…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-07-31.html">
     <span class="entry-date">07-31</span>
     <span class="entry-main">
