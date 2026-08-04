@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-04</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 4 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-04.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-03.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/FFmpeg-9.0-Released" target="_blank">FFmpeg 9.0 发布：更多 Vulkan 加速、动画 WebP 与增强的 AMD AMF</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        FFmpeg 9.0 作为这套广泛使用的开源多媒体库的最新特性版正式发布。本次更新包含大量图形/GPU/计算相关改进：Vulkan 加速工作继续推进，新增 Vulkan APV 视频解码与 Apple ProRes RAW 的 Vulkan 加速、v360_vulkan 全景视频滤镜；同时带来 HE-AAC 960 解码、transpose_cuda（NVIDIA CUDA）转置滤镜、动画 WebP 解码与解封装，并延续 AMD AMF 增强——扩展 vf_vpp_amf 的 HDR 能力、新增 AMF 帧率转换器（vf_frc_amf）与 AMF 视频质量增强器（vf_vqe_amf）、加入 AMF 硬件内存映射支持；此外还有 ONNX Runtime DNN 后端（带 GPU 执行提供方支持）、更多 AVX-512 优化，并移除过时的 NVENC 旧选项与 11.1 之前 SDK 支持。源码已可编译。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>多媒体流水线正快速向 GPU 卸载迁移：Vulkan 解码/滤镜与 AMF、CUDA、ONNX Runtime GPU 后端的齐头并进，意味着 FFmpeg 在 Linux 上的硬件加速覆盖从「能解码」走向「滤镜与推理一体加速」；对做视频处理、转码与本地 AI 推理管线的人来说，9.0 是值得跟进的基准线。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNOME-Shell-Mutter-51-Beta" target="_blank">GNOME Mutter 51 Beta 发布：Wayland 背景模糊 + 帧调度改进</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        紧随 GNOME 51 进入 API/ABI 冻结、特性冻结与 UI 冻结，Mutter 51 与 GNOME Shell 51 的 Beta 版于周日正式发布。Mutter 侧最显著的亮点是支持 Wayland ext-background-effect-v1 模糊协议，让终端等应用的背景模糊效果得以实现（延续此前 Mutter 背景模糊的相关工作）；同时将会话管理从私有 XX 前缀接口切换到已上游到 Wayland-Protocols 的 xdg_session_management_v1。更值得期待的是 Michel Dänzer 合并的多项帧调度（frame scheduling）改进，其合成器层面的调度表现值得实测。Mutter 51 Beta 还修复了非像素对齐显示器的模糊渲染问题、允许鼠标滚轮滚动、允许外部光标实现、在输入捕获激活时隐藏光标，并接入了「输入时禁用触摸板」超时设置。GNOME Shell 51 Beta 则初步支持面向敏感用户的「reduced-motion」设置，新增与 KDE 同格式的 SVG 光标实现，并改进截图选区键盘导航与统一认证机制。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>背景模糊从私有接口走向上游协议，是 Wayland 桌面「磨砂玻璃」特效标准化的关键一步；而帧调度的改进直接关乎合成器流畅度与输入延迟——这两项叠加，意味着 GNOME 在视觉打磨与基础体验上正同时收敛。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-KGamma2-Gamma-Wayland" target="_blank">KGamma2 让 KDE Plasma 在 Wayland 上轻松调整 Gamma</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        随着 KDE Plasma 走向 Wayland-only 桌面支持，不少用户反映原有的 KGamma 工具在 Wayland 下失效、仍需退回 X11 会话。KDE 开发者 David Edmundson 为此推出了 KGamma2：借助 KWin 已有的、远比 X11 上基础 gamma 调整更强的色彩管理能力，KGamma2 通过 ICC 配置文件的 Video Card Gamma Table（VCGT）实现 gamma 调整，无需为 KWin 或 KScreen 新增代码路径。相比 X11 上的 kgamma，KGamma2 在 Wayland 下支持多显示器各自独立的 gamma 值，还能与「夜色」（night color）协同并将颜色混合，启动体验也更顺滑。工具已在 KDE 仓库提供。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Wayland 下色彩管理的「最后一公里」往往是这类小而关键的可用性缺口；KGamma2 用现成的 VCGT 路径补上 gamma 调整，且天然支持多屏独立与夜色协同，说明 KDE 在把 X11 时代习惯平滑迁移到 Wayland 上已越来越细致。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-GFX7-Soft-Reset-Linux-7.3" target="_blank">AMD GFX7（Kaveri / Hawaii 等老卡）在 Linux 7.3 迎来更好的 GPU 复位恢复</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        在上周 AMDGPU 向 DRM-Next 提交的后续特性拉取中，Valve 的 Timur Kristóf 贡献了一组面向 GFX7 时代硬件的复位补丁系列，利用 GFX IP block 的软复位（soft reset）能力，覆盖 Kaveri APU、Hawaii / Bonaire 等 dGPU。软复位只重置 GFX 模块本身、不重启整卡、也不丢失 VRAM 内容；补丁修复了 GFX7 代码中多处问题以适配 IP block 软复位，核心挑战在于修正 MQD/HQD 处理以避免软复位后挂起，并重构了已有的 GFX7 软复位实现（与 GFX8 的重写版本对齐），使其复位 GFX IP block 全部内容并处理时钟/电源门控。实际收益：Kaveri / Kabini 此前没有可用的 GPU 恢复手段、卡死必须手动重启，现在有了可行的恢复；Hawaii / Bonaire 此前恢复总会清空 VRAM、导致一个卡死的应用拖垮整个图形会话，现在可避免。这些改进预计随 Linux 7.3 合并窗口进入主线。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>老卡的稳定性长期被忽视，而 GFX7 软复位让「卡死不丢 VRAM、不重启整机」从奢望变成现实——对仍在使用 Kaveri/Hawaii 等老 AMD 显卡、又依赖 Linux 桌面的用户是实打实的体验修复，也体现 Valve 在开源 AMD 栈上投入的延续性。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-610.57.04-Linux-Driver" target="_blank">NVIDIA 610.57.04 Linux 驱动发布：大量修复</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        NVIDIA 以一次 R610 分支的更新拉开了新月份的序幕，610.57.04 带来的 bug 修复数量明显多于通常的稳定分支小版本。本次修复包括：使用 GLX 间接渲染时 X Server 可能崩溃的问题、多个游戏渲染与崩溃修复、各类 Vulkan 驱动修复，以及 NVIDIA DKMS 内核模块构建问题等。游戏修复清单颇为漫长，涵盖《007 First Light》《刺客信条：起源》《极限竞速：地平线 6》《怪物猎人：荒野》《潜行者 2》《红色沙漠》《艾尔登法环》及其黑夜君临版、《Far Far West》《Grounded 2》等多款作品。下载与详情见 NVIDIA 官网。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>稳定分支出现「超量」修复，说明 NVIDIA 在 R610 上正集中消化累积问题；GLX 间接渲染崩溃与一批 Vulkan 修复，对仍跑 X11 或依赖 Vulkan 的用户尤为相关，值得从 610.43.03 升级。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/framework-laptop-13-pro-linux" target="_blank">六款 Linux 发行版横评 Framework Laptop 13 Pro（Panther Lake + Arc B390）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        新款 Framework Laptop 13 Pro 采用 Intel Core Ultra Series 3（Panther Lake）与全新模具，评测机配置为 16 核 Core Ultra X9 388H（集成 Arc B390 核显）、64GB LPDDR5-7467、2TB WD_BLACK SN7100 与 2880×1920 面板。Phoronix 用一周时间测试了 Arch Linux、CachyOS、Fedora Workstation 44、openSUSE Tumbleweed、Ubuntu 26.04 LTS 以及开发中的 Ubuntu 26.10 每日构建。所有现代发行版均在 Framework Laptop 13 Pro 上开箱即用、安装顺利（默认之外统一设为 performance 档）；其中 Ubuntu 26.04 默认 Linux 7.0/GCC 15，其余多为 Linux 7.1/GCC 16，Ubuntu 26.10 计划随 10 月发布切到 Linux 7.2/GCC 16。除性能外，还通过 PowerCap/RAPL sysfs 监控了 SoC 功耗。这是 Panther Lake + Arc B390 在多个 Linux 发行版下的首批系统级对比数据。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Arc B390 作为 Panther Lake 的新核显，其跨发行版的兼容性与性能坐标是 Linux 图形用户评估这台「高可升级 Linux 本」的第一手依据；所有发行版开箱即用也再次印证 Panther Lake 的 Linux 支持已从早期补丁阶段进入「默认可用」状态。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-04.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-03.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-04</p>
+    <p>覆盖范围：2026-08-03（美东当日）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
