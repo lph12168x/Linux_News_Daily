@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-05</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 5 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-05.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-04.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-Premier-Sponsor-LVFS" target="_blank">NVIDIA 成为 LVFS / Fwupd 首要赞助商，显卡固件走开源更新通道有望</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        这是一个「令人愉快且相当意外」的消息：NVIDIA 已成为 Linux 厂商固件服务（LVFS）的最新一家首要赞助商（premier sponsor）。此前 Dell 与 Lenovo 率先以每年 10 万美元的规模赞助 LVFS/Fwupd 项目，HP 于今年 5 月成为第三家；本周二上午宣布的 NVIDIA 则是第四家、同样以每年 10 万美元以上的额度支持这一让 Linux 系统实现开源固件更新的项目。NVIDIA 参与赞助的直接动因，是其已经在通过 LVFS/Fwupd 分发 DGX Spark 的固件。Phoronix 期待后续能看到 NVIDIA 在 Vera Rubin 服务器、未来平台上更广泛地使用 LVFS/Fwupd，甚至可能覆盖显卡固件更新。LVFS/Fwupd 主要开发者、Red Hat 的 Richard Hughes 已在其博客中确认了这项赞助。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>长期以来 Linux 上的 GPU 固件更新几乎完全依赖厂商私有工具或干脆无解；NVIDIA 以最高档位入局 LVFS，意味着「显卡固件也能像 BIOS 一样在 Linux 上一键更新」从设想向现实靠近了一大步，对显示/图形硬件的长期可维护性影响深远。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://9to5linux.com/kde-plasma-6-7-4-is-out-to-improve-spectacle-discover-and-emoji-selector" target="_blank">KDE Plasma 6.7.4 发布：修复 KWin 登录崩溃与显示器热插拔问题</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        KDE 项目于 8 月 4 日发布 Plasma 6.7.4，作为 Plasma 6.7 系列的第四个维护更新，距 6.7.3 相隔三周。显示与合成器方向的重点修复包括：修复在多款笔记本上 KWin 窗口与合成管理器可能在登录时崩溃的 bug；修复在登录界面拔掉显示器再插回会导致 Plasma Login Manager 失效的问题；修复系统设置「指针」页在启用屏幕缩放时部分指针尺寸选项无法完整显示的布局错位；并恢复了从 Plasma 6.6 升级的用户更改桌面壁纸、以及把 Plasma 设置应用到 Plasma Login Manager 的能力。其余改进涵盖 Spectacle 截图工具在通知气泡点击「标注」时识别二维码、表情选择器侧栏免滚动、全局快捷键 portal 应用可重新注册以重命名快捷键、远程桌面服务器带宽统计更准确、Discover 安装更新时的崩溃与两处布局故障修复，以及插入 Fanatec 竞速踏板导致系统设置崩溃的修复。下一个点版本 6.7.5 预计 9 月 8 日发布；Plasma 6.7 将支持至 2027 年 1 月以照顾 X11 会话用户，6.7.7 将是最后一版、标志 X11 窗口管理器支持终结。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>KWin 登录崩溃与显示器热插拔失效都是「直接把人挡在桌面外」的致命级问题，修复价值高于任何新特性；同时官方明确 6.7 系列支持到 2027 年 1 月、6.7.7 为 X11 终点，意味着仍在 X11 上的用户需要开始规划迁移窗口了。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Wild-Linker-0.10" target="_blank">Rust 链接器 Wild 0.10 发布：支持 --gdb-index，规避 Btrfs 性能损耗</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        这款用 Rust 编写、面向迭代式开发的高速 Linux 链接器 Wild 于隔夜发布 0.10 版本。最值得关注的新特性是引入 --gdb-index 支持：该选项最早由 GNU Gold 链接器提出，此后被 LLD 与 Mold 沿用，作用是让链接器预先计算并把符号索引段直接嵌入最终二进制中，从而显著加快 GDB 等调试器的启动速度、降低开销——这项功能自 2025 年就被社区提出需求，终于在 0.10 落地。另一项改动面向文件系统：在 Btrfs（或 VFAT）上，Wild 现在默认使用 --no-mmap-output-file 以获得更好性能；发布说明称「最显著的变化是我们在输出文件位于 btrfs 或 vfat 文件系统时不再使用 mmap，这带来了一些提速，不过如果可能的话，你还是最好避免在这些文件系统上做构建」。除此之外，Wild 0.10 的整体性能与上一版相近，并带来多项 bug 修复、开始着手 32 位支持、WebAssembly（WASM）移植现已能链接一系列程序，libwild 库还可以让输入与输出文件完全驻留在内存中。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>链接是大型 C/C++/Rust 项目构建链路上最容易成为瓶颈的一环，而 Wild 主打的正是「改一行代码后的重链接速度」；--gdb-index 补齐了调试体验的最后短板，Btrfs 上的 mmap 规避则是一个很有代表性的提醒——文件系统选择会实打实影响构建性能。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Staging-Reject-LLMs" target="_blank">Linux staging 区将拒收 LLM 生成的补丁，仅真实安全修复例外</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        内核「二把手」Greg Kroah-Hartman 周一宣布了一项针对 drivers/staging/ 子系统的新政策：鉴于 LLM 生成的内核补丁近来形成「猛攻（onslaught）」之势，而 staging 区存在的首要目的是让新开发者学习如何参与内核开发，今后他将自动拒绝任何由 LLM 生成的 staging 补丁——只有一个例外。Greg 在公告中解释，staging 里满是适合新人练手的「低垂果实」，社区从来不接受工具批量生成的「修好这个文件所有代码风格问题」式补丁，因为那会彻底破坏 staging 存在的意义；如果真在乎这些代码质量，明天就能一次性搞定。他还警告「别人一眼就能看出是 LLM 生成的补丁，别以为不声明就能蒙混过关」，蓄意欺骗维护者者将被视为已获警告。唯一例外是真实的安全问题：Greg 承认如今 LLM 很擅长在内核代码中发现可疑安全问题，但即便是当前与下一代最好的工具，至少三分之一的结果是完全错误甚至有害的；因此若认为自己用 LLM 发现/修复的 staging 问题确实有效，必须先在该驱动对应的真实硬件上测试并描述测试过程，且必须愿意为提交辩护、证明它修复的是用户真会遇到的 bug。他把 staging 比作「健身房」：LLM 正成为可以承担「重体力活」的合理工具，但那应该只由已经练好基本功、知道该举什么、怎么举的人来使用。staging 之外，AI/LLM 生成的工作仍被允许——Linus Torvalds 视其为工具，并强调 Linux 内核并非反 AI。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是内核社区首次针对 AI 生成补丁划出明确的子系统级红线，且理由不是「反 AI」而是「保护新人成长路径」；同时 Greg 给出的「至少 1/3 的 LLM 安全发现是错的甚至有害」是当下少见的一线量化判断，对任何想用 LLM 参与开源贡献的人都值得对照。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-eSPI-Linux-Patches" target="_blank">AMD 提出 Linux eSPI 子系统方案并放出补丁</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        AMD 发布补丁，提议在 Linux 内核中为增强型串行外设接口（eSPI）标准新建一个子系统，并同时提供其自家硬件的驱动。eSPI 最初由 Intel 制定，是一种连接 BIOS、系统控制器以及 TPM 等外设的通信协议，用于替代 LPC 接口、传统 SPI 及其他边带信号方案；如今 AMD 也开始使用 eSPI，因而推动内核侧的标准化。AMD 的 Krishnamoorthi M 此前在内核邮件列表上询问，AMD 的 eSPI 工作应当扩展现有 SPI 子系统代码，还是引入独立的新总线类型；最终提交的补丁选择了后者，并以新的 AMD eSPI 驱动作为该子系统的首个使用者。这套代码已在 AMDI0070 平台上完成测试与验证并可正常工作。已知限制包括：由于 AMD 代码只使用 ACPI，目前尚无设备树（Device Tree）支持；从设备枚举仍需手动进行；部分操作将在后续补丁中补充。完整补丁系列可在内核邮件列表查阅。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>eSPI 是现代 x86 主板上连接 BIOS/EC/TPM 的关键底层通道，此前在 Linux 上缺乏统一抽象；AMD 选择新建总线类型而非硬塞进 SPI 子系统，也意味着未来其他厂商的 eSPI 控制器有了可复用的框架——对平台级驱动生态是一项基础设施建设。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-05.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-04.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix、9to5Linux | 生成时间：2026-08-05</p>
+    <p>覆盖范围：2026-08-04（美东当日）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
