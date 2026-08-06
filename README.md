@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-06](linux-news-2026-08-06.html) | Mesa 26.2 正式发布（NVK 网格着色器 + Rusticl 五后端 OpenCL 3.1 + descriptor heap 默认开启）· AMD 提交 HDMI FRL 修复并新增 CONFIG_DRM_AMD_DC_DCE 开关 · Denial WM：Flutter 引擎直嵌的 Wayland 合成器 · GNOME 50.4 修复 Mutter 旋转/非对齐显示器渲染与 GDM 三处漏洞 · Intel P-State 为 Panther Lake DEC 让权固件 · AI/LLM 噪声致 Moxa、IPWireless 老驱动退役 |
 | [2026-08-05](linux-news-2026-08-05.html) | NVIDIA 成为 LVFS/Fwupd 首要赞助商（显卡固件开源更新有望）· KDE Plasma 6.7.4 修复 KWin 登录崩溃与显示器热插拔 · Rust 链接器 Wild 0.10 支持 --gdb-index · Linux staging 区拒收 LLM 生成补丁 · AMD 提出 Linux eSPI 子系统方案 |
 | [2026-08-04](linux-news-2026-08-04.html) | FFmpeg 9.0 发布（更多 Vulkan 加速 + 动画 WebP + AMD AMF 增强）· GNOME Mutter 51 Beta（Wayland 背景模糊 + 帧调度改进）· KDE KGamma2 让 Wayland 轻松调 Gamma · AMD GFX7 老卡在 Linux 7.3 迎来更好 GPU 复位恢复 · NVIDIA 610.57.04 大量修复 · Framework 13 Pro 六发行版横评（Panther Lake + Arc B390） |
 | [2026-08-03](linux-news-2026-08-03.html) | AMD 开始提交 DCN6 显示引擎补丁（指向 RDNA5/GFX13）· Linux 7.3 支持高通 Adreno 704/722 · KDE Plasma 6.8 多 GPU/eGPU 性能 40→120 FPS · Nouveau 拟默认启用原子模式设置 · Nouveau NVDEC 解锁 NVK Vulkan Video · Vulkan 1.4.358 新增图像 Tiling 控制扩展 · AMD 公开 CDNA5 ISA 文档 · Linux 7.2-rc6「这个 rc 太庞大了」· Linux 7.3 为 Intel Starfire 铺路 |

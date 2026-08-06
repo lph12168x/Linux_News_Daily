@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-06</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 6 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-06.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-05.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-26.2-Released" target="_blank">Mesa 26.2 正式发布：NVK 拿下网格着色器，Vulkan 全线大幅增强</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        开源 OpenGL / Vulkan 驱动集合 Mesa 于 8 月 5 日晚发布 26.2 稳定版，这是本季度的例行特性版本，也是一次相当丰厚的更新。亮点方面：NVIDIA 的开源 Vulkan 驱动 <b>NVK 获得 VK_EXT_mesh_shader 网格着色器支持</b>，这是长期以来 NVK 与闭源驱动之间最显眼的功能差距之一；面向 Apple Metal 的 KosmicKrisp 驱动现已公开宣称 Vulkan 1.4；新增光线追踪调试工具 <b>Gamma</b>，可检查加速结构与光追 dispatch（目前仅支持 RADV）。驱动层面，Intel ANV 与 AMD RADV 获得多项优化、Vulkan Video 工作持续推进、Rusticl 的 OpenCL 支持进一步完善（<b>asahi / iris / radeonsi / llvmpipe / zink 五个后端拿下 OpenCL 3.1</b>）、面向 Arm Mali 的全新 KRAID 编译器合入 Panfrost/PanVK、AMD GFX12.1 图形支持开始早期铺垫，甚至连老旧的 R600g / R300g 驱动都收获了若干修复。新扩展清单极长，其中值得留意的包括：RADV 上的 VK_KHR_maintenance11、VK_KHR_device_fault、VK_EXT_host_image_copy（GFX10.3+）、GFX12 的 VK_EXT_shader_split_barrier，anv 与 RADV 默认启用 <b>VK_EXT_descriptor_heap</b>，VK_EXT_present_timing 现已扩展到 X11，以及 VK_GOOGLE_display_timing 在 anv/hasvk/hk/nvk/panvk/pvr/radv/tu/v3dv 上的大面积铺开；PanVK 一口气补齐十余项扩展，Panfrost/PanVK 新增 G1-Ultra / G1-Premium / G1-Pro GPU 支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Mesa 是 Linux 桌面图形栈的地基，26.2 会随 Ubuntu 26.10、Fedora 45 等下一轮发行版进入千万台设备。NVK 补上网格着色器意味着 NVIDIA 开源驱动在现代渲染管线上的可用性再上一个台阶；Rusticl 五后端 OpenCL 3.1 与 descriptor heap 默认开启，则分别代表开源计算栈与 Vulkan 性能路径的成熟。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-DC-DCE-Gating" target="_blank">AMD 提交 HDMI FRL 修复，并新增可关闭旧 GPU DCE 显示代码的开关</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        AMD 工程师隔夜向邮件列表发出新一轮 AMDGPU DC 显示代码更新，共 <b>34 个补丁</b>。其中一部分继续打磨此前引入的 <b>HDMI FRL（Fixed Rate Link）</b> 支持——这是 AMD 开源上游驱动补齐 HDMI 2.1 能力的关键拼图。本轮修复包括在非破坏性 HDMI 链路校验流程中正确恢复 FRL cap，以及调整 FRL 链路训练（LT）的超时行为，用于处理实验性 FRL 支持的一些边角场景（目前该功能<b>默认仍是关闭的</b>，需用户主动开启）。这批补丁还继续扩大 AMDGPU 显示驱动各代码路径的 KUnit 单元测试覆盖率，这是 AMDGPU 近期的一项重点投入，有助于更早发现 bug、避免用户侧回归。另一项值得注意的改动是新增 <b>CONFIG_DRM_AMD_DC_DCE</b> 这个 Kconfig 选项：AMD 现在把 DCE（Display Core Engine，即 Raven Ridge 之前老 Radeon GPU 使用的显示 IP，DCN 已沿用近十年）代码收拢到该开关之后，从而允许构建「仅 DCN」的精简驱动。默认内核配置仍保持启用，因此不会默认丢掉任何现有硬件支持。鉴于补丁送达邮件列表的时间点、而 Linux 7.3 合并窗口已迫在眉睫，这批改动预计要等到年内的 <b>Linux 7.4</b> 周期才会主线化。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>HDMI 2.1 在 AMD 开源驱动上「难产」多年，FRL 的每一次修复都直接关系到 4K@120Hz / 8K 输出能否在 Linux 上真正可用；而 DCE 可选化则是一个信号——AMD 开始为嵌入式、容器化及定制内核场景提供裁剪显示驱动体积的手段，同时也为将来彻底退役 DCE 代码留下了路径。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Denial-WM-Compositor" target="_blank">Denial WM：把 Flutter 引擎直接嵌进合成器的全新 Wayland 桌面</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        一款名为 <b>Denial</b> 的新 Wayland 合成器进入视野，其定位是深度贴合 Arch Linux，并把 <b>Flutter 引擎直接嵌入代码库</b>，同时用 Rust 编写、借助 Smithay 承担合成器职责。开发者向 Phoronix 说明了它与「在别的合成器上跑一个 Flutter 应用」的本质区别：Denial 直接内嵌 Flutter Engine，而 Rust + Smithay 侧负责 Wayland 协议状态、输入、DMA-BUF、DRM/KMS 呈现与原生资源生命周期。Wayland 应用的 DMA-BUF 缓冲区通过 <b>EGL_EXT_image_dma_buf_import</b> 被导入 Flutter 场景作为 GPU 纹理，<b>无需 CPU 回读、像素拷贝或纹理上传</b>；Flutter 则直接渲染进用于 KMS 呈现的 GBM 缓冲区，中间没有渲染目标、没有最终 blit、也没有第二遍合成。作者称其已是自己的日常桌面：Chromium / Firefox / Blender / Discord 等原生 Wayland 应用、XWayland、Steam 与重度 Proton 游戏（实测《明日方舟：终末地》《鸣潮》《无限暖暖》《最终幻想 XIV》）均运行良好，另有多显示器配置（已为 nwg-displays 实现专用后端、准备上游）、通知、按窗口音量控制、锁屏与 DPMS、屏幕共享（OBS 实测）以及带 CI/CD 的已签名 Arch 软件包。项目还保留完整 Flutter 开发流程：可选开发包提供 Flutter Inspector、DevTools 与<b>热重载</b>，无需重启合成器或关闭运行中的应用即可实时改造桌面 shell，性能剖析与调试模式亦可在运行时开关。Denial 使用定制的 Flutter Engine 与 Skia 构建，加入了外部纹理损伤跟踪、专用帧调度、消除热绘制依赖路径上的堆分配等合成器专属优化。项目目前处于 alpha 阶段，代码以 GPLv3+ 托管于 GitHub，官网为 DenialWM.org。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>大多数新合成器只是 wlroots/Smithay 上的又一层壳，Denial 的思路截然不同——把 UI 工具包降为合成器的一等公民，零拷贝地把客户端缓冲区变成 Flutter 纹理，还带来热重载改桌面这种此前几乎不存在的开发体验。这是 Wayland 生态里少见的架构级新想法。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://9to5linux.com/gnome-50-4-desktop-environment-released-with-various-improvements" target="_blank">GNOME 50.4 发布：Mutter 修复非像素对齐/旋转显示器渲染，GDM 补三处安全漏洞</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        GNOME 项目于 8 月 5 日发布 <b>GNOME 50.4</b>，作为 GNOME 50 系列的第四个维护更新，距 50.3 相隔一个月；同日还发布了 GNOME 49.9。显示与合成相关的修复相当集中：<b>Mutter</b> 修复了<b>非像素对齐显示器上的模糊渲染</b>、<b>旋转显示器上无效的重绘裁剪区（redraw clips）</b>，同时避免把不受支持的回退显示模式加入模式列表，并为 <b>HDR 输出补齐 mastering display 元数据</b>。GNOME Shell 侧改进了菜单动画，并修复了 HiDPI 显示器上放大指针缩放错误、重复推送音量变更导致的声音故障、以及切换到另一个工作区上已最小化窗口时的显示故障。<b>GDM 更新至 50.2</b>，修复三类安全问题：被攻陷的 greeter 可经 SelectSession 加载任意 .desktop 文件从而以已认证用户身份执行攻击者控制命令的路径遍历漏洞；被攻陷的 greeter 可通过 BeginAutoLogin 发送任意用户名为任何本地账户请求自动登录的绕过漏洞；以及 greeter 传入无效会话名会导致整个守护进程退出、终止所有活动会话的拒绝服务问题。此外 GDM 还修正了 pam_gdm 的口令处理（释放前擦除缓存明文密码、限制 keyring 缓冲区遍历以防越界读取），并修复重认证通道处理器、会话工作进程与动态用户存储中的崩溃、内存泄漏与哈希键类型错误。配套更新还包括 GNOME Maps 50.3（公共交通路线规划的可步行路径距离由 25 米放宽至 250 米）与 GVFS 1.60.2（加固 AFP/DAV/MTP/FTP/SFTP 后端输入校验，修复 OneDrive/MTP/SMB 崩溃）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>非像素对齐与旋转显示器的渲染问题是多屏、竖屏用户的高频痛点，HDR mastering 元数据补齐则关系到 GNOME 上 HDR 链路的正确性；而 GDM 这三个漏洞都发生在「登录之前」这一最敏感的信任边界上，属于必须尽快更新的类型。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-No-Confuse-Intel-DEC" target="_blank">Intel P-State 补丁：别再让 Panther Lake 的动态能效控制「困惑」处理器固件</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Intel 工程师、Linux 电源管理子系统维护者 <b>Rafael Wysocki</b> 提交了一个针对 Intel P-State 调频驱动的补丁，用于避免在支持 <b>DEC（Dynamic Efficiency Control，动态能效控制）</b> 的较新平台（例如 Intel Core Ultra 3 系列「Panther Lake」）上「困惑」处理器固件。DEC 是一项较新的电源管理特性，用于在轻负载下优化能耗。问题在于：原则上操作系统可以通过 <b>MSR_HWP_REQUEST</b> 设置期望性能等级（desired performance level）来告诉处理器自己希望某个 CPU 运行在什么档位，但当处理器启用了 DEC 时，这样做反而可能让处理器固件无所适从——此时更好的做法是<b>让固件自行判断最合适的性能等级</b>。因此补丁的做法是：在启用 DEC 的平台上，intel_pstate 始终把 desired performance level 设为 0，即「无偏好」。该补丁目前已发到邮件列表，从时间点看仍有可能赶上即将到来的 <b>Linux 7.3</b> 合并窗口。补丁本身未公开给出性能/功耗数据，因此「困惑固件」到底带来多大影响尚不明朗。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Panther Lake 是 Intel 今年主推的移动平台，调频策略与固件的协同直接决定笔记本的续航与响应表现。这个补丁本质是「OS 让权给固件」的又一例——在混合架构与能效控制越来越复杂的当下，内核何时该退一步，正成为反复出现的设计命题。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Retiring-Moxa-Driver" target="_blank">AI/LLM 代理噪声太吵，更多老驱动被内核直接退役</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        内核源码树中「因 AI/LLM 编码代理产生的噪声而清理老代码」的趋势仍在继续。这些代理不断针对现代上游内核上几乎无人实际使用的老驱动提交报告与补丁，与其继续背着这些包袱，维护者们发现<b>干脆退役掉更省事</b>。最近数月已有大量老内核代码因此被移除（例如总线鼠标支持——在 2026 年运行主线内核的人几乎不可能还在用这种硬件）。本次的最新案例是 <b>Moxa Intellio</b> 多串口卡驱动：<b>Greg Kroah-Hartman</b> 发出移除补丁并说明「这是一个非常老的驱动，已知没有任何硬件还在使用，厂商也表示不再需要它，那就移除吧——因为 LLM 已经开始戳它并找出各种『有趣』的东西，而它其实根本没人用，只会浪费所有人的时间。如果真有人需要，将来可以用更『现代』的方式回来，因为这里的代码风格实在太老了」。该驱动可追溯至 <b>1999 年</b>，移除后从内核源码树中减少近 <b>2200 行</b>代码。此外，<b>IPWireless</b> 驱动（面向部分 3G UMTS PCMCIA 卡）也将在 <b>Linux 7.3</b> 周期被移除，理由是自 2011 年起就再无活动、也不太可能还有用户——颇具讽刺意味的是，这份移除补丁本身是<b>由 GPT-5.6 Codex 协助完成的</b>，又砍掉约 3600 行代码。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是继昨日 staging 区拒收 LLM 补丁之后，AI 冲击内核维护模式的第二种形态：不是拒绝，而是「减少攻击面」——把没人用的老代码直接删掉，让 AI 无处可戳。用 GPT 协助写删除自己噪声源的补丁，更是这轮变化最生动的注脚。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-06.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-05.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix、9to5Linux | 生成时间：2026-08-06</p>
+    <p>覆盖范围：2026-08-05（美东当日）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
