@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-07</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 7 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-07.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-06.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-Linux-7.3-Last-Round" target="_blank">AMD 在 Linux 7.3 合并窗口前塞入最后一轮图形驱动更新</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        AMD 于 8 月 6 日提交了 Linux 7.3 合并窗口（预计 8 月下半月开启）前的<b>最后一批计划内功能更新</b>，拉取代号 <code>amd-drm-next-7.3-2026-08-06</code>、由 Alex Deucher 发出。此前数周 AMDGPU/AMDKFD 已陆续带来老硬件 GPU 复位恢复、老硬件 DRM 格式修饰符（Valve 赞助）、GFX11 APU 第二图形管道等改动，本轮则做收尾：更新 <b>SMU 15</b> IP 与 SMU 14/PPT、重构 Display Core（DC）<b>流验证（stream validation）</b>、修复经典 Radeon DRM 驱动的性能回退、借助 Valve 的 Timur Kristóf 重做老 <b>GFX6 图形 IP 的软复位</b>（改善早期 GCN 卡的软复位恢复），并加入一系列修复。具体清单中值得图形/显示方向留意的包括：<b>DCN 6.0.0 初步支持</b>（即指向 RDNA5/GFX13 的显示引擎首次进入主线路径）、<b>FRL / VRR 修复</b>、更多显示 KUnit 单元测试、DC avmute/self refresh/CRC 修复、DCN 2.0.1/3.2/3.5.1 修复；AMDKFD 侧则是 SVM 与 MES 更新；老的 radeon 驱动也获得一处性能回退修复。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 7.3 周期 AMD 图形栈的「关门补丁」，几乎集齐了本周期 AMD 在 GPU 复位、显示（FRL/VRR/DCN6）、老硬件维护上的全部收尾工作。DCN 6.0.0 的首次出现尤其值得注意的是：它把 RDNA5 的显示引擎正式铺到了上游主干路上，是未来一年 AMD 新卡的显示能力地基。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-GFX1171-Mesa-26.3" target="_blank">AMD GFX1171 支持合入 Mesa 26.3（RDNA 4m 家族再添新成员）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        继今年早些时候 AMD 以「<b>RDNA 4m</b>」为名先后加入 GFX1170、GFX1171、GFX1172 三个 AMDGPU LLVM 编译器后端与内核驱动目标后，Mesa 侧今天合入了 <b>GFX1171</b> 目标，供 <b>RADV（Vulkan）与 RadeonSI（OpenGL）</b> 驱动使用。这一合并（MR !43094）本质上只是新增芯片 ID，其余代码路径沿用 GFX1170，而 GFX1170 大体又沿 GFX115x / <b>RDNA 3.5</b> 的路径——属于相对直白的例行添加。GFX1170 的支持早在 4 月即合入 RADV/RadeonSI，但 GFX1171 拖到今天才进 Mesa，GFX1172 则尚无 Mesa 目标，提示这些额外的 RDNA 4m 变体预计要晚于首发型号数月才陆续面世。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>GFX1171 的合入意味着 Mesa 26.3（预计 Q4 发布）将能识别并驱动又一款 RDNA 4m 衍生 GPU。对 Linux 图形栈而言，这延续了「AMD 新硬件上游化节奏越来越快」的趋势——尽管只是 ID 层面的小步，却是用户拿到新卡即开箱可用的前提。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/mesa-263-xe3" target="_blank">实测：Intel Arc B390（Xe3）升级 Mesa 能带来可观性能提升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Phoronix 在 Framework Laptop 13 Pro（Intel Core Ultra X9 388H、64GB LPDDR5-7467、Arc B390 Xe3 核显）上做了对比：默认 <b>Ubuntu 26.04 LTS 自带的 Mesa 26.0</b> 与通过 Mesa ACO PPA 升级到 <b>Mesa 26.3 Git</b>（7 月 31 日快照）之间的性能差异。结论是：Panther Lake 的 Arc B390 图形本身不错，但用 Ubuntu 26.04 默认 Mesa 26.0（或当前仍用 Mesa 26.0 的 26.10 每日构建）会<b>白白丢掉不少优化</b>——新 Iris Gallium3D 与 ANV Vulkan 驱动在 26.3 上积累的性能改进相当实在。Ubuntu 用户借助 Mesa ACO PPA 即可轻松把 Mesa 升到最新 Git 以复现测试。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是「发行版默认 Mesa 偏旧」在最新平台上直接变现为性能损失的鲜活例证。早期 Panther Lake 笔记本用户只要换一套更新的 Mesa，就能免费获得 Iris/ANV 的近期优化；同时也再次提醒：Linux 图形体验有一半取决于发行版打包的 Mesa 版本。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/IceWM-4.1-Released" target="_blank">IceWM 4.1 窗口管理器发布：修复罕见视频性能问题</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        老牌 X11 窗口管理器 <b>IceWM</b> 自今年元旦 4.0 之后迎来首个新版本 <b>4.1</b>。本版以一堆 bug 修复为主，最值得注意的是修复了<b>罕见的视频性能问题</b>——具体做法是把默认的 Alpha 合成开关设为 false，以避免某些场景下视频播放性能劣化；同时还修复了配置文件未终止字符串的处理、<code>_NET_STARTUP_ID</code> 字符串解析错误、以及「先释放 picture 再释放其 pixmap」导致的报错。功能侧新增了 <code>ignoreUserTime</code> 窗口选项（issue #833）与 icesh 的 <code>mousemove</code> 命令，并附带翻译更新。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>IceWM 体量小、在轻量/嵌入式/老旧硬件桌面上仍有用户，把默认 Alpha 合成关掉以规避视频性能回退是个务实的兼容性修复；它也侧面说明「合成器 Alpha 混合」这类看似无害的默认项，在特定视频路径上仍可能踩坑。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Synx" target="_blank">高通提议把 Synx 全局同步框架上游进 Linux 内核</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        高通工程师在邮件列表发起 RFC，讨论将 <b>Synx</b> 上游进 Linux 内核。Synx 是一个<b>跨越 SoC 内不同部分的全局同步框架</b>，用于在 Linux 托管的客户端与非 Linux 执行环境（远程处理器、固件）之间协调 fence。高通已在内部使用，并宣称带来「显著」的功耗与性能收益。其定位<b>并非取代</b>图形/显示领域现有的 dma-fence，而是作为横跨多个子系统与处理器的全局同步机制，同时在合适处与 dma-fence、sync_file 等现有 Linux 原语集成；该框架被设计为<b>厂商无关（SoC-agnostic）</b>，未来其他厂商也可采用。据 RFC 说明，Synx 在近几代高通移动与 XR 芯片上已展现显著的功耗/性能收益，且用例仍在扩展。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>图形与显示同步（dma-fence）是把控 GPU/显示流水线正确性的关键原语，Synx 把它从单子系统扩到整个 SoC 跨核/跨固件层面，对异构计算与 XR 这类「多处理器协同渲染」场景意义重大；而「厂商无关」的设计定位，决定了它能否真正进入主线、成为通用的异构同步基础设施。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Page-Alloc-Hogger" target="_blank">Page Alloc Hogger：Google 提议的 Linux 内存压力测试特性</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Google 工程师 Juan Yescas 提出名为 <b>Page Alloc Hogger</b> 的新内核特性，用于精细控制内存页的分配位置，从而更轻松地复现低内存条件、施加内存压力并触发各种压力场景以便测试/调试 Linux 的内存行为。它经 <b>DebugFS</b> 暴露接口，允许开发者从指定节点（node）、区间（zone）、迁移类型与阶（order）分配内存页。其用途包括：复现直接回收、kswapd、<b>OOM killer</b> 与分配回退等内核机制；免写自定义内核驱动或用户态分配程序即可调试仅在内存压力下才暴露的问题；在测试套件中验证内存管理子系统按预期触发；以及衡量应用在严重内存压力下的行为表现。该特性严格面向测试/调试，不面向终端用户。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>内存管理是内核正确性与性能的地基，Page Alloc Hogger 把「可控地制造内存压力」做成内核内一等公民，能大幅降低复现 OOM/回收类难题的门槛。对跑大模型、NPU 推理等内存敏感负载的 Linux 平台而言，这类可观测/可压测工具越成熟，稳定性调优越省力。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-07.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-06.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-07</p>
+    <p>覆盖范围：2026-08-06（美东当日）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>

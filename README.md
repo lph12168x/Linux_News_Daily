@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-07](linux-news-2026-08-07.html) | AMD 7.3 最后一轮图形驱动更新（DCN 6.0.0 初现 · FRL/VRR 修复 · 老 Radeon 性能回退修复）· AMD GFX1171 合入 Mesa 26.3（RDNA 4m）· Intel Arc B390 升级 Mesa 性能实测（Xe3·Panther Lake）· IceWM 4.1 修复视频性能 · 高通提议 Synx 全局同步框架 · Page Alloc Hogger 内存压力测试 |
 | [2026-08-06](linux-news-2026-08-06.html) | Mesa 26.2 正式发布（NVK 网格着色器 + Rusticl 五后端 OpenCL 3.1 + descriptor heap 默认开启）· AMD 提交 HDMI FRL 修复并新增 CONFIG_DRM_AMD_DC_DCE 开关 · Denial WM：Flutter 引擎直嵌的 Wayland 合成器 · GNOME 50.4 修复 Mutter 旋转/非对齐显示器渲染与 GDM 三处漏洞 · Intel P-State 为 Panther Lake DEC 让权固件 · AI/LLM 噪声致 Moxa、IPWireless 老驱动退役 |
 | [2026-08-05](linux-news-2026-08-05.html) | NVIDIA 成为 LVFS/Fwupd 首要赞助商（显卡固件开源更新有望）· KDE Plasma 6.7.4 修复 KWin 登录崩溃与显示器热插拔 · Rust 链接器 Wild 0.10 支持 --gdb-index · Linux staging 区拒收 LLM 生成补丁 · AMD 提出 Linux eSPI 子系统方案 |
 | [2026-08-04](linux-news-2026-08-04.html) | FFmpeg 9.0 发布（更多 Vulkan 加速 + 动画 WebP + AMD AMF 增强）· GNOME Mutter 51 Beta（Wayland 背景模糊 + 帧调度改进）· KDE KGamma2 让 Wayland 轻松调 Gamma · AMD GFX7 老卡在 Linux 7.3 迎来更好 GPU 复位恢复 · NVIDIA 610.57.04 大量修复 · Framework 13 Pro 六发行版横评（Panther Lake + Arc B390） |
