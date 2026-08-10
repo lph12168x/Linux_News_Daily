@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-10</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 10 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-10.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-07.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Large-GRF-Mode-Mesa-26.3" target="_blank">Mesa 26.3 为 Intel 新 GPU 启用 Large GRF 大寄存器模式</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Mesa 26.3-devel 的 Intel 图形编译器代码本周为 <b>Alchemist/DG2 与 Battlemage/Xe2</b> 启用 Large GRF（大通用寄存器文件）模式，并为 <b>Xe3</b> 通过新的 Variable Register Thread（VRT）功能开放 256 个 GRF 寄存器。Large GRF 把单个硬件线程的寄存器空间从 128 翻倍到 256 个 GRF 寄存器，核心作用是<b>减少寄存器溢出（register spilling）</b>，从而改善着色器/计算内核的执行效率；Large GRF 此前已在 IGC / Intel Compute Runtime 启用，本次是将其带入 Mesa 的 ANV（Vulkan）与 Rusticl（OpenCL）开源栈（合并 MR !43588）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>GRF 是 Intel GPU 执行模型的核心资源，减少溢出直接利好游戏与计算负载的寄存器压力；把 Large GRF/VRT 带进 Mesa 开源驱动，意味着 DG2/Battlemage/Xe3 用户在 ANV、Rusticl 上也能吃到上游化的寄存器优化，是 Intel Linux 图形栈持续补齐底层能力的一环。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/More-Aggressive-TTM-Linux-7.3" target="_blank">Linux 7.3 的 TTM 显存管理将更激进（Valve 主导，cgroup 保护）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        本周提交给 DRM-Next、排队等待 Linux 7.3 合并窗口的 drm-misc-next 收尾材料中，最值得注意的是 <b>TTM（Translation Table Maps）显存管理</b>在保护限额下分配时变得更「激进」。这项由 <b>Valve 开源 Linux 图形团队 Natalie Vock</b> 主导、历经八轮修订的改动，解决了设备内存（dmem）保护在 VRAM 紧张时失效的问题：未受保护的应用会先填满 VRAM，迫使 TTM 把受 cgroup 保护的应用分配回退（back off）到 GTT。新逻辑下，受保护分配会改为<b>主动驱逐未保护缓冲区</b>来腾出空间（仅受保护分配可驱逐未保护者，杜绝乒乓），确保应用真正用满系统授予的内存保护。该系列还带来 DMEMCG 驱逐支持，并已在 <b>AMDGPU 与 Xe 驱动</b>启用；UDMABUF 移除了 Xaver Hugl 在多 GPU/eGPU 工作中发现的 64MB 人为限制；Nouveau 也获得 Natalie Vock 写的 DMEMCG 支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是面向「低显存设备游戏体验」的关键内核态改进，Valve 持续在 Linux 图形内存管理上投入。对只有 8GB 显存的独显或核显用户，更激进且带 cgroup 保护的 TTM 驱逐逻辑能显著减少「显存被挤占→回退 GTT→卡顿」的尴尬，是中低端硬件上流畅运行游戏的基础设施。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Vulkan-1.4.359" target="_blank">Vulkan 1.4.359 扩展协作矩阵能力（NVIDIA/Qualcomm/Intel/Arm 共推）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Vulkan 1.4.359 本周发布，带来新扩展 <b>VK_EXT_cooperative_matrix_maintenance1</b>，对 2023 年 VK_KHR_cooperative_matrix 引入的协作矩阵能力做了一系列补强。协作矩阵可用于机器学习推理、图形后处理、物理仿真等；新扩展把能力从「简单 GEMM 内核」扩展到<b>类型/用途转换（type/use conversions）、归约（reductions）、逐元素操作（per-element operations），以及元素索引到矩阵坐标的转换</b>，并新增查询协作矩阵属性的命令（可输入期望 subgroup size 与本地工作组大小，便于未来扩展）。该协作矩阵更新由 <b>NVIDIA、Qualcomm、Intel、Arm</b> 工程师共同完成。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>协作矩阵是 GPU 上做矩阵乘（AI/ML 与科学计算的核心原语）的高效路径，本次维护扩展让它从「只能跑 GEMM」走向更通用的矩阵运算，并打通了与 subgroup/工作组规模相关的属性查询，直接利好跨厂商 GPU 上的 ML 推理与图形后处理性能与可移植性。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Plasma-6.8-Remote-Desktop" target="_blank">KDE Plasma 6.8：UI 打磨 + 内置远程桌面服务器修复</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        距离 10 月 Plasma 6.8 发布又一周，This Week in Plasma 汇总了面向 6.8 的一系列改动：向<b>不可用打印机打印时弹出通知</b>（不再静默失败）；任务管理器缩略图在标签上方留出更舒适的内边距；新建用户时对用户名/密码等限制给出更清晰的 UI 提示；<b>内置远程桌面服务器</b>修复了某些客户端出现黑屏的问题，并在网络不佳时降低延迟、提升表现；剪贴板弹出改为按需加载（而非启动时加载）以减少内存占用。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这些改动中，内置远程桌面服务器的黑屏修复与弱网低延迟优化最实在——Wayland 下远程桌面（RDP）一直是痛点，KDE 持续打磨意味着 Linux 桌面在远程办公/协助场景的可用性进一步提升；其余 UI 细节则体现 Plasma 6.8「打磨体验」的发布基调。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-HDMI-2.1-FRL-Linux-2026" target="_blank">Intel 内核驱动推进 HDMI 2.1 FRL（Meteor Lake 及更新平台）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        继 AMD 之后，Intel 也放出了面向其内核图形驱动的 <b>44 个补丁</b>，为 <b>Meteor Lake 及更新平台</b>带来 HDMI 2.1 <b>Fixed Rate Link（FRL）</b>支持，以突破 TMDS 上限、支持更高刷新率与分辨率。这组补丁目前是「进行中」状态：已在 Panther Lake（PTL）上轻量测试，<b>4K@120 可用</b>；但 DSC（显示流压缩）尚未实现，故 8K 等更高分辨率模式暂不支持，测试也仅限于 MTL/PTL。Intel 2022 年曾有过 HDMI FRL 补丁但此后冷却，本次重燃或反映 HDMI Forum 在开源驱动支持态度上的变化。预计最快随 <b>Linux 7.4</b> 周期上游化（连同 DSC 支持）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>HDMI 2.1 FRL 是 4K@120/8K 等高带宽显示 mode 进入开源 Intel 驱动的前提，此前长期卡在 TMDS 限制。Intel 重新推进并与 AMD 同期发力，意味着 Intel 核显/独显用户未来在高端显示器上也能吃满高刷；不过 DSC 缺失意味着 8K 仍需等待，属于「地基先铺好」的进展。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Wine-11.15-Released" target="_blank">Wine 11.15 发布：修复 Wayland 双重 sRGB 灰屏与全屏偏移</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Wine 11.15 于周六（打破通常的周五双周节奏）发布，带来 41 项已知 bug 修复，其中两处与 <b>Wayland</b> 相关：修复 Wayland EGL 代码因<b>双重 sRGB 转换导致色彩发灰（washed-out）</b>的问题，以及修复 4:3 全屏应用在 Wayland 上<b>内容偏移</b>的问题。其余改动包括 BCrypt 更多 KDF 算法、MinGW 模式下的 ARM64EC 构建、WindowsCodex 更多格式转换、本地 NTLM 认证（msv1_0 支持进程内 NTLM 并可回退 ntlm_auth）。最吸睛的是修复了可追溯到 <b>2006 年 3 月</b>的 <b>Bug 4811</b>——一个 MSXML3 的 XMLDOMDocument 问题，时隔二十年终于解决。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Wine 的 Wayland 驱动仍在快速成熟期，双重 sRGB 导致的「色彩发灰」与全屏偏移都是直接影响观感的显示问题，本次修复让 Linux 上跑 Windows 游戏/应用的画面更准确。二十年老 bug 的终结则是 Wine 项目「清债」式维护的注脚，印证其稳定性持续改进。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/M3-Pro-Max-Ultra-Linux-7.3" target="_blank">Apple M3 Pro / Max / Ultra 设备树上游化，瞄准 Linux 7.3</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Linux 7.2 已合入基础 Apple M3 SoC 的设备树（DT）支持（但距离日常可用仍有大量功能缺失），现在面向即将到来的 <b>Linux 7.3</b>，M3 Pro、M3 Max、M3 Ultra 变体也将获得<b>初始的引导支持</b>。本次同样是基础的 DT 文件（由 Sven Peter 提交的 pull），把支持带到与基础 M3 SoC 大致相同的水平——<b>尚不能用于终端用户</b>，GPU 加速等大量功能仍未支持，只是为未来内核版本铺路。该 pull 还包含面向 Apple M1/M2 系列的 HWMON 传感器支持（应对 Apple「混乱的传感器」）。M3 Pro/Max 于 2023 年底发布，M3 Ultra 随 2025 年 3 月的 Mac Studio 到来；主线内核何时能对 M3 系列提供可用日常支持仍不明朗，在那之前用下游 Asahi Linux 发行版仍是更现实的选择。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Apple Silicon 主线化的又一块基石——从 M1/M2 到 M3 基础版再到 M3 Pro/Max/Ultra，逐代把设备树铺进主线。虽然距离「可用」还很远（GPU 加速缺失），但它持续扩大开源社区对 Apple 硬件的覆盖广度，也为 Asahi 之外「纯主线内核」的长期目标积累基础。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">8</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/PoCL-7.2-RC1" target="_blank">PoCL 7.2-RC1：在 RISC-V 与 x86_64 上拿下 OpenCL 3.0 一致性</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        PoCL（Portable Computing Language，OpenCL 的便携实现，可走 CPU 执行或经 LLVM 后端用于 Level Zero、NVIDIA GPU 乃至远程设备）的 7.2 候选版发布，达成官方 <b>OpenCL 3.0 一致性（conformance）</b>：现已在 <b>RISC-V 与 x86_64</b> 处理器上通过 Khronos OpenCL CTS 验证——RISC-V 一致性测试在 Star64 开发板与 Milk-V Jupiter 上完成，x86_64 则在 AMD Ryzen 9 9900X 上提交。PoCL 7.2 还新增一批扩展（cl_khr_extended_bit_ops、cl_khr_device_uuid、cl_khr_integer_dot_product、cl_khr_kernel_clock 等），并兼容到 <b>LLVM 22</b>（NVIDIA CUDA / Intel Level Zero 设备），CPU 后端更可兼容 LLVM 22 与 23。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>OpenCL 是 CPU/GPU 异构计算的事实标准，PoCL 在 RISC-V 上拿下 OpenCL 3.0 一致性，意味着开源 RISC-V 平台也能跑标准 OpenCL 计算负载——对 RISC-V 进入边缘/异构计算意义重大；同时 PoCL 持续追平 LLVM 与新扩展，巩固其作为「跨架构 OpenCL 便携实现」的地位。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">9</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ROCm-Spur" target="_blank">AMD ROCm 新组件 Spur：AI 原生、Rust 编写的 GPU 任务调度器</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 开源 GPU 计算栈 ROCm 迎来新组件 <b>Spur</b>：一个 <b>AI 原生、用 Rust 编写</b>的任务调度器，面向把 GPU 负载扩展到<b>数千 GPU 集群</b>。Spur 被描述为 AI-native job scheduler，使用 Rust、提供 <b>WireGuard 网状网络</b>、<b>GPU-first 调度</b>，并对 Slurm 的 CLI / REST API / C FFI <b>即插即用兼容</b>；设计上还提供现代状态管理，所有状态在重启后存活。AMD 的 Anush Elangovan 公布 Spur 可处理数千 GPU 集群，并计划将其扩展到大型 CPU 集群；代码以 Apache 2.0 许可托管于 ROCm/spur。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>随着 ROCm 向大规模训练/推理集群延伸，原生的 GPU-first 调度器是补齐生态短板的务实一步——用 Rust 写、兼容 Slurm、内置存活状态，降低了把 ROCm 用于超大规模部署的门槛。对 AMD 想在 AI 集群市场与 NVIDIA 竞争而言，Spur 是「软件栈完整性」上的增量投入。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-10.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-07.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-10</p>
+    <p>覆盖范围：2026-08-07 ~ 08-09（美东，合并补齐 8/8、8/9 周末空缺）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
