@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-26</title>
+  <title>Linux 每日新闻 - 2026-08-11</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -168,84 +168,86 @@
     }
     .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
     .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
-/* PAGE-NAV-CSS-END */
+  /* PAGE-NAV-CSS-END */
   </style>
 </head>
 <body data-theme="dark">
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 26 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 11 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-11.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-25.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-27.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-11.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-10.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/GNU-C-Library-glibc-2.44" target="_blank">GNU C Library 2.44 发布：新增 /etc/tunables.conf、cosh 提速约 35%，LoongArch/AArch64/RISC-V 全面优化</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-Nova-Rust-Linux-7.3" target="_blank">开源 NVIDIA "Nova" Rust 驱动为 Linux 7.3 新增更多功能</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-kernel">内核</span>
       </div>
       <div class="news-body">
-        GNU 开发者发布 glibc 2.44 特性版本，这是现代 Linux 系统最核心的基础库之一。本次亮点包括：引入 /etc/tunables.conf 系统级可调参数配置文件——作为现有 GLIBC_TUNABLES= 环境变量的更持久替代方案，每行一条 tunable 并支持多种过滤器与选项；x86_64 上采用 FMA 指令实现的 cosh 函数带来约 35% 的性能提升；从 CORE-MATH 项目导入了更多经过优化且正确舍入（correctly-rounded）的数学函数；LoongArch CPU 获得新一轮优化并首次引入 LoongArch32 32 位支持；AArch64 与 RISC-V 上的多个函数也得到进一步优化。glibc 2.44 将进入 Ubuntu 26.10、Fedora 45 等后续发行版。
+        本周提交给 <b>DRM-Next</b>、瞄准即将到来的 <b>Linux 7.3</b> 合并窗口的，是一批 DRM Rust 核心与驱动改动。Rust 与 DRM 子系统的集成继续推进大量核心基础设施工作；当前两支最领先的 Rust DRM 驱动分别是 <b>Nova</b>（开源 NVIDIA GPU 支持，Nouveau 的继任者）与 <b>Tyr</b>（开发中、面向现代 Arm Mali）。在 Nova 一侧，本次带来：<b>整合 GSP 启动流程</b>、新增 <b>vGPU 启动支持</b>、<b>TLV 固件镜像格式支持</b>（便于 Rust 代码解析），以及针对 <b>NVIDIA Hopper 与 Blackwell</b> 支持代码的多项改进；Tyr 则获得固件加载与 MCU 启动改进。这些改动由 NVIDIA 工程师持续重金投入。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>glibc 的数学函数与字符串/内存例程是所有 Linux 计算负载的底层热路径，FMA 加速的 cosh、CORE-MATH 正确舍入函数以及 LoongArch/AArch64/RISC-V 架构优化会「免费」惠及科学计算与 HPC 应用；/etc/tunables.conf 则让 hugepage、malloc 等性能调优在系统级持久生效，对性能敏感的部署很实用。
+        <strong>关注理由：</strong>Nova 是 NVIDIA 在 Linux 上摆脱闭源驱动依赖的关键开源项目，本次在 Blackwell/Hopper 支持、vGPU 启动与 TLV 固件等方向上的推进，意味着新一代 NVIDIA GPU 的开源内核栈正在逐步补齐能力。对希望用开源栈跑 NVIDIA 显卡（尤其数据中心/工作站 Blackwell）的用户，这是长期利好的基础建设进展。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Plasma-6.8-kscreenctl" target="_blank">KDE Plasma 6.8 引入全新 kscreenctl 屏幕控制工具，另修复新款 NVIDIA GPU 色彩管理登录崩溃</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Qt-Edge-AI-Module-Coming" target="_blank">Qt 工具集将引入 Edge AI 子模块（初期聚焦视觉 AI）</a></div>
       </div>
       <div class="news-meta">
         <span class="tag tag-display">显示</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        本周 KDE「This Week in Plasma」披露：Plasma 6.8 正引入 kscreenctl 作为新的屏幕控制命令行工具，用于最终取代现有的 kscreen-doctor，提供修改显示输出配置（分辨率、排列等）的多种选项。同期其他与显示相关的进展包括：Plasma 6.6.7 修复了在新款 NVIDIA GPU + 最新 NVIDIA 驱动且启用多项色彩管理特性时 KWin 登录即崩溃的问题；Plasma 6.7.4 修复了多款笔记本上 KWin 登录崩溃；Plasma 6.8 内置的 RDP 远程桌面服务器新增「最后一个客户端断开后自动锁定会话」选项；Plasma 登录管理器将按用户记忆上次使用的会话；KDE Frameworks 6.29 还修复了 QTextFrame::begin 中一个常见但看似随机的 Plasma 崩溃。
+        Qt Group 近期在 Qt 工具集里持续做 AI 集成（QML profiler 的 agentic 开发技能、Qt AI 编码助手、Qt Creator 中的 AI agent），最新的动作是准备在 <b>Qt 工具集内新增 Qt Edge AI 子模块</b>，让开发者以 <b>runtime 无关</b>的方式创建边缘 AI 应用；初期面向嵌入式设备，目标平台包括 <b>NVIDIA Jetson/Thor、Qualcomm IQ、NXP i.MX95</b>。初版聚焦 <b>vision AI</b>：提供 C++ API 构建「推理步骤 pipeline」来跑机器视觉任务（目标检测、分类），依赖 <b>QtMultimedia</b> 接收 QVideoFrames、并借私有 API 访问底层 GstBuffer 喂给推理 pipeline；初版由 <b>Cursor AI agent</b> 协作编写，后续补上 NXP NNStreamer 后端插件与人脸检测示例。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>kscreen-doctor 是 Wayland 时代脚本化管理显示输出（分辨率/刷新率/缩放/排列）的事实标准工具，kscreenctl 作为其继任者值得所有 KDE 多显示器用户关注；NVIDIA 色彩管理相关的 KWin 登录崩溃修复也直击近期新驱动 + HDR/色彩管理组合的实际痛点。
+        <strong>关注理由：</strong>Qt 作为主流跨平台图形/UI 框架，把边缘 AI 推理直接做成内建、runtime 无关的子模块，意味着嵌入式/边缘设备的「视觉 AI + UI」可以一站式开发——对工业检测、智能摄像头等跑在 Linux 上的图形栈是务实增强，也体现 AI 推理正下沉到传统 GUI 工具链。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Wine-11.14-Released" target="_blank">Wine 11.14 发布：WoW64 模式登陆 FreeBSD、开始菜单支持图标，修复 21 个 bug</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/intel-xeon-678x-windows-linux" target="_blank">Intel Xeon 678X（Granite Rapids WS）实测：Ubuntu 26.04 整体快约 9%</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        Wine 11.14 作为双周开发版发布，继续向 2027 年 1 月的 Wine 12.0 稳定版推进。本版亮点：WoW64 模式（用纯 64 位系统库运行 32 位 Windows 软件、无需 32 位 multi-lib）在 Linux 上成熟运作已久，现开始初步支持 FreeBSD；Wine Explorer 的开始菜单现可在菜单项旁显示图标（Andrea Faulds 的合并请求）；DirectSound 新增 7.1 声道格式转换；BCrypt 支持 AES-GMAC 算法。过去两周共修复 21 个已知 bug，涉及 Adobe Reader、《风暴英雄》《帝国时代 I/II》等应用与游戏。
+        HP Z4 G6i 工作站（搭载 <b>Intel Xeon 678X / Granite Rapids WS</b>，48 核 96 线程、4×32GB DDR5-6400、NVIDIA RTX PRO 6000 Blackwell 显卡）在 <b>Windows 11 Pro</b>（HP 出厂配置）与 <b>Ubuntu 26.04 LTS</b>（Linux 7.0 内核，干净安装）之间做了横评，共跑 <b>100+ 项基准</b>。结论：Ubuntu 26.04 LTS 整体比出厂的 Windows 11 Pro <b>快约 9%</b>；在 <b>Llama.cpp（Vulkan 后端）</b>上两系统表现接近，部分模型/配置下 Windows 11 与 Ubuntu 旗鼓相当。后续还会有更多针对该 Xeon 6 的 Linux 专项基准。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>Wine 是 Linux 游戏/图形栈（Proton、DXVK、VKD3D 生态）的地基，WoW64 的持续完善决定了未来发行版彻底甩掉 32 位库后老游戏还能否顺畅运行；本版虽属常规迭代，但 WoW64 跨平台扩展与游戏兼容性修复对关注 Linux 游戏图形的用户仍有实际意义。
+        <strong>关注理由：</strong>这是 Granite Rapids WS 工作站首份 Windows/Linux 正面对比，再次印证在高核数计算型负载上，Linux 的默认配置往往更具性价比——对选购/部署 Xeon 6 工作站的开发者与企业，是「开箱即用 Linux 即更快」的直观证据；同时也有利于验证 NVIDIA Blackwell 在 Linux 上的 AI 推理工况。
       </div>
     </div>
-
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-11.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-25.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-27.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-11.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-10.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-26</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-11</p>
+    <p>覆盖范围：2026-08-10（美东，当日图形/显示/计算方向条目；显示专项当日清淡）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>
