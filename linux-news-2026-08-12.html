@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-12</title>
+  <title>Linux 每日新闻 - 2026-08-12</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -15,7 +15,7 @@
       --tag-gpu: #0984e3;
       --tag-display: #00b894;
       --tag-compute: #e17055;
-      --tag-npu: #fdcb6e;
+      --tag-npu: #fd79a8;
       --tag-kernel: #d63031;
       --hover: #f1f2f6;
       --shadow: rgba(0,0,0,0.08);
@@ -30,12 +30,12 @@
       --tag-gpu: #0984e3;
       --tag-display: #00b894;
       --tag-compute: #e17055;
-      --tag-npu: #fdcb6e;
+      --tag-npu: #fd79a8;
       --tag-kernel: #d63031;
       --hover: #1e2a4a;
       --shadow: rgba(0,0,0,0.3);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
       background: var(--bg);
@@ -108,7 +108,7 @@
     .tag-gpu { background: var(--tag-gpu); }
     .tag-display { background: var(--tag-display); }
     .tag-compute { background: var(--tag-compute); }
-    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-npu { background: var(--tag-npu); }
     .tag-kernel { background: var(--tag-kernel); }
     .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
     .news-reason {
@@ -168,102 +168,87 @@
     }
     .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
     .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
-/* PAGE-NAV-CSS-END */
+  /* PAGE-NAV-CSS-END */
   </style>
 </head>
 <body data-theme="dark">
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 12 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 12 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-12.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-11.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-13.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-12.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-11.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-rc3-Multi-GPU-Fix" target="_blank">Linux 7.2-rc3 改进多 GPU 系统的显示检测逻辑</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/FastFlowLM-1.0" target="_blank">FastFlowLM 1.0 发布，正式并入 AMD ROCm 阵营</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
-        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-npu">NPU</span>
       </div>
       <div class="news-body">
-        7 月 11 日（EDT）随本周 x86 修复合入 Linux 7.2-rc3 的一处改动，修复了部分多 GPU 系统在启动阶段的 x86 VGA 显示回退逻辑。该问题最初由 Canonical 工程师 Aaron Ma 提出：某些同时搭载 AMD 与 NVIDIA 显卡的设备上，由于枚举顺序不当，会出现错误的默认 VGA 选择，导致多个设备都暴露 boot_display 属性、混淆用户空间。AMD 工程师 Mario Limonciello 重写了补丁——当 screen info 有效时，仅依据它来定位主显示设备，从而只上报真正承载帧缓冲的那个设备；只有在没有任何帧缓冲被建立时，才回退到默认 VGA 设备，保证「至多一个主图形设备」。这修复的是自 Linux 6.18（2025 年 9 月）起就存在的 FBCON 代码变更，后续很可能被反向移植到近期稳定内核版本。
+        <b>FastFlowLM</b> 是让视觉、音频、嵌入与 MoE 大模型在 <b>AMD Ryzen AI NPU</b> 上跑起来的开源软件。1.0 版本今日发布，并已并入 <b>AMD ROCm</b> 组织（GitHub 上移至 ROCm 下开发），采用 <b>MIT 许可</b>，继续支持所有 <b>AMD XDNA2 NPU 及更新</b>。本次新增 <b>SmolVLA 视觉-语言-动作（VLA）模型</b>支持、<b>flm bench</b> 基准改进与多项 bug 修复。背景：今年早些时候 AMD Ryzen AI NPU 才通过 FastFlowLM 0.9.35 在 Linux 上变得可用于跑 LLM，此后又有 Lemonade 等集成；如今项目已提供源码、预编译 Ubuntu/Debian 二进制、通用 Linux x86_64 二进制与 Windows 二进制。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>对同时使用 AMD + NVIDIA 显卡（常见于带独显的笔记本 / 工作站）的 Linux 用户而言，错误的主显示判定曾导致 Plymouth 显示异常、Wayland/X11 选错输出设备等恼人问题；该修复让多 GPU 系统的启动显示与用户空间判定回归「唯一主设备」的正确语义，是稳定内核体验的关键一行修正。
+        <strong>关注理由：</strong>这是 AMD 在 Linux 上统一「Ryzen AI NPU + Radeon GPU」LLM 软件栈的重要一步：FastFlowLM 从独立项目收编进 ROCm 阵营，意味着 NPU 侧的 AI 推理工具链获得一线厂商的长期维护承诺。对想在 Linux 笔记本/迷你机上用本地 NPU 跑大模型（尤其 VLA/多模态）的用户，是可及性上的实质提升。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-x86-LFI-Merged" target="_blank">LLVM 合并 x86 LFI「轻量级故障隔离」目标，用于进程内沙箱</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Rusticl-cl_ext_float_atomics" target="_blank">Rusticl 开源 OpenCL 驱动新增 cl_ext_float_atomics 浮点原子扩展</a></div>
       </div>
       <div class="news-meta">
         <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
       </div>
       <div class="news-body">
-        Stanford 研究人员开发的 Lightweight Fault Isolation（LFI）编译器 Pass 与目标已合入 LLVM，作为高效、原生的代码沙箱方案。继 AArch64 LFI 目标上游化之后，本周 x86/x86_64 LFI 目标也随 LLVM 23 合入主干。LFI 是一种基于编译器、面向进程内沙箱的方法，以「极小的性能开销与工程成本」为已有 C/C++/汇编代码提供内存安全隔离。其沙箱上下文切换仅需数十个周期，往往比基于进程的沙箱快约 100 倍；在 Spec2017 上，AArch64 全量沙箱仅带来约 7% 开销，仅沙箱写入（提供完整性而非保密性）时仅 2%。该研究与 Google 等合作推进，被视为以最低代价为 C/C++ 代码补充内存安全的途径。
+        Mesa 26.2 已让 Rusticl OpenCL 驱动在 RadeonSI / LLVMpipe / Zink / Intel Iris / Apple Asahi 上支持 <b>OpenCL 3.1</b>；由 Karol Herbst 主导的 Rusticl 现进一步为 <b>Mesa 26.3</b> 启用 <b>cl_ext_float_atomics</b> 扩展。该扩展支持对内存中浮点数的原子操作——可在全局或设备本地内存上对 <b>FP16 / FP32 / FP64</b> 值做原子操作。初始已就绪的驱动为 <b>LLVMpipe、Zink 与 Intel Iris</b>，目前仅 FP32 可用，FP16/FP64 仍待补全。Mesa 26.3 稳定版若进展顺利预计 <b>11 月</b> 发布。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>LFI 把「内存安全沙箱」的运行时开销压到一个前所未有的量级（相比 Wasm 工具链降低 3~10 倍），且与系统调用 / 库接口无关，可支持未修改的库甚至设备驱动。对依赖大量 C/C++ 原生代码、又希望在 Linux 上获得更强隔离保证的 AI / 计算场景而言，x86_64 目标的上游化意味着该技术正式进入主流 LLVM 工具链视野。
+        <strong>关注理由：</strong>浮点原子操作是 GPU 并行规约、直方图、稀疏累加等科学计算/AI 算子的基础原语。Rusticl（Rust 编写的现代化 OpenCL 驱动）持续补齐这类底层扩展，意味着开源栈在高性能计算场景的覆盖面进一步扩大——对依赖 OpenCL 做数值计算、又不希望绑定闭源驱动的用户是实质进展。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Plasma-6.8-Spectacle-Audio" target="_blank">KDE Plasma 6.8 持续落地新特性：Spectacle 支持录音、vRAM 百分比监控等</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/fedora-pantherlake-thermald-tuned" target="_blank">深挖：Fedora 44 在 Framework 13 Pro（Panther Lake）为何偏慢</a></div>
       </div>
       <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
         <span class="tag tag-display">显示</span>
       </div>
       <div class="news-body">
-        在 KDE Plasma 6.8 发布前的这个夏天，开发者们仍在密集合入新特性。本周「This Week in Plasma」汇总了多项进展：截图 / 录屏工具 Spectacle 现在支持在屏幕录制时录制音频——可单独或同时录制系统音频与麦克风音频；此外 Spectacle 还找到了无需 OpenCV 库即可实现模糊效果的方式，从而移除了对 OpenCV 的依赖。KDE 系统监视器新增以「显存占用百分比」衡量 vRAM 用量（类似常规系统 RAM 的百分比展示）。Plasma 登录管理器的自动登录现在可兼容较旧版本的 systemd；在「亮度与色彩」小组件中拖动亮度滑块时，外接显示器的亮度变化也会更快地反映出来。
+        在 Framework Laptop 13 Pro（<b>Intel Core Ultra X9 388H / Panther Lake</b>，集成 <b>Arc B390</b> 核显）的六发行版横评中，<b>Fedora Workstation 44</b> 反常地比其余五个现代发行版都慢。深挖发现：Fedora 44 自带 <b>Intel Thermald 2.5.9</b>（Ubuntu 26.04 为 2.5.11、上游 2.5.12），因维护者离职长期未更新；但即便更新到 2.5.12，性能仍落后。真正主因在于 Fedora 已从 <b>power-profiles-daemon 切换到 Red Hat Tuned（tuned-ppd）</b>——改用 <b>sudo dnf swap tuned-ppd power-profiles-daemon</b> 后，Fedora 44 的基准表现即与其他发行版持平。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>这些改动虽属桌面体验层面，却直接关乎日常图形工作流的可用性——录屏带系统音、去掉 OpenCV 依赖（更小的体积）、显存百分比监控对排查 GPU 显存溢出尤其实用。它们共同描绘了 Plasma 6.8（在转向 Wayland-only 之前）对图形 / 显示相关细节的打磨方向。
+        <strong>关注理由：</strong>这是一次关于「Linux 桌面性能调优」的活教材：同一块 Panther Lake + Arc B390 平台，仅仅因为电源/散热守护进程的选择，性能就出现可被基准捕捉的差距。对采用 Panther Lake 核显、又偏好 Fedora 的用户，文中的 tuned→power-profiles-daemon 切换是立即可用的提速手段；也提醒发行版默认配置对图形/计算体验影响巨大。
       </div>
     </div>
-
-    <div class="news-item">
-      <div class="news-header">
-        <div class="news-num">4</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-Rusticl-Panfrost-Default" target="_blank">Mesa 的 Rusticl 现在默认启用 Arm Mali Panfrost 驱动支持</a></div>
-      </div>
-      <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
-        <span class="tag tag-compute">计算</span>
-      </div>
-      <div class="news-body">
-        一位 Arm 工程师提交到 Mesa 的改动，使面向 Arm Mali 图形的 Panfrost Gallium3D 驱动现在默认可与 Rusticl 驱动协同工作。此前 Panfrost 虽已能与 Rusticl（基于 Rust 的 OpenCL 驱动）配合，但必须设置环境变量 _RUSTICL_ENABLE=panfrost 才能启用——与其他尚未完全验证、未正式官宣的驱动处境相同。随着 Mesa 26.2 的最新代码，Panfrost 改为默认启用 Rusticl，省去了手动 override。此举意在为想在 Arm Mali 图形硬件上获得现代、开源 OpenCL 体验的用户提供更好的开箱即用支持。Mesa 26.2 稳定版预计 8 月发布。
-      </div>
-      <div class="news-reason">
-        <strong>关注理由：</strong>这是开源 OpenCL 在 ARM 移动 / 嵌入式 GPU 上「开箱即用」的重要一步：不再需要环境变量 hack，Arm Mali 用户即可直接获得 Rusticl 通用计算能力。结合 Rusticl 近期在硬件利用率上的持续改进，ARM 平台的 Linux 计算生态正加速补齐「能跑通用 GPU 计算」的最后一块拼图。
-      </div>
-    </div>
-
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-12.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-11.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-13.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-12.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-11.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-12</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-12</p>
+    <p>覆盖范围：2026-08-11（美东，当日图形/显示/计算方向条目；当日为计算密集日）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>

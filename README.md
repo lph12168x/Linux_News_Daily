@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-12](linux-news-2026-08-12.html) | FastFlowLM 1.0 发布并正式并入 AMD ROCm 阵营（Ryzen AI NPU·MIT·XDNA2）· Rusticl 开源 OpenCL 驱动新增 cl_ext_float_atomics 浮点原子扩展（Mesa 26.3）· 深挖：Fedora 44 在 Framework 13 Pro（Panther Lake·Arc B390）为何偏慢（tuned→power-profiles-daemon） |
 | [2026-08-11](linux-news-2026-08-11.html) | 开源 NVIDIA "Nova" Rust 驱动为 Linux 7.3 新增更多功能（GSP/vGPU/TLV/Hopper+Blackwell）· Qt 工具集将引入 Edge AI 子模块（视觉 AI·Jetson/Thor）· Intel Xeon 678X（Granite Rapids WS）实测：Ubuntu 26.04 整体快约 9% |
 | [2026-08-10](linux-news-2026-08-10.html) | Mesa 26.3 为 Intel 新 GPU 启用 Large GRF 大寄存器模式 · Linux 7.3 的 TTM 显存管理更激进（Valve/cgroup 保护）· Vulkan 1.4.359 扩展协作矩阵（NVIDIA/Qualcomm/Intel/Arm 共推）· KDE Plasma 6.8 UI 打磨 + 内置远程桌面黑屏修复 · Intel 内核驱动推进 HDMI 2.1 FRL（MTL 及更新·4K@120 可用）· Wine 11.15 修复 Wayland 双重 sRGB 灰屏与全屏偏移 · Apple M3 Pro/Max/Ultra 设备树上游化瞄准 Linux 7.3 · PoCL 7.2-RC1 在 RISC-V 与 x86_64 拿下 OpenCL 3.0 一致性 · AMD ROCm 新组件 Spur：AI 原生 Rust GPU 调度器 |
 | [2026-08-07](linux-news-2026-08-07.html) | AMD 7.3 最后一轮图形驱动更新（DCN 6.0.0 初现 · FRL/VRR 修复 · 老 Radeon 性能回退修复）· AMD GFX1171 合入 Mesa 26.3（RDNA 4m）· Intel Arc B390 升级 Mesa 性能实测（Xe3·Panther Lake）· IceWM 4.1 修复视频性能 · 高通提议 Synx 全局同步框架 · Page Alloc Hogger 内存压力测试 |
