@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-13</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 13 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-13.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-12.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-DG2-Vulkan-Video-AV1" target="_blank">Intel ANV 驱动为 DG2/Alchemist 启用 Vulkan Video AV1 编码</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-video">视频</span>
+      </div>
+      <div class="news-body">
+        由 Igalia 的 <b>Hyunjun Ko</b> 主导的 Intel <b>ANV</b> Vulkan 驱动，已在 <b>Mesa 26.3-devel</b> 中合并对 <b>DG2/Alchemist</b> 硬件的 <b>Vulkan Video AV1 编码</b>支持（KHR_video_encode_av1）。Gen12.5 硬件现可经 ANV 暴露 AV1 视频编码能力，作者在 <b>DG2 Arc A 系列</b> 显卡上完成测试。这是继去年 ANV 落地 AV1 解码、上月新增 H.265 10-bit 编码之后的又一进展；该补丁已用 FFmpeg 的 Vulkan Video 支持在 Arc A 系列上成功验证。仍需补完的包括 10-bit 编码、multi-tiling 支持，以及 loop filter/restoration 与 CDEF 支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>AV1 编码是视频创作、串流与录屏场景的关键能力。Intel 核显/独显在 Linux 上的 Vulkan Video 栈持续补齐——从解码到 H.265 再到 AV1 编码，意味着开发者可在统一 Vulkan 路径下完成硬件加速的视频管线，减少对 VA-API 单一后端的依赖。对需要在 Linux 上做视频生产、游戏录制或低延迟串流（如 Steam/游戏相关）的用户，是可及性上的实质提升。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-2026-Patches-For-2018-MBP" target="_blank">Linux 为 2018~2019 款 MacBook Pro 补上混合显卡（GMUX）支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Andre Eikmeyer 今日向 Linux 内核邮件列表提交补丁，为 <b>2018~2019 款 Apple MacBook Pro</b> 带来 <b>Apple GMUX 混合显卡</b>支持。此前以核显启动时，独立 GPU（dGPU）无法在 GMUX 将其断电后重新唤醒，导致无法在需要时切到独显运行更重的图形/游戏负载。该系列补齐了 <b>apple-gmux、amdgpu 与 HDA 控制器</b> 之间的电源生命周期：以核显为主显示时，dGPU 在 DynOff 与 DynPwr 间切换、经 DRI_PRIME 卸载到独显、外接显示器均可用。MacBookPro15,1 在独显常驻时整机空闲功耗约 <b>24W（其中约 12W 来自闲置独显）</b>，补丁后该浪费被消除。已在 2018/2019 两代机型上测试三周（运行/系统挂起恢复、重复唤醒、Thunderbolt/USB-C 外接显示器）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是一块「近十年老硬件」在 Linux 上可用性/续航的明显改善：同一台 MacBook Pro，补丁前后空闲功耗差约 12W，且终于能用上独显跑游戏/外接显示器。混合显卡（可切换显卡）是笔记本图形体验的核心命题，该补丁把苹果 GMUX 机制纳入主线考量，对想在 Linux 下复用老 Mac 做轻量游戏/外接显示的玩家有直接价值。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.2-Reverting-DRM-Fair" target="_blank">Linux 7.2 因「fair」调度策略引发回归，回退到 FIFO DRM 调度</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Linux 7.2 的 DRM（Direct Rendering Manager）改动之一是把手内核图形驱动共用的 DRM 调度器默认策略从 <b>FIFO</b> 改为 <b>fair</b>（由 Igalia 的 Tvrtko Ursulin 主导，意在更公平），被 AMDGPU 等多家 DRM 内核图形驱动使用。但因上周末一份回归报告，Ursulin 决定在 7.2 中回退。报告人 Luke Wildhardt 指出：fair 策略在 <b>AMD Radeon RX 9070 XT</b> 持续 100% GPU 负载下导致「严重」性能退化——经 Proton 运行的游戏降到约 10 FPS 或彻底卡死、KDE Plasma Wayland 会话整体冻结，需重启或杀掉合成器才能恢复；降低 GPU 负载即停止卡顿。距 7.2 稳定版（预计本周日）不到一周，Ursulin 选择稳妥回退以待彻底排查。相关的 <b>20 个回退补丁</b> 本周作为 DRM fixes 合入主线。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>一个面向「公平性」的调度器改动，在 RX 9070 XT 满载下却引发桌面整体冻结——这提醒我们内核图形栈的默认策略对实际用户体验影响巨大，也展示了开源回归反馈机制的快速纠偏。对用 AMD 新卡、又跑 Proton 游戏或 Wayland 桌面的用户，7.2 回退到 FIFO 意味着避免一次潜在的严重卡顿；也值得关注 fair 策略后续如何修复后再进主线。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-LLM-Scaler-Muse-Glimmer" target="_blank">Intel LLM-Scaler 支持 Muse Glimmer 等模型，扩充 Arc B 系列 AI 栈</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Intel 的 <b>LLM-Scaler</b> 项目源自 <b>Project Battlematrix</b> 计划，旨在让 <b>Arc（Pro）B 系列</b> 显卡更易跑生成式 AI——以 Docker 预配置 AI 栈集成 vLLM、ComfyUI、SGLang 等流行软件。本周发布带来多项更新：<b>LLM-Scaler-vLLM beta 0.21.0-b3</b> 为 <b>Meta 新发布的 Muse Glimmer 30B</b> 提供同日支持（FP8 在线量化，可在 Arc Pro B70 上运行），并新增 DFlash 支持（Muse-Glimmer-30B、Qwen3.6-27B），改善 Gemma-4-31B/26B 的首 token 延迟。同日发布的 <b>LLM-Scaler-Omni beta 0.2.0-b1</b> 升级到 ComfyUI 0.31 XPU 栈，新增 MiniMax H3 本地视频生成、Wan Animate 2（Arc Pro B70/B60）、Wan 2.2 14B T2V Turbo、LTX-2、Z-Image/Lumina、Krea2 等，并加入受管 GGUF Q4_1 支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Intel 在「让 Arc 显卡成为好用的本地 AI 平台」上持续加注的又一信号：以预配置 Docker 栈封装 vLLM/ComfyUI/SGLang，并对新模型（Muse Glimmer 30B、Qwen3.6、Gemma-4、各类视频生成模型）做到快速/同日支持。对想在 Linux + Intel Arc（尤其 B 系列 32GB 显存机型）上跑大模型/多模态/AIGC 的用户，降低了环境搭建门槛，是计算方向的重要进展。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Comma.ai-PCIe-Gen4-USB4-Dock" target="_blank">Comma.ai 推出开源固件 eGPU 坞，含 AMD Radeon RX 9060 8GB</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        George Hotz 与其 Comma.ai / Tinygrad 团队今日发布 <b>Tiny Chestnut eGPU Dock</b> 与 <b>Chestnut Dock</b>，后者内置 <b>AMD Radeon RX 9060 8GB</b> 显卡。亮点在于它运行 <b>开源固件</b>：固件已在 GitHub 公开，是针对 ASM2464PD（USB4/Thunderbolt 转 NVMe 桥接控制器）的 C 语言固件。该坞通过 <b>PCIe Gen4 x4 转 USB4</b> 连接，本质上是一个「放大版 eGPU 坞」——Comma.ai 主用途是给其辅助驾驶系统扩容（从 10W 算力上限扩到 100W、跑更大模型），但也明确可接到普通 PC 当 USB4 扩展坞使用，并兼容 Tinygrad。Tiny Chestnut 单独售价 <b>$249</b>，含 RX 9060 的 Chestnut 套装 <b>$799</b>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>把 eGPU 坞的桥接固件开源，在 Linux 兼容性与可审计性上比多数闭源雷电/USB4 坞更友好；内置 RX 9060 也提供了一块开箱即用的中端 Linux 显卡选项。对想给笔记本/迷你机加一块 AMD 显卡做图形或计算、又看重开源固件的玩家，这是个有意思的硬件信号（也呼应了「Linux 上 AMD 显卡驱动体验持续改善」的大趋势）。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LACT-0.10-Released" target="_blank">LACT 0.10 发布：新增 NVIDIA 超频控制与 Blackwell 热点传感器</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        <b>LACT</b> 是跨 NVIDIA / AMD / Intel 显卡的流行第三方 Linux GPU 配置与监控工具（GUI），在 AMD Radeon 与 Intel Arc 缺乏官方图形控制面板的 Linux 环境下尤其实用。0.10 版本带来：更多 <b>NVIDIA 超频控制</b>——可管理 PowerMizer 最高 p-state 模式，并支持电压提升（让 GPU 升压到更高电压）；监控侧新增 <b>Blackwell 热点（hot spot）传感器</b> 支持与<b>每颗显存芯片温度</b> 传感器；此外改进了初始设置体验、可显示 AMD Radeon 的 GTT 内存占用，以及若干其他增强。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>LACT 是 Linux 显卡玩家实际离不开的工具之一。0.10 补齐 NVIDIA 超频档位/电压控制、并对最新 Blackwell 架构增加热点与逐显存温度监控，意味着在 Linux 下调校与观测新卡变得更顺手。对用 NVIDIA（尤其 RTX 50 系 Blackwell）或 AMD/Intel 显卡、又不想依赖闭源控制面板的用户，是即装即用的实用更新。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-13.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-12.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-13</p>
+    <p>覆盖范围：2026-08-12（美东，当日图形/显示/计算方向条目；图形/计算方向丰富）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>

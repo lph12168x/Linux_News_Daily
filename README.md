@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-13](linux-news-2026-08-13.html) | Intel ANV 驱动为 DG2/Alchemist 启用 Vulkan Video AV1 编码 · Linux 为 2018~2019 MacBook Pro 补混合显卡（GMUX）支持 · Linux 7.2 因「fair」调度回归回退到 FIFO DRM 调度 · Intel LLM-Scaler 支持 Muse Glimmer 等模型（Arc B 系列 AI 栈）· Comma.ai 开源固件 eGPU 坞含 AMD RX 9060 · LACT 0.10 新增 NVIDIA 超频控制与 Blackwell 热点传感器 |
 | [2026-08-12](linux-news-2026-08-12.html) | FastFlowLM 1.0 发布并正式并入 AMD ROCm 阵营（Ryzen AI NPU·MIT·XDNA2）· Rusticl 开源 OpenCL 驱动新增 cl_ext_float_atomics 浮点原子扩展（Mesa 26.3）· 深挖：Fedora 44 在 Framework 13 Pro（Panther Lake·Arc B390）为何偏慢（tuned→power-profiles-daemon） |
 | [2026-08-11](linux-news-2026-08-11.html) | 开源 NVIDIA "Nova" Rust 驱动为 Linux 7.3 新增更多功能（GSP/vGPU/TLV/Hopper+Blackwell）· Qt 工具集将引入 Edge AI 子模块（视觉 AI·Jetson/Thor）· Intel Xeon 678X（Granite Rapids WS）实测：Ubuntu 26.04 整体快约 9% |
 | [2026-08-10](linux-news-2026-08-10.html) | Mesa 26.3 为 Intel 新 GPU 启用 Large GRF 大寄存器模式 · Linux 7.3 的 TTM 显存管理更激进（Valve/cgroup 保护）· Vulkan 1.4.359 扩展协作矩阵（NVIDIA/Qualcomm/Intel/Arm 共推）· KDE Plasma 6.8 UI 打磨 + 内置远程桌面黑屏修复 · Intel 内核驱动推进 HDMI 2.1 FRL（MTL 及更新·4K@120 可用）· Wine 11.15 修复 Wayland 双重 sRGB 灰屏与全屏偏移 · Apple M3 Pro/Max/Ultra 设备树上游化瞄准 Linux 7.3 · PoCL 7.2-RC1 在 RISC-V 与 x86_64 拿下 OpenCL 3.0 一致性 · AMD ROCm 新组件 Spur：AI 原生 Rust GPU 调度器 |
