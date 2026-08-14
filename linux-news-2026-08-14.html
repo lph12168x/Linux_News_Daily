@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-30</title>
+  <title>Linux 每日新闻 - 2026-08-14</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -175,114 +175,114 @@
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 30 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 14 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-14.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-29.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-31.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-14.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-13.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-AMDGPU-GFX6-Modifiers" target="_blank">AMDGPU 为旧 AMD GPU 带来 DRM 格式修饰符（Linux 7.3，Valve 赞助）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GeForce-NOW-Linux-Exits-Beta" target="_blank">GeForce NOW Linux 原生应用正式退出 Beta（NVIDIA 云游戏）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
-        <span class="tag tag-display">显示</span>
-        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-gpu">图形</span>
       </div>
       <div class="news-body">
-        在逼近下月 Linux 7.3 合并窗口的特性截止前，AMD 本周又向 AMDGPU 内核图形驱动与 AMDKFD 内核计算驱动推送了一批功能与改动。其中面向老旧 GCN 1.0/1.1（GFX6/GFX7）GPU 的 DRM 格式修饰符（format modifiers）支持尤为引人注目——这类显式描述缓冲区布局/tiling/压缩元数据的机制，是现代 Wayland/X11 合成器（gamescope、Weston、Mutter）与 Vulkan WSI 实现零拷贝扫描输出（scanout）的关键。HD 7000/8000、Sea Islands 等老架构仍被广泛使用，此前在 Linux 上缺乏完善的修饰符支持，限制了合成与串流效率。标题点名「Thanks Valve」，表明这项工作由 Valve 赞助，与其推动 Steam Deck / Proton / gamescope 跨 GPU 代际显示一致性的目标一致。
+        今年初 NVIDIA 用 <b>Flatpak</b> 发布了 GeForce NOW 的 Linux 原生客户端，今日该原生 Linux 构建正式<b>退出 Beta、达到生产级（production）状态</b>。官方支持 <b>Ubuntu 24.04 及更新版本</b>，而得益于 Flatpak 打包，其他多数 Linux 发行版也能顺利运行。NVIDIA 同时为 GeForce NOW Linux 应用建立了 Flatpak 软件仓库，便于后续接收更新。此次转正发生在返校季之前，NVIDIA 工程师在 Beta 期间持续改进了性能与稳定性并对原生构建做了进一步打磨。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>DRM 格式修饰符是现代合成器/WSI 走零拷贝显示路径的底层基石；让仍存量巨大的 GCN 1.0/1.1 老卡也能享受现代修饰符语义，对 gamescope 串流与跨代 GPU 一致性意义重大，也体现 Valve 在开源图形栈上的持续投入。
+        <strong>关注理由：</strong>GeForce NOW 是 NVIDIA 的云游戏方案，其 Linux 原生客户端达到生产级，意味着 Linux 玩家不必再依赖浏览器或 Windows 即可获得完整的云游戏体验；Flatpak 分发也让各发行版开箱即用。对「想在 Linux 上轻松玩 3A 大作」的用户，这是图形/游戏方向上的实质利好，也体现了厂商对 Linux 桌面前景的认可。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Steam-Beta-Video-Streaming" target="_blank">Steam 客户端 Beta 新增 HDR 串流（Steam Deck OLED）+ AV1 视频串流</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.2-Best-Features" target="_blank">Linux 7.2 最佳新特性盘点：缓存感知调度、AMD Zen 6、AMDGPU HDMI 2.1 FRL</a></div>
       </div>
       <div class="news-meta">
         <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
         <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        今日 Steam 客户端 Beta 更新为 Linux 玩家带来了两项串流增强。其一，Steam Deck OLED 机型新增高动态范围（HDR）串流支持，直接内化进最新 Beta 客户端；其二，Steam Deck 新增 AV1 视频串流——需配合实验性 SteamRT3 客户端使用，偏好用开放的 AV1 格式替代专有视频编解码器。两项之外还有若干修复，详见 Steam 客户端 Beta 发布说明。HDR 串流补齐了 OLED 掌机在远程畅玩时的高动态范围体验，而 AV1 串流则兼顾带宽与开放性。
+        Linux 7.2 内核预计于 <b>8 月 16 日（本周日）</b>发布，将被 Ubuntu 26.10 等发行版采用。Phoronix 盘点了其中最值得关注的特性，图形/显示/计算相关包括：<b>缓存感知调度（Cache Aware Scheduling）</b>——对拥有多末级缓存（LLC）域的现代系统可带来显著性能收益；<b>AMD Zen 6</b> 持续准备（随 EPYC 9006 "Venice" 推出，主流功能主线支持已就绪）；<b>AMDGPU 初步 HDMI 2.1 FRL 支持</b>（本版默认关闭，VRR/ALLM 仍未进）；合并 <b>DC 电源模块</b> 以更贴合 AMD Radeon 在 Linux 下的能耗行为；<b>ISP4 驱动</b> 合并（支持 HP ZBook Ultra G1a 等高端锐龙本的摄像头）；Intel 侧有坚固型 Panther Lake "R"、Diamond Rapids 与 Nova Lake H 的早期准备。此外 7.2 移除了 Hercules Monochrome ISA 等老旧显卡驱动。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>HDR + AV1 串流对 Steam Deck OLED 远程游戏体验是直接利好：HDR 还原高动态范围画面，AV1 以开放格式降低带宽并契合 Linux 玩家对开放生态的偏好；这类客户端侧改进无需内核/驱动升级即可惠及广大用户。
+        <strong>关注理由：</strong>7.2 是下一重大内核版本，直接关系 Ubuntu 26.10 等发行版的图形/计算体验。对显示方向最有意义的是 AMDGPU HDMI 2.1 FRL 的初步落地（虽默认关闭，但为 4K/高刷 HDMI 铺路）；计算方向则是缓存感知调度与 Zen 6 支持。值得关注的是多个老显卡驱动被移除，提示用户旧硬件兼容性变化。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Linux-7.3-Peak-Bandwidth" target="_blank">Intel 图形驱动为 Xe3 带来「峰值带宽阈值」省电特性（Linux 7.3）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-XPU-Manager-2.1" target="_blank">Intel XPU Manager 2.1 发布：Arc Pro 显卡监控新增 P2P 拓扑命令</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
-        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        Intel 今日送出了为下月 Linux 7.3 合并窗口准备的最新一批内核图形驱动更新。对终端用户而言，本次特性拉取中最有趣的是 Xe3 Panther Lake 及更新架构上的「峰值带宽阈值」（Peak Bandwidth Threshold）省电特性：在 Xe3+ 上，当显示所需带宽低于最小 GV 点时，SoC 可以主动下调 fabric 频率；该阈值定义为 20 GB/s，驱动在「平台为 Xe3+、至少存在一个 QGV 点、QGV 点数量低于上限 8」的条件下新增一个 peak/derated 带宽均设为 20 GB/s 的 QGV 条目，当所需数据率低于 20 GB/s 时即选用该点。补丁未给出具体省电幅度。同期还启用了 Thunderbolt 隧道链路的 UHBR（超高比特率）链路速率、为支持 alpha 混合的平面添加 blend mode 属性及若干修复。
+        Intel <b>XPU Manager 2.1</b> 现已发布，这是面向 Linux 与 Windows 的开源工具，用于监控与管理 <b>Arc Pro</b> 系列显卡——可通过 <b>xpu-smi</b> 命令查看设备利用率等指标。2.1 以修复为主，但新增了 <b>xpu-smi topology --p2p</b> 子命令，可打印 N×N 矩阵，显示每一对 GPU 是否支持 peer read / peer write / MDF fabric / atomics / PCIe 访问。同时提供了面向 Windows 与 Ubuntu Linux 的预编译二进制。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>这是 Xe3/Panther Lake 全新的功耗管理特性——显示带宽需求低时主动降 fabric 频率，对笔记本/掌机续航有现实意义；Thunderbolt 隧道 UHBR 与全平面 alpha 混合 blend mode 也拓宽了高带宽显示与合成能力。
+        <strong>关注理由：</strong>对多卡 Arc Pro 计算场景，P2P 拓扑可见性直接决定能否做高效的 GPU 间直接数据传输（如推理/训练中的 NVLink 类通信）。xpu-smi 这类开源监控管理工具，补足了 Intel 在 Linux 上 Arc Pro 生态的可用性，是计算方向的实用更新。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">4</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Valve-Sponsors-RADV-Windows" target="_blank">Valve 赞助 Collabora 将开源 RADV Vulkan 驱动移植到 Windows</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-GAIA-0.23" target="_blank">AMD GAIA 0.23：可从终端安装/运行 AI 智能体</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-npu">NPU</span>
         <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        Valve 正在赞助 Collabora 工程师开展早期探索性工作，试图把开源的 Radeon Vulkan「RADV」驱动带到 Microsoft Windows。RADV 是 Linux 玩家广用的开源 Vulkan 实现，也是 AMD 系 Steam Deck / Steam Machine 成功的重要部分。本次工作范围不包括把 AMDGPU Linux 内核驱动移植到 Windows，而是复用 AMD 官方 Windows 内核驱动——为此需要反向工程其专有内核驱动的数据结构，并可能通过稳定/有据的接口或 shim 库来跨驱动版本适配。Collabora 的 Louis-Francis Ratté-Boulianne 已发布博客，并演示了在 Windows 上用 RADV 跑起《Counter-Strike 2》；实验代码可在 freedesktop GitLab 的 wddm2 开发分支找到。
+        AMD 的 <b>GAIA</b> 是构建在 <b>Lemonade</b> 之上的开源 AI 软件，可作邮件 AI 助手、Bash 编程智能体等。0.23 版新增<b>直接从终端安装与运行 AI 智能体</b>的能力：<b>gaia hub list</b> 列出可选智能体目录，<b>gaia hub install</b> 从命令行指定安装，并新增 <b>gaia hub uninstall</b> 卸载；另有 <b>gaia skill</b> 用于构建与分享 AI 技能。本版还要求所有 AI 智能体在行动前先询问用户，并关闭若干本地暴露面、做了多项安全加固。GAIA 0.23 基于开源 Lemonade SDK 11.5，已通过 GitHub 提供 Windows/Linux/macOS 版本。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>用开源 RADV 挑战 Windows 上闭源厂商驱动，是跨平台开源 Vulkan 的重要一步；当 RADV 能在 Windows 跑起 3A 游戏，Steam Deck/Steam Machine 的图形栈一致性将不再受平台束缚，长远看会反哺整个 Mesa 生态。
+        <strong>关注理由：</strong>GAIA 是 AMD ROCm / Ryzen AI NPU 生态在「本地 AI 智能体」方向的一环，0.23 把智能体管理做到终端原生，降低了在 Linux 上部署/切换本地 AI 助手的门槛，并强调「行动前确认 + 默认更安全」。对想用锐龙 AI NPU 跑本地智能体的 Linux 用户，是工具链成熟度提升的信号。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">5</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/YSERVER-1.4" target="_blank">YSERVER 1.4：Rust 编写的 AI 生成 X11 服务器，让 Steam / 全屏游戏跑起来（Cinnamon）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/framework-13-pro-linux-71-72" target="_blank">Framework Laptop 13 Pro（Panther Lake）升级 Linux 7.1+/7.2 性能提升</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        YSERVER 是今年夏天登场、主要由 AI（Claude Code）编写的现代化 X11 服务器（Rust 实现），并持续补齐 X11 协议以让更多桌面环境/应用在其上跑起来。1.4 版的关键进展是让 Chrome 与 Steam 拿到 GPU 加速：GLX pixel buffer 现由真实 GPU pixmap 支撑，从而让 Chrome/Steam 获得 WebGL 加速；同时 KDE Plasma 的 RandR 调整尺寸与 ARGB 弹窗可用、Cinnamon 下全屏游戏与视频播放可用，KDE Plasma X11 分支 Sonic DE 也已测试通过。scanout buffer 现经 GBM 分配并导入 Vulkan，带来更好的驱动与 DRM 修饰符覆盖；此外还有 Present 与 vblank 对齐、键盘布局切换、RANDR 输出属性/EDID 透传、Xorg 兼容输出名、XI2 改进，以及 Fedora/Debian/Ubuntu/Alpine 的二进制包与 AUR。它已在 openSUSE Tumbleweed + NVIDIA 硬件上的 KDE Plasma 下通过验证。
+        新发布的 <b>Framework Laptop 13 Pro</b> 搭载 Intel Core Ultra Series 3 "Panther Lake"（<b>Core Ultra X9 388H</b>，集成 <b>Arc B390</b> 核显），在 Ubuntu 26.04 LTS 等现代发行版上运行良好。Phoronix 对比了 Ubuntu 26.04 在 <b>Linux 7.0 / 7.1 / 7.2</b> 三个内核系列下的表现：7.0 下一切可用，但升级到 7.1 稳定版、乃至即将发布的 7.2 内核，性能会进一步改善。作者指出这一内核升级带来的性能差异，大概率也会延续到其他 Panther Lake 笔记本。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>在「AI 辅助编写开源图形栈」的浪潮中，YSERVER 1.4 用真实 GPU pixmap 撑起 Chrome/Steam 的 WebGL、靠 GBM+Vulkan 提升 DRM 修饰符兼容性，既是 X11 存续的另类样本，也直观展示了 AI 生成代码撑起完整显示服务的可能性。
+        <strong>关注理由：</strong>这再次印证「内核版本对 Panther Lake 图形/计算性能有实打实影响」——同一台笔记本，仅换内核即可见到提升。对准备买或可升级内核的 Panther Lake 用户有参考价值，也呼应了 7.2 内核（缓存感知调度、Intel 图形优化等）给实际体验带来的增益。
       </div>
     </div>
-
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-14.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-29.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-31.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-14.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-13.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-30</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-14</p>
+    <p>覆盖范围：2026-08-13（美东，当日图形/显示/计算方向条目；云游戏/内核特性/显卡工具/本地 AI 为主）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>

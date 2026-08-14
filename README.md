@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-14](linux-news-2026-08-14.html) | GeForce NOW Linux 原生应用正式退出 Beta（NVIDIA 云游戏）· Linux 7.2 最佳新特性盘点：缓存感知调度、AMD Zen 6、AMDGPU HDMI 2.1 FRL · Intel XPU Manager 2.1 发布（Arc Pro 显卡监控 P2P 拓扑）· AMD GAIA 0.23：可从终端安装/运行 AI 智能体 · Framework Laptop 13 Pro（Panther Lake）升级 Linux 7.1+/7.2 性能提升 |
 | [2026-08-13](linux-news-2026-08-13.html) | Intel ANV 驱动为 DG2/Alchemist 启用 Vulkan Video AV1 编码 · Linux 为 2018~2019 MacBook Pro 补混合显卡（GMUX）支持 · Linux 7.2 因「fair」调度回归回退到 FIFO DRM 调度 · Intel LLM-Scaler 支持 Muse Glimmer 等模型（Arc B 系列 AI 栈）· Comma.ai 开源固件 eGPU 坞含 AMD RX 9060 · LACT 0.10 新增 NVIDIA 超频控制与 Blackwell 热点传感器 |
 | [2026-08-12](linux-news-2026-08-12.html) | FastFlowLM 1.0 发布并正式并入 AMD ROCm 阵营（Ryzen AI NPU·MIT·XDNA2）· Rusticl 开源 OpenCL 驱动新增 cl_ext_float_atomics 浮点原子扩展（Mesa 26.3）· 深挖：Fedora 44 在 Framework 13 Pro（Panther Lake·Arc B390）为何偏慢（tuned→power-profiles-daemon） |
 | [2026-08-11](linux-news-2026-08-11.html) | 开源 NVIDIA "Nova" Rust 驱动为 Linux 7.3 新增更多功能（GSP/vGPU/TLV/Hopper+Blackwell）· Qt 工具集将引入 Edge AI 子模块（视觉 AI·Jetson/Thor）· Intel Xeon 678X（Granite Rapids WS）实测：Ubuntu 26.04 整体快约 9% |
