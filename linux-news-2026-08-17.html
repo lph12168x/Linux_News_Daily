@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-17</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 17 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-17.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-14.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.2-Released" target="_blank">Linux 7.2 正式发布：缓存感知调度、AMDGPU HDMI 2.1 FRL、Intel Arc B390 图形提升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Linus Torvalds 于 <b>8 月 16 日</b>发布 <b>Linux 7.2</b> 稳定版，将进入 Ubuntu 26.10 等发行版。本周期因 AI/LLM 带来大量补丁与报告潮而格外繁忙，但最终如期发布。图形/显示/计算相关特性包括：<b>缓存感知调度（Cache Aware Scheduling）</b> 提升拥有多末级缓存（LLC）域系统的性能；<b>AMDGPU 初步 HDMI 2.1 FRL</b> 支持（默认关闭，VRR/ALLM 仍未进）；<b>Intel Arc B390（Panther Lake）图形性能提升</b>；<b>ISP4 摄像头驱动</b>；AMD Zen 6 / Intel 相关硬件驱动改进。性能侧带来 AMD/Intel I/O 改进与更快的 poll 性能。最后一周有若干修复：回退到 <b>DRM FIFO 调度</b>（新「fair」默认引发回归）、声音设备 quirk、以及当日合入的 tlbi=ipi 启动选项。7.3 合并窗口随即开启，已有 40 个待合 pull request。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>7.2 是下一重大内核版本，直接决定 Ubuntu 26.10 等的图形/计算体验。对显示方向最重要的是 AMDGPU HDMI 2.1 FRL 初步落地（为 4K/高刷 HDMI 铺路）；计算方向则是缓存感知调度与 Arc B390 图形改善。同时需注意「fair」DRM 调度因 RX 9070 XT 回归被临时回退（见本期第 3 条），提示新版调度仍需打磨。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-GFX12.1-RAS-Patch-Series" target="_blank">AMD 提交 109 补丁为 GFX 12.1 带来 RAS 支持（RDNA4 刷新 / 工作站或 DC 新品）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 于周五晚放出 <b>109 个补丁</b>，为尚未公布的 <b>GFX 12.1</b> 图形引擎添加 RAS（可靠性 / 可用性 / 可服务性）支持。GFX 12.0 对应现有 RDNA4，GFX 12.5 对应 Instinct MI450，GFX 13 为 RDNA5；GFX 12.1 推测为某种 RDNA4 刷新方案，或为 Radeon AI PRO R9700 的继任 / 演进，甚至可能是 Instinct MI300A 的 APU 后继。补丁新增 <b>SR-IOV 支持</b> 等典型工作站 / 数据中心特性，而非消费卡功能。因提交时间过晚，<b>Linux 7.3 已来不及合入，预计随 7.4（年内）</b> 就绪。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>RAS 是数据中心 / 工作站 GPU 的关键可靠性能力，AMD 在开源驱动中持续补齐 GFX 12.x 的 RAS，说明 RDNA4 家族正向下游专业 / 计算场景扩展。对关注 AMD GPU 计算可靠性的用户，这意味着后续 Linux 上对 GFX 12.1 硬件的错误检测 / 恢复 / 遥测将更完善。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Patches-Fix-DRM-Fair" target="_blank">DRM 调度器「fair」策略回归修复补丁发布（RX 9070 XT 卡顿问题，或为 7.3 默认）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        在 Linux 7.2 发布前，DRM 子系统因用户报告的回归被迫将新的「fair」调度策略<b>默认回退到 FIFO</b>。Igalia 工程师 Tvrtko Ursulin 跟进 RX 9070 XT 在 fair 策略下性能糟糕的问题（由 Luke Wildhardt 报告），用 <b>两个不足百行补丁</b> 修复了回归，目前认为已解决。Ursulin 表示修复后有望在后续内核把 fair 重新提升为默认，随后移除 FIFO 与 round-robin。fair 策略此前在 Steam Deck 上表现良好、对 GPU 客户端整体是赢面。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是上期（8/13）RX 9070 XT 桌面冻结回退事件的「正解」跟进。DRM fair 调度一旦稳定，可让多 GPU 客户端获得更公平、更低延迟的调度，对游戏 / 合成器体验有直接好处。本期修复为 7.3 重新启用 fair 默认铺路，值得持续跟踪。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/D7VK-2.1" target="_blank">D7VK 2.1 发布：老 Direct3D（D3D3/5/6/7）经 Vulkan 转译，加载更快、性能再优化</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        <b>D7VK</b> 是在 Vulkan 之上开源实现 <b>Direct3D 3/5/6/7</b> API 的项目（覆盖 DXVK 的 D3D8–11 与 VKD3D-Proton 的 D3D12 之前的老 API）。2.1 在近期一系列性能提升后，重点转向<b>加载 / 启动速度</b>：加速对象创建 / 销毁、缓存等，部分游戏加载时间较此前版本<b>减半</b>；并带来更多性能微调（如《生化危机 2》《地球帝国：征服的艺术》）。整体已相当稳健，适合在 Wine/Proton 下经 Vulkan 游玩老游戏。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>老游戏在 Linux 上的兼容层正持续成熟。D7VK 与 DXVK/VKD3D 互补，把更早的 D3D 版本也带入 Vulkan 高性能路径，对想在 Linux 上重玩经典老游戏的玩家是图形栈层面的实质利好。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Lemonade-SDK-11.6" target="_blank">Lemonade 11.6 集成 Muse-Glimmer 30B，实验性 TheNoise ROCm 图像生成</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-npu">NPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 主导的开源本地 AI 框架 <b>Lemonade SDK 11.6</b> 发布：将 <b>Muse Glimmer 30B</b> GGUF（Meta 本周发布的 30B 开源 agentic 模型，带 draft decoding、视觉、工具调用）接入 Llama.cpp 模型目录，支持开箱即用；新增实验性 <b>TheNoise ROCm 图像生成后端</b>，为 AMD Strix Halo / Strix Point 核显带来 Anima 与 Krea-2 支持；Llama.cpp ROCm 后端现支持多款老 Instinct（<b>MI100/MI200/MI210/MI250</b> 开箱即用）；另有 alias 子命令、可选视觉基准等改进。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Lemonade 是 AMD 在「本地 AI（CPU/GPU/NPU）」方向的核心 SDK，11.6 同时补齐了大模型（30B agentic）与 ROCm 图像生成，并把老 Instinct 拉回开箱即用，利好想在锐龙 AI / Radeon 上跑本地多模态与图像生成的 Linux 用户，也体现 AMD ROCm 软件栈的可用性提升。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/RADV-ACO-19-More-Patches-Valve" target="_blank">Marek Olšák 再发 19 补丁优化 RADV + ACO（像素着色吞吐、alpha-to-coverage）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        年初从 AMD 转投 Valve Linux 图形团队的传奇 Mesa Radeon 开发者 <b>Marek Olšák</b>，继续打磨 RADV Vulkan 驱动与 <b>ACO</b> 着色编译器。最新合入的 <b>19 个补丁</b> 聚焦提升某些条件下的<b>像素着色器（PS）吞吐</b>：当深度 / 模板片段着色输出无效果时可移除，极端情况下性能<b>可能翻倍</b>；另有深度 / 模板 / 采样掩码消除等改动。大补丁系列还修复了 GFX11/RDNA3 及更新的 <b>alpha-to-coverage 性能</b>（静态启用时），利好 DXVK 与 VKD3D。全部合入 <b>Mesa 26.3</b>（Q4 稳定）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>RADV 是 Linux 上 AMD 显卡游戏 / 计算体验的核心开源驱动，ACO 是默认着色编译器。Marek 转投 Valve 后持续带来高频优化，直接提升 Radeon 在 Linux 上的游戏与 Vulkan 性能。本期聚焦像素着色与 alpha-to-coverage，对 DXVK/VKD3D 游戏有实际增益。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Jay-Compiler-Xe2-Xe3-CTS" target="_blank">Intel「Jay」图形着色编译器通过 Xe2/Xe3 Vulkan CTS（Mesa 26.3）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Alyssa Rosenzweig（原 Asahi Linux 图形、Valve 图形栈，现 Intel）主导的新 SSA 架构着色编译器 <b>Jay</b>，本周合入 Mesa 26.3-devel 的 <b>63 个补丁</b>，实现更多功能、VRT 优化与 bug 修复，现可在 <b>Xe2 与最新 Xe3</b> 硬件上通过 Vulkan CTS 一致性测试。Rosenzweig 表示此 MR 清掉了她手上最后一个「hack - do not upstream」补丁，上游在 Xe2/Xe3 上应基本通过 Vulkan CTS。Jay 将供 Mesa 的 <b>Iris（OpenGL）与 ANV（Vulkan）</b> 驱动使用，有望未来成为 Intel Linux 图形驱动的默认着色编译器。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Jay 是 Intel 开源 Linux 图形栈的重要下一代基础设施，不到一年即从公开到通过 Xe2/Xe3 的 Vulkan CTS，进度显著。一旦成为默认着色编译器，将统一并现代化 Intel Arc 在 Linux 上的 OpenGL/Vulkan 路径，长期利好 Panther Lake 等新一代 Intel 显卡。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">8</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNOME-51-Beta" target="_blank">GNOME 51 Beta 发布：Mutter 支持背景模糊（Wayland）、SVG 光标、reduced-motion</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        <b>GNOME 51 Beta</b> 现已可供测试，本轮以大量小幅改进为主：Mutter 合成器现支持 Wayland 下的<b>背景模糊效果（ext-background-effect）</b>；GNOME Shell 支持 <b>reduced-motion</b> 以减少动效、并加入与 KDE 同格式的 <b>SVG 光标</b>；GTK 支持 ext-background-effect 协议、重构 GDK frame-clock 提升精度并减少掉帧；控制中心的指纹管理 UI、Initial Setup 支持 systemd-homed、GVFS 空闲自动卸载、Nautilus 微调、Epiphany 重新启用 WebRTC、Glycin 支持 Radiance HDR 格式等。RC 约 8 月底，稳定版预计 9 月 18 日。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>背景模糊与 SVG 光标是 Wayland 桌面体验的「润色」关键项，Radiance HDR 支持也补全了 HDR 图片管线。GNOME 51 的这些变化对显示 / 桌面方向有实际意义，尤其磨砂玻璃类视觉效果与高刷下掉帧改善。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">9</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/ASUS-ROG-Astral-12VHPWR" target="_blank">开源驱动为华硕 ROG Astral 显卡带来 12VHPWR 监控（6 路针脚电流/电压进 HWMON）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        开源开发者 Krzysiek Sokolowski 为 <b>华硕 ROG Astral</b> 显卡编写了树外 <b>astral-hwmon</b> 驱动，把 12VHPWR 连接器的 <b>6 路独立针脚电流与电压</b> 接入 Linux HWMON 子系统（测试硬件为带 ITE IT8915FN 监控 ASIC 的 ROG Astral RTX 5090 OC，同系列多型号应可用）。配合仓库内的 <b>astral-guard</b> 程序（规则源自 ASUS Power Detector+），可在电流失衡 / 电压异常时发出警告。驱动仅做监控、自身不做故障动作，但可与所有支持 HWMON 标准接口的用户态监控工具配合。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>12VHPWR 接口的过流 / 过热（乃至熔毁）风险长期是高端显卡的隐患，而 Linux 下此前几乎无法读取该传感器。astral-hwmon 让 ROG Astral 用户首次能在 Linux 上实时监测 12VHPWR 各针脚状态，配合 astral-guard 预警，是高端 N 卡在 Linux 上可用性与安全性的实质提升。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-17.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-14.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-17</p>
+    <p>覆盖范围：2026-08-14 ~ 2026-08-16（美东，三日合并补齐；Linux 7.2 发布 + 图形/显示/计算方向密集更新）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
