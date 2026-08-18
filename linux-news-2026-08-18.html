@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-07</title>
+  <title>Linux 每日新闻 - 2026-08-18</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -15,7 +15,7 @@
       --tag-gpu: #0984e3;
       --tag-display: #00b894;
       --tag-compute: #e17055;
-      --tag-npu: #fdcb6e;
+      --tag-npu: #fd79a8;
       --tag-kernel: #d63031;
       --hover: #f1f2f6;
       --shadow: rgba(0,0,0,0.08);
@@ -30,12 +30,12 @@
       --tag-gpu: #0984e3;
       --tag-display: #00b894;
       --tag-compute: #e17055;
-      --tag-npu: #fdcb6e;
+      --tag-npu: #fd79a8;
       --tag-kernel: #d63031;
       --hover: #1e2a4a;
       --shadow: rgba(0,0,0,0.3);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
       background: var(--bg);
@@ -108,7 +108,7 @@
     .tag-gpu { background: var(--tag-gpu); }
     .tag-display { background: var(--tag-display); }
     .tag-compute { background: var(--tag-compute); }
-    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-npu { background: var(--tag-npu); }
     .tag-kernel { background: var(--tag-kernel); }
     .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
     .news-reason {
@@ -168,138 +168,118 @@
     }
     .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
     .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
-/* PAGE-NAV-CSS-END */
+  /* PAGE-NAV-CSS-END */
   </style>
 </head>
 <body data-theme="dark">
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 7 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 18 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-18.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-06.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-08.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-18.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-17.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Microsoft-AV1-Encode-DX12-HMFT" target="_blank">Microsoft 在 Mesa 26.2 落地基于 DX12 + HMFT 的 GPU 加速 AV1 编码</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Improving-vRAM-Mgmt" target="_blank">Linux 7.3 将落地 vRAM 显存管理改进（Valve Natalie Vock·有限显存游戏体验）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-gpu">图形</span>
         <span class="tag tag-compute">计算</span>
-        <span class="tag tag-kernel">内核</span>
       </div>
       <div class="news-body">
-        Microsoft 工程师向 Mesa 代码库合入了一项出人意料的新增功能：基于 DirectX 12 与 Hardware Media Foundation Transform（HMFT，Windows Media Foundation 的一部分）的 GPU 加速 AV1 视频编码。该方案面向 Windows 上跨厂商的 WSL（Windows Subsystem for Linux）视频编码需求。本次合入 Mesa 26.2 的是"原型"实现，足以支持 I 帧与 P 帧编码，高级特性需待后续集成。该 Mesa 侧代码约 900 行，由 Microsoft 工程师直接开发，将于本季度发布的 Mesa 26.2 中随版本上线。
+        Valve Linux 图形团队工程师 Natalie Vock 早前提出的「改善低显存系统 Linux 游戏体验」补丁，其内核视频内存管理部分已排入 <b>DRM-Next</b>，将在未来约两周内的 <b>Linux 7.3</b> 合并窗口合入。Vock 今日发布长篇博客说明最新进展：围绕显存管理、eviction（驱逐）处理与实测做了大量工作——以《印第安纳琼斯：大 Circle》为例，在仅 8GB vRAM 的卡上强行拉满设置、试图占用 9GB 显存（超额 1GB），游戏依然相当可玩。该改进已随 <b>SteamOS 内核</b>（stable 与 preview 双通道）上线；更多上游化改进仍在推进，测试补丁分支为 <b>vramstuff-rebase</b>。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>AV1 硬件编码此前在 Linux/Mesa 上支持薄弱，Microsoft 直接在 Mesa 中落地 DX12+HMFT 编码路径，将显著改善 WSL 下的跨厂商 GPU 视频编码能力，是 GPU 视频管线的重要补强。
+        <strong>关注理由：</strong>对显存紧张（8GB 及以下）的 Linux 游戏玩家，vRAM overcommit（超额提交）体验的改善是直接利好：以往显存用尽极易触发严重掉帧甚至崩溃，而 Valve 的这套内核级显存管理让驱逐到系统内存的降级更平滑。这延续了 Valve 持续投资 Linux 图形栈（RADV、DRM 调度、TTM）的一贯路线，且已先在 SteamOS 验证。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-ANV-Gen125-H265-Encode" target="_blank">Intel ANV 驱动在 Alchemist（Gen12.5）上实现 Vulkan Video H.264/H.265 编码</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/FFmpeg-Faster-HEVC-Encode" target="_blank">FFmpeg 落地 H.265/HEVC Vulkan 编码性能优化（与 H.264 编码速度持平）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
-        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">图形</span>
       </div>
       <div class="news-body">
-        今年早些时候，因 Intel ANV 开源驱动测试不足，Vulkan Video 编码在 Gen12.5 及更新硬件（Alchemist 及更新架构）上被禁用。现在，Gen12.5 图形（如 Arc A 系列）的 H.264 与 H.265 编码已重新启用。Igalia 的 Hyunjun Ko 在 Intel Arc A750 上完成测试，使 H.264/H.265 编码在 ANV 驱动下正常工作。该工作是基于 Vulkan Video 的 AV1 编码的铺垫。今日合入 Mesa 26.2 后，Intel ANV 已能正确处理 Alchemist 的 H.264/H.265 编码，AV1 编码有望很快跟进。
+        FFmpeg Git 今日合并优化补丁，加速 <b>hevc_vulkan</b>（H.265/HEVC 的 Vulkan 编码路径）。补丁沿用了此前 h264_vulkan 的部分调优：开启 <b>ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS</b> 会话标志、在 CTB≥32 时用 min CU 16×16、修复 max_transform_hierarchy_depth_inter 赋值，并在应用 GetEncoded SPS 反馈时同步被覆盖字段。实测（1080p testsrc2、quality 1、1000 帧）：优化前 hevc 约 200–317 fps、明显慢于 h264；优化后 <b>hevc 289/325/358 fps，h264 288/317/359 fps，二者达成速度持平</b>。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>Vulkan Video 编码在 Linux 上的进展长期落后于 VA-API，此次 Alchemist 重新启用 H.264/H.265 编码并指向 AV1，对 Linux 视频创作、录屏与串流场景意义重大。
+        <strong>关注理由：</strong>Vulkan 视频编码（尤其是 HEVC）在 Linux 上的实用性与性能一直是短板。FFmpeg 让 HEVC Vulkan 编码从明显落后于 H.264 追赶到速度持平，意味着在 AMD/Intel/Apple 等支持 Vulkan 视频编码的 GPU 上，开源多媒体管线能以更低开销完成 H.265 编码，利好录屏、串流与视频生产。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Marek-Double-VRS-RADV-Perf" target="_blank">Valve 的 Marek Olšák 在 RADV 落地 VRS 重构，部分场景性能翻倍</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-Offload-Rust-Performance" target="_blank">研究论文：把 Rust 卸载到 GPU 可兼顾高性能与内存安全（LLVM Offload）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">图形</span>
       </div>
       <div class="news-body">
-        长期深耕 AMD Linux 图形驱动的 Marek Olšák（今年初加入 Valve，现更多聚焦 RADV 而非 RadeonSI）将其 VRS（可变速率着色）代码的大规模重构合入 Mesa 26.2。他部分重写了 RADV Vulkan 驱动的 VRS 状态代码，修复若干遗留 bug、简化代码并提升性能；该工作同时惠及 VKD3D（Vulkan 之上的 Direct3D 12 API，用于 Steam Play/Proton）。在部分情况下，VRS flat shading 优化可使性能翻倍，另一处解除 RB+ 禁用限制的场景同样可带来翻倍性能。该合并请求包含 22 个补丁，将随 8 月发布的 Mesa 26.2 一同到来。
+        一篇由 Manuel S. Drehwald 等人发表的新论文，研究基于 <b>LLVM Offload</b> 基础设施用 Rust 编写 GPU 内核：在保留 Rust 内存安全等优势、让大多数 GPU 内核免于裸指针的同时，性能仍可与手写的原生 <b>AMD HIP / NVIDIA CUDA C++</b> 内核竞争——多数测试表现接近、互有胜负。前端被视为「安全」，相关工作全部位于 LLVM 后端与 Rust 编译器中；研究者也指出后续仍有代码生成与 IR 差异等性能提升空间。论文见于 arXiv（2608.13759），上游跟踪见 Rust-Lang ticket #131513。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>VRS 是现代图形降低着色开销的关键特性，Marek 的重构在部分场景带来翻倍性能并简化代码，对 AMD GPU 上的原生 Vulkan 与 Proton/DX12 游戏均有直接收益。
+        <strong>关注理由：</strong>长久以来 GPU 计算内核几乎被 CUDA/HIP（C++）垄断，内存安全是其痛点。该论文证明「安全 Rust + LLVM Offload」能在不牺牲太多性能的前提下写 GPU 内核，若上游化落地，将为 Linux 上的 GPU 计算带来更稳健、更现代的编程模型，对 AMD ROCm 与 NVIDIA CUDA 生态均有长期意义。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">4</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Flattens-The-Pick" target="_blank">Linux 7.3 将引入 "Flatten The Pick" 调度改进，游戏帧率提升</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ROCm-Better-QEMU-VM" target="_blank">AMD 着手新后端：改善 ROCm 计算在 QEMU/虚拟机中的 GPU 虚拟化</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-kernel">内核</span>
         <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        自 5 月初起用于改善老旧"土豆"硬件游戏性能的调度补丁（"flatten the pick" 系列）已计划引入 Linux 7.3。Intel 工程师 Peter Zijlstra 将 EEVDF 移动到单一运行队列，保留 cgroup 层级与 shares_weight 近似，从而解决长期存在的 cgroup 延迟与开销问题；该系列还将默认 cgroup_mode 改为 "concur"。在老旧 Intel Sandy Bridge 系统搭配 AMD Radeon Polaris 显卡的基准中，FPS 明显提升、帧时间显著下降。这些补丁已排入 tip 树的 sched/core 分支，预计在 8 月下旬的 Linux 7.3 合并窗口提交。
+        AMD 工程师 Honglei Huang 发起讨论，为 QEMU 下的 ROCm GPU 计算开发<b>全新后端</b>。现有方案借 Virglrenderer 的 VirtIO GPU context 类型、与显示路径共享，遇到诸多障碍：许多加速器没有显示引擎、计算上下文与显示路径争用导致显示卡顿、且计算通常需要比渲染模型允许的更多显存访问、ROCm 栈与渲染模型难以契合。AMD 因此计划实现<b>专用于计算的 headless VirtIO GPU 实例</b>，并开发一个由 QEMU 进程内加载的开源 ROCm 后端库，未来随 ROCm 栈分发。现有 ROCm native context（Virglrenderer MR #1568）尚未合入主线。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>cgroup 调度延迟长期困扰桌面与游戏用户，该改动在低端硬件上显著改善帧率与帧时间稳定性，是 Linux 游戏与交互体验的基础性内核优化。
+        <strong>关注理由：</strong>GPU 虚拟化（在 VM 中跑 ROCm 计算）是云、CI 与隔离部署的关键场景。AMD 现有方案因与显示路径耦合而受限，新后端把计算独立为 headless VirtIO 实例、并提供进程内 ROCm 后端库，将显著提升虚拟机内 AMD GPU 计算的可用性与稳定性，利好想在大内存 EPYC 服务器上做 GPU 虚拟化部署的用户。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">5</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-i915-RT-Linux-Kernel" target="_blank">Intel i915 驱动接近可在 RT 实时内核良好运行（不含显示支持）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KTransformers-0.7" target="_blank">KTransformers 0.7 扩展 AVX-512 支持：利好 AMD EPYC（Zen 4/5/6）服务器 LLM 微调</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-kernel">内核</span>
-        <span class="tag tag-display">显示</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        针对 Linux 实时（RT）补丁集，其中近半数涉及 Intel i915 内核 DRM 图形驱动调整——主线和 RT 支持当前在构建 i915 驱动时不启用 PREEMPT_RT。Maarten Lankhorst 今日发布了最新修订补丁，让 i915 模块能在 PREEMPT_RT 下"良好工作"，但前提是禁用显示支持。当前补丁系列尚未移除 i915 驱动的 "depends on !PREEMPT_RT" Kconfig 限制。一旦这些补丁进入主线，外部 RT 补丁队列将仅剩部分 PowerPC 补丁待上游化，整体 RT 化进程接近完成。
+        异构 LLM 推理与微调优化框架 <b>KTransformers</b> 发布 v0.7：现在<b>无需依赖 AMX</b> 即可获得完整的 <b>AVX-512</b> LoRA 微调支持。这一「仅 AVX-512、无需 AMX」的路径直接利好拥有优秀 AVX-512 但缺少 AMX 的 <b>AMD EPYC Zen 4 / Zen 5 / Zen 6</b> 服务器，以及 Sapphire Rapids 之前带 AVX-512 的老款 Intel Xeon。运行时自动选择恰当的 CPU 实现，使 MoE 专家训练能在更广泛的大内存服务器上进行。0.7 还新增 VLM 微调支持、原生 FP8 LoRA、改进的 DeepSeek V4 部署与 CPU 激活复用。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>实时 Linux 在工业、嵌入式与低延迟场景需求强烈，i915 驱动"去 RT 依赖"将减少外部补丁负担，推动实时内核更好地支持 Intel 图形（显示部分仍需后续工作）。
+        <strong>关注理由：</strong>本地/私有化 LLM 推理与微调正快速普及，而 AMD EPYC 服务器常因缺少 Intel AMX 在相关框架中处于劣势。KTransformers 0.7 用纯 AVX-512 路径补齐这一短板，让 Zen 4/5/6 大内存服务器也能高效跑 MoE 微调，是 AMD 平台 CPU 侧 AI 计算可用性的实质提升。
       </div>
     </div>
-
-    <div class="news-item">
-      <div class="news-header">
-        <div class="news-num">6</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/D7VK-1.12" target="_blank">D7VK 1.12 发布：老版 Direct3D 在 Vulkan 上的性能持续提升</a></div>
-      </div>
-      <div class="news-meta">
-        <span class="tag tag-display">显示</span>
-        <span class="tag tag-gpu">GPU</span>
-      </div>
-      <div class="news-body">
-        继 DXVK 3.0.1 发布后，D7VK 1.12 作为该 Vulkan 之上 Direct3D 7 及更旧版本实现的独立版本发布。D7VK 1.12 带来更多优化：相较 D7VK 1.0 的 Direct3D 7 性能提升 53%，相较引入 D3D6 支持的 D7VK 1.2，D3D6 性能提升 6.5%。此外，代码已基于新 DXVK 3.0.1 状态重新同步，并修复若干回归、做了各种代码改进。下载与详情见 GitHub 发布页。
-      </div>
-      <div class="news-reason">
-        <strong>关注理由：</strong>D7VK 让老款 Direct3D 游戏在 Vulkan 上获得现代驱动优化，1.12 的性能提升与 DXVK 3.0.1 同步进一步改善 Linux 老游戏兼容性与帧率。
-      </div>
-    </div>
-
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-18.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-06.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-08.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-18.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-17.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-07</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-18</p>
+    <p>覆盖范围：2026-08-17（美东当日；Linux 7.3 vRAM 管理改进 · FFmpeg HEVC Vulkan 编码提速 · Rust GPU 卸载 · AMD ROCm 虚拟机后端 · KTransformers 0.7 AVX-512）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>
