@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-25</title>
+  <title>Linux 每日新闻 - 2026-08-19</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -168,105 +168,84 @@
     }
     .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
     .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
-/* PAGE-NAV-CSS-END */
+  /* PAGE-NAV-CSS-END */
   </style>
 </head>
 <body data-theme="dark">
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 25 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 19 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-19.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-24.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-26.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-19.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-18.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Imagination-BXM-4-64-Linux-7.3" target="_blank">Imagination PowerVR 驱动将 BXM-4-64 MC1 GPU 标记为「已支持」，随 Linux 7.3 落地</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Buffer-Compression-DXVK" target="_blank">Intel 为 DXVK 启用缓冲压缩（Buffer Compression），提升 Intel 显卡 DXVK 游戏性能</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
-        <span class="tag tag-display">显示</span>
-        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-gpu">图形</span>
       </div>
       <div class="news-body">
-        本周发出的 drm-misc-next 补丁（面向 Linux 7.3 合并窗口）中，最值得关注的是 Imagination 的开源 DRM 内核驱动把 BXM-4-64 MC1 GPU 从此前的「实验性（experimental）」正式提升为「已支持（supported）」状态。这颗 GPU 出现在 T-Head TH1520 等 RISC-V SoC（如 Lichee Pi 4A、BeagleV Ahead 等开发板）上。此次转正是在配合 Imagination 的 Mesa Vulkan 驱动成功跑通 Vulkan 一致性测试套件（CTS）、并将 GPU 固件上游到 linux-firmware.git 之后达成的，意味着终端用户已可较为放心地使用这套完全上游、开源的 Imagination 驱动栈。同一批 drm-misc-next 还为 Tegra264 补充了 host1x/Tegra 驱动支持，并新增多款面板与若干修复。
+        Intel 开源 <b>ANV</b> Vulkan 驱动今日向 Mesa 26.3-devel 合入改动，为 <b>DXVK</b>（在 Vulkan 上转译 Direct3D 8/9/10/11 以运行 Valve Steam Play 游戏）启用<b>缓冲压缩（buffer compression / CCS）</b>。此前该选项仅对 VKD3D（Direct3D 12）开启、多数 DX12 游戏已受益，如今扩展到 DXVK。在 <b>Intel Arc Battlemage</b> 上《古墓丽影：暗影》提升 5.26%、《Total War: Warhammer 3》4.6%、《法老》2%；<b>Xe3 Panther Lake</b> 上《古墓丽影》提升 4.8%、Total War 系列约 2%。合并过程中维护者顺手删除了 anv_enable_buffer_comp 开关，改为<b>对所有游戏/层默认开启</b>以最大化收益。改动随 Mesa 26.3（预计 11 月稳定版）落地，现已可从 Mesa Git 获取。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>这是 RISC-V 平台开源 GPU 生态的重要里程碑——长期以来 RISC-V 板卡缺乏可用的开源图形加速，PowerVR BXM 转正让 TH1520 等国产/开源 RISC-V SoC 首次拥有经 Vulkan CTS 验证、完全上游的开源 GPU 驱动栈。对关注 Linux 图形驱动、RISC-V 桌面与嵌入式显示的用户，这条动态意义重大。
+        <strong>关注理由：</strong>对 Intel 显卡 Linux 游戏玩家，DXVK 路径的缓冲压缩是免费的、普遍的帧率提升（多款游戏 2–5%）。这延续了 Intel ANV 驱动在 Mesa 中对 DXVK/VKD3D 游戏性能的持续打磨，也意味着 Battlemage 与即将到来的 Panther Lake Xe3 在 Linux 上的游戏体验进一步逼近 Windows。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ROCm-Six-Weeks" target="_blank">AMD ROCm 转向严格的六周发布周期：更快把新特性、性能优化与硬件支持交到用户手中</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/COSMIC-Epoch-1.6" target="_blank">COSMIC Epoch 1.6 发布（Rust 桌面：每应用音量控制 + 远程桌面准备）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-compute">计算</span>
-        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
       </div>
       <div class="news-body">
-        本周 AMD Advancing AI 大会（旧金山）上传出的重要信息之一：ROCm 今后将采用固定的六周发布节奏。此前 ROCm 大致按季度推出 X.Y 特性版本，转为六周一发后能更激进地把新特性、性能优化和硬件支持更快送达用户。这一转变发生在 ROCm 7.14 发布之后——7.14 是首个基于全新构建基础设施「TheRock」的生产版本；此前 ROCm 7.9 至 7.13 均为「技术预览（tech preview）」版本。Michael Larabel 也在会上向 AMD 提出了 7.2 直接跳到 7.14 生产版这一「别扭」的版本号问题，AMD 暗示未来在版本命名上会有所调整，但暂无细节。下一个 ROCm 版本预计 8 月发布，并将随之带来此前宣布的 ROCm.AI 软件。
+        System76 主导的 Rust 桌面环境 <b>COSMIC Epoch 1.6</b> 于今日晚间发布。合成器新增对 Wayland <b>wl-dmabuf-v6</b> 协议的支持、现在从全屏 surface 获取 presentation feedback，并加入 <b>EI（emulated input）协议</b>支持——EI 是 COSMIC 远程桌面能力的基础，本期尚未提供远程桌面功能，但已为未来版本铺路。其他改进：COSMIC Edit 优化、COSMIC Greeter 新增 <b>JPEG-XL 与 AVIF</b> 图像格式支持、Greeter 可在运行时检测 logind 存在；并带来<b>每应用音量/输出控制</b>、COSMIC Terminal 分屏终端边框等。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>ROCm 是 AMD 在 Linux 上的开源异构计算/AI 底座，其发布节奏直接决定新 GPU（如刚发布的 Instinct MI455X）与新特性能多快落到开发者手中。六周固定周期 + TheRock 新构建体系，标志着 AMD 在追赶 CUDA 生态成熟度上明显提速，对做 GPU 计算/AI 的 Linux 开发者是实打实的利好。
+        <strong>关注理由：</strong>COSMIC 是 Linux 上少有的从零用 Rust 重写、原生 Wayland 的桌面环境。本期把 wl-dmabuf-v6、presentation feedback 与 EI 协议纳入，意味着合成器在显示协议完整度与远程桌面（屏幕共享/控制）方向上又进一步，对 Pop!_OS 及希望摆脱 X11/XWayland 的纯 Wayland 桌面用户有实际意义。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/review/ubuntu-2604-snapdragon-x-elite" target="_blank">Snapdragon X Elite 笔记本在 Ubuntu 26.04 LTS 上体验进一步倒退：Adreno GPU 回落到软件渲染</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Modular-Mojo-Open-Source" target="_blank">Modular 的 Mojo 语言在 Qualcomm 收购后全面开源（Apache 2.0·面向 CPU/GPU/NPU 计算）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
-        <span class="tag tag-gpu">GPU</span>
-      </div>
-      <div class="news-body">
-        Phoronix 在 Ubuntu 26.04 LTS 发布后重新测试了搭载 Snapdragon X Elite 的 Acer Swift 14 AI 笔记本，结果比上一轮更令人失望。首先 Ubuntu 26.04 自带的 qcom-firmware-extract 版本 17 直接报「Device is currently not supported」，需手动从 26.10 开发仓库取版本 20 的 deb 才能从 Windows 分区提取 GPU 等固件。即便固件就位，系统仍回落到 LLVMpipe 软件渲染，而非真正启用 Adreno GPU——dmesg 显示 MSM DRM 驱动虽加载了固件，但在 GPU 硬件初始化阶段报错。作者尝试了社区的 Ubuntu Concept X1E PPA（linux-qcom-x1e 内核，停留在 4 月的 7.0.0-32.32）仍无济于事。要命的是同一台笔记本在 Ubuntu 25.04/25.10 上 Adreno GPU 本可正常工作，如今在 26.04 的 Linux 7.0 内核下反而回归失效；电池监控等也不工作（唯一好转是重负载下不再随机重启）。
-      </div>
-      <div class="news-reason">
-        <strong>关注理由：</strong>这是 Arm 笔记本 Linux 显示/图形支持现状的一记警钟：即便硬件此前可用，内核更新与固件工具链的脱节也可能造成 GPU 加速回归、跌回软件渲染。对关注 Snapdragon/Adreno、Arm64 桌面与 Linux 显示栈的用户，此文清晰呈现了 qcom-firmware-extract 与 MSM DRM 驱动当前的痛点。
-      </div>
-    </div>
-
-    <div class="news-item">
-      <div class="news-header">
-        <div class="news-num">4</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-AAI-2026-Open-Source" target="_blank">AMD Advancing AI 2026：开放、开源、再开源——从开源驱动延伸到开放硬件</a></div>
-      </div>
-      <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
         <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        在本周 AMD Advancing AI 2026 上，除了被反复提及数千次的「AI」，出现频率第二高的关键词就是「open（开放/开源）」。除了众所周知的 AMD Linux 图形驱动栈、ROCm 及其他开源驱动，本届大会还把「开放硬件」推到台前：新的 AMD Kria AI 软件开发平台主打开放，公开硬件原理图；同期宣布的 AMD Robotics Software Suite 亦开源，机器人开发套件上 FPGA 的 RTL 也一并开源；配套还推出被定位为最新开源生态的 AMD Robotics Partner Network。此外，AMD Helios 网络的软件栈基于开源的 SONiC（Software for Open Networking in the Cloud）构建，OpenBMC 继续在新的 EPYC 9006「Venice」服务器平台上发挥作用，OpenSIL（开源 CPU 硅初始化）也在 Zen 6 上达到生产状态。
+        由 LLVM/Swift 之父 <b>Chris Lattner</b> 创立的 AI 公司 Modular，在近期被 <b>Qualcomm 收购</b>后，将其 <b>Mojo 系统级编程语言</b>以 <b>Apache 2.0</b> 许可全面开源（此前仅标准库开源；上周 Mojo 1.0 发布）。Mojo 1.0 定位为「AI 驱动世界」的生产级语言基础，设计面向从 <b>CPU、GPU 到 AI 加速器（NPU）</b>的多样硬件，受 Rust 等现代语言启发、可与 Python 互调，并可在 GPU 上编写内核。Modular 还计划将 Mojo 带到 Windows，补齐现有 macOS/Linux 支持。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>AMD 在数据中心 AI 硬件全面发力的同时，持续把开源/开放标准作为战略主线，从 GPU 驱动、ROCm 到 OpenSIL、SONiC、OpenBMC 乃至开放硬件原理图与 FPGA RTL。这种「开放优先」的取向直接惠及 Linux 开源生态与可维护性，与英特尔等厂商形成鲜明对照，值得关注开源图形/计算基础设施的用户留意其长期走向。
+        <strong>关注理由：</strong>Mojo 主打「为 AI 硬件（CPU/GPU/NPU）而生」的系统级高性能语言，全面开源对 Linux 上的 AI 计算生态是利好：Qualcomm 作为 Linux/ARM 生态的重要玩家收购并开源 Mojo，意味着未来在 Linux 上用统一语言编写跨 CPU/GPU/NPU 的高性能 AI 计算内核有了更开放的路径，对关注 NPU/加速器计算的 Linux 开发者尤其值得跟踪。
       </div>
     </div>
-
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-19.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-24.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-26.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-19.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-18.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-25</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-19</p>
+    <p>覆盖范围：2026-08-18（美东当日；Intel ANV 为 DXVK 启用缓冲压缩提升游戏性能 · COSMIC Epoch 1.6 远程桌面准备 · Mojo 语言全面开源）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>

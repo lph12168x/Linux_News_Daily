@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-19](linux-news-2026-08-19.html) | Intel 为 DXVK 启用缓冲压缩（Battlemage 提升 5.26%·Panther Lake Xe3 提升 4.8%）· COSMIC Epoch 1.6 发布（Rust 桌面每应用音量控制 + 远程桌面 EI 协议准备）· Modular 的 Mojo 语言在 Qualcomm 收购后全面开源（Apache 2.0·面向 CPU/GPU/NPU 计算） |
 | [2026-08-18](linux-news-2026-08-18.html) | Linux 7.3 将落地 vRAM 显存管理改进（Valve·有限显存游戏体验）· FFmpeg HEVC Vulkan 编码提速与 H.264 持平 · 研究：Rust 卸载到 GPU 兼顾高性能与内存安全 · AMD 着手新后端改善 ROCm 虚拟机计算 · KTransformers 0.7 扩展 AVX-512 利好 AMD EPYC |
 | [2026-08-17](linux-news-2026-08-17.html) | Linux 7.2 正式发布（缓存感知调度·AMDGPU HDMI 2.1 FRL·Arc B390 图形提升）· AMD 109 补丁为 GFX 12.1 带来 RAS · DRM fair 调度回归修复（RX 9070 XT）· D7VK 2.1 老 D3D 经 Vulkan 转译 · Lemonade 11.6 集成 Muse-Glimmer 30B + ROCm 图像生成 · Marek Olšák 19 补丁优化 RADV+ACO · Intel Jay 着色编译器通过 Xe2/Xe3 Vulkan CTS · GNOME 51 Beta（Mutter 背景模糊·SVG 光标）· 开源 12VHPWR 监控驱动（华硕 ROG Astral） |
 | [2026-08-14](linux-news-2026-08-14.html) | GeForce NOW Linux 原生应用正式退出 Beta（NVIDIA 云游戏）· Linux 7.2 最佳新特性盘点：缓存感知调度、AMD Zen 6、AMDGPU HDMI 2.1 FRL · Intel XPU Manager 2.1 发布（Arc Pro 显卡监控 P2P 拓扑）· AMD GAIA 0.23：可从终端安装/运行 AI 智能体 · Framework Laptop 13 Pro（Panther Lake）升级 Linux 7.1+/7.2 性能提升 |
