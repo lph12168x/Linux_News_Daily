@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-14</title>
+  <title>Linux 每日新闻 - 2026-08-20</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -15,7 +15,7 @@
       --tag-gpu: #0984e3;
       --tag-display: #00b894;
       --tag-compute: #e17055;
-      --tag-npu: #fdcb6e;
+      --tag-npu: #fd79a8;
       --tag-kernel: #d63031;
       --hover: #f1f2f6;
       --shadow: rgba(0,0,0,0.08);
@@ -30,12 +30,12 @@
       --tag-gpu: #0984e3;
       --tag-display: #00b894;
       --tag-compute: #e17055;
-      --tag-npu: #fdcb6e;
+      --tag-npu: #fd79a8;
       --tag-kernel: #d63031;
       --hover: #1e2a4a;
       --shadow: rgba(0,0,0,0.3);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing: border-box; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
       background: var(--bg);
@@ -108,7 +108,7 @@
     .tag-gpu { background: var(--tag-gpu); }
     .tag-display { background: var(--tag-display); }
     .tag-compute { background: var(--tag-compute); }
-    .tag-npu { background: var(--tag-npu); color: #333; }
+    .tag-npu { background: var(--tag-npu); }
     .tag-kernel { background: var(--tag-kernel); }
     .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
     .news-reason {
@@ -168,84 +168,84 @@
     }
     .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
     .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
-/* PAGE-NAV-CSS-END */
+  /* PAGE-NAV-CSS-END */
   </style>
 </head>
 <body data-theme="dark">
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 14 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 20 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-20.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-13.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-15.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-20.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-19.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/review/graviton5-epyc-xeon" target="_blank">AWS Graviton5 性能评测：超 Intel Xeon Granite Rapids，仍不及 AMD EPYC Turin</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/XWayland-26.1-RC1" target="_blank">XWayland 26.1 RC1 发布：自 2024 年 XWayland 24.1 以来首个特性版本</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-display">显示</span>
       </div>
       <div class="news-body">
-        随着搭载全新 Graviton5 CPU 的 AWS M9g 实例正式 GA，Phoronix 在 Amazon EC2 上对比了 Graviton5、Intel Xeon 6 Granite Rapids 与 AMD EPYC Turin 三款服务器处理器。Graviton5 基于 Arm Neoverse-V3 核心，内存由上代 DDR5-5600 升级到 DDR5-8800，相较 Graviton4（Neoverse-V2）代际提升明显。测试在 Ubuntu 26.04 LTS（Linux 7.0 内核、GCC 15.2）下进行，对比 M9g、M8a（AMD EPYC 9R45「Turin」）、M8i（Intel Xeon 6975P-C「Granite Rapids」）三种 4xlarge 实例。结果显示 Graviton5 在多数项目中超越 Intel Xeon Granite Rapids，但在与 AMD EPYC Turin 的正面对决中仍落后。价格上 Graviton5 的 m9g.4xlarge（$0.78272/小时）反而低于 EPYC 的 m8a（$0.97376）与 Xeon 的 m8i（$0.84672），性价比突出。
+        Red Hat 的 <b>Olivier Fourdan</b> 今日宣布 <b>XWayland 26.1</b> 首个候选版本。这是自 2024 年 <b>XWayland 24.1</b> 以来<b>首个带新特性的标记发布</b>，累积了两年的改动（数百项）。关键更新：移除 <b>EGLStream</b> 支持（如今 NVIDIA Linux 驱动栈已无需它即可良好工作）；rootful 模式新增 <b>剪贴板/主选区桥接</b>（<code>-clipboard</code> 启用，可在 rootful XWayland 与 Wayland 桌面间复制粘贴）；通过 <b>X Input 2 实现多席位（multi-seat）</b>兼容；支持 Wayland <b>wl_fixes</b> 协议（destroy_global / ack_global_remove）；<b>RandR 模拟</b>优先使用原生模式直至物理分辨率、且模拟模式现考虑旋转；rootful 全屏默认直接使用输出真实分辨率（而非放大 640×480）；新增 <b>xdg-system-bell</b> 协议支持。目前尚无新的 X.Org Server 整体特性发布计划，仅 XWayland 独立推进。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>这是 Arm 服务器 CPU 在 Linux 云原生计算场景下的一次重要基准验证。对关注异构计算与云成本的团队而言，Graviton5 凭借 Neoverse-V3 与高频 DDR5 在「每美元性能」上展现出竞争力，意味着在容器、CI、推理等计算密集型负载中，Arm 实例正成为 x86 之外的务实选项；而 EPYC Turin 仍守住绝对性能高地，也为 AMD 在数据中心保留筹码。
+        <strong>关注理由：</strong>XWayland 是 Linux 纯 Wayland 桌面上运行遗留 X11 应用的关键桥梁。时隔两年迎来重大特性版本，移除 EGLStream 标志着 NVIDIA 已彻底转向 GBM 路径、XWayland 对 NVIDIA 用户的体验不再依赖私有扩展；rootful 剪贴板桥接、multi-seat、改进 RandR 模拟则直接改善 Steam/Proton 游戏与多席位场景下的显示与交互完整性，对 Linux 桌面显示栈是实质性进步。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/COSMIC-Frosted-Glass-Arrives" target="_blank">System76 COSMIC 桌面推出「磨砂玻璃」Frosted Glass 视觉效果</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Scheduler" target="_blank">Linux 7.3 调度器改进：提升游戏性能、降低调度延迟、修复 Intel 混合 CPU 调度</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        System76 为 Pop!_OS 的 COSMIC 桌面环境带来了期待已久的「Frosted Glass（磨砂玻璃）」半透明模糊效果。该功能并非皮肤层面的花活，而是直接实现在 cosmic-comp（COSMIC 的 Wayland 合成器）与 libcosmic 中，采用标准 Wayland 背景特效协议，因此效果是系统级的、对整个桌面统一生效。用户可在「设置 › 桌面 › 外观 › Frosted Glass」中按需为四类 UI 分别开关：窗口与对话框、面板与坞站、小程序、系统界面（启动器 / 应用库 / 工作区切换 / 锁屏）；并提供「磨砂厚度」与「玻璃透明度」两个滑块进行精细调节。当前 Pop!_OS 24.04 LTS 用户通过更新即可启用，其他发行版（Fedora Atomic、Artix 等）将在数日内随仓库更新获得。
+        Linux 7.3 合并窗口已合入一批令人振奋的调度器更新。其一是 Intel 工程师 Peter Zijlstra 的「<b>flatten the pick</b>」系列：改进 cgroup 调度（新增 <code>cgroup_mode</code> 的 up/max/concur/tasks 多种权重分配方式，默认 concur）、并将 cgroup 调度改为<b>单一运行队列（single runqueue）</b>。该系列在 <b>Intel Sandy Bridge + AMD Radeon RX 580（Polaris）</b>上测试显示出可观的游戏性能提升。其二是<b>降低短切片（short-slice）任务的调度延迟</b>，Vincent Guittot 在 cyclictest 中展示了显著改善。此外修复了<b>非对称容量 CPU（即 Intel 混合架构）的 cluster 调度</b>，并为 NOHZ 负载均衡优先选择完全空闲的核心。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>这是开源 Linux 桌面在视觉表现力上追赶主流商业系统的又一里程碑。它复用 Wayland 标准背景特效协议（与 GNOME Mutter 的 ext-background-effect-v1 同源思路），说明「磨砂玻璃」一类现代 UI 特效正在各 Wayland 合成器间形成共识方案；对 Wayland 生态与全栈 Rust 的 COSMIC 桌面的采用者而言，既是体验升级，也是生态成熟的信号。
+        <strong>关注理由：</strong>「flatten the pick」明确以游戏负载为优化目标、且在搭配 AMD 独显的老平台上实测出增益，是 Linux 游戏（Steam/Proton）体验的底层红利；短切片延迟下降利好实时/交互场景，混合 CPU cluster 调度修复则让 Intel Core Ultra 等大小核机型在 Linux 上的调度更合理。三者共同构成 7.3 内核在「计算/图形负载调度」上的重要进步。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Rework-Sysclal-Entry-Linux-7.3" target="_blank">Linux 7.3 将迎来系统调用入口处理重构（Thomas Gleixner）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/x86-Core-Types-Linux-7.3" target="_blank">AMD 低功耗核心类型 + Intel/AMD 统一核心类型处理合入 Linux 7.3</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        资深内核开发者 Thomas Gleixner 在审视一处系统调用号处理补丁时，顺势对内核的系统调用入口（syscall entry）处理做了一轮清理与改进，预计随 Linux 7.3 合入。核心改动包括：让所有架构统一采用通用 syscall entry 代码、并在尽可能早的时机（关中断区）正确地做内核栈随机化（新增 add_random_kstack_offset_irqsoff()，避免原先 get/put_cpu_var() 的无谓开销）；修正了 PowerPC 此前「错误 / 次优」的栈随机化时机；清理了 x86 历史遗留的若干「怪异」实现；并让 ptrace / tracer 相关函数以布尔值返回系统调用是否被允许。改动后 x86_64 的 syscall 入口代码体积略减，syscall 密集型负载与微基准测试显示有小幅性能提升，且无预期的功能性变化。相关补丁已进入 tip 树的 core/entry 分支。
+        6 月由 Phoronix 率先报道的 AMD「<b>低功耗（low power）CPU 核心类型</b>」补丁现已<b>合入 Linux 7.3</b>。x86/cpu pull 新增 <code>AMD_CPU_TYPE_LOW_POWER</code>，用于识别这款即将到来的低功耗核心（此前被误判为 unknown，推测服务于 <b>Zen 6 客户端</b>平台），与既有的 performance / efficiency 核心形成互补。与此同时，Linux 7.3 <b>统一了 Intel/AMD 的 CPU 核心类型处理</b>——将厂商专属核心类型映射为通用核心类型（这一统一需求源自 <b>Sashiko AI bot</b> 指出各厂商核心类型编号差异造成的混乱）。同期合入的 x86/core 改动还包括：AMD Athlon XP 时代（支持 SSE 但不支持 SSE2）的写内存屏障 WMB SFENCE 优化、惠及老 Intel CPU 的 <b>KCFI 优化</b>，以及将 32 位 MSR 接口迁移至 64 位接口以简化代码（32 位接口预计于 7.4 删除）。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>系统调用入口处于每次用户态↔内核态切换的热路径，其随机化正确性直接关系到内核栈保护（对抗栈溢出类攻击）的安全基线；统一各架构实现也降低了长期维护成本。对运行大量 syscall 的计算 / IO 密集型负载（如高频交易、数据库、容器化服务）而言，入口路径的微小开销下降会随调用频次被放大，是 7.3 中值得关注的底层收益。
+        <strong>关注理由：</strong>AMD 低功耗核心类型正式落地 + 厂商核心类型统一处理，是 Zen 6 客户端平台调度与电源管理的基础铺垫，也让内核不再为不同厂商的核心类型各自维护割裂逻辑。对关注 AMD 下一代客户端 CPU 在 Linux 上调度/能效表现的开发者，这是 7.3 周期里值得跟踪的底层改动。
       </div>
     </div>
-
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-20.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-13.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-15.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-20.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-19.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-14</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-20</p>
+    <p>覆盖范围：2026-08-19（美东当日；XWayland 26.1 RC1 发布 · Linux 7.3 调度器助力游戏性能 · AMD 低功耗核心与统一核心类型处理合入）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>
