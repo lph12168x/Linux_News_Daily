@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-21](linux-news-2026-08-21.html) | Intel Mesa 将 Nova Lake S/U/H/HX 核显视为稳定（Mesa 26.3-devel 默认启用·26.2 反向移植）· Mesa 26.2.1 发布（RADV Vulkan Video/ACO 修复·ANV 缓存刷新）· X.Org Server 26.1 RC1（五年来首个特性版本·仅 Meson·安全加固）· KMSCON 10.0.2（KMS/DRM 终端 asciicast 回放·原子 DRM 恢复改进） |
 | [2026-08-20](linux-news-2026-08-20.html) | XWayland 26.1 RC1 发布（自 2024 年 24.1 以来首个特性版本·移除 EGLStream·rootful 剪贴板桥接）· Linux 7.3 调度器改进（flatten the pick 提升游戏性能 + 短切片延迟下降 + 混合 CPU 修复）· AMD 低功耗核心与 Intel/AMD 统一核心类型处理合入 |
 | [2026-08-19](linux-news-2026-08-19.html) | Intel 为 DXVK 启用缓冲压缩（Battlemage 提升 5.26%·Panther Lake Xe3 提升 4.8%）· COSMIC Epoch 1.6 发布（Rust 桌面每应用音量控制 + 远程桌面 EI 协议准备）· Modular 的 Mojo 语言在 Qualcomm 收购后全面开源（Apache 2.0·面向 CPU/GPU/NPU 计算） |
 | [2026-08-18](linux-news-2026-08-18.html) | Linux 7.3 将落地 vRAM 显存管理改进（Valve·有限显存游戏体验）· FFmpeg HEVC Vulkan 编码提速与 H.264 持平 · 研究：Rust 卸载到 GPU 兼顾高性能与内存安全 · AMD 着手新后端改善 ROCm 虚拟机计算 · KTransformers 0.7 扩展 AVX-512 利好 AMD EPYC |

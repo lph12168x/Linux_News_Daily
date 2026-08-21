@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-29</title>
+  <title>Linux 每日新闻 - 2026-08-21</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -168,86 +168,100 @@
     }
     .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
     .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
-/* PAGE-NAV-CSS-END */
+  /* PAGE-NAV-CSS-END */
   </style>
 </head>
 <body data-theme="dark">
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 29 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 21 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-21.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-28.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-30.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-21.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-20.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-P-State-Better-1p-Lows" target="_blank">AMD P-State 驱动新补丁：游戏 1% Low 帧率最高提升 31.8%</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Mesa-Nova-Lake-Stable" target="_blank">Intel Mesa 驱动将 Nova Lake S / U / H / HX 核显视为「稳定」</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-compute">计算</span>
-        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-gpu">图形</span>
       </div>
       <div class="news-body">
-        Meta 内核工程师 David Vernet 向 Linux 内核邮件列表提交了一组 AMD P-State 驱动补丁，为「近期繁忙」的 CPU 核心实现按核（per-core）EPP（能效偏好）动态加速。当前 EPP 主动模式下，游戏主线程/渲染线程每帧都会在 futex 或 GPU fence 上短暂阻塞，每次睡眠都会衰减硬件的性能信号，导致唤醒后从低频起步、帧时间尾部延迟被放大。全局强制 EPP=performance 会烧掉掌机上 CPU/GPU 共享的功耗预算；抬高 min_perf 又会在微空闲期钉死频率、反而干扰 SMU 的 CPU/GPU 联合加速管理。新方案为可选（amd_pstate.epp_boost=1）的按核 EPP boost：每 10ms 采样一次核心 C0 占用率（MPERF/TSC 增量），若达到 50% 繁忙即把该核 MSR_AMD_CPPC_REQ 的 EPP 字段设为 performance，300ms 无繁忙采样后恢复。在 Valve Steam Deck 上实测《文明 6》：1% Low FPS 提升 31.8%，p99 帧时间改善 4.1%。补丁尚待 AMD 工程师评审，有望惠及所有 AMD 掌机与桌面平台。
+        Intel 在 Linux 上的开源 Mesa 驱动 —— <b>Iris（Gallium3D / OpenGL）</b>与 <b>ANV（Vulkan）</b>—— 不再把下一代 <b>Nova Lake</b> 处理器的核显当作实验性、默认关闭来处理。在今日合并的 <b>Mesa 26.3-devel</b> 代码中，Nova Lake 的 <b>S / U / H / HX</b> 全产品家族驱动代码均被认定为<b>稳定并默认启用</b>。此前 Linux 7.3 已决定把 Nova Lake <b>Xe3P</b> 图形视为稳定、移除 <code>force_probe</code> 强制探测要求，Mesa 用户态驱动随即跟进 —— 不再需要单独的 force probe 覆盖。该变更（commit <code>bde9b9b</code>）也会<b>反向移植到当前的 Mesa 26.2 稳定系列</b>。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>1% Low 帧率是游戏流畅度的关键指标，31.8% 的提升幅度对 Steam Deck 等功耗受限掌机意义重大；「按核短时 EPP boost」在能效与尾延迟之间走出的新路径，也可能成为 Linux 游戏调频策略的通用范式。
+        <strong>关注理由：</strong>随着 Nova Lake 处理器在未来数月发布，开源 Linux 图形驱动已提前就位：开箱即用的稳定核显支持意味着 Panther Lake 后继平台的 Linux 桌面/游戏体验无需再手动加内核或 Mesa 参数。对关注 Intel 客户端图形在 Linux 7.3 + Mesa 26.3 上成熟度的开发者，这是一针强心剂。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Starling-Swift-Desktop" target="_blank">Starling：用 Swift 编写的全新 Linux 桌面，自带 Wayland 合成器与内置 X11 服务器</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-26.2.1-Released" target="_blank">Mesa 26.2.1 发布：首批稳定点版本带来数十项修复</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">图形</span>
       </div>
       <div class="news-body">
-        开源桌面阵营再添新丁：Starling 是一个主要借助 Claude（AI/LLM）编写的全新 Linux 桌面环境——桌面部分使用 Swift 语言开发，配套一个以 C 实现的自研 Wayland 合成器，还内置了 X11 服务器用于承接 X11 客户端程序，无需依赖 XWayland。在「AI 大规模辅助编写开源项目」的浪潮下（此前已有约 2.5 万行纯汇编的 Frame X11 服务器、Swift 写的其他桌面试验），Starling 展示了非传统技术栈 + AI 辅助快速构建完整图形栈组件的可能性。项目仍处早期阶段，距离日常可用尚有距离，但其「桌面 + 合成器 + X11 兼容层」三合一的自包含设计在新兴桌面项目中颇为少见。
+        习惯等首个点版本再升级的用户有福了：Eric Engestrom 今日宣布 <b>Mesa 26.2.1</b>，作为 <b>Mesa 26.2</b> 的首个稳定点版本，带来一波健康的错误修复（各项均有、无特别重型的修复）。<b>RADV</b>（Vulkan）方面修复了 Vulkan Video（含 AV1）、ACO 编译器、gang submit 等；<b>RadeonSI</b> 同样有多项修正。<b>Intel ANV</b> 修复了光线追踪着色器 key 指针传递、并在命令缓冲末尾确保刷新 L1/L2 缓存。<b>WSI 与 NIR</b> 等公共区域，以及多个小驱动都修复了 buffer object 引用计数泄漏问题。同期还发布了 <b>Mesa 26.1.8</b>（上季度分支的最后一次点版本），官方建议用户迁移至 26.2。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>继 Frame（汇编 X11 服务器）之后又一个 AI 辅助编写的图形栈项目，Swift 进入 Linux 桌面/Wayland 合成器领域本身就是罕见样本；自带 X11 服务器而非依赖 XWayland 的设计也提供了观察 Wayland 兼容层多样化实现的窗口。
+        <strong>关注理由：</strong>Mesa 26.2.1 是计划升级到 26.2 特性版的用户的稳妥入口：RADV 的 Vulkan Video/ACO 修复、ANV 的缓存一致性修复都直接关系到游戏与视频编解码稳定性，而 NIR/WSI 的引用计数泄漏修复则能消除长期运行合成器/游戏时的隐性内存增长。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/review/amd-hx470-windows-linux" target="_blank">Ryzen AI 9 HX 470 四系统横评：CachyOS 领先 Windows 11 约 11%，微幅胜出 Ubuntu/Fedora</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/X.Org-Server-26.1-RC1" target="_blank">X.Org Server 26.1 RC1：五年来首个特性版本</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-compute">计算</span>
-        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-display">显示</span>
       </div>
       <div class="news-body">
-        Phoronix 在 BOSGAME VTA-439 迷你主机（全新 AMD Ryzen AI 9 HX 470「Gorgon Point」SoC：12 核 24 线程 + Radeon 890M RDNA 3.5 核显、32GB DDR5-5600、1TB NVMe）上进行了 Windows 11 Pro、Ubuntu 26.04 LTS、Fedora Workstation 44 与 CachyOS 的开箱即用四系统横评。近 100 项基准的几何平均结果：三大 Linux 发行版相当接近，CachyOS 仅比 Ubuntu 26.04 快约 1%（不及其以往的显著领先幅度），但相比 Windows 11，CachyOS 在同一硬件上快约 11%。Llama.cpp AI 推理在 Vulkan 后端下 Linux 普遍更快，但 CPU BLAS 后端个别场景 Windows 反而占优，与此前其他平台的观察一致。
+        紧接今日 XWayland 26.1 RC1 之后，<b>X.Org Server 26.1 RC1</b> 也已打 tag。这套 <b>xorg-server 26.1</b> 旨在成为<b>五年来首个重大特性版本</b>，接替 xorg-server 21.1 系列（尽管特性密度不如同期的 XWayland 26.1）。主要变化：<b>移除 Autoconf/Automake、仅保留 Meson</b> 构建系统；新增 DPMS 1.2 的 <b>DPMSInfoNotify</b> 事件；支持 <b>XFixes 6.1</b> 与 xorg.conf 的 <b>AllowForceTerminate</b> 选项；<b>默认禁止字节交换（byte-swapped）客户端</b>；<b>默认关闭字体服务器连接</b>；为 BSD 添加 DRM platform；Xorg 默认非 root 日志改至 <code>$XDG_STATE_HOME/xorg</code>；<b>Xvfb 支持多 CRTC</b>（至多 13 个鼠标按键）等。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>Gorgon Point（Zen 5 刷新）新 SoC 的 Linux 开箱表现是新硬件支持成熟度的直接检验；「Linux 比 Windows 快 ~11%」与「激进优化发行版领先幅度收窄至 1%」两个数据点，对追求计算/AI 推理性能的用户选择发行版具有参考价值。
+        <strong>关注理由：</strong>即便 Wayland 已成主流，X.Org Server 仍在维护并现代化：仅 Meson 的构建简化、默认拒绝字节交换客户端与字体服务器连接都属于安全加固，而 Xvfb 多 CRTC 等改动利好 CI/无头测试场景。对仍依赖 X11 会话或 Xvfb 的发行版与开发流程，这是一次务实的维护性跃升。
       </div>
     </div>
 
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KMSCON-10.0.2-Released" target="_blank">KMSCON 10.0.2：基于 KMS/DRM 的用户态终端迎来 asciicast 回放</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        <b>KMSCON 10.0.2</b> 今日发布，是这款领先的用户态终端模拟器的最新更新。KMSCON 构建于 Linux 的 <b>KMS/DRM</b> 接口之上，是迄今<b>在内核 VT 代码之外最可行的替代方案</b>。它已被 <b>KDE Linux、GNOME OS、即将到来的 Fedora 45</b> 等用作内核 VT 的替代品。10.0.2 新增了终端会话的 <b>asciicast 回放支持</b>（asciinema 的 JSON 录制格式）；此外还有 blink 配置项、<b>原子 DRM 模式设置失败时的恢复改进</b>、8x16 字体改进、修正输入鼠标按键顺序，以及一系列其他 bug 修复。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>内核 VT（CONFIG_VT）正逐步被用户态方案取代，KMSCON 正是这条路线上的关键组件 —— 它直接关系到 Fedora 45 等发行版在纯 Wayland/GPU 显示路径下的控制台体验。原子 DRM 失败恢复改进让它在显卡热切换/模式设置异常时更健壮，asciicast 回放则为终端演示与故障复现提供了新能力。
+      </div>
+    </div>
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-21.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-28.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-30.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-21.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-20.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-29</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-21</p>
+    <p>覆盖范围：2026-08-20（美东当日；Intel Mesa 将 Nova Lake 核显视为稳定 · Mesa 26.2.1 发布 · X.Org Server 26.1 RC1 · KMSCON 10.0.2）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>
