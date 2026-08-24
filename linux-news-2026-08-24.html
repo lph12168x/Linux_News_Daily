@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-24</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 24 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-24.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-21.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-DRM" target="_blank">Linux 7.3 DRM 图形驱动改进：从老卡到次世代硬件</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Linux 7.3 的 <b>DRM 子系统</b>合并窗口已合入，GPU 内核驱动迎来一波从老卡到次世代硬件的广泛改进。Valve 的 Natalie Vock 主导的 <b>DMEMCG 显存驱逐</b>让 vRAM 超额使用时游戏性能更稳（已先在 SteamOS 上线，初期对 AMDGPU 与 Intel 图形均生效）；Valve 的 Timur Kristóf 为 <b>GFX6–GFX8 老 AMD 显卡加入 DRM 格式修饰符</b>支持，配合改进的 GPU reset 恢复，让初代 GCN 老卡在现代合成器下更可用。AMDGPU 还启用了现代 APU 的第二图形管道、8K 显示修复、<b>DCN 6.0 显示核心</b>与 DC CACP 省电。Intel 侧 <b>Xe3P Nova Lake S 核显被认定为稳定</b>并默认启用（移除 force_probe）。开源 NVIDIA 路线：Rust 版 <b>Nova</b> 驱动获得 Blackwell/Hopper 修复与 GSP 启动改进（含 vGPU 启用 GSP 启动），Nouveau 的 <b>NVDEC 支持</b>则为 NVK Vulkan Video 铺路；TTM 也更激进了。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 7.3 图形栈的总览式更新：既照顾初代 GCN 老用户（格式修饰符零拷贝、reset 恢复），又推高次世代（Nova Lake 稳定、DCN 6.0）。结合本周 RDNA 4m 固件就位，对判断 Linux 7.3 是否值得升级、以及开源 GPU 驱动成熟度，这是关键一期。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-RDNA-4m-Firmware-Published" target="_blank">AMD RDNA 4m 固件发布，Linux 上市前就绪</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        AMD 本周五在向内核提交 UALink 启用补丁的同时，还将 <b>RDNA 4m（GFX 11.7）</b>所需的全部固件二进制上传到了 <b>linux-firmware.git</b> 仓库。RDNA 4m 介于 RDNA 3.5（GFX 11.5）与 RDNA 4（GFX 12.0）之间，「M」可能指代移动平台；其驱动代码早已贯穿 AMDGPU 内核驱动、AMDGPU LLVM 着色器后端，以及 <b>RadeonSI 与 RADV</b>。本次固件包含 <b>GFX 11.7.0 与 11.7.1</b>（尚无 11.7.2）、PSP 15.0.0/15.0.9 安全固件、SDMA 6.1.4、<b>VPE 2.0.0</b> 视频处理引擎与 <b>DCN 4.2</b> 显示核心。按 IP 版本推算，RDNA 4m 将带来新视频处理引擎与 Display Core Next 4.2 显示能力；预计 Linux 7.3 内核 + Mesa 26.2~26.3 是其良好基线。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>固件是开源驱动「开箱即用」的最后一块拼图。AMD 这次罕见地在硬件上市前就把固件推入 linux-firmware.git，意味着发行版可在发布时打包、用户上市即可获得良好体验。对追踪 AMD 下一代移动显卡在 Linux 上落地节奏的人，这是一个明确的就绪信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVK-Vulkan-Video-Mesa-26.3" target="_blank">NVK Vulkan Video 合入 Mesa 26.3</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Mesa 的开源 NVIDIA「<b>NVK</b>」Vulkan 驱动迎来重磅新特性：<b>Vulkan Video</b> 初始支持已合入 <b>Mesa 26.3-devel</b>，首发支持 <b>H.264 解码</b>。由于需要对 NVIDIA 视频加速的部分处理逻辑做逆向工程，且部分实现用 Rust 编写、需等待 Rust 驱动基础设施成熟，这一特性历经数年才落地。H.265 解码的工作也在推进，但目前会让 NVIDIA <b>GSP</b> 卡死，故暂时仅 H.264 可用；由于依赖 GSP，<b>仅 Turing 及更新的 GPU</b> 支持 NVK Vulkan Video。该用户态驱动还依赖本周合入 Linux 7.3 的 <b>Nouveau NVDEC 补丁</b>作为内核前提。Mesa 26.3 将于 Q4（约 11 月）作为稳定版发布，大致与 Linux 7.3 稳定版同期。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Mesa 开源 NVIDIA 驱动在视频加速上的关键里程碑：此前 NVK 在视频编解码上明显落后于闭源驱动，Vulkan Video 的合入让 Turing+ 用户能在纯开源栈下做 H.264 硬解。它与本周 DRM 的 Nouveau NVDEC 改动是配套工程，标志着开源 NVIDIA 图形/视频栈进一步逼近闭源能力。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Etnaviv-YOLOX" target="_blank">开源 Etnaviv 驱动现在能跑 YOLOX 目标检测</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        开源、逆向工程的 <b>Etnaviv</b> 驱动栈（最初为 Vivante GPU IP 提供加速图形，后扩展到 Vivante NPU）如今能在嵌入式 NPU 上跑 <b>YOLOX</b> 目标检测模型。主导 Etnaviv AI/NPU 工作的开发者 Tomeu Vizoso 在 Vivante <b>VIP</b> 系列 NPU（如 NXP <b>i.MX8M Plus</b> 搭载的型号）上点亮了 YOLOX，能力显著强于此前的 SSDLite MobileDet。随着 Etnaviv 驱动补齐了更多算子与改动（结合 Mesa 的 <b>Teflon</b> 框架），YOLOX 已可作为该逆向驱动栈的旗舰模型成功运行。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Etnaviv 把开源 GPU/NPU 加速从「能图形」推进到「能跑现代目标检测模型」，对无独立 NPU 的嵌入式 Linux 设备（如 i.MX8M Plus）意义重大：无需闭源 blob 即可在本地做边缘 AI 推理。这是开源嵌入式 ML 栈在真实硬件上可用性的重要一步。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Plasma-6.8-More-Performance" target="_blank">KDE Plasma 6.8 本周落地多项性能优化</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        本周的 This Week in Plasma 展示了迈向 <b>Plasma 6.8</b> 的进展（软冻结 8/27、Beta1 9/10、Beta2 9/24、6.8.0 目标 10/14）。性能方面：<b>KWin</b> 的 GPU reset 通知现在会触发<b>所有 GPU</b> 而非仅主 GPU；<b>Discover</b> 的后台更新检查进程内存占用「大幅减少」；Plasma 启动因避免不必要的壁纸加载工作而<b>略快</b>；KWin 截图功能更快、高刷新率屏幕下的录屏更顺滑；KDE Frameworks 6.30 改进了 <b>SVG 缓存</b>，带来更快速度与更低的 vRAM 占用。另外 Breeze 主题改善了 GTK4 应用的菜单与窗口边框样式，锁屏也优化了按钮对齐与可选认证方式。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Plasma 6.8 在暑期仍在密集打磨：多 GPU 的 GPU reset 通知、SVG 缓存降低 vRAM、录屏/截图在高刷屏更顺滑，都是直接影响日常桌面流畅度与稳定性的改进。对关注 KDE Wayland 合成器体验、尤其是多显卡与高刷用户的开发者，这是一期的实用进展汇总。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Wine-11.16-Released" target="_blank">Wine 11.16 发布：VA-API 硬件解码 + 更好的 ARM64 支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Wine 11.16 作为双周开发版发布，最大亮点是用 <b>VA-API</b>（Video Acceleration API）实现硬件加速视频解码：CodeWeavers 的 Elizabeth Figura 为 WineD3D 实现了 <b>VA-API 后端到 D3D 视频解码</b>，当前支持 <b>H.264</b> 解码（尚不支持 H.265 等）。ARM64 方面：更新的 <b>Wine Mono</b> 引擎现已支持 64 位 ARM，ARM64EC 上的异常处理也得到改进。本期还带来 <b>35 个已知 bug 修复</b>（涉及《命令与征服 3》、Steam 客户端、Siemens 自动化软件与 regedit 等），并修复了围绕 <code>$WAYLAND_DISPLAY</code> 处理的 Wayland 问题。这是迈向 Wine 12.0 稳定版路上的节点。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Wine 在 Windows 应用/游戏的 Linux 视频路径上补齐了硬件解码这一长期短板：VA-API 后端让 D3D 视频走 GPU 硬解，对播放类应用与游戏内视频省 CPU、降功耗。ARM64 的 Wine Mono 64 位与异常处理改进，则利好在 Apple Silicon / 骁龙等平台上跑 Windows 软件的桌面用户。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/UALink-Series-2-Linux" target="_blank">AMD 提交庞大补丁系列，在 Linux 内核启用 UALink</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMDGPU 维护者 Alex Deucher 在周五向内核邮件列表发出两套补丁，为开源/Linux 引入 <b>UALink</b> 基础设施。<b>Ultra Accelerator Link</b> 是用于在数据中心 scale-up pod 内连接 GPU 与其他 AI 加速器的开放标准高速网络协议，设计上可在一个域内连接多达 <b>1024 个加速器</b>。第一套补丁共 <b>95 个、约 7k 行代码</b>，加入核心基础设施与 AMDGPU 内核图形驱动集成；第二套仅 3 个补丁，暴露新的 IOCTL 接口与相关文档。其关键特性：pod 内 GPU 可通过 UALink 直接<b>加载/存储远端显存</b>（不像 RDMA 需要拷贝，是 fabric 上的直接访问），共享地址空间称为 <b>NPA（Network Physical Address）</b>，每个 GPU 维护类似 GPUVM 的页表；被导出内存不固定，导出方在 TTM 驱逐或 MMU notifier 时通过远端 TLB 失效来协调；节点掉线/重置时对等方会清理丢失的引用。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>UALink 是 NVLink 的开放替代、AI 集群 scale-up 的关键互联。AMD 这次把核心内核支撑与驱动集成率先开源，意味着未来 Instinct 等加速器在 Linux 上的跨卡显存直访将有标准路径，对构建开放 AI 训练/推理集群的开发者是基础性进展。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">8</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-CR-26.31.39395.13" target="_blank">Intel Compute Runtime 26.31.39395.13：备战 Crescent Island 与 OpenCL LEO</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Intel 今日发布开源 GPU 计算栈 <b>Compute Runtime 26.31.39395.13</b>（面向 Windows 与 Linux）。持续主线仍是<b>为次世代企业级 AI 推理加速器 Crescent Island 做准备</b>：本期同步了更多 Crescent Island 设备 ID（暗示多 SKU）、Crescent Island 的 media handle 支持、<b>默认启用统一系统内存（USM）</b>等；同时围绕随 Nova Lake 到来的 <b>Xe3P 核显</b>做了多项细化。今年早些引入的<b>实验性 LEO</b> 实现（构建于 Level Zero API 之上的新 OpenCL 实现）继续完善，仍为实验性但功能渐丰。本期还新增 <code>cl_intel_bfloat16_conversions</code> 扩展支持与 Linux 内核模式驱动 wait-for-event-host 同步。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Compute Runtime 的每次更新都是 Intel GPU/SYN 计算生态成熟的晴雨表：Crescent Island 设备 ID 持续补齐说明这款企业级 AI 推理加速器的 Linux 支持正临门一脚，而 LEO 作为 OpenCL 在 Level Zero 之上的现代化重写，关系到 Intel 计算栈长远的架构走向。对做 Intel GPU 上 AI 推理的开发者，值得跟踪。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">9</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Media" target="_blank">Intel 计算机视觉感知驱动已就绪支持 Nova Lake</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Linux 7.3 的媒体子系统合并中，此前在 7.2 合入的 <b>Intel 计算机视觉感知（CVS）驱动</b>本周期扩展支持次世代 <b>Nova Lake</b> 平台。Intel CVS 驱动是一个 <b>V4L2 子设备</b>，用于管理 Linux 与固件之间相机传感器的 <b>CSI-2 链路归属</b>，支撑「离开锁定」「接近唤醒」「自适应调暗」等存在感检测功能。7.2 时 CVS 已为 Arrow Lake / Lunar Lake / Panther Lake 启用，7.3 则扩展到 Nova Lake（仅需新增 PCI 设备 ID 与 ACPI ID）。媒体侧其他 7.3 改动还包括：Qualcomm <b>Milos VPU 2.0</b> 加入 Iris 驱动（SM7635 / 骁龙 7s Gen 3）、Dreamchip RPPX1 ISP 框架、Renesas VSP1（RZ/T2H、RZ/N2H）、V4L2 内核允许未知 HDR10 白点与亮度值，以及 Sony IMX678 / IMX471m、Himax HM1092 IR 传感器支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>CVS 驱动把「存在感检测」这类现代笔记本/台式机的智能感知能力带到 Linux 内核，且随 Nova Lake 延续支持，意味着新一代 Intel 平台的相机/感知功能在开源栈上可无缝延续。对做 Linux 笔记本相机、智能感知或 V4L2 媒体 pipeline 的开发者，这是媒体子系统在 7.3 的务实进展。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-24.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-21.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-24</p>
+    <p>覆盖范围：2026-08-21 ~ 2026-08-23（周末合并补齐；Linux 7.3 DRM 图形改进 · RDNA 4m 固件 · NVK Vulkan Video · Etnaviv YOLOX · Plasma 6.8 性能 · Wine 11.16 · UALink · Intel Compute Runtime 26.31 · Intel CVS Nova Lake）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
