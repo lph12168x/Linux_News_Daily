@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-25</title>
+  <title>Linux 每日新闻 - 2026-08-25</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -168,105 +168,84 @@
     }
     .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
     .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
-/* PAGE-NAV-CSS-END */
+  /* PAGE-NAV-CSS-END */
   </style>
 </head>
 <body data-theme="dark">
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 25 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 25 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-25.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-24.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-26.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-25.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-24.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Imagination-BXM-4-64-Linux-7.3" target="_blank">Imagination PowerVR 驱动将 BXM-4-64 MC1 GPU 标记为「已支持」，随 Linux 7.3 落地</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/VKD3D-2.1-Released" target="_blank">VKD3D 2.1 发布：上游 Wine 的 Direct3D 12 → Vulkan 再进化</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
-        <span class="tag tag-display">显示</span>
-        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-gpu">图形</span>
       </div>
       <div class="news-body">
-        本周发出的 drm-misc-next 补丁（面向 Linux 7.3 合并窗口）中，最值得关注的是 Imagination 的开源 DRM 内核驱动把 BXM-4-64 MC1 GPU 从此前的「实验性（experimental）」正式提升为「已支持（supported）」状态。这颗 GPU 出现在 T-Head TH1520 等 RISC-V SoC（如 Lichee Pi 4A、BeagleV Ahead 等开发板）上。此次转正是在配合 Imagination 的 Mesa Vulkan 驱动成功跑通 Vulkan 一致性测试套件（CTS）、并将 GPU 固件上游到 linux-firmware.git 之后达成的，意味着终端用户已可较为放心地使用这套完全上游、开源的 Imagination 驱动栈。同一批 drm-misc-next 还为 Tegra264 补充了 host1x/Tegra 驱动支持，并新增多款面板与若干修复。
+        CodeWeavers 的 Henri Verbeet 发布了 <b>VKD3D 2.1</b>，作为上游 Wine 项目将 <b>Direct3D 12</b> 通过 <b>Vulkan API</b> 实现的组件。2.1 在 <b>HLSL 着色语言</b>支持上带来多项新特性与改进：新增 <b>dead store elimination（死存储消除）</b>优化通道，使常量表布局更贴近 Direct3D 编译器；附以更严格的校验及其他增强；并继续强化对遗留 Direct3D 字节码源的支持。更新后的 VKD3D 其 <b>SPIR-V 目标</b>现支持<b>浮点转 64 位有/无符号整数转换</b>操作（对 DXIL 源很有用），同时对 <b>GLSL（OpenGL 着色语言）</b>目标支持也做了多项改进。更多改动细节见 WineHQ 的 2.1 发布公告。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>这是 RISC-V 平台开源 GPU 生态的重要里程碑——长期以来 RISC-V 板卡缺乏可用的开源图形加速，PowerVR BXM 转正让 TH1520 等国产/开源 RISC-V SoC 首次拥有经 Vulkan CTS 验证、完全上游的开源 GPU 驱动栈。对关注 Linux 图形驱动、RISC-V 桌面与嵌入式显示的用户，这条动态意义重大。
+        <strong>关注理由：</strong>VKD3D 是把 Windows 平台 Direct3D 12 游戏/应用带到 Linux（Wine/Proton）的核心桥梁。2.1 在 HLSL 编译质量（死存储消除、常量表布局对齐 D3D 编译器）与 DXIL 转换能力（64 位整数转换）上的改进，能减少着色器翻译误差、提升兼容性与稳定性。对 Linux 游戏与 D3D12 应用生态，这是上游 Wine 图形栈的务实进展。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ROCm-Six-Weeks" target="_blank">AMD ROCm 转向严格的六周发布周期：更快把新特性、性能优化与硬件支持交到用户手中</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/DRM-Fabric-Proposal" target="_blank">Intel 提出 DRM Fabric：面向 GPU/AI 加速器的厂商中立互连拓扑</a></div>
       </div>
       <div class="news-meta">
         <span class="tag tag-compute">计算</span>
-        <span class="tag tag-gpu">GPU</span>
       </div>
       <div class="news-body">
-        本周 AMD Advancing AI 大会（旧金山）上传出的重要信息之一：ROCm 今后将采用固定的六周发布节奏。此前 ROCm 大致按季度推出 X.Y 特性版本，转为六周一发后能更激进地把新特性、性能优化和硬件支持更快送达用户。这一转变发生在 ROCm 7.14 发布之后——7.14 是首个基于全新构建基础设施「TheRock」的生产版本；此前 ROCm 7.9 至 7.13 均为「技术预览（tech preview）」版本。Michael Larabel 也在会上向 AMD 提出了 7.2 直接跳到 7.14 生产版这一「别扭」的版本号问题，AMD 暗示未来在版本命名上会有所调整，但暂无细节。下一个 ROCm 版本预计 8 月发布，并将随之带来此前宣布的 ROCm.AI 软件。
+        在 AMD 刚发布庞大 <b>UALink</b> 内核补丁系列数天后，Intel 工程师提出了一个名为 <b>DRM Fabric</b> 的提案。它旨在成为面向 GPU 与 AI 加速器 <b>scale-up 互连</b>的、<b>厂商中立、协议无关</b>的 DRM 拓扑基础设施，与 UALink 或 AMD <b>xGMI</b> 互补。其数据模型为 <code>fabric → endpoint → port → peer</code>：fabric 聚合一个 provider 定义的互连实例的端点；endpoint 是一个加速器挂接（持有物理端口）；port 上报通道能力、运行状态与可选计数器；peer 是命名直接相邻加速器或交换端口的带类型值（非活内核对象引用）。核心只记录直接邻接，端到端可达性与交换转发仍留给 fabric 控制器。它通过 <b>Generic Netlink</b> 暴露多对象、事件驱动的 uAPI（YAML 描述），而非 sysfs；当前为 <b>RFC</b>，前 6 个补丁构成只读里程碑、可独立合入，7–12 补丁加入特权 provisioning。Intel 在塑形 provider API 时参考了公开可用的 AMDGPU xGMI 实现；推测与即将到来的 <b>Crescent Island</b> AI 加速器有关。目前尚未定义数据传输、交换策略、热迁移、MMU 编程等，也无生产级 provider 实现。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>ROCm 是 AMD 在 Linux 上的开源异构计算/AI 底座，其发布节奏直接决定新 GPU（如刚发布的 Instinct MI455X）与新特性能多快落到开发者手中。六周固定周期 + TheRock 新构建体系，标志着 AMD 在追赶 CUDA 生态成熟度上明显提速，对做 GPU 计算/AI 的 Linux 开发者是实打实的利好。
+        <strong>关注理由：</strong>开源/Linux 上 GPU 与 AI 加速器互联正快速标准化。AMD 的 UALink 内核补丁（8/21，已于本期更早报道）与 Intel 的 DRM Fabric 提案同周出现，意味着 scale-up 互连正在形成「厂商中立基础设施」。DRM Fabric 把拓扑与控状态纳入 DRM 统一管理，为未来多厂商加速器集群在 Linux 上的互操作与运维（拓扑发现、邻接、端口统计）打下内核基础，对构建开放 AI 训练/推理集群的开发者是方向性信号。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/review/ubuntu-2604-snapdragon-x-elite" target="_blank">Snapdragon X Elite 笔记本在 Ubuntu 26.04 LTS 上体验进一步倒退：Adreno GPU 回落到软件渲染</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Firefox-JPEG-XL-2026-Plans" target="_blank">Firefox 157 计划默认启用 JPEG-XL 图像解码，Chrome 同步推进</a></div>
       </div>
       <div class="news-meta">
         <span class="tag tag-display">显示</span>
-        <span class="tag tag-gpu">GPU</span>
       </div>
       <div class="news-body">
-        Phoronix 在 Ubuntu 26.04 LTS 发布后重新测试了搭载 Snapdragon X Elite 的 Acer Swift 14 AI 笔记本，结果比上一轮更令人失望。首先 Ubuntu 26.04 自带的 qcom-firmware-extract 版本 17 直接报「Device is currently not supported」，需手动从 26.10 开发仓库取版本 20 的 deb 才能从 Windows 分区提取 GPU 等固件。即便固件就位，系统仍回落到 LLVMpipe 软件渲染，而非真正启用 Adreno GPU——dmesg 显示 MSM DRM 驱动虽加载了固件，但在 GPU 硬件初始化阶段报错。作者尝试了社区的 Ubuntu Concept X1E PPA（linux-qcom-x1e 内核，停留在 4 月的 7.0.0-32.32）仍无济于事。要命的是同一台笔记本在 Ubuntu 25.04/25.10 上 Adreno GPU 本可正常工作，如今在 26.04 的 Linux 7.0 内核下反而回归失效；电池监控等也不工作（唯一好转是重负载下不再随机重启）。
+        虽然 Firefox 152+ 已提供<b>实验性 JPEG-XL 支持</b>，Mozilla 今日正式公布在 Firefox 浏览器中正式交付 <b>JPEG-XL</b> 图像格式支持的计划。目标版本 <b>Firefox 157</b>（预计 9 月底发布）将在所有可用平台上<b>默认启用 JPEG-XL 图像解码</b>；目前 Firefox Nightly 已默认开启以协助验证，Mozilla 认为支持已足够成熟可在稳定版首秀。与此同时，<b>Google 也正式化了其意图</b>：在 Blink 引擎中默认对所有用户启用 JPEG-XL 解码。JPEG-XL 在<b>无损图像、渐进式渲染、以及在不损失质量的前提下进一步压缩 JPEG</b> 方面表现出色，而 AVIF 在 web 质量照片与混合边缘/平面图像上更小——对超大图像，为渐进式渲染能力接受稍大文件体积而选 JPEG-XL 是合理权衡。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>这是 Arm 笔记本 Linux 显示/图形支持现状的一记警钟：即便硬件此前可用，内核更新与固件工具链的脱节也可能造成 GPU 加速回归、跌回软件渲染。对关注 Snapdragon/Adreno、Arm64 桌面与 Linux 显示栈的用户，此文清晰呈现了 qcom-firmware-extract 与 MSM DRM 驱动当前的痛点。
+        <strong>关注理由：</strong>JPEG-XL 历经 Google 反悔又重启的波折后，终于在两大浏览器引擎（Firefox 157 默认 + Chrome/Blink 默认）上同时落地，标志这一高效图像格式在 Web 上迎来真正的可用拐点。对 Linux 桌面/网页渲染与图像管线而言，原生高效的 JXL 解码意味着更省带宽、更快渐进式加载、更好的无损/再压缩体验，也呼应了此前 Firefox 153 已带来 Vulkan 视频解码与实验性 JXL 支持的路线。
       </div>
     </div>
-
-    <div class="news-item">
-      <div class="news-header">
-        <div class="news-num">4</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-AAI-2026-Open-Source" target="_blank">AMD Advancing AI 2026：开放、开源、再开源——从开源驱动延伸到开放硬件</a></div>
-      </div>
-      <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
-        <span class="tag tag-compute">计算</span>
-      </div>
-      <div class="news-body">
-        在本周 AMD Advancing AI 2026 上，除了被反复提及数千次的「AI」，出现频率第二高的关键词就是「open（开放/开源）」。除了众所周知的 AMD Linux 图形驱动栈、ROCm 及其他开源驱动，本届大会还把「开放硬件」推到台前：新的 AMD Kria AI 软件开发平台主打开放，公开硬件原理图；同期宣布的 AMD Robotics Software Suite 亦开源，机器人开发套件上 FPGA 的 RTL 也一并开源；配套还推出被定位为最新开源生态的 AMD Robotics Partner Network。此外，AMD Helios 网络的软件栈基于开源的 SONiC（Software for Open Networking in the Cloud）构建，OpenBMC 继续在新的 EPYC 9006「Venice」服务器平台上发挥作用，OpenSIL（开源 CPU 硅初始化）也在 Zen 6 上达到生产状态。
-      </div>
-      <div class="news-reason">
-        <strong>关注理由：</strong>AMD 在数据中心 AI 硬件全面发力的同时，持续把开源/开放标准作为战略主线，从 GPU 驱动、ROCm 到 OpenSIL、SONiC、OpenBMC 乃至开放硬件原理图与 FPGA RTL。这种「开放优先」的取向直接惠及 Linux 开源生态与可维护性，与英特尔等厂商形成鲜明对照，值得关注开源图形/计算基础设施的用户留意其长期走向。
-      </div>
-    </div>
-
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-25.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-24.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-26.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-25.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-24.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-25</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-25</p>
+    <p>覆盖范围：2026-08-24（周一；VKD3D 2.1 · Intel DRM Fabric · Firefox 157 JPEG-XL）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>
