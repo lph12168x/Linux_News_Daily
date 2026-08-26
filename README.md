@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-26](linux-news-2026-08-26.html) | LLVM/Clang 23.1 发布（AMD Zen 6 · NVIDIA Rigel · 部分 C++26）· COSMIC Epoch 1.7（网络文件系统提速）· Intel Xe3P/Nova Lake DP 2.1 ALPM v5 · 实测 Wayland 比 X11 更快但未必更高效 · KDE Plasma 6.8 远程桌面改进 · Linux 7.0-mk2 多内核架构公开 |
 | [2026-08-25](linux-news-2026-08-25.html) | VKD3D 2.1 发布（上游 Wine 的 D3D12→Vulkan 再进化）· Intel 提出 DRM Fabric：面向 GPU/AI 加速器的厂商中立互连拓扑 · Firefox 157 计划默认启用 JPEG-XL 图像解码（Chrome 同步推进） |
 | [2026-08-24](linux-news-2026-08-24.html) | Linux 7.3 DRM 图形驱动改进（老卡到次世代·Nova Lake 稳定·DCN 6.0）· AMD RDNA 4m 固件发布（linux-firmware 上市前就绪）· NVK Vulkan Video 合入 Mesa 26.3（H.264 解码·Turing+）· Etnaviv 跑起 YOLOX（嵌入式 NPU ML）· KDE Plasma 6.8 性能优化 · Wine 11.16 VA-API 硬件解码 · AMD UALink 内核补丁（95 补丁·1024 加速器）· Intel Compute Runtime 26.31（Crescent Island·LEO）· Intel CVS 驱动支持 Nova Lake |
 | [2026-08-21](linux-news-2026-08-21.html) | Intel Mesa 将 Nova Lake S/U/H/HX 核显视为稳定（Mesa 26.3-devel 默认启用·26.2 反向移植）· Mesa 26.2.1 发布（RADV Vulkan Video/ACO 修复·ANV 缓存刷新）· X.Org Server 26.1 RC1（五年来首个特性版本·仅 Meson·安全加固）· KMSCON 10.0.2（KMS/DRM 终端 asciicast 回放·原子 DRM 恢复改进） |

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-26</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 26 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-26.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-25.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-23.1-Released" target="_blank">LLVM/Clang 23.1 发布：全面支持 AMD Zen 6 与 NVIDIA Rigel，部分 C++26</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        LLVM 23.1 今日按期发布，作为 LLVM 23 系列首个稳定版（H2'2026 更新）。亮点包括：新增 <b>AMD Zen 6「znver6」</b>支持、<b>x86 轻量级故障隔离（LFI）目标</b>、<b>NVIDIA Rigel 核心</b>初始支持（用于 NVIDIA Rosa 处理器）、<b>Arm C1-Ultra</b> 调度模型、<b>AMD HIP 卸载驱动</b>、部分 <b>C++26（-std=c++2c）</b>与 C2Y 语言功能、LLD 链接器改进、<b>AMDGPU GFX1310</b> 目标、SpacemiT X100 RISC-V 目标，以及随 znver6 引入的 <b>AVX-512 BMM</b> 指令支持。源码已在 GitHub 放出，预编译二进制将稍后发布。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>编译器是图形/计算栈的基座。AMD Zen 6 与 NVIDIA Rigel（Rosa CPU）指令级支持让新一代 CPU 在 Linux 上的内核编译与本地优化更早就位；AMDGPU GFX1310 与 HIP 卸载驱动直接服务于 ROCm/AMD 计算生态；AVX-512 BMM 是 AI 矩阵运算的关键加速。对从事 Linux 图形驱动、AI 计算与跨架构编译的开发者，这是必须跟进的工具链节点。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/COSMIC-Epoch-1.7" target="_blank">COSMIC Epoch 1.7 发布：文件管理器浏览网络文件系统不再卡顿</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        System76 主导的 Rust 桌面环境 <b>COSMIC Epoch 1.7</b> 今日发布。最显著的改动是 <b>COSMIC-Files 文件管理器</b>通过 SFTP 等协议浏览<b>网络文件系统大幅提速</b>——此前自 2024 年起就存在的 bug：目录内文件越多加载越慢、且网络流量远超 GNOME Nautilus。根因是远程文件此前被当成本地文件处理，新补丁（PR #1996）增加了远程文件系统检测、避免对非本地文件做多余操作。此外 1.7 还修复了「解锁后始终点亮屏幕」、合成器每次按键逐级放大缩放等问题。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>COSMIC 是少数从头用 Rust 构建的 Wayland 原生桌面之一，其迭代速度持续反映 Linux 桌面在显示/合成方向的务实进展。网络文件系统浏览卡顿是文件管理器长期痛点，1.7 的修复直接改善远程开发/运维场景的桌面体验；与同期 KDE Plasma 6.8 的远程桌面改进（见第 5 条）共同勾勒出「远程 + Wayland」体验正在补齐的趋势。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-DP-2.1-ALPM-v5" target="_blank">Intel Xe3P / Nova Lake 的 DisplayPort 2.1 ALPM 仍在推进（v5 补丁）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Linux 7.3 内核正把 <b>Nova Lake Xe3P</b> 图形标记为稳定、默认启用并移除 <code>force_probe</code> 强制探测，但部分功能仍未落地，其中就包括 <b>DisplayPort 2.1 ALPM（Advanced Link Power Management，高级链路电源管理）</b>。该功能自 2025 年 11 月起就有 Intel 准备 Xe3P 驱动支持的报道，今天发出的是<b>第 5 版补丁</b>。DP 2.1 ALPM 通过对 sink 设备做快速唤醒/快速休眠，在空闲时段提供更优的<b>省电</b>（尤其对 eDP 笔记本屏），并在活动恢复时迅速响应。尽管补丁已存在近一年，仍未合入。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>在 Nova Lake 即将铺货、Linux 7.3 图形支持大体就绪的背景下，DP 2.1 ALPM 能否合入直接关系到下一代 Intel 笔记本在 Linux 下的<b>续航/功耗</b>表现——空屏或低活动时的链路省电对移动设备至关重要。v5 的补丁活跃意味着功能临近落地，值得持续跟踪；也折射出「图形默认可用」与「细分电源特性完全就位」之间的时间差。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Wayland-X11-Performance-PorteuX" target="_blank">实测：Wayland「本质上比 X11 更快，但不一定更高效」</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        主打高性能、模块化、极简的 <b>PorteuX Linux</b> 为给 Xfce 的 xfwm4 窗口管理器加入 OpenGL 合成，fork 出 <b>「xfwm4-gl」</b>，并借此开发了一套窗口管理器/合成器基准（wmbench）。在 <b>AMD Ryzen 7 7840HS + Radeon 780M 核显 + 32GB</b> 的 PorteuX 2.8 上对比 Wayland 与 X11 各组合后，他们得出结论：<b>「Wayland 本质上比 X11 更快，但不一定更高效」</b>——在纯合成（排除 openbox）场景中，新的 xfwm4-gl 表现最佳。KDE Plasma on Wayland、Labwc、COSMIC 紧随其后；而能效上 LXDE+Openbox（X11）与 xfwm4-gl 略优于 Wayland 方案，LXDE/Openbox 与 Xfce+xfwm4-gl 的 CPU 占用也最低。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这场「Wayland 更快但未必更高效」的实测，给长期争论提供了量化数据：在合成延迟/响应上 Wayland 确有结构性优势（尤其 KDE Plasma Wayland、Labwc、COSMIC），但 X11 轻量组合在功耗与 CPU 占用上仍有一席之地。对选择 Linux 桌面与合成器、以及在笔记本上权衡性能与续航的用户，这是一份有参考价值的第三方基准。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Plasma-68-Better-Remote-Desktop" target="_blank">KDE Plasma 6.8 远程桌面体验改进，缩小 X11 与 Wayland 差距</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        KDE 开发者 David Edmundson 发文介绍为 <b>Plasma 6.8</b> 持续进行的远程桌面改进，目标是补齐 X11 已满足、而 Wayland 尚缺的能力。<b>无人值守模式</b>得到增强：远程屏幕按客户端屏幕布局自动缩放/调整尺寸、会话关闭后用户重新登录宿主机；<b>剪贴板</b>功能「大幅改进」，支持双向文本片段，并为文件传输等做准备；同时<b>降低延迟、提升性能</b>，并拓宽 <b>RDP 兼容性</b>、启用 <b>libei</b> 模拟输入支持等。开发者还计划 Plasma 6.8 之后探索<b>多用户无头</b>支持与更好标准化。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>远程桌面一直是 Wayland 相对 X11 的短板之一，Plasma 6.8 的这一轮改进（无人值守自动缩放、双向剪贴板、低延迟、RDP 兼容、libei 输入）直接关系到 Linux 在远程办公/运维场景的竞争力。与第 2 条 COSMIC 1.7 的网络文件系统提速共同指向一个趋势：原生 Wayland 桌面正系统性补齐「远程 + 网络」体验短板。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.0-mk2-Multikernel" target="_blank">Linux 7.0-mk2 发布：多内核架构（multikernel）首度公开，性能可期</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        去年提出的 <b>多内核（multikernel）</b>架构今日以 <b>Linux 7.0-mk2</b> 形式首度公开释出——把补丁便捷地打到 Linux 7.0 内核树上便于测试。它允许多个<b>独立内核实例在同一物理机上共存</b>：宿主内核拥有一池 CPU/内存/PCI 设备，把资源切分为实例，并通过 <code>kexec_file_load()</code> 把派生内核引导进每个实例；每个派生内核在专属 CPU、物理内存与设备上<b>原生运行</b>，<b>无需虚拟机监视器</b>。实例用写入 <code>/sys/fs/multikernel/</code> 的设备树声明，资源可在不重启下迁移/回收/重生。相比虚拟机无 VM exit、无二级页表、无设备模型；相比容器，实例不共享内核，单核锁定/崩溃/漏洞不会越界。官方基准显示其在 2 核对比中优于 KVM，24 核配置下双内核运行也优于单内核。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>多内核架构为 Linux 上的<b>隔离与性能</b>提供了介于虚拟机与容器之间的新范式——无虚拟化开销、内核级隔离。对高安全/多租户计算、以及需要把不同内核版本/配置并行跑在同一硬件上的场景（如驱动验证、确定性强隔离）有潜在价值。虽何时进主线尚不明朗，但 7.0-mk2 的公开与基准让这一方向从 RFC 走向可实测。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-26.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-25.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-26</p>
+    <p>覆盖范围：2026-08-25（周二；LLVM 23.1 · COSMIC Epoch 1.7 · DP 2.1 ALPM · Wayland vs X11 · KDE 远程桌面 · Linux 多内核）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
