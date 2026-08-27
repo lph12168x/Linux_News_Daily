@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-27</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 27 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-27.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-26.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-gfx1250-strict" target="_blank">AMD 在 LLVM 中新增「GFX1250-STRICT」GPU 目标，指向 Instinct MI450 加速卡</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">GPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        <b>GFX1250 IP</b> 是 AMD 新一代 <b>Instinct MI450 系列加速器</b>所用的图形/计算 IP，过去一年已陆续进入 Linux 内核、AMDGPU LLVM 后端及相关代码库。昨日（8/25）已合并进 LLVM 代码库的是一个全新的 <b>「gfx1250-strict」</b> 目标：根据初始补丁，它在 ISA 能力上与 vanilla 的 GFX1250 完全一致，并复制了现有 GFX1250 定义；目前在 LLVM 中仅有这个 <b>「12.5.0s」</b> 的 strict 目标，GFX1251 版本并无类似定义。这是 Michael Larabel 在监测中首次见到 AMD GPU 出现「strict」IP 目标。其用途目前尚不明朗——可能是面向<b>安全关键/加固环境</b>的加速器，也可能是为现有 MI450 在受监管、需严格一致性的工作负载下提供的<b>替代编译目标</b>。相关 PR 为 <code>llvm/llvm-project#218543</code>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>LLVM 编译后端是 ROCm/AMD 计算生态的基座，新增 GPU 目标意味着新一代 Instinct 加速卡的软件栈继续向前推进。虽然「strict」语义尚未公开，但它直觉上指向<b>功能安全（FuSa）或严格一致性</b>场景——这是 AI/HPC 加速器进入汽车、工业、医疗等受监管领域的必备能力。对从事 AMD GPU 计算与 ROCm 工具链的人，这是一个值得跟踪的早期信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Asahi-Linux-M3-Release-Soon" target="_blank">Asahi Linux 有望很快发布带 Apple M3 设备支持的版本</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Asahi Linux 团队今日发布状态更新，主要围绕 <b>Apple M3 bring-up</b> 以及 M4/M5 的进展。主线内核电源管理方面：因上游要求 ARM64 设备使用 <b>PSCI</b>，而现有 Apple Silicon/Asahi 驱动设计与之不兼容，目前只有下游 Asahi 代码提供「deep」<b>WFI</b>；团队正实现基于 <b>UEFI Runtime Service 的 PSCI conduit</b> 以适配。M3 设备支持细节：麦克风处理微调、<b>摄像头在 M3 上已可工作</b>（新补丁）、最新下游代码已让 <b>USB 3.0 与 Thunderbolt</b> 可用。团队已接近发布带 M3 支持（基于下游代码）的版本；M4/M5 的 bring-up 仍在进行但工作量很大。此外 <b>GPU direct scan-out（直扫）</b>支持也在推进，但还需更多工作才能交付用户。详情见 <a href="https://asahilinux.org/2026/08/progress-report-7-2/" target="_blank">AsahiLinux 博客</a>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Asahi Linux 是把 Linux 图形栈（含 GPU 驱动、显示直扫）带到 Apple Silicon 的关键项目。M3 设备支持接近可用、<b>GPU direct scan-out 正在推进</b>，意味着 Apple 硬件在 Linux 下的显示体验正从「能启动」走向「体验可用」。对关注 ARM 平台图形/显示、以及想在 Mac 上跑 Linux 桌面/ Wayland 的用户，这是阶段性利好；摄像头、USB、Thunderbolt 的齐活也补上了 M 系列作为日常机的最后短板。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-fenable-readonly-thp" target="_blank">AMD 提出 LLVM iTHP 选项 -fenable-readonly-thp，进一步压榨性能</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 编译器团队提出新的 Clang 选项 <b>-fenable-readonly-thp</b>，在编译/链接期实现 <b>iTHP（指令透明大页）</b>：驱动在链接期安排 <b>2 MiB（或更大）段对齐</b>，链接一个小型启动对象，并在进程启动时对可执行文本段调用 <code>madvise(MADV_COLLAPSE)</code>，让内核把默认的 4 KiB 页映射提升为巨页。其解决的问题是 <b>iTLB 压力</b>——大二进制 <code>.text</code> 因 4 KiB 映射而 frontend-bound。收益工作负载包括 <b>SPEC CPU 2026、Geekbench、CPython、数据库/服务器</b>，以及解释器、模拟器、编译器类二进制；代价是二进制体积变大与少量启动开销，且需 <b>Linux 7.2+</b>。相较 <b>BOLT</b> 它<b>无需性能剖析</b>；Google 工程师回应称已有类似库，AMD希望将其推进上游 LLVM（及可能的 GNU）工具链。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>iTLB 是 CPU 前端长期被忽视的性能瓶颈，对解释器、模拟器、大型服务端二进制尤为明显。AMD 把「2 MiB 段对齐 + 启动期 MADV_COLLAPSE」做成编译器托管的 opt-in 选项，比手写链接脚本/启动代码更易落地，是<b>「免费」性能提升</b>的工程化范例。对 Linux 上跑大型 C++/服务程序的团队，这是值得在构建链验证的编译器特性；也体现 AMD 在 LLVM 工具链上的持续投入。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/intel-xeon-678x-scaling" target="_blank">Intel Granite Rapids 工作站核心扩展评测：Xeon 678X 6→48 核性能/功耗/频率全扫描</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在归还 HP Z4 G6i 评测机前，Phoronix 对 <b>Xeon 678X「Granite Rapids WS」</b> 做了核心扩展（core scaling）评测。该处理器为 <b>48 核 / 96 线程</b>，基础频率 2.4 GHz、Turbo Boost 2.0 4.7 GHz、最大单核睿频 4.9 GHz，TDP 300 W，采用 <b>Redwood Cove</b> 性能核。测试平台：<b>4×32GB DDR5-6400、2TB NVMe</b>，运行 <b>Fedora 44 + Linux 7.1 内核 + GCC 16.1</b>。评测分别限制为 <b>6 / 12 / 24 / 48 核</b> 以及 48 核 + 超线程，并同步监控峰值 CPU 频率、通过 <b>RAPL/PowerCap</b> 暴露的功耗、核心温度，最终给出<b>每瓦性能</b>表现，直观呈现该高端工作站处理器的扩展特性。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>核心扩展曲线是判断「买多少核划算」的硬数据——对选型、虚拟化切分、HPC/编译农场部署都有直接参考价值。Granite Rapids WS 作为 Intel 在高端桌面/工作站对抗 AMD Threadripper/EPYC 的旗舰，其在 Linux 下的<b>每瓦性能与频率/热墙行为</b>是 Linux 计算用户的决策依据。结合此前同平台的超线程开关评测，这份 6→48 核全扫描补齐了 Granite Rapids 在 Linux 上的性能画像。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/In-Kernel-Zstd-BMI2-Probing" target="_blank">内核 Zstd 补丁大幅提速：修复「离谱的低效」，解压时间降 71%</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        今日发往 Linux 内核邮件列表的补丁，通过修正一处「非常不幸的疏忽」让内核 Zstd 压缩/解压更高效。现有 in-kernel Zstd 在每次创建上下文时，都会<b>运行时探测</b>是否走 BMI2 指令路径（BMI2 见于 Intel Haswell+ / AMD Excavator+，即过去十年的大多数 CPU）。问题在于：探测用<b>两条串行化 CPUID 指令 + 无条件 VM exit</b>，且发生在极热路径——<b>SquashFS 每解压一个 block</b>、EROFS/Btrfs/F2FS 每操作、crypto/zstd 每操作都会触发。修复方案是把 <b>BMI2 探测只做一次</b>，在 <code>crypto_acomp</code> 基准上带来<b>解压时间减少 71%、压缩时间减少 18%</b>。补丁已在 LKML 评审中。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是「一行冗余变成热点」的典型内核性能故事——一个本应只做一次的能力探测，被放在了每操作必走的路径上，长期拖累所有使用内核 Zstd 的文件系统与压缩栈。对用 SquashFS/EROFS/Btrfs 做镜像、容器层、存储的用户，该补丁<b>直接降低 CPU 开销与延迟</b>；也再次提醒：看似无害的运行时探测，在热路径上就是性能雷。
+      </div>
+    </div>
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-27.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-26.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-27</p>
+    <p>覆盖范围：2026-08-26（周三；AMD GFX1250-STRICT · Asahi M3 · AMD iTHP · Intel Granite Rapids Xeon 678X · In-Kernel Zstd）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>

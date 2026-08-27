@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-08-27](linux-news-2026-08-27.html) | AMD GFX1250-STRICT GPU 目标（Instinct MI450·strict 语义待解）· Asahi Linux 有望发布 M3 设备支持（GPU 直扫推进）· AMD LLVM iTHP -fenable-readonly-thp（iTLB 大页压榨性能）· Intel Granite Rapids WS Xeon 678X 核心扩展评测 · 内核 Zstd 补丁修复「离谱低效」解压快 71% |
 | [2026-08-26](linux-news-2026-08-26.html) | LLVM/Clang 23.1 发布（AMD Zen 6 · NVIDIA Rigel · 部分 C++26）· COSMIC Epoch 1.7（网络文件系统提速）· Intel Xe3P/Nova Lake DP 2.1 ALPM v5 · 实测 Wayland 比 X11 更快但未必更高效 · KDE Plasma 6.8 远程桌面改进 · Linux 7.0-mk2 多内核架构公开 |
 | [2026-08-25](linux-news-2026-08-25.html) | VKD3D 2.1 发布（上游 Wine 的 D3D12→Vulkan 再进化）· Intel 提出 DRM Fabric：面向 GPU/AI 加速器的厂商中立互连拓扑 · Firefox 157 计划默认启用 JPEG-XL 图像解码（Chrome 同步推进） |
 | [2026-08-24](linux-news-2026-08-24.html) | Linux 7.3 DRM 图形驱动改进（老卡到次世代·Nova Lake 稳定·DCN 6.0）· AMD RDNA 4m 固件发布（linux-firmware 上市前就绪）· NVK Vulkan Video 合入 Mesa 26.3（H.264 解码·Turing+）· Etnaviv 跑起 YOLOX（嵌入式 NPU ML）· KDE Plasma 6.8 性能优化 · Wine 11.16 VA-API 硬件解码 · AMD UALink 内核补丁（95 补丁·1024 加速器）· Intel Compute Runtime 26.31（Crescent Island·LEO）· Intel CVS 驱动支持 Nova Lake |

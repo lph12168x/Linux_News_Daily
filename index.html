@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-08-27.html">
+    <span class="entry-date">08-27</span>
+    <span class="entry-main">
+      <div class="entry-title">AMD GFX1250-STRICT GPU 目标（Instinct MI450·strict 语义待解）· Asahi Linux 有望发布 M3 设备支持（GPU 直扫推进）· AMD LLVM iTHP -fenable-readonly-thp（iTLB 大页压榨性能）· Intel Granite Rapids WS Xeon 678X 核心扩展评测 · 内核 Zstd 补丁修复「离谱低效」解压快 71%</div>
+      <div class="entry-hint">今日（8/26 EDT）图形/显示/计算方向 5 条：AMD 在 LLVM 合入全新「gfx1250-strict」GPU 目标，对应 Instinct MI450 加速卡、与 vanilla GFX1250 ISA 一致，strict 语义尚未公开、疑似面向安全关键/严格一致性场景，是 ROCm 计算栈向前推进的早期信号；Asahi Linux 发布进展更新，M3 设备支持接近发布（摄像头/USB3/Thunderbolt 已可用），并持续推进 GPU direct scan-out 直扫，Apple Silicon 在 Linux 下的显示体验从「能启动」走向「可用」；AMD 编译器团队提出 Clang 选项 -fenable-readonly-thp，编译/链接期实现 iTHP 指令透明大页，通过 2MiB 段对齐 + 启动期 MADV_COLLAPSE 缓解 iTLB 压力，SPEC CPU/Geekbench/CPython 等受益、且无需像 BOLT 那样做性能剖析；Phoronix 在归还 HP Z4 G6i 前对 Xeon 678X「Granite Rapids WS」（48 核/96 线程/300W）做 6→48 核核心扩展评测，扫描性能/功耗/频率/每瓦表现；内核 Zstd 补丁修复一处每操作都触发的 BMI2 冗余探测（两条串行化 CPUID + 无条件 VM exit），crypto_acomp 基准解压降 71%、压缩降 18%，惠及 SquashFS/EROFS/Btrfs/F2FS 与 crypto 压缩栈…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-08-26.html">
     <span class="entry-date">08-26</span>
     <span class="entry-main">
