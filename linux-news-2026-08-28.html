@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-07-30</title>
+  <title>Linux 每日新闻 - 2026-08-28</title>
   <style>
     :root {
       --bg: #ffffff;
@@ -175,114 +175,112 @@
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 7 月 30 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 8 月 28 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-28.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-29.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-31.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-28.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-27.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-AMDGPU-GFX6-Modifiers" target="_blank">AMDGPU 为旧 AMD GPU 带来 DRM 格式修饰符（Linux 7.3，Valve 赞助）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-HDMI-2.1-FRL-Default" target="_blank">AMD 准备在 Linux 下默认启用 HDMI 2.1 FRL：高刷/高分辨率显示器体验收官</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
         <span class="tag tag-display">显示</span>
-        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-gpu">GPU</span>
       </div>
       <div class="news-body">
-        在逼近下月 Linux 7.3 合并窗口的特性截止前，AMD 本周又向 AMDGPU 内核图形驱动与 AMDKFD 内核计算驱动推送了一批功能与改动。其中面向老旧 GCN 1.0/1.1（GFX6/GFX7）GPU 的 DRM 格式修饰符（format modifiers）支持尤为引人注目——这类显式描述缓冲区布局/tiling/压缩元数据的机制，是现代 Wayland/X11 合成器（gamescope、Weston、Mutter）与 Vulkan WSI 实现零拷贝扫描输出（scanout）的关键。HD 7000/8000、Sea Islands 等老架构仍被广泛使用，此前在 Linux 上缺乏完善的修饰符支持，限制了合成与串流效率。标题点名「Thanks Valve」，表明这项工作由 Valve 赞助，与其推动 Steam Deck / Proton / gamescope 跨 GPU 代际显示一致性的目标一致。
+        今年 5 月，AMD 意外地为其开源 <b>AMDGPU</b> 驱动提交了 <b>HDMI 2.1 FRL</b> 补丁（此前代码因 HDMI Forum 封禁多年，最终被解禁）。自 <b>Linux 7.2</b> 起该代码已进入主线内核，但因避免用户体验回退、需等 <b>VRR</b> 功能就绪而<b>默认关闭</b>。如今功能已成型，AMD 驱动工程师 <b>Fangzhi Zuo</b> 今日提交补丁，反转逻辑以<b>默认启用 HDMI 2.1 FRL</b>；如确需用于 bug/回退测试，仍可通过 <code>amdgpu.dcfeaturemask</code> 模块参数关闭。后续还进补了 <b>DSC（显示流压缩）</b>与<b>VRR、ALLM</b> 等游戏向特性。预计 <b>Linux 7.4</b>（今年晚些时候、定档为 2026 LTS 内核）有望同时具备 VRR 与 ALLM，7.3 周期已来不及。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>DRM 格式修饰符是现代合成器/WSI 走零拷贝显示路径的底层基石；让仍存量巨大的 GCN 1.0/1.1 老卡也能享受现代修饰符语义，对 gamescope 串流与跨代 GPU 一致性意义重大，也体现 Valve 在开源图形栈上的持续投入。
+        <strong>关注理由：</strong><b>HDMI 2.1 FRL</b> 是 4K/8K 高刷新率显示的带宽基石。对用 AMD Radeon 接 HDMI 2.1 显示器的 Linux 桌面/游戏用户，默认开启意味着无需手动改参数即可享受完整 HDMI 2.1 带宽与 VRR/ALLM 游戏特性。这是 AMD 在 Linux 下补齐 HDMI 2.1 体验的<b>收官一步</b>——7.4 若准时落地，将是 2026 LTS 内核送给 Radeon 用户的「圣诞礼物」。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Steam-Beta-Video-Streaming" target="_blank">Steam 客户端 Beta 新增 HDR 串流（Steam Deck OLED）+ AV1 视频串流</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ROCm-10.0" target="_blank">AMD 从 ROCm 7.14 直接跃迁至 ROCm 10.0，引入 ROCm.AI 与六周发布节奏</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
         <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
       </div>
       <div class="news-body">
-        今日 Steam 客户端 Beta 更新为 Linux 玩家带来了两项串流增强。其一，Steam Deck OLED 机型新增高动态范围（HDR）串流支持，直接内化进最新 Beta 客户端；其二，Steam Deck 新增 AV1 视频串流——需配合实验性 SteamRT3 客户端使用，偏好用开放的 AV1 格式替代专有视频编解码器。两项之外还有若干修复，详见 Steam 客户端 Beta 发布说明。HDR 串流补齐了 OLED 掌机在远程畅玩时的高动态范围体验，而 AV1 串流则兼顾带宽与开放性。
+        7 月发布的 <b>ROCm 7.14</b> 是基于 TheRock 构建系统、引入 Ryzen AI 400 支持的生产版本，但因 7.9+ 曾转为「tech preview」导致版本号混乱。为厘清，AMD 直接将 <b>ROCm 大版本跃迁至 10.0</b>，接替 7.x 成为开源 AMD Radeon/Instinct GPU 计算栈的最新主版本。最大亮点是新的 <b>ROCm.AI</b>（AI 驱动开发）与 <b>ROCm CLI</b>；同时转向<b>六周发布节奏</b>；引入 <b>Hyperloom</b>、更整合的 Linux 包、可用于 <b>vLLM</b> 的生产级容器与 Python wheels、<b>Ryzen AI Max 本地 LLM 微调</b>等。Windows 侧退役 HIP SDK，改用 <b>ROCm Core SDK</b>，并与 Linux 同步发布节奏。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>HDR + AV1 串流对 Steam Deck OLED 远程游戏体验是直接利好：HDR 还原高动态范围画面，AV1 以开放格式降低带宽并契合 Linux 玩家对开放生态的偏好；这类客户端侧改进无需内核/驱动升级即可惠及广大用户。
+        <strong>关注理由：</strong>ROCm 版本号从此前混乱（7.2 稳、7.9+ 预览）一跃到 10.0，配合 ROCm.AI/CLI 与六周节奏，标志着 AMD GPU 计算栈走向<b>工程化、产品化</b>。对做 AMD Instinct/Radeon 加速计算、本地 LLM 推理的 Linux 用户，10.0 的 vLLM wheels + 容器直接降低部署门槛；Windows/Linux 同节奏也利好跨平台开发者。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Linux-7.3-Peak-Bandwidth" target="_blank">Intel 图形驱动为 Xe3 带来「峰值带宽阈值」省电特性（Linux 7.3）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-ANV-HuC-H265-Vulkan-Video" target="_blank">Intel ANV 驱动修复 Vulkan Video H.265 解码：改用 HuC 固件、对齐 Vulkan spec</a></div>
       </div>
       <div class="news-meta">
         <span class="tag tag-gpu">GPU</span>
-        <span class="tag tag-display">显示</span>
       </div>
       <div class="news-body">
-        Intel 今日送出了为下月 Linux 7.3 合并窗口准备的最新一批内核图形驱动更新。对终端用户而言，本次特性拉取中最有趣的是 Xe3 Panther Lake 及更新架构上的「峰值带宽阈值」（Peak Bandwidth Threshold）省电特性：在 Xe3+ 上，当显示所需带宽低于最小 GV 点时，SoC 可以主动下调 fabric 频率；该阈值定义为 20 GB/s，驱动在「平台为 Xe3+、至少存在一个 QGV 点、QGV 点数量低于上限 8」的条件下新增一个 peak/derated 带宽均设为 20 GB/s 的 QGV 条目，当所需数据率低于 20 GB/s 时即选用该点。补丁未给出具体省电幅度。同期还启用了 Thunderbolt 隧道链路的 UHBR（超高比特率）链路速率、为支持 alpha 混合的平面添加 blend mode 属性及若干修复。
+        Intel ANV（Mesa Vulkan）驱动的 <b>H.265 解码</b>自 2023 年合入，但一直与 Vulkan spec 略有不符；今由 Igalia 的 <b>Hyunjun Ko</b> 在将合入 <b>Mesa 26.3</b> 的代码中修复：改为依赖 <b>Intel HuC 微控制器固件</b>。此前在录制期于 CPU 端解析码流，会违反 Vulkan spec（应用允许在录制后填充 buffer）。修复方式是发射 <b>HuC S2L（short-to-long）序列</b>，由 GPU 执行期从码流 buffer 解析 HEVC slice header 并写入二级 batch buffer；并通过 <code>I915_PARAM_HUC_STATUS</code> 探测 HuC 是否加载，决定启用/关闭 H.265 解码。多数系统 HuC 与 GuC 一并加载，无额外负担。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>这是 Xe3/Panther Lake 全新的功耗管理特性——显示带宽需求低时主动降 fabric 频率，对笔记本/掌机续航有现实意义；Thunderbolt 隧道 UHBR 与全平面 alpha 混合 blend mode 也拓宽了高带宽显示与合成能力。
+        <strong>关注理由：</strong>这是 Mesa/Intel <b>Vulkan Video 走向 spec 合规</b>的关键修复——此前实现「能解但违规」，在严谨的 Vulkan 应用下可能出错。依赖 HuC 在 GPU 侧解析既合规又不增加用户负担。对用 Intel Arc/核显做 Vulkan 视频管线（转码、播放、推理前处理）的开发者，解码正确性与稳定性提升；也是 Intel 持续推进 ANV Vulkan Video 的延续。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">4</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Valve-Sponsors-RADV-Windows" target="_blank">Valve 赞助 Collabora 将开源 RADV Vulkan 驱动移植到 Windows</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Lemonade-11.8" target="_blank">Lemonade 11.8 让 DeepSeek V4 Flash 轻松跑在 AMD Strix Halo 上</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">GPU</span>
         <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">GPU</span>
       </div>
       <div class="news-body">
-        Valve 正在赞助 Collabora 工程师开展早期探索性工作，试图把开源的 Radeon Vulkan「RADV」驱动带到 Microsoft Windows。RADV 是 Linux 玩家广用的开源 Vulkan 实现，也是 AMD 系 Steam Deck / Steam Machine 成功的重要部分。本次工作范围不包括把 AMDGPU Linux 内核驱动移植到 Windows，而是复用 AMD 官方 Windows 内核驱动——为此需要反向工程其专有内核驱动的数据结构，并可能通过稳定/有据的接口或 shim 库来跨驱动版本适配。Collabora 的 Louis-Francis Ratté-Boulianne 已发布博客，并演示了在 Windows 上用 RADV 跑起《Counter-Strike 2》；实验代码可在 freedesktop GitLab 的 wddm2 开发分支找到。
+        针对刚发布的 <b>DeepSeek V4 Flash</b> 模型，AMD 开发者发布 <b>Lemonade 11.8</b>，让其在 AMD Ryzen AI+ Max「<b>Strix Halo</b>」系统上一键跑起来。此前 Strix Halo 上跑 DeepSeek V4 Flash 需借助原生推理引擎 <b>DwarfStar（ds4）</b>；Lemonade 11.8 合入实验性 <b>ds4 后端</b>（PR #3047），对 Framework Desktop / Ryzen AI Halo 等机型大幅简化部署。11.8 还新增 <b>RPG-HaloTales-V2</b> 聊天模型、<b>Flux-2-Klein-4B/9B</b> 图像模型、OpenMOSS 语音设计与音效语音模型，并加入 <code>lemonade update-models</code> 命令便捷更新模型。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>用开源 RADV 挑战 Windows 上闭源厂商驱动，是跨平台开源 Vulkan 的重要一步；当 RADV 能在 Windows 跑起 3A 游戏，Steam Deck/Steam Machine 的图形栈一致性将不再受平台束缚，长远看会反哺整个 Mesa 生态。
+        <strong>关注理由：</strong>Strix Halo（Ryzen AI Max+）高达 128GB 统一内存，是本地跑大模型的热门硬件。Lemonade 把 ds4 后端封装成易装的本地 AI 服务，让 DeepSeek V4 Flash 这类新模型在 <b>Linux + AMD APU</b> 上一键可用，是 AMD「本地 AI 软件栈」补齐体验的范例。对想用 Framework Desktop 等跑大模型的 Linux 用户，这是直接的易用性跃升。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">5</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/YSERVER-1.4" target="_blank">YSERVER 1.4：Rust 编写的 AI 生成 X11 服务器，让 Steam / 全屏游戏跑起来（Cinnamon）</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-Improve-AMD-PDEP-PEXT" target="_blank">LLVM 改进 Zen 1 / Zen 2 的 PDEP/PEXT 调度，应对「 notoriously bad」实现</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        YSERVER 是今年夏天登场、主要由 AI（Claude Code）编写的现代化 X11 服务器（Rust 实现），并持续补齐 X11 协议以让更多桌面环境/应用在其上跑起来。1.4 版的关键进展是让 Chrome 与 Steam 拿到 GPU 加速：GLX pixel buffer 现由真实 GPU pixmap 支撑，从而让 Chrome/Steam 获得 WebGL 加速；同时 KDE Plasma 的 RandR 调整尺寸与 ARGB 弹窗可用、Cinnamon 下全屏游戏与视频播放可用，KDE Plasma X11 分支 Sonic DE 也已测试通过。scanout buffer 现经 GBM 分配并导入 Vulkan，带来更好的驱动与 DRM 修饰符覆盖；此外还有 Present 与 vblank 对齐、键盘布局切换、RANDR 输出属性/EDID 透传、Xorg 兼容输出名、XI2 改进，以及 Fedora/Debian/Ubuntu/Alpine 的二进制包与 AUR。它已在 openSUSE Tumbleweed + NVIDIA 硬件上的 KDE Plasma 下通过验证。
+        LLVM/Clang 工具链昨夜合入对近十年前 <b>AMD Zen 1</b> 及 Zen+/Zen 2 的更好支持：编译器工程师 <b>Simon Pilgrim</b> 改进了 PDEP/PEXT 标量指令调度。二者属 BMI2 位操作扩展（PEXT 并行位提取、PDEP 并行位沉积），用于数据库、密码学、象棋/Sudoku 等。znver1/znver2 的标量实现「<b>notoriously bad</b>」——仅用 WriteMicrocoded 标签无法体现其对 ALU 管道与 uops 洪泛的恶劣影响。由于 LLVM 临近开始生成 <code>llvm.pdep/pext</code> intrinsics（并标量化处理向量实现），Pilgrim 基于代价剖析完善调度，让 znver1/znver2 目标能做更明智选择（PR #217304 已合并）。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>在「AI 辅助编写开源图形栈」的浪潮中，YSERVER 1.4 用真实 GPU pixmap 撑起 Chrome/Steam 的 WebGL、靠 GBM+Vulkan 提升 DRM 修饰符兼容性，既是 X11 存续的另类样本，也直观展示了 AI 生成代码撑起完整显示服务的可能性。
+        <strong>关注理由：</strong>这是「老架构 + 新编译器语义」的典型坑：当 LLVM 开始自动生成 pdep/pext intrinsic，旧 Zen 微架构的高代价实现会放大性能损失。提前补调度信息，避免老 Zen 用户在数据库/密码学/算法负载上被悄悄拖慢。体现 LLVM 对 AMD 全代际 CPU 的持续打磨，对仍跑 Zen 1/2（Ryzen 1000/2000/3000、EPYC Naples/Rome）的生产环境有现实收益。
       </div>
     </div>
-
   </div>
   <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-08-28.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-07-29.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-07-31.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-08-28.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-27.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
   <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-07-30</p>
+    <p>数据来源：Phoronix | 生成时间：2026-08-28</p>
+    <p>覆盖范围：2026-08-27（周四；AMD HDMI 2.1 FRL 默认开启 · AMD ROCm 10.0 · Intel ANV H.265 Vulkan Video · Lemonade 11.8 Strix Halo · LLVM Zen1/2 PDEP/PEXT）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
   <script>
