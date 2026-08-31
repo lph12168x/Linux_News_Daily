@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-08-31.html">
+    <span class="entry-date">08-31</span>
+    <span class="entry-main">
+      <div class="entry-title">DXVK 3.1（DXGI 增量呈现·D3D11 buffer RT·Intel 厂商扩展）· Union QtWidgets 首个版本（KDE 统一样式引擎）· GNOME Mutter GPU 重置恢复 MR · Vulkan 1.4.361（NVIDIA VK_NV_private_data_base_handle）· SteamOS 3.9 预览（Linux 7.2 + Plasma 6.7.3）· KDE Plasma 6.8 全屏内容性能/能效优化（OETF 卸载至 CRTC）· Linux 7.3-rc1（Xe3P Nova Lake 开箱·NVK Vulkan Video·新 AMD 图形 IP）· 内核 4098 万行、AMD 图形/计算驱动 652 万行 · NVIDIA Vulkan FRUC 合入 FFmpeg · AMD ROCm 移植 FreeBSD 的挑战</div>
+      <div class="entry-hint">本期合并覆盖 8/28（周五）~ 8/30（周日）三天（周末自动化未触发，沿用 08-24 合并先例），图形/显示/计算方向共 10 条：<b>DXVK 3.1</b> 发布，带来 DXGI 增量呈现（修复 UI 渲染问题、利好 Ubisoft Connect 等启动器，支持 VK_KHR_incremental_present 的驱动还可提效）与 D3D11 buffer render targets（适配 Battlefield 3 等老 Frostbite 游戏），并为 Intel GPU 引入类 NVAPI 的厂商扩展库；KDE <b>Union QtWidgets</b> 首个版本让 Kate、Dolphin 等 QtWidgets 应用可用 Union CSS 样式化，首次实现 Breeze 的 QtWidgets 与 QtQuick 样式共享同一份可编辑单一事实源，预计随 Plasma 6.8 发布；GSoC 2026 的 <b>GNOME Mutter GPU 重置恢复</b>提交合并请求（MR !5247），Mutter 可在 GPU 重置后存活并恢复窗口/光标/文本，Shell UI 与壁纸待补缓存清理；<b>Vulkan 1.4.361</b> 新增 NVIDIA <code>VK_NV_private_data_base_handle</code>，让分层环境下的 layer 能穿透获取底层 device handle（服务 Nsight 等）；Valve 放出 <b>SteamOS 3.9 预览版</b>，桌面升级到 KDE Plasma 6.7.3、内核由 6.16 LTS 换到 Linux 7.2，并改进 VirtIO 图形加速与初步休眠；<b>KDE Plasma 6.8</b> 把 single-plane OETF 卸载到 CRTC post-blend gamma LUT，使 HDR/ICC/夜览下也能直出扫描，减少色彩带状、降低功耗，KPipeWire 录屏延迟再降一帧；<b>Linux 7.3-rc1</b> 发布，Intel Xe3P（Nova Lake）开箱可用、Nouveau 支持 NVK Vulkan Video、新 AMD 图形 IP 落地、M3 系列初步支持，Linus 称 AMD DCN6 寄存器头文件约占 rc1 补丁三分之一；cloc 统计显示内核达 <b>4098 万行</b>，其中 <code>drivers/gpu/drm/amd</code>（AMDGPU + AMDKFD）达 <b>652 万行</b>、约占内核 16%；FFmpeg 上游合入基于 <code>VK_NV_optical_flow</code> 的 NVIDIA <b>FRUC 帧率上转换</b>（走 Vulkan 而非 CUDA 私有栈），同期 RTX Video Filters 分支一度合入后被回退；FreeBSD 基金会实习生报告详述 <b>ROCm 移植 FreeBSD</b> 的三重关卡（LinuxKPI 兼容层差异、AMD 下游 LLVM 补丁、以及 HMM 异构内存管理），已接近跑通简单向量加法…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-08-28.html">
     <span class="entry-date">08-28</span>
     <span class="entry-main">

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-08-31</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 8 月 31 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-31.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-28.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/DXVK-3.1-Released" target="_blank">DXVK 3.1 发布：DXGI 增量呈现、D3D11 Buffer 渲染目标，Intel 显卡获厂商扩展支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Valve Steam Play（Proton）的关键组件 <b>DXVK 3.1</b> 今日发布——它是把 Direct3D 8/9/10/11 翻译到 <b>Vulkan</b> 的实现层。两大新特性：一是 <b>DXGI 增量呈现（incremental presentation）</b>支持，可修复一批 UI 渲染问题，对 <b>Ubisoft Connect</b> 等游戏启动器尤其重要；对支持 <code>VK_KHR_incremental_present</code> 的 Vulkan 驱动还有望提升效率。二是 <b>Direct3D 11 buffer render targets</b>——现在支持直接在 buffer 上创建 render target view，以适配 <b>Battlefield 3</b> 等老 Frostbite 引擎游戏。此外，Intel 显卡用户迎来<b>厂商扩展支持</b>：Intel GPU 上会加载 Intel 专用扩展库，思路类似已有的 NVIDIA <b>NVAPI</b> 支持，并将在未来 Proton 版本中继续扩展。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>DXVK 是 Linux 游戏兼容层的地基，其每次特性更新都会直接转化为 Proton 下的可玩性与画质。增量呈现直击长期困扰启动器/叠加层 UI 的渲染异常；Intel 开始提供类 NVAPI 的厂商扩展库，意味着 Intel 核显/独显在 Linux 游戏特性上正从「能用」走向「有专属优化路径」，与 NVIDIA/AMD 三足格局更完整。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Union-QtWidgets" target="_blank">Union QtWidgets 首个版本：KDE 统一样式引擎扩展到 QtWidgets 应用</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        <b>Union</b> 是 KDE Plasma 6.7 首发的<b>基于 CSS 的样式/主题引擎</b>，目标是终结 KDE 应用样式方式长期碎片化的问题。今天 KDE 开发者 <b>Akseli Lahtinen</b> 宣布 <b>Union QtWidgets</b> 首个版本发布：Kate 编辑器、Dolphin 文件管理器等 <b>QtWidgets</b> 应用现在也能直接使用 Union 的 CSS 文件进行样式化。目前仍有一些已知样式问题（部分细节表现有偏差）正在修复。Lahtinen 强调：<i>「这是有史以来第一次 Breeze 的 QtWidgets 与 QtQuick 样式拥有同一份可轻松编辑的共享单一事实源（配色方案除外）」</i>——由于部分设计最初是为 QtQuick 考虑的，在 QtWidgets 下观感会略有出入。该支持预计随 <b>KDE Plasma 6.8</b> 发布。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>桌面 UI 一致性与主题定制一直是 Linux 桌面的隐性成本：QtWidgets 与 QtQuick 两套样式长期各自维护。Union 让二者共享同一份 CSS 源，既降低 KDE 维护负担，也让主题作者/发行版能用一套声明式文件统一整个桌面观感。对关注 Linux 显示栈与桌面工程化的开发者，这是 6.8 周期值得跟踪的架构级改动。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNOME-GPU-Reset-Recovery-PR" target="_blank">GNOME Mutter 的 GPU 重置恢复实现提交合并请求：会话可在 GPU 重置后存活</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        <b>Google Summer of Code 2026</b> 的「GNOME Mutter GPU 重置恢复」项目近日收尾，学生开发者 <b>Toluwaleke Ogundipe</b> 今天发布了最终进展更新，<b>合并请求</b>（MR !5247，上周开启）已进入代码评审。实现被描述为「<b>可靠（solid）</b>」：Mutter 现在能够<b>在 GPU 重置后存活并维持活动会话</b>，会话状态可正确恢复——屏幕帧缓冲、窗口、光标与文本均已恢复；但 <b>Shell UI 与桌面背景图</b>尚未恢复，需要补充清理背景缓存以及纹理、主题节点缓存的代码才能让 Shell UI 元素重新加载。一些边界情况仍在排查，真实硬件测试也在持续进行中。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>GPU 挂起/重置在以往几乎等于「会话终结」，是 Wayland 合成器可靠性的经典痛点。GNOME 与 KDE 同期推进各自的 reset recovery，说明这已成为主流桌面的共同基线能力。对驱动开发者与做 GPU 压力/稳定性测试的场景，合成器侧的恢复能力直接影响调试效率与用户体验底线。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Vulkan-1.4.361" target="_blank">Vulkan 1.4.361 规范更新：新增 NVIDIA VK_NV_private_data_base_handle 扩展</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Khronos 以 <b>Vulkan 1.4.361</b> 收官八月。本次更新汇集了过去两周对 Vulkan API 规范的各种小修与澄清，包括改进 <code>VK_EXT_descriptor_heap</code> 的对齐限制等维护性内容。唯一的<b>新扩展</b>是 NVIDIA 的 <code>VK_NV_private_data_base_handle</code>：在<b>分层（layered）环境</b>下使用 Vulkan 时，用于<b>获取底层 Vulkan device handle</b>——当需要在 Vulkan layer 链之外直接与驱动通信时，此前没有标准化途径，该扩展提供了通道。它复用了 NVIDIA 驱动已有的「获取 device 基础句柄」能力。NVIDIA 的动机看起来主要指向自家的 <b>Nsight</b> 图形调试软件，但在日益壮大的 Vulkan layer 生态中也可用于其他场景。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Vulkan layer 生态（调试、性能剖析、捕获、插帧/超分后处理）在 Linux 图形栈中的分量持续上升。为 layer 提供「穿透到驱动」的标准化句柄获取路径，既服务 Nsight 这类工具，也为第三方 layer 打开了直接与驱动交互的可能性——后续是否会有跨厂商的通用版本值得观察。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/SteamOS-3.9-Preview" target="_blank">SteamOS 3.9 预览版：升级 Linux 7.2 内核与 KDE Plasma 6.7.3 桌面</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">GPU</span>
+      </div>
+      <div class="news-body">
+        Valve 于昨晚放出适用于 Steam Deck、Steam Machine 等设备的 <b>SteamOS 3.9</b> 首个预览版。主要更新：Arch Linux 软件包基础整体刷新；<b>桌面模式升级到 KDE Plasma 6.7.3</b>（此前长期停留在 6.4.3），修复大量桌面体验问题；内核由 <b>Linux 6.16 LTS</b> 切换到 <b>Linux 7.2 stable</b>，带来更新的硬件支持与性能改进。此外还改用 <b>WPA_Supplicant</b> 改善 WiFi 处理、加入<b>初步的系统休眠支持</b>（尚未在 Game Mode UI 中暴露），并改进了以虚拟机 guest 运行 SteamOS 时的 <b>VirtIO 图形加速</b>支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>SteamOS 是 Linux 游戏图形栈规模最大的真实部署之一，其内核/桌面/Mesa 组合直接影响数百万设备的显示与图形路径。从 6.16 LTS 跳到 7.2，意味着较新的 DRM/KMS 与 AMDGPU 显示代码进入掌机主战场；Plasma 6.7.3 也把 HDR、色彩管理等新桌面显示特性一并带到位。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Plasma-6.8-Full-Screen-Perf" target="_blank">KDE Plasma 6.8 优化全屏内容性能与能效：色彩转换卸载到 CRTC，直通扫描场景更多</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        本周 KDE 合入一组 <b>Plasma 6.8</b> 改进。核心一项是：在 Intel 或 NVIDIA GPU 上，当启用 <b>HDR</b>、<b>ICC 色彩配置</b>和/或<b>夜览（night light）</b>时，改善全屏内容的性能与功耗——做法是把 <b>single-plane OETF 卸载到 CRTC 的 post-blend gamma LUT</b>。这让更多场景能够走<b>直接扫描输出（direct scan-out）</b>，而不是回退到着色器合成，同时<b>减少色彩带状（banding）</b>，并更好地利用 <b>DRM/KMS 硬件色彩管线</b>。另一项 <b>KPipeWire</b> 改动让 Plasma/KWin 的<b>屏幕录制延迟降低一帧</b>。此外：回收站部件改用 KCoreDirLister 降低开销；修复了 Plasma 第二常见的崩溃（注销时 <code>QConcatenateTablesProxyModel</code> 析构崩溃）；内置 RDP 服务器可根据网络可用带宽自动调整画质。Plasma 6.7.5 则改进了使用 ICC 显示配置时 HDR 内容的观感。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>直接扫描输出是 Wayland 合成器降低延迟与功耗的关键路径，而 HDR/ICC/夜览一旦开启往往就会把它打断。把色彩转换卸载到 CRTC gamma LUT，等于在「要画质」与「要省电/低延迟」之间取得了更优解，也是把 DRM/KMS 硬件色彩管线真正用起来的范例——对笔记本续航与高刷桌面体验都有直接收益。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-rc1-Released" target="_blank">Linux 7.3-rc1 发布：Xe3P Nova Lake 开箱可用、新 AMD 图形 IP、Nouveau 支持 NVK Vulkan Video</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        为期两周的合并窗口结束，<b>Linux 7.3-rc1</b> 已可供测试。图形/硬件相关亮点包括：<b>Intel Xe3P（Nova Lake）图形开箱即用</b>，不再需要 force_probe；<b>新 AMD 图形 IP 启用</b>；<b>Nouveau 支持 NVK Vulkan Video</b>；Intel <b>Starfire</b> 初步使能；Apple <b>M3 Ultra / Pro / Max</b> 初步支持；Valve 针对<b>显存（vRAM）极其有限</b>系统的游戏改进；USB4STREAM 低延迟模式；以及对 Intel 混合架构 CPU 的新优化等。Linus Torvalds 在发布说明中特别指出：本次 rc1 提交数量虽大但并非史上最大，<i>「真正让 diff 变大的原因是又一次 AMD GPU 寄存器大转储——这次是 AMD DCN6 寄存器头文件，它们非常庞大……总体而言，AMD GPU 代码与头文件约占整个 rc1 补丁的三分之一。」</i>
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>7.3 是本周期内图形侧合并最密集的一次：Intel 新一代 Xe3P 免参数启用、Nouveau 为 NVK Vulkan Video 铺路、AMD 新一代显示/图形 IP 落地，基本勾勒出未来半年 Linux 图形驱动的支持范围。Linus 关于「寄存器头文件撑大 diff」的吐槽也反映出 AMD 硬件定义头文件化的工程代价。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">8</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-rc1-Code-Stats" target="_blank">Linux 7.3-rc1 代码统计：内核逼近 4100 万行，AMD 图形/计算驱动达 652 万行</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Phoronix 用 <b>cloc</b> 统计了 v7.3-rc1 的代码规模：内核总计 <b>4098 万行</b>（v7.2 为 4042 万行），其中代码行 30,937,090、注释 4,912,366、空行 5,134,418——按此趋势 Linux 7.4 将轻松超过 4100 万行。细分到 <code>drivers/gpu/drm/amd</code>（含头文件、AMDGPU 内核图形驱动、<b>AMDKFD 计算驱动</b>及相关显示代码，不含目录外的旧 Radeon DRM 驱动）：<b>652 万行</b>，v7.2 时为 635 万行。也就是说，<b>现代 AMD 内核图形驱动代码已占整个 Linux 内核约 16%</b>——膨胀的主因正是本周期新增的 DCN 6.0 等新 IP 寄存器头文件。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这组数字直观量化了 AMD 图形+计算驱动在内核中的体量：单厂商单目录占到内核六分之一，且增速高于内核整体。对做内核图形/计算驱动、关注编译耗时与维护成本的团队，这是衡量「驱动复杂度通胀」的硬指标；AMDKFD 与 AMDGPU 共处同一目录也提示计算与图形栈在内核侧的深度耦合。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">9</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/FFmpeg-NVIDIA-RTX-FRUC" target="_blank">NVIDIA 基于 Vulkan 的帧率上转换 FRUC 合入 FFmpeg，走 Optical Flow 扩展路径</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        本周末，<b>FFmpeg</b> 上游合入了基于 <b>NVIDIA Vulkan Optical Flow</b> 扩展的<b>帧率上转换（FRUC, Frame Rate Up-Conversion）</b>支持：通过插入插值帧把低帧率视频转换为高帧率视频，改善主观视觉观感。硬件侧自几年前的 <b>Ada</b> 架构起就提供该硬件加速能力，而上游 FFmpeg 现在通过 <code>VK_NV_optical_flow</code>（Vulkan 版本 Optical Flow）获得 FRUC 支持，具体依赖底层 Vulkan 驱动是否实现该扩展。代码以一系列 <code>fruc_vulkan</code> 提交于周六合入 FFmpeg Git。同期还一度合入了 <b>NVIDIA RTX Video Filters</b> 分支（RTX Dynamic Vibrance / DeepDVC、DLPP 超分、NGX 图像超分、Smooth Motion 补帧、RTX TrueHDR、RTX 视频超分等 CUDA 滤镜），但截至次日早晨该合并已从最新 FFmpeg Git 活动中消失，<b>疑似被回退</b>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>值得注意的不是「NVIDIA 又多了个滤镜」，而是 FRUC 走的是 <b>Vulkan 扩展而非 CUDA 私有栈</b>——这意味着 FFmpeg 的 GPU 视频处理正在从厂商私有 API 向跨厂商的 Vulkan 路径迁移，其他厂商只要提供对应扩展即可接入同一框架。而 RTX Video Filters 分支的「合入即回退」也提示厂商大包提交在上游仍存在审查摩擦。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">10</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-ROCm-FreeBSD-Intern-Report" target="_blank">把 AMD ROCm 搬到 FreeBSD 有多难：LinuxKPI、下游 LLVM 与 HMM 三重关卡</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        FreeBSD 基金会今年夏天的实习生项目致力于把 AMD 开源 <b>ROCm</b> 计算栈从 Linux 移植到 FreeBSD，本周发布总结（学生开发者 <b>Sourojeet Adhikari</b>）。FreeBSD 虽然已有从 Linux DRM 移植过来的 <b>AMDGPU</b> 驱动，也有 <b>LinuxKPI</b> 兼容层帮忙转换 Linux 内核接口，但工作量依然可观：<b>不止内核改动</b>——还需要给 ROCm 使用的 <b>AMD 下游 LLVM 代码</b>打补丁、调整 <b>ROCm GPU runtime</b>、修改 <b>drm-kmod</b> 模块，过程中还发现了 FreeBSD LinuxKPI 兼容接口自身的 bug 与行为差异。当前状态：项目已<b>接近「跑通一个简单向量加法」的里程碑</b>——驱动可以链接、加载并运行，用户态仍有问题待解；下一步将投入 FreeBSD 内存管理子系统的探索，尤其是支持 <b>HMM（异构内存管理）</b>所需的工作。实习期虽结束，该开发者计划继续推进。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这份报告把 GPU 计算栈对操作系统的真实依赖拆得很清楚：驱动只是一层，LLVM 下游分支、runtime 与<b>异构内存管理（HMM）</b>才是跨 OS 移植的深水区。对做加速器/NPU 软件栈的团队，HMM 是统一地址空间与页迁移的基石，这里的经验对评估「自研驱动 + 自研 runtime 跨内核移植成本」有直接参考价值。
+      </div>
+    </div>
+
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-08-31.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-28.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-08-31</p>
+    <p>覆盖范围：2026-08-28 ~ 08-30（周五至周日合并；DXVK 3.1 · Union QtWidgets · Mutter GPU 重置恢复 · Vulkan 1.4.361 · SteamOS 3.9 · Plasma 6.8 全屏优化 · Linux 7.3-rc1 · AMD 驱动 652 万行 · FFmpeg FRUC · ROCm on FreeBSD）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>
