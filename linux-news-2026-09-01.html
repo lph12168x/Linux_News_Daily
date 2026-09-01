@@ -322,7 +322,8 @@ v0.0.18 要点：<b>· 修复 HEVC 解码伪像</b>；<b>· Chrome/Chromium 硬�
     }
     (function() {
       const saved = localStorage.getItem('theme');
-      if (saved) document.body.setAttribute('data-theme', saved);
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
     })();
   </script>
 </body>
