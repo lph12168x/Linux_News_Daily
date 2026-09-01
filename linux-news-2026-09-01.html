@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-01</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 1 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-01.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-31.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-UALink-Linux-Patches-v2" target="_blank">AMD 更新 UALink 内核补丁 v2：为 Helios 平台的 UALoE 铺路，目标 Linux 7.4</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 于 8 月内两度提交大规模 <b>UALink（Ultra Accelerator Link）</b>主线补丁集，本月底放出 <b>v2 更新版</b>。UALink 是用于在 <b>scale-up pod</b> 内互连 GPU 与其他 AI 加速器的<b>开放标准高速互连协议</b>。AMD 当前落地的重心是 <b>UALink over Ethernet（UALoE）</b>，服务于基于 <b>Instinct MI455X</b> + 第六代 EPYC「<b>Venice</b>」+ <b>Pensando AI NIC</b> 的新一代 <b>Helios</b> 服务器，并已接入 <b>AMDGPU</b> 内核驱动。<br>
+v2 的两处关键变化：<b>①修复 32 位内核构建</b>；<b>②放弃此前基于 sysfs 的配置 API</b>，改为先依赖<b>带外（out-of-band）工具</b>完成 UALink 配置管理。补丁规模为 <b>95 个补丁</b>的 v2 系列（UALink 基础设施），随后又追加了带更新文档的 <b>series 2 v2</b> 补丁。<br>
+排期上，这批补丁<b>已赶不上 Linux 7.3 窗口</b>，最早有望随 <b>Linux 7.4</b> 进入主线；短期内的 Helios 交付预计仍依赖打了补丁的发行版内核。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>开放加速互连的<b>主线化</b>是 AI 基础设施最值得跟踪的主线之一：UALink 一旦进内核，意味着 scale-up 域的加速器互连不再被私有协议锁死，驱动 / 运行时 / 编排都能复用通用内核设施。对做 NPU、RDMA 与加速器软件栈的团队，这里有两点直接参考：一是「先带外工具、后内核 API」的<b>渐进式上游策略</b>（降低早期 API 固化风险）；二是 UALoE 把 UALink 承载在以太网上，它与 RoCE / UEC 生态的边界划分值得持续跟踪。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-Vulkan-Faster-Sorting" target="_blank">Mesa 26.3 换上自定义归并排序：BVH 构建更省显存，小场景光追收益明显</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Valve Linux 图形团队的 <b>Natalie Vock</b> 为 Mesa Vulkan 驱动重写了 <b>Morton code key</b> 的排序路径。Morton 码把 3D 点坐标按位交错成 1D 整数，是 <b>BVH（层次包围盒）构建</b>与 GPU 并行度的基础数据结构——此前 <b>RADV（Radeon）、ANV（Intel）、Turnip（Adreno）与 Lavapipe</b> 共用同一套排序实现。<br>
+Vock 发现既有排序存在低效点，改为自定义 <b>merge sort</b>，专为小数据集优化：<br>
+<b>· 单次 dispatch 内完成</b>，无需中间 barrier；<br>
+<b>· 与 AS build 代码更紧耦合</b>，省掉一次「写出未排序 key → 读回」的显存往返；<br>
+<b>· 小问题规模（RADV subgroup=64 时 &lt;512 元素）可在 shared memory 内生成并排序</b>，只有写回结果时才接触 VRAM。<br>
+原话是：大数据集下略逊于 radix sort，但对小问题「<i>absolutely eviscerates radix sort</i>」。该改动经过约三个月测试与修 bug，<b>上周已合入 Mesa 26.3</b>，惠及所有开源 Vulkan 驱动（MR 41549）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>BVH 构建吞吐是光追性能的隐性瓶颈，尤其在小场景、动态场景与每帧重建加速结构的负载下。这次优化的价值不在峰值数字，而在<b>把排序从「显存往返」拉回「共享内存 + 单次 dispatch」</b>——这类降低 VRAM 流量与 barrier 的实现手法，对自研光追管线、加速结构构建器以及 GPU 上的小规模排序原语都有直接借鉴意义，也再次体现 Valve 对 Mesa 通用计算路径（而非只服务 Steam Deck）的持续投入。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-Linux-Sched-Vera-SMT" target="_blank">NVIDIA 提交调度器补丁：Olympus SMT 首选兄弟核，GEMM 再提至约 10.1 TFLOP/s</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        NVIDIA 工程师 <b>Andrea Righi</b> 向 LKML 提交新调度器补丁系列，为 <b>NVIDIA Vera</b> 的 <b>Olympus 核心</b>建立「首选 SMT 兄弟核」。Olympus 以两个对称 <b>PE（processing element）</b>实现 SMT：仅一个 PE 活跃时核心处于单线程模式，该 PE 可独享全部核心资源；两个 PE 同时活跃则进入双线程模式共享资源。<br>
+Olympus 对<b>兄弟核的短暂激活</b>格外敏感——从双线程模式退回单线程模式并非立即完成，需要一段确认间隔（实测 Vera 系统上为 <b>10 Ki cycles</b>）。此前已合入 Linux 7.3 的提交 <code>293f9611ae735</code>（<b>NOHZ 负载均衡偏好完全空闲核</b>）已阻止空闲负载均衡无谓唤醒忙碌 PE 的兄弟核，但普通任务放置仍可能来回切换活跃 PE，使核心长期卡在双线程模式。<br>
+本系列通过 <b>SD_ASYM_PACKING</b> 把 <b>PE0</b> 设为 Olympus 核心的首选兄弟核，并让 CFS 的空闲选择路径感知非对称 SMT 优先级：先按既有规则挑空闲核心，再在核内选最高优先级的可用兄弟核。<br>
+实测（双节点 Vera，NUMA node 0 的 88 物理核跑 88 线程单精度 GEMM）：<b>9.4 TFLOP/s → 约 10.1 TFLOP/s</b>，且多次运行更稳定（负载稳定落在 PE0、PE1 保持安静）。叠加 7.3 那一次改动，该基准已从 <b>6.2 → 9.2 → 10.1 TFLOP/s</b>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是「调度器微决策 = 数十个百分点算力」的教科书案例：同一份 GEMM 代码、同一颗 CPU，仅靠任务放置策略就累计提升约 <b>63%</b>。对 HPC 与 NPU 软件栈有两点启示：其一，SMT 拓扑敏感型核心（以及异构核、big.LITTLE、低功耗核）必须在调度层显式建模，否则纸面算力会被兄弟核争抢吃掉；其二，<b>能力 / 优先级感知的空闲核选择</b>这套框架（SD_ASYM_PACKING + 非对称 SMT）是通用机制，任何自研加速器的伴生 CPU 或异构核布局都可复用，不必重造调度器。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-VA-API-Driver-0.0.18" target="_blank">NVIDIA VA-API 驱动 0.0.18：修复 HEVC 解码瑕疵，Chrome/Chromium 在直接后端上可用硬解</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        第三方开源项目 <b>NVIDIA VA-API Driver</b>（在 NVIDIA 的 <b>NVDEC</b> 接口之上实现 VA-API）发布 <b>v0.0.18</b>。由于官方 NVIDIA Linux 驱动栈长期是唯一不支持 <b>Video Acceleration API</b> 的厂商栈，这个社区实现一直是 Firefox 等仅支持 VA-API 的应用在 NVIDIA 硬件上获得 GPU 视频解码的主要途径。<br>
+v0.0.18 要点：<b>· 修复 HEVC 解码伪像</b>；<b>· Chrome/Chromium 硬件解码在「直接后端（direct back-end）」上正常工作</b>——这对 <b>Wayland</b> 与 <b>ANGLE-on-Vulkan</b> 场景尤为重要；<b>· 其他多项修复与改进</b>。该项支持部分借助 <b>Claude Fable 5</b> 做 bug 定位、<b>Opus</b> 协助实现完成。<br>
+展望：基于 VA-API 的 <b>NVENC 编码</b>支持已有 draft PR（#427），但尚未合入本次发布。另需留意 Firefox 自 153 起已开始实验性支持 <b>Vulkan Video</b> 解码，长期看会与 VA-API 路线并存。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>视频编解码是 Linux 桌面与边缘场景里最容易被忽视的功耗与体验短板。Chrome/Chromium 在 Wayland + ANGLE-on-Vulkan 下打通硬解，直接影响浏览器播放的 CPU 占用与续航；而 NVENC 编码一旦补上，VA-API 侧能力才真正与 NVIDIA 官方栈对齐。对做显示 / 多媒体栈的团队，这条线还揭示了一个趋势：<b>Vulkan Video 正在成为跨厂商的统一解码抽象</b>，VA-API 与它的分工会在未来一两年持续演进，值得提前布局。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Zen-6-Client-EPP-Tunings" target="_blank">AMD 提交 Zen 6 客户端 EPP 调校补丁：确认「性能 / 效率 / 低功耗」三核心类型</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在下一代 <b>Ryzen Zen 6</b> 客户端处理器上市前，<b>Mario Limonciello（superm1）</b> 向 LKML 提交了 Zen 6 客户端 <b>ACPI EPP（Energy Performance Preference）</b>调校补丁。Zen 6 客户端平台对 EPP 的用法与既有 Ryzen 世代不同，需要新的调校值才能保证 Linux 下的性能与功耗表现。<br>
+补丁分两部分：<b>①重构 AMD P-State 驱动</b>，引入<b>按 SoC、按核心类型（per-core-type）</b>的 EPP 调校框架，同时兼容现有与未来产品；<b>②为 Zen 6 添加调校值</b>，覆盖不同核心类型 × 四种偏好模式（performance / balance performance / balance power / power）。<br>
+重要信息点：补丁<b>硬确认了 Zen 6 具备 performance、efficiency（dense）与 low-power 三类核心</b>——其中低功耗核类型是 Linux 7.3 刚加入的新分类，此前仅停留在传闻层面；同时确认 Zen 6 客户端为 <b>Family 1Ah</b>，型号包括 <b>0x80、0x81、0x84、0x85、0xe0</b>。因不属于 fix，预计要等到 <b>Linux 7.4</b> 周期合入（或由发行版内核反向移植）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对调度与功耗建模而言，<b>「核心类型」正在从两级（性能 / 能效）走向三级</b>，这会直接冲击任务放置、能耗感知调度（EAS）与整机功耗预算的策略设计。Zen 6 的 EPP 调校框架按「SoC + 核心类型」参数化，是应对未来更碎片化拓扑的必要抽象——做异构调度与 NPU 伴生调度的团队可以直接照搬这个分层思路。另外，新平台首发时若内核未跟上调校值，性能与续航可能明显打折，这也是评估「新硬件 + Linux 发行版」就绪度的关键检查项。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-USB4-Apple-Silicon" target="_blank">Apple Silicon USB4/Thunderbolt 支持提交上游：M1/M2/M3 的 19 个补丁进入评审</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Apple Silicon Linux 主力开发者 <b>Sven Peter</b> 向 LKML 提交了 <b>19 个补丁</b>，为主线内核上的 <b>M1 / M2 / M3</b> SoC 启用 <b>USB4 / Thunderbolt</b> 支持。此前该能力只在 <b>Asahi Linux</b> 的下游分支中提供，上游化进程已持续相当长时间。<br>
+技术难点在于 Apple 的设计：每个支持 USB4 的 Type-C 口都带一个 <b>ACIO（Apple Converged I/O）</b>块，内含一颗 <b>Cortex-M3 协处理器</b>与实现 USB4 router 的硬件；<b>NHI</b> 与 <b>DART IOMMU</b> 也在该块内，且 SoC 总线只在协处理器运行时获得一个 <b>16 MiB 的 MMIO 窗口</b>，而非把设备独立暴露出来。<br>
+当前能力与限制：<b>仅支持 XDomain 连接与 USB3-over-USB4 隧道</b>；<b>PCIe 隧道与 DisplayPort 隧道尚未支持</b>（需更多逆向工程）；<b>不支持挂起</b>，且在存在活跃连接时必须阻止挂起，否则恢复时会触发 SError。补丁已加入 M1/M2 设备树节点，M3 节点待其余栈上游后补上——但 Thunderbolt/USB4 代码已在 M3 上实测通过。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对关注显示栈的人来说，关键在<b>「DisplayPort 隧道还没有」</b>——这意味着 Apple Silicon 上通过 USB-C / 雷雳外接显示器这条路尚未打通，是 Asahi 类平台走向日常可用的最后几块拼图之一。同时，ACIO「协处理器 + 受限 MMIO 窗口」的设计，也是<b>带固件的 I/O 复合体如何在 Linux 下建模</b>的典型案例：需要先拉起协处理器再枚举子设备，与自研加速器的上电 / 初始化流程有不少共通之处，值得作为驱动架构参考。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-01.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-08-31.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-01</p>
+    <p>覆盖范围：2026-08-31 ~ 09-01（AMD UALink v2 · Mesa 26.3 归并排序 · NVIDIA Vera SMT 调度 · NVIDIA VA-API 0.0.18 · AMD Zen 6 EPP 调校 · Apple Silicon USB4/雷雳）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.body.setAttribute('data-theme', saved);
+    })();
+  </script>
+</body>
+</html>

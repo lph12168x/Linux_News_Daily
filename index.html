@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-01.html">
+    <span class="entry-date">09-01</span>
+    <span class="entry-main">
+      <div class="entry-title">AMD 更新 UALink 内核补丁 v2（Helios + UALoE，目标 Linux 7.4）· Mesa 26.3 自定义归并排序加速 BVH 构建与光追 · NVIDIA Vera/Olympus SMT 首选兄弟核补丁（GEMM 9.4→10.1 TFLOP/s）· NVIDIA VA-API 驱动 0.0.18（HEVC 修复 + Chrome/Chromium 直接后端硬解）· AMD Zen 6 客户端 EPP 调校（确认性能/效率/低功耗三核心类型）· Apple Silicon USB4/雷雳 19 补丁提交上游</div>
+      <div class="entry-hint">今日（8/31 EDT ~ 9/1）图形/显示/计算方向 6 条：<b>AMD</b> 更新 <b>UALink</b> 主线补丁至 v2（95 个补丁的基础设施系列 + series 2 v2），修复 32 位内核构建、<b>放弃 sysfs 配置 API 改用带外工具</b>，为 Helios 服务器（Instinct MI455X + 第六代 EPYC「Venice」+ Pensando AI NIC）上的 <b>UALoE（UALink over Ethernet）</b>铺路，已赶不上 Linux 7.3、目标 7.4；Valve 的 Natalie Vock 为 Mesa Vulkan 驱动重写 Morton code 排序，改为自定义 <b>merge sort</b>，单次 dispatch 内完成、无中间 barrier、小问题规模（RADV subgroup=64 时 &lt;512 元素）可在 shared memory 内排序不碰 VRAM，惠及 RADV / ANV / Turnip / Lavapipe，已合入 <b>Mesa 26.3</b>；NVIDIA 工程师 Andrea Righi 提交调度器补丁，用 <code>SD_ASYM_PACKING</code> 把 PE0 设为 Olympus 核心首选 SMT 兄弟核（退出双线程模式需 10 Ki cycles 确认间隔），88 线程单精度 GEMM 由 9.4 提升至约 <b>10.1 TFLOP/s</b>，叠加 7.3 已合入的 NOHZ 改动后该基准已从 6.2 → 9.2 → 10.1；第三方 <b>NVIDIA VA-API 驱动 0.0.18</b> 修复 HEVC 解码伪像，并让 Chrome/Chromium 硬件解码在直接后端上可用（利好 Wayland 与 ANGLE-on-Vulkan），NVENC 编码支持仍在 draft PR；Mario Limonciello 提交 <b>AMD Zen 6 客户端 EPP 调校</b>补丁，重构 AMD P-State 驱动支持按 SoC / 按核心类型调校，并硬确认 Zen 6 具备<b>性能 / 效率 / 低功耗三类核心</b>、Family 1Ah 型号 0x80/0x81/0x84/0x85/0xe0，预计 Linux 7.4；Sven Peter 提交 19 个补丁为 M1/M2/M3 启用 <b>USB4/Thunderbolt</b>，需先拉起 ACIO 块内的 Cortex-M3 协处理器（仅 16 MiB MMIO 窗口），目前仅支持 XDomain 与 USB3-over-USB4 隧道，<b>PCIe 与 DisplayPort 隧道尚未支持</b>、亦不支持挂起…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-08-31.html">
     <span class="entry-date">08-31</span>
     <span class="entry-main">

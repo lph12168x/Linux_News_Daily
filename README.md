@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-09-01](linux-news-2026-09-01.html) | AMD 更新 UALink 内核补丁 v2（Helios + UALoE，目标 Linux 7.4）· Mesa 26.3 自定义归并排序加速 BVH 构建与光追 · NVIDIA Vera/Olympus SMT 首选兄弟核补丁（GEMM 9.4→10.1 TFLOP/s）· NVIDIA VA-API 驱动 0.0.18（HEVC 修复 + Chrome/Chromium 直接后端硬解）· AMD Zen 6 客户端 EPP 调校（确认性能/效率/低功耗三核心类型）· Apple Silicon USB4/雷雳 19 补丁提交上游 |
 | [2026-08-31](linux-news-2026-08-31.html) | DXVK 3.1（DXGI 增量呈现·D3D11 buffer RT·Intel 厂商扩展）· Union QtWidgets 首个版本（KDE 统一样式引擎）· GNOME Mutter GPU 重置恢复 MR · Vulkan 1.4.361（NVIDIA VK_NV_private_data_base_handle）· SteamOS 3.9 预览（Linux 7.2 + Plasma 6.7.3）· KDE Plasma 6.8 全屏内容性能/能效优化（OETF 卸载至 CRTC）· Linux 7.3-rc1（Xe3P Nova Lake 开箱·NVK Vulkan Video·新 AMD 图形 IP）· 内核 4098 万行、AMD 图形/计算驱动 652 万行 · NVIDIA Vulkan FRUC 合入 FFmpeg · AMD ROCm 移植 FreeBSD 的挑战 |
 | [2026-08-28](linux-news-2026-08-28.html) | AMD 准备默认启用 HDMI 2.1 FRL（高刷/高分辨率体验收官）· AMD ROCm 10.0 跃迁（ROCm.AI + 六周节奏）· Intel ANV 修复 H.265 Vulkan Video 解码（HuC 对齐 spec）· Lemonade 11.8 让 DeepSeek V4 Flash 跑在 Strix Halo · LLVM 改进 Zen1/2 PDEP/PEXT 调度 |
 | [2026-08-27](linux-news-2026-08-27.html) | AMD GFX1250-STRICT GPU 目标（Instinct MI450·strict 语义待解）· Asahi Linux 有望发布 M3 设备支持（GPU 直扫推进）· AMD LLVM iTHP -fenable-readonly-thp（iTLB 大页压榨性能）· Intel Granite Rapids WS Xeon 678X 核心扩展评测 · 内核 Zstd 补丁修复「离谱低效」解压快 71% |
