@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-02</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 2 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-02.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-01.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-HDMI-Passive-VRR" target="_blank">AMDGPU 驱动拆分出 HDMI Passive VRR 补丁：告别切 VRR 时的黑屏与亮度闪烁</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        AMD 在持续推进 AMDGPU 上游内核图形驱动对 <b>HDMI 2.1</b> 的支持，今日把「<b>Passive VRR（被动可变刷新率）</b>」从原先的 HDMI 2.1「gaming」补丁系列（含 VRR 与 ALLM）中<b>单独拆出</b>为一个独立补丁系列（作者 Jerry Zuo，补丁见原文 lore 链接）。<br>
+Passive VRR 解决的问题是：当 HDMI 输出<b>从固定刷新率切入 VRR 模式</b>时，避免出现<b>屏幕黑屏或亮度闪烁</b>。DisplayPort 与 eDP 规范要求无缝 VRR 切换、本就无此问题，但 HDMI 没有——Passive VRR 的做法是让 HDMI sink 在<b>固定刷新率的桌面使用期间也保持在可变刷新状态</b>，从而平滑过渡。<br>
+该补丁在 AMDGPU 驱动中<b>默认启用</b> Passive VRR，但也提供退出开关（若你偏好切换瞬间的黑屏/闪烁）。希望这批 HDMI 2.1 增补能在 10 月下旬的 <b>Linux 7.4 合并窗口</b>前完成评审与准备。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>VRR over HDMI 长期是 Linux 桌面在电视/显示器上体验的痛点，而「切 VRR 不黑屏」是 display/DRM 驱动里很能体现工程功力的细节。Passive VRR 的「让 sink 始终驻留 VRR 状态」是一套干净可复用的模式，对做显示/DRM 驱动的团队是直接参考。更宏观地看，这仍是 AMD 把 <b>HDMI 2.1 全家桶（FRL / VRR / ALLM）逐块上游化</b> 的一环——配合此前默认启用 FRL、VRR 等进展，Radeon 在 Linux 下的 HDMI 2.1 体验正从「能用」走向「完整」。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Xe-Linux-7.4-First-PR" target="_blank">Intel Xe 驱动首发 Linux 7.4 特性 PR：引入冷复位恢复，Panther Lake 启用 IBC v3</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Linux 7.3 合并窗口刚于上周日收口，Intel 周一便向 DRM-Next 发出了面向 <b>Linux 7.4</b> 的首个 Xe 内核图形驱动特性 PR。本 PR 的几项重点：<br>
+<b>· 冷复位恢复（Cold Reset Recovery）</b>：引入 <code>DRM_WEDGE_RECOVERY_COLD_RESET</code>，用于那些 PCIe reset 或重载驱动都无法恢复、必须<b>整机断电再上电</b>才能解除的「持久硬件错误状态」。该机制与用户态协同完成 Intel 显卡的完整冷复位。<br>
+<b>· Panther Lake Xe3 核显启用 IBC v3</b>：Intelligent Bias Control v3 带来 Panther Lake 专属的功耗优化（源自新版 GuC 固件），有望在游戏及类似负载下改善 <b>Panther Lake 核显的电源管理</b>。<br>
+<b>· 其他</b>：新增 <code>DRM_RAS</code> Netlink 错误事件、VF 迁移、多队列并行页错误处理、<code>DRM_RAS</code> 错误阈值，以及 PCI 错误调试增强。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>GPU 挂死恢复是生产环境图形/计算可用性的命门。Intel 这套「wedge recovery」框架（与用户态协作的冷复位）是业界主流做法，对<b>任何自研 GPU/加速器驱动</b>都有架构参考价值——如何在不破坏用户态的前提下完成「硬复位」。而 IBC v3 把 Panther Lake 核显的游戏/轻量计算功耗进一步压低，是「固件算法（GuC）驱动能效」的典型范例。对跑 GPU 计算集群的团队，RAS Netlink 事件与错误阈值也是把显存/硬件错误接入监控体系的接口信号。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Zen-6-Client-CPPC-Changes" target="_blank">Zen 6 客户端 CPPC 改动：硬编码把低功耗核频率定为性能核的 0.47x</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        继昨日为 Zen 6 客户端调校 ACPI EPP 的补丁后，又一组面向下一代 <b>Ryzen Zen 6</b> 客户端的 <b>CPPC（Collaborative Processor Performance Control）</b>补丁现身邮件列表。CPPC 是 ACPI 规范里 OS 与平台协作管理 CPU 核心频率与功耗缩放的接口。<br>
+Zen 6 客户端平台对 CPPC 的用法与既往世代不同：<b>需要知道每种核心类型的最大频率才能做容量计算</b>。未来 ACPI 规范修订会引入读取核心类型最大频率的新接口，在此之前，内核为 Zen 6 客户端<b>硬编码了若干频率值</b>：<b>性能核 5025、效率（dense）核 3524、新增的低功耗核类型 2399</b> MHz。由此，低功耗核 ≈ 效率核的 0.68x、性能核的 <b>0.47x</b>。<br>
+同时，Zen 6 及更新的 boost ratio 改为由频率值推导，而非沿用任意的性能值标度。因错过 v7.3，这批补丁最早随 <b>Linux 7.4</b> 主线（可能挤进 12 月底的年度 LTS）合入。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条确认了 Zen 6 的<b>三级核心拓扑</b>（性能 / 效率 / 低功耗），而 0.47x 这个硬编码数字正是调度器做容量建模的关键输入。对做异构调度、NPU 伴生调度的团队有两点直接借鉴：其一，<b>当 ACPI/硬件接口尚未就绪时，先用硬编码把新核心类型「解锁」给调度器</b>，避免阻塞后续工作（这正是 AMD 的做法，也呼应了此前 EPP 补丁里「按 SoC + 按核心类型参数化」的框架）；其二，一旦标准接口到位就及时迁移，硬编码只是临时桥接。其背后教训是：新硬件的调度就绪度，往往卡在「固件/ACPI 还没把信息给全」这一环。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Steam-Survey-August-2026" target="_blank">Steam 8 月调查：Linux 占比回落至 3.9%，CachyOS 在 Linux 玩家中升至 15.4%</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Valve 发布 2026 年 8 月 Steam 硬件调查。继 7 月占比一度冲上 4% 以上后，8 月<b>回落至 3.9%</b>（较 7 月微降 0.11 个百分点）；今年 3 月曾创 5.33% 的纪录高点，此后在 3%~4% 区间波动。绝对值上 Linux 玩家规模可能并未缩水，只是缺乏 Steam 总量的新鲜数据难以精确评估。<br>
+发行版分布：<b>SteamOS 以 21% 领跑</b> Linux 发行版（即 Steam Deck / Steam Machine 的 Arch 衍生系统）；<b>CachyOS 以 15.4% 位居第二</b>，环比 +1.16%。CPU 侧，Linux 玩家中 <b>AMD CPU 占比仍在上六成</b>（Steam Deck / Steam Machine 的定制 AMD SoC + 整体开源友好度驱动），而 Windows 侧 AMD CPU 占比已升至 45%。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Steam Deck / SteamOS 是拉动 Linux 开源图形栈投资的最大单一引擎——Valve 对 RADV、Mesa、DXVK/VKD3D 的持续投入都源于此。跟踪 Linux 游戏占比，本质上是在看<b>你所在图形生态的动量</b>：占比越高，上游（Mesa / RADV / 游戏兼容层）获得的资源与回归测试就越多，最终惠及所有 Linux 图形工作。CachyOS 的崛起也值得留意：这个以性能为卖点的 Arch 衍生版在玩家群体里的扩张，可能成为「极致调校」需求的新风向标。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-EDAC" target="_blank">Linux 7.3 合并 EDAC 改动（曾遗忘于合并窗口）：AMD 仅在 ECC 平台加载 ATL，Intel Starfire 入列</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Linux 7.3 合并窗口已于上周日随 7.3-rc1 正式收口，但 <b>EDAC（Error Detection And Correction，错误检测与纠正）子系统</b>的改动在两周窗口期内被<b>意外遗忘</b>；该 PR 直到周一晚间才发出，Linus Torvalds 同意后将这批迟到特性合入 Git。<br>
+<b>· Intel 侧</b>：iGEN6 EDAC 驱动合并 <b>Starfire SoC 支持</b>——Starfire 是面向太空等极端环境的 Panther Lake 衍生型号；iGEN6 与 iE31200 客户端 EDAC 驱动还统一了部分地址转换逻辑。<br>
+<b>· AMD 侧</b>：<b>地址转换库 ATL 现在只在真正具备 ECC 内存的系统上加载</b>。此前 ATL 会在所有 AMD Zen 系统上加载，非 ECC 平台便会因加载失败而在内核日志里刷屏；现在仅在 Zen ECC 平台上加载，规避该问题。<br>
+<b>· 其他</b>：ThunderX（原 Cavium/Marvell ARM SoC）与 MPC85XX（Freescale/NXP PowerPC）EDAC 驱动因无人维护被<b>标记为 orphan</b>，未来可能移除。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对运行 GPU/加速器机群的团队，<b>内存错误上报（EDAC）是 RAS 的基石</b>。AMD 这处「仅在 ECC 平台加载 ATL」是个教科书级的驱动初始化门控优化——避免在非目标硬件上产生噪声日志与潜在初始化失败，值得任何带可选硬件模块的内核/固件栈借鉴。而「合并窗口被遗忘、Linus 网开一面」的小插曲，也提醒我们：<b>迟到特性能否进主线有时取决于维护者的好脾气</b>，关键补丁务必在窗口期内跟紧。Starfire 入列则显示 Intel 把服务器级 RAS 能力向更严苛环境延伸。
+      </div>
+    </div>
+
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-02.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-01.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-02</p>
+    <p>覆盖范围：2026-09-01 ~ 09-02（AMDGPU HDMI Passive VRR · Intel Xe 冷复位恢复 + Panther Lake IBC v3 · Zen 6 CPPC 低功耗核 0.47x · Steam Linux 占比回落至 3.9% · Linux 7.3 EDAC 改动合并）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+  </script>
+</body>
+</html>
