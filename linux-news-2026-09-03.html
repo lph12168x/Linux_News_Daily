@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-03</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 3 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-03.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-02.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-26.2.2-Released" target="_blank">Mesa 26.2.2 反向移植：Intel Nova Lake 核显默认开启，无需再强制覆写</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Mesa 26.2.2 于 9 月 2 日发布，是这套开源 OpenGL / Vulkan 驱动的<b>双周稳定点版本</b>。本期最显眼的改动是<b>反向移植</b>了来自 Mesa 26.3-devel 的补丁，把 Intel <b>Nova Lake S / H / HX / U 核显</b>从「需强制覆写环境变量才启用」提升为<b>默认启用</b>。<br>
+这与此前主线已落地的改动一脉相承：几周前 Mesa Git 已让 <b>ANV（Vulkan）与 Iris（Gallium3D）驱动</b>对 Nova Lake 默认启用，不再要求 <code>force_probe</code> 之类的环境变量；而 <b>Linux 7.3 已把 Nova Lake 核显标记为稳定</b>，连 <code>force_probe</code> 模块参数覆写都不需要了。由于 Nova Lake 图形栈现已「状态良好」，Mesa 团队决定把它提前 back-port 到 26.2.2，<b>不必等到下季度 26.3</b>。<br>
+本期还包含若干 RADV / ACO 修复、PowerVR PCO 修复及其他零散小修。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Nova Lake 是 Intel 下一代入门到高端的客户端核显（Xe3P 架构），其「默认启用」意味着<b>开箱即用的 Linux 图形体验</b>——新机器装上 stable Mesa 就能点亮，无需任何 hack。这是「内核稳定 + 驱动默认」两段式上游化节奏完成的标志，与团队关注的「新硬件图形就绪度」高度相关：一项硬件要真正可用，往往既要内核端（force_probe 退出）也要用户态驱动端（环境变量退出）两端同时就位。对做显示/图形驱动的同学，这也是观察 Intel 如何把一代新 IP 推过稳定门槛的完整范本。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNOME-Shell-Mutter-51-RC" target="_blank">GNOME Mutter 51.rc 引入跨 GPU 缓冲直扫，混合显卡笔电效率再提升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        GNOME Shell 与 Mutter 于 9 月 2 日双双打上 <b>51.rc</b> 发布候选标签，为随后几天的正式 GNOME 51 发布做准备。本期最值得关注的是新增<b>跨 GPU 缓冲直扫（cross-GPU buffer scan-out）</b>支持：Mutter 会自动尝试执行跨 GPU 的 buffer scan-out，<b>为混合显卡（如独显+核显的笔电）等多 GPU 场景带来更高效率</b>，建立在近期 direct scan-out（直扫）的一系列改进之上。<br>
+其他新增：触控笔橡皮擦按钮配置、无 <code>GAMMA_LUT</code> 硬件能力时也能用夜览模式、可覆写客户端初始配置。Mutter 51.rc 还加入客户端请求背景模糊的<b>背景特效策略</b>（默认模糊半径 24、饱和度 1.25、噪声 0.015，Shell 可自定义）。<br>
+修复侧：SVG 光标使用硬件光标、多显示器被误报为主显示器、HDR 模式下 SDR 内容去饱和、外接显示器热插拔可能卡死、无 DMA-BUF 时 capture 的直扫失效，以及多处内存泄漏与崩溃修复。GNOME Shell 51.rc 侧则用 Rust 实现的 <b>Glycin</b> 库加载与缓存壁纸图像，并修复直扫相关逻辑。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>「跨 GPU 直扫」是混合显卡体验的关键工程点——过去在独显渲染、核显输出的笔电上，画面往往要经过一次 GPU 间拷贝才能上屏，跨 GPU scan-out 把这条路径打通后能<b>显著降低延迟与功耗</b>。这与团队在显示/RDMA 场景关心的「减少不必要的内存搬运」思路一致。同时，本期把「背景模糊特效策略」做成可配置参数，是 Wayland 合成器把视觉特效与能效解耦的好例子。对维护图形栈的团队，Mutter 在 HDR/直扫/热插拔上的修复清单也值得对照自身合成器的已知问题。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GCC-17-Merges-ACE-v1" target="_blank">GCC 17 合入 Intel/AMD 联合 AI 计算扩展 ACEv1：AMX 的继任者进主线</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-npu">NPU</span>
+      </div>
+      <div class="news-body">
+        GCC 代码库于 9 月 2 日合入了 <b>AI 计算扩展（ACEv1）</b>的初始支持，这是 x86 生态咨询小组（Intel 与 AMD 共同参与）为<b>未来 CPU 上的 AI/ML 负载</b>打造通用矩阵加速架构的初步成果。<br>
+ACE 最终将成为 Intel <b>AMX（Advanced Matrix Extensions）</b>的继任者，并在增强之余<b>也会出现在未来的 AMD 处理器</b>上。ACEv1 扩展文档于今年 6 月发布，7 月起 GCC 邮件列表便出现相关补丁，Intel 与 AMD 的编译器工程师协同确保其开源支持就绪。经过两个月评审，初始 ACE 使能补丁今日进入 GCC Git、面向 <b>GCC 17</b>。<br>
+预计明年 3~4 月发布的 <b>GCC 17.1</b> 将具备第一代 ACE 支持。新增 <code>-macev1</code> 编译标志用于开启 ACEV1 内建函数与代码生成，并隐含启用 <b>AVX10.1、AVX/AVX2 与 SSE/SSE4</b>。LLVM/Clang 侧的 ACEv1 使能也在推进中（PR #208408）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是<b>跨厂商统一 AI 指令集</b>迈出的重要一步——Intel 与 AMD 放下各自矩阵扩展（AMX / 未来 AMD 方案），用一套通用 ACE 架构服务 AI/ML 负载，意味着上层框架（乃至 NPU/加速器软件栈）未来有望用同一套内建函数覆盖两家 CPU。对做 NPU/加速器与 CPU 协同计算的团队，这是「指令集层面的生态收敛」信号：编译器先行（GCC 17 / LLVM 跟进）意味着明年工具链就能生成 ACE 代码，软件适配可以提前布局。AMX 继任者的定位也提示：CPU 侧矩阵加速仍在快速演进，评估推理后端时要把「CPU 原生矩阵扩展」纳入考量。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Lemonade-11.9-ROCm-HRX" target="_blank">Lemonade 11.9 引入 AMD ROCm HRX 后端：面向客户端 GPU/NPU/CPU 的轻量 ROCm 子集</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-npu">NPU</span>
+      </div>
+      <div class="news-body">
+        Lemonade 11.9 于 9 月 2 日发布，是这套 AMD 支持的开源本地 AI 服务（覆盖 Linux / Windows / macOS、主打「100% 免费且私密」）的新特性版本。本期最亮眼的是实验性 <b>ROCm HRX 后端</b>对接 Llama.cpp——HRX 是 AMD ROCm 计算版图上值得关注的新动向。<br>
+HRX 后端基于 <b>AMD HRX Runtime</b>，初期面向 <b>Radeon RX 7900 系列（RDNA3）与 Strix Halo APU</b>。它源自 AMD 在 Advancing AI 大会上公布的 <b>Loom / Hyperloom</b> 工作，是 Loom 编译器与 IR 栈的一部分，作为长期使用的 LLVM IR 的替代，能更快把生成代码落到优化后的 AMDGPU 汇编。HRX 同时是让 AMD <b>GPU / NPU / CPU 高性能集成</b>的通用组件——据 hrx-system 仓库，它是「对 ROCm 内 HIP 的轻量替代实现，为 AMD GPU/NPU/CPU 产品提供低延迟、高性能集成的通用基底」。<br>
+AMD 工程师 Stella Laurenzo 在 ggml 讨论中提到：HRX 是面向客户端场景优化的、更精简的 ROCm 子集；相较现有 Vulkan 与 HIP 后端，prefill 有望带来 <b>30~50% tok/s 提升</b>，非 MTP decode 也有约 <b>10% tok/s</b> 提升。Lemonade 11.9 的实验性 llamacpp-hrx 后端已在 Linux 下支持 <b>GFX1100 与 GFX1151</b> 目标，并带来 Qwen3-Next 支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>HRX 触及的是 AMD 客户端 AI 软件栈的「补课」——ROCm 长期为数据中心设计，在客户端 OS 上集成困难，HRX 用更轻、更聚焦的子集 + 自有 Loom IR 来弥合。对做 NPU/加速器软件的同学，这里有两个可借鉴点：其一，<b>用「通用运行时基底 + 自有 IR」解耦硬件后端</b>（HRX 同时覆盖 GPU/NPU/CPU）是统一编程模型的典型打法；其二，客户端 AI 推理的胜负越来越取决于<b>原生后端而非通用后端</b>的性能差距（30~50% 的 prefill 提升就是明证）。这恰好呼应团队在 NPU/zeus 架构上「原生软件栈 vs 通用兼容层」的权衡思考。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/linux-73-amd-epyc" target="_blank">AMD EPYC Turin 跑 Linux 7.3 早期基准：Btrfs 领衔，整体有可见提升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        <b>Linux 7.3-rc1</b> 于本周随合并窗口收口发布，Phoronix 随即启动 7.3 性能测试。这篇文章给出 <b>AMD EPYC Turin 服务器</b>在 7.3-rc1 对比 7.2 stable 的<b>首份基准</b>，结论是「有几处不错的性能改善」。其中最有看点的仍是 <b>Btrfs 性能提升</b>；相较之下其他文件系统在 7.3 上受益没那么明显。<br>
+测试平台：<b>AMD EPYC 9455P（48 核）</b>搭配 Supermicro H13SSL-N、12 × 64GB DDR5-6400、三星 PM1745 PCIe 5.0 NVMe SSD，跑 Ubuntu 26.04 LTS；7.2 与 7.3-rc1 均由同一 GCC 15.2 编译器构建、采用相同内核配置（仅取 7.3 新 Kconfig 的默认值）。更多硬件的 7.3 基准仍在陆续进行中。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对运行 EPYC/加速器的机群，内核次版本升级的「免费性能」来自何处是关键决策输入——本期提示 7.3 的收益主要集中在 <b>Btrfs 与文件系统/存储路径</b>，而非裸计算吞吐，这对评估「是否值得升级内核」直接关系到存储密集型负载（如模型/数据加载、checkpoint）的提速。同时，EPYC 9455P「Turin」是 Zen 5 世代服务器 CPU，其 7.3 早期表现也是新一代服务器平台图形/计算后端就绪度的风向标。提醒：这是 rc1 早期数据，最终结论需等稳定版与更多硬件的横向对比。
+      </div>
+    </div>
+
+  </div>
+  <!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-03.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-02.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+  <div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-03</p>
+    <p>覆盖范围：2026-09-02（Mesa 26.2.2 默认启用 Nova Lake 核显 · GNOME Mutter 51.rc 跨 GPU 直扫 · GCC 17 合入 Intel/AMD ACEv1 · Lemonade 11.9 ROCm HRX 后端 · AMD EPYC Linux 7.3 早期基准）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+  </script>
+</body>
+</html>

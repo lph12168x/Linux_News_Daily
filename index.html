@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-03.html">
+    <span class="entry-date">09-03</span>
+    <span class="entry-main">
+      <div class="entry-title">Mesa 26.2.2 默认启用 Intel Nova Lake 核显（无需强制覆写）· GNOME Mutter 51.rc 跨 GPU 缓冲直扫（混合显卡更省电）· GCC 17 合入 Intel/AMD 联合 AI 计算扩展 ACEv1（AMX 继任者）· Lemonade 11.9 引入 AMD ROCm HRX 后端（客户端 GPU/NPU/CPU 轻量子集）· AMD EPYC Turin 跑 Linux 7.3 早期基准（Btrfs 领衔提升）</div>
+      <div class="entry-hint">今日（9/2 EDT）图形/显示/计算方向 5 条：<b>Mesa 26.2.2</b> 双周稳定点版本反向移植补丁，把 Intel <b>Nova Lake S/H/HX/U 核显</b>从「需强制覆写环境变量」提升为<b>默认启用</b>，与此前主线已让 ANV/Iris 默认启用、<b>Linux 7.3 标记 Nova Lake 稳定</b>一脉相承，开箱即用无需任何 hack；<b>GNOME Mutter 51.rc</b> 引入<b>跨 GPU 缓冲直扫</b>，自动尝试跨 GPU scan-out 为混合显卡笔电等多 GPU 场景提效，并加入背景模糊特效策略与多项 HDR/直扫/热插拔修复；<b>GCC 17</b> 合入 Intel 与 AMD 联合的 <b>AI 计算扩展 ACEv1</b> 初始支持（x86 生态咨询小组、AMX 继任者、未来也覆盖 AMD 处理器），新增 <code>-macev1</code> 标志隐含 AVX10.1 等、GCC 17.1 明年 3~4 月就绪，LLVM 侧同步推进；<b>Lemonade 11.9</b> 带来实验性 <b>ROCm HRX 后端</b>对接 Llama.cpp，面向 RX 7900（RDNA3）/ Strix Halo，源自 Loom/Hyperloom、作为 LLVM IR 替代以更快落地 AMDGPU 汇编，是覆盖 GPU/NPU/CPU 的轻量 ROCm 子集，prefill 有望较 Vulkan/HIP 后端快 30~50%；<b>AMD EPYC 9455P（Turin）</b>在 Linux 7.3-rc1 对比 7.2 的首份基准显示「几处不错提升」，收益主要在 <b>Btrfs</b> 与文件/存储路径…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-09-02.html">
     <span class="entry-date">09-02</span>
     <span class="entry-main">
