@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-03</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 4 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-04.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-03.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Graphics-CMRR-Linux-7.4" target="_blank">Intel 把 CMRR 内容匹配刷新率推进到 Linux 7.4：Xe3 / Panther Lake 及更新默认启用，视频帧率更稳</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Intel 工程师正把 <b>CMRR（Content Match Refresh Rate，内容匹配刷新率）</b>的启用工作排入 <b>DRM-Next</b>、瞄准 <b>Linux 7.4</b>。CMRR 是 Xe2 Lunar Lake 硬件首次引入的能力，相较普通 <b>VRR / Adaptive-Sync</b> 能更精准地把面板刷新率匹配到视频或内容帧率，目标是播放时<b>不再卡顿或掉帧</b>。<br>
+        此前 CMRR 分数时序代码被永久禁用、仅限嵌入式 DisplayPort（eDP）、且靠启发式猜测何时走分数时序路径；新补丁修复了这些短板，并新增一个临时性的 <b>DebugFS 控制接口</b>（每-CRTC 文件，以毫赫兹精度指定目标刷新率与视频时序分母），待未来用户态 API 成型后替换。本期默认启用范围对应 <b>Intel Display IP v30 及更新</b>，即 <b>Xe3 / Panther Lake 及更新</b>硬件。该 pull 还顺带把 DG2 多协议 PLL 代码迁入 DPLL 框架、修 DP-HDMI PCON DSC 等。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>CMRR 填补的是「视频 / 内容」场景下 VRR 的最后一公里——普通 Adaptive-Sync 对固定帧率视频并不理想，CMRR 直接按内容帧率锁定面板，对视频播放、会议、串流等是实打实的体验提升。对做显示/图形驱动的同学，这里有两个可借鉴点：其一，<b>新硬件能力从「补丁存在近两年」到「真正默认启用」</b>往往要跨过 eDP-only、启发式、缺少用户态 API 等多道坎，CMRR 的演进是完整范本；其二，Intel 用<b>每-CRTC DebugFS 接口</b>作为用户态 API 成型前的过渡，是内核图形驱动「先暴露控制、后定稳定 ABI」的常见节奏。这与团队在 zeus 架构上「先打通能力、再固化接口」的思路一致。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mir-2.29-Released" target="_blank">Mir 2.29 发布：新增 xdg-dialog-v1 等 Wayland 协议、单表面截图与屏幕捕获源，迁移 C++26 并弃用 EGLStream</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Canonical 的 <b>Mir 2.29</b> 合成器发布，面向基于 Mir 构建 Wayland shell 的场景带来协议与功能扩充。本期新增 <b>xdg-dialog-v1</b> 协议（让应用告知窗口管理器某窗口是对话框，其他主流合成器已支持），以及 <b>ext_foreign_toplevel_image_capture_source_manager_v1</b>——允许客户端为指定顶层应用窗口创建图像捕获源，服务于录屏 / 屏幕捕获等用途。<br>
+        Mir 2.29 还支持<b>对单个 surface 截图</b>、其 <code>wl_region</code> 实现现能处理 add 与 subtract、并新增<b>触摸模拟器</b>把鼠标点击/拖拽映射为触摸事件。工程侧：代码库迁移至 <b>C++26</b>、<b>弃用 EGLStream</b>、用 <b>DMA-BUF</b> 取代 <code>wl-drm</code>、并移除其他废弃 API，外加大量 bug 修复。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Mir 虽非桌面主流，但它是 Wayland 协议落地的「试验田」之一——xdg-dialog-v1 与顶层窗口捕获源这类协议，正是屏幕共享、远程桌面、录屏工具在 Wayland 下能否顺畅工作的关键拼图。对做显示栈的团队，<b>「弃用 EGLStream、全面转向 DMA-BUF」</b>是这几年 Wayland 生态的统一方向（XWayland 26.1 也移除了 EGLStream），值得对照自身合成器是否已经切干净；而用自有 IR/运行时替代厂商私有路径（此处是 C++26 现代化 + DMA-BUF 优先）也是可借鉴的工程取舍。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-Hugging-Face" target="_blank">NVIDIA 以 129.3 亿美元收购 Hugging Face：承诺保持开放平台、多云多加速器、不绑定 NVIDIA 计算</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-npu">NPU</span>
+      </div>
+      <div class="news-body">
+        NVIDIA 正式宣布以 <b>129.303 亿美元</b>收购 Hugging Face。Hugging Face 将继续作为分享大语言模型与数据集的平台存在。Jensen Huang 在公告中明确保留其<b>开放平台</b>属性：开发者可自行选择模型、框架、云与推理服务商、计算平台；<b>NVIDIA 计算并非在 Hugging Face 上构建或部署的必需条件</b>，平台继续支持跨生态的开源/开放权重模型、以及多云多加速器开发部署。<br>
+        NVIDIA 表示将强化 Hugging Face 的基础设施、扩大全球开发者与组织的 AI 可及性。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 AI 基础设施层的一次重大整合——Hugging Face 是 Linux 上本地推理（vLLM、llama.cpp、Transformer / Diffusers 等）事实上的模型与工具分发中枢。对做 NPU/加速器与 RDMA 计算栈的团队，关键点在于黄仁勋的「<b>不绑定 NVIDIA 计算、支持多加速器</b>」承诺：若兑现，意味着在 Hugging Face 上部署的负载仍能平滑落到 AMD / Intel / 自研加速器（包括 zeus）上，不会因收购而被锁进 CUDA 生态。这关系到团队未来「模型与运行时分发渠道是否保持硬件中立」的判断，值得持续跟踪收购后的实际工程动作（而非仅看表态）。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Amazon-Linux-2027-Preview" target="_blank">Amazon Linux 2027 公测：基于 Linux 7.1、x86-64-v3、默认 LTO 与 SELinux enforcing，Graviton 默认开 malloc 大页</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        AWS 公布 <b>Amazon Linux 2027</b> 公开预览。相较 2023 版，本次带来大量软件更新与面向 AWS 云负载的性能调优。关键改动：默认采用 <b>Linux 7.1 内核</b>、默认启用 <b>SELinux enforcing</b> 模式、引入新加速器驱动；包全部以 <b>-O2</b> 构建并开启 <b>LTO（链接期优化）</b>，x86-64 包目标 <b>x86-64-v3</b>（假定 AVX/AVX2）、并启用自动向量化。<br>
+        AArch64 <b>Graviton</b> 实例侧额外默认开启 malloc 堆 arena 的 <b>透明大页（THP）</b>。工具链默认 <b>GCC 16.1</b> + LLVM/Clang 22，配套更新版 Rust / Go，包管理器换用 <b>DNF5</b>；系统部分基于 Fedora 44 / 45。基准测试将陆续放出。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>作为云上跑加速器/计算负载最常见的底层镜像之一，Amazon Linux 的默认基线直接决定「开箱性能」。本期信号是：<b>x86-64-v3 + LTO + 自动向量化</b>成为云镜像默认配置，意味着 SIMD 与跨模块优化不再需要用户手动重编——对跑 EPYC/加速器机群、以及依赖编译器自动向量化的计算后端是免费的收益。对团队评估「在 AWS 上部署 zeus/加速器软件栈的基线」，值得注意 SELinux enforcing 默认开启对驱动加载/设备访问权限的影响，以及 Graviton 侧 THP 对大内存分配型负载（模型权重、RDMA 缓冲区）的潜在提速。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GCC-17-RISC-V-mtune-mcpu-native" target="_blank">GCC 17 合入 RISC-V 的 -mtune=native / -mcpu=native：原生代码生成与调优不再需记忆具体 CPU 名</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        SiFive 的 Kito Cheng 把 RISC-V 的 <b>-mtune=native / -mcpu=native</b> 支持合入 GCC Git，将随 <b>GCC 17.1</b>（预计 2027 年初）发布。此前 GCC 在 RISC-V 上不支持这两个「native」选项，想要针对本机 CPU 做代码生成与调优，只能手动记住并填写形如 <code>sifive-p550</code>、<code>spacemit-x100</code> 等具体值。<br>
+        合入后，在 RISC-V 系统上直接传 <code>-mcpu=native</code> 与 <code>-mtune=native</code> 即可。已知限制：对同时含多种核心类型的设计（如 SpacemiT A100/X100 组合），GCC 依据编译器进程最终落到的核心来选 CPU 类型。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>「native」调优是编译器对异构/多核平台最实用的能力之一——过去在 RISC-V 板卡上部署计算负载，要么手填 CPU 型号（易错、难移植），要么放弃针对性优化。GCC 17 补齐后，<b>同一份构建在任意 RISC-V 目标上都能自动吃满本机微架构特性</b>，对把计算后端（含 NPU/加速器软件）带到 RISC-V 客户端/边缘设备是前置利好。同时需留意其多核类型取舍限制：在大小核/异构 RISC-V 平台上，native 调优可能只覆盖编译器进程当时所在核心，这与团队在混合拓扑（如 zeus 的大小核/加速器组合）上的调优策略需要区别对待。
+      </div>
+    </div>
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-04.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-03.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-03</p>
+    <p>覆盖范围：2026-09-02（Mesa 26.2.2 默认启用 Nova Lake 核显 · GNOME Mutter 51.rc 跨 GPU 直扫 · GCC 17 合入 Intel/AMD ACEv1 · Lemonade 11.9 ROCm HRX 后端 · AMD EPYC Linux 7.3 早期基准）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+  </script>
+</body>
+</html>

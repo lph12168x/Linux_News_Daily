@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-09-04](linux-news-2026-09-04.html) | Intel CMRR 内容匹配刷新率将随 Linux 7.4 默认启用（Xe3/Panther Lake 视频帧率更稳）· Mir 2.29 新增 xdg-dialog-v1 等 Wayland 协议（单表面截图/屏幕捕获）· NVIDIA 以 129.3 亿美元收购 Hugging Face（保持开放平台）· Amazon Linux 2027 预览（Linux 7.1·x86-64-v3·LTO）· GCC 17 支持 RISC-V -mtune=native -mcpu=native（原生调优落地） |
 | [2026-09-03](linux-news-2026-09-03.html) | Mesa 26.2.2 默认启用 Intel Nova Lake 核显（无需强制覆写）· GNOME Mutter 51.rc 跨 GPU 缓冲直扫（混合显卡更省电）· GCC 17 合入 Intel/AMD 联合 AI 计算扩展 ACEv1（AMX 继任者）· Lemonade 11.9 引入 AMD ROCm HRX 后端（客户端 GPU/NPU/CPU 轻量子集）· AMD EPYC Turin 跑 Linux 7.3 早期基准（Btrfs 领衔提升） |
 | [2026-09-02](linux-news-2026-09-02.html) | AMDGPU 拆分 HDMI Passive VRR 补丁（切 VRR 不再黑屏/闪烁）· Intel Xe 首发 Linux 7.4 特性 PR（冷复位恢复 + Panther Lake IBC v3）· Zen 6 客户端 CPPC 硬编码低功耗核为性能核 0.47x · Steam 8 月调查 Linux 占比回落至 3.9%（CachyOS 升至 15.4%）· Linux 7.3 合并 EDAC 改动（AMD 仅 ECC 平台加载 ATL） |
 | [2026-09-01](linux-news-2026-09-01.html) | AMD 更新 UALink 内核补丁 v2（Helios + UALoE，目标 Linux 7.4）· Mesa 26.3 自定义归并排序加速 BVH 构建与光追 · NVIDIA Vera/Olympus SMT 首选兄弟核补丁（GEMM 9.4→10.1 TFLOP/s）· NVIDIA VA-API 驱动 0.0.18（HEVC 修复 + Chrome/Chromium 直接后端硬解）· AMD Zen 6 客户端 EPP 调校（确认性能/效率/低功耗三核心类型）· Apple Silicon USB4/雷雳 19 补丁提交上游 |
