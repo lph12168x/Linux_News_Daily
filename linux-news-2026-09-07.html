@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-07</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 7 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-07.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-04.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Rust-Deep-Into-GPU-Stack" target="_blank">AMD 组建精英团队把 Rust「深入 GPU 栈」：从固件、运行时到编译器与 GPU 架构</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 资深 Fellow Harsh Menon 本周在 LinkedIn 公布，AMD 正在组建一支「精英小队」，把 Rust 代码「深入 GPU 栈」——覆盖<b>编译器、运行时、固件、GPU 架构与软硬件协同设计</b>。配套招聘帖明确：Rust 是该方向的核心技术选型，工作横跨编译器与工具链、底层 GPU 软件、固件、开发者工具，以及提升复杂软硬件系统安全性与正确性的方法；工程师将影响 AMD 当前与未来平台在中近期实现和长远架构上的 Rust 用法。<br>
+        值得注意的是，AMD 并非孤例——<b>NVIDIA 也在推进类似的 Rust 化 GPU 软件计划</b>，包括用 Rust 编写的 Nova Linux 内核驱动。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做加速器/图形驱动栈的团队，这是信号级变化——两大 GPU 厂商同时在把 Rust 推进到<b>性能敏感、高信任的底层</b>（编译器、固件、运行时）。可借鉴点：其一，Rust 进入 GPU 栈的优先级已从「实验」升到「招聘建制化」，意味着未来内核图形驱动（Nouveau/Nova/AMDGPU 的 Rust 部分）和工具链会持续受益；其二，AMD 把「编译器 + 运行时 + 固件 + 架构」打包协同，正是团队在 zeus 架构上「软件栈整体推进、而非单点改驱动」的思路镜像。即便短期不直接用 Rust，也要跟踪其 ABI/接口约定是否会外溢到用户态（如 shader 编译器、固件加载协议），影响我们与上游驱动的对接方式。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-Nova-vGPU-Manager" target="_blank">NVIDIA 为开源 Nova 提交 vGPU 管理器与 VFIO 变体驱动：workstation / 数据中心 GPU 的虚拟化路径</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        NVIDIA 在邮件列表抛出一组 <b>13 个补丁</b>，为上游的 <b>Nova 开源内核图形驱动</b>引入 NVIDIA <b>vGPU 管理器</b>与 <b>VFIO 变体驱动</b>。其目的是在运行于上游 Nova 驱动之上的前提下，启用 vGPU 管理，并支持 QEMU 上的 Linux / Windows 客户机走 VFIO。<br>
+        作者提醒：看到「VFIO + GPU」先别激动——首批支持的更可能是 NVIDIA 的<b>工作站与数据中心</b>产品，而非消费级 GeForce。Nova 驱动仍在向主线内核成熟推进，端到端可用尚需时日。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Nova 是 NVIDIA 用 Rust 重写、面向未来的开源内核图形驱动，本次补丁把<b>虚拟化（vGPU / VFIO）</b>能力补齐，意味着开源栈正从「能显示」走向「能进云 / 虚拟化场景」。对做计算/加速器虚拟化的团队，两点值得记：其一，NVIDIA 把 vGPU 控制面先落在开源 Nova 上，方向是把数据中心 GPU 的切分/虚拟化能力逐步开放给主线内核——这与 RDMA 设备虚拟化（如 SR-IOV、VF 直通）的演进路径可对照；其二，目前明确偏向 workstation/datacenter 而非消费级，评估其在我们环境的可落地性时要先确认硬件代次。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Nouveau-Blackwell-Display-Fixes" target="_blank">Nouveau 落地 Blackwell 显示修复、迈向 HDMI 2.1：GSP 显示路径与 vblank / infoframe 修复</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        在周日的 <b>Linux 7.3-rc2</b> 之前合并的一批 DRM 修复中，开源 <b>Nouveau</b> 驱动拿到了多处面向当代 NVIDIA <b>Blackwell（GB20x）</b> GPU 的显示修复：改善与 <b>GSP（GPU System Processor）</b>的交互、修复 HDMI vendor infoframe、修正 HDMI GCP AVMute 寄存器偏移、修复 Blackwell 上的 vblank 中断等。<br>
+        开发者 Mohamed Ahmed 说明，这些修复大多是在推进 Nouveau 的 <b>HDMI 2.1</b> 支持过程中产生：它们为 FRL、DSC、VRR 等高级特性打底——例如 2.147GHz 像素时钟上限这类问题虽当下不触发，但必须先修掉才能解锁后续特性。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>开源 NVIDIA 驱动长期卡在「显示基础不稳」上，这次修复把 Blackwell 的<b>显示链路（GSP 协同、infoframe、vblank、像素时钟）</b>清理了一遍，是 HDMI 2.1（FRL/DSC/VRR）的前置地基。对做显示栈的团队，可借鉴其节奏：<b>先补「看似不触发」的底层约束，再开高级特性</b>——FRL/DSC/VRR 这类高带宽显示特性，往往被像素时钟上限、infoframe 偏移等「安静的 bug」挡住。这与团队在 zeus 显示能力上「先稳链路、再上高刷新 / 高色深」的推进顺序一致。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Nova-Lake-P-64-bit-Mode" target="_blank">Mesa 26.3 准备 Intel Nova Lake P 的 64 位 GPU 寻址：Xe3P 成 Intel 首款支持 64 位地址的 GPU</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        合并进 <b>Mesa 26.3</b> 的 49 个补丁，改动 Intel 图形编译器代码与 <b>ANV（Vulkan）</b>驱动，引入「efficient 64-bit」寻址模式。背景：到 GFX35 为止，Intel 用 32 位地址 + 64 位堆基址拼出完整地址；而 <b>GFX35+（Nova Lake P / NVL-P 的 Xe3P 核显）</b>起，EU 原生支持 64 位地址——NVL-P 可通过 STATE_BASE_ADDRESS 的位选择寻址模式，<b>更新的 GPU 将只支持 64 位</b>。<br>
+        本次合并覆盖编译器与 ANV 的高效 64 位状态下发；后续 MR 会补上 <b>Iris（OpenGL）</b>驱动支持。该变化不影响其他 Nova Lake 变体（S/U/H/HX 在 Mesa 上已被当作稳定支持）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Intel 集成显卡架构级变化——<b>Xe3P 是首款 EU 原生支持 64 位地址的 GPU，且后续代次只支持 64 位</b>。对做图形/计算栈的团队，含义是：其一，64 位 GPU 寻址会改变缓冲区/堆的管理模型（不再依赖 32 位偏移 + 基址拼接），大型分配、GPU 直访大内存（与 RDMA/统一内存思路相通）会更直接；其二，Mesa 侧 ANV 先落地、Iris 跟进，提示我们若对接 Intel 新核显，Vulkan 路径会先于 OpenGL 具备新能力，兼容性评估要以 ANV 为优先参考。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Vulkan-1.4.362" target="_blank">Vulkan 1.4.362 发布：Valve Linux 图形团队贡献 VK_KHR 与 VK_VALVE 两个新扩展</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        <b>Vulkan 1.4.362</b> 例行更新带来两个由 <b>Valve Linux 图形团队</b>主导的新扩展：<br>
+        ① <b>VK_KHR_pipeline_library_group_handles</b>——允许直接从 pipeline library 查询 group handles，提升与 <b>DXR 1.1</b> 规范的兼容性（合作方含 AMD、Igalia、Intel、NVIDIA）；<br>
+        ② <b>VK_VALVE_buffer_device_address_allocation_alignment</b>——允许指定 buffer device address 分配的<b>对齐</b>，主要为 Valve 的 <b>VKD3D-Proton</b> 这类 D3D12 兼容层服务：某些 D3D12 应用依赖比实现默认更大的地址对齐，对齐收紧会导致异常行为。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这两个扩展都是为<b>「在 Linux 上把 Windows / D3D 负载跑顺」</b>服务的——DXR 1.1 兼容关乎光线追踪，buffer device address 对齐关乎 D3D12 层（VKD3D-Proton）的稳定性。对做计算/图形栈的团队，值得记两点：其一，上游图形生态仍在持续为<b>兼容层与跨 API 映射</b>补细节（对齐、handle 查询），这类「看似边角」的扩展往往决定一个实际游戏/应用能否跑通；其二，Valve 在 Linux 图形栈的话语权持续走强，VK_VALVE 厂商扩展的出现说明关键能力会先以厂商扩展形式落地——我们评估新 GPU/驱动时，应把「Valve 相关扩展支持度」纳入兼容性清单。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Apple-A18-Pro-MacBook-Neo-Patch" target="_blank">Apple A18 Pro / MacBook Neo 初步 Linux 支持补丁发布：先跑通单核与最小设备树</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        开源开发者 Yureka Lilian 在周五贴出初始 Linux 补丁，为 <b>Apple A18 Pro（t8140 SoC，即 iPhone 16 Pro 同款）</b>与低价位 <b>MacBook Neo</b> 笔记本建立设备树与绑定。补丁仅含 CPU 核心、中断控制器、看门狗、串口与 framebuffer 的<b>最小设备集合</b>；当前甚至只能跑在<b>单核</b>上（受 WFI/WFIT 指令限制），距离日常可用还远。<br>
+        除内核改动外，Asahi Linux 的 <b>m1n1</b> bootloader 也需相应修改。这仅是 MacBook Neo 在 Linux 上「跑顺」漫长进程的第一步。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是 Apple Silicon 在 Linux 上的又一次「从零起步」——和 M3 初期一样，先以最小设备树 + 单核起步。对团队的价值在于<b>参照其移植方法论</b>：其一，新 SoC 的 Linux 支持遵循「设备树 + 绑定先行、最小外设、逐步解锁多核/显示/GPU」的固定路径，可作为我们评估新硬件平台 bring-up 成本的模板；其二，目前仅 framebuffer（无加速 GPU），提示 Apple Silicon 的图形/计算加速仍是最大缺口——这与我们在新加速器平台上「先点亮、后加速」的节奏一致。对做 ARM/异构计算的同学，A18 Pro 的 SMP 起步方式（WFI/WFIT 限制）也值得对照。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Plasma-6.8-Autoscroll" target="_blank">KDE Plasma 6.8 落地 Windows 风自动滚动、Breeze 主题降 vRAM 占用</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        面向 10 月中稳定版（恰逢 KDE 项目 30 周年）的 <b>Plasma 6.8</b>，本周落地多项改进：<b>Windows 风「自动滚动」</b>——中键进入滚动模式、用指针方向控制滚动，且新增开关可切换「按住 / 点按」两种触发方式；新增远程桌面「独占模式」——连接时锁定对端物理屏、改显新建虚拟屏；<b>Spectacle 等 KPipeWire 应用录屏画质提升</b>；<b>Breeze 主题优化 SVG 资源、降低 vRAM 占用</b>（对显存紧张设备友好）；并补齐 Wayland 下 dwell clicker 等无障碍能力。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>Plasma 6.8 的两条与「显示 / 资源」直接相关——其一，<b>Breeze 省 vRAM</b> 对显存受限的集成显卡 / 嵌入式 / 加速器载板是实打实的收益，提示桌面环境正把 GPU 显存当稀缺资源精细管理，这与我们在低显存设备上跑合成器/可视化要「抠显存」的做法一致；其二，<b>录屏画质提升 + 远程桌面虚拟屏 / 独占模式</b>增强了 Wayland 下的屏幕共享与远程能力，对做显示/串流栈的团队，Wayland 屏幕捕获与远程桌面的可用性正快速补齐，评估远程/协作方案时可优先看 Plasma 6.8 的 KPipeWire 路径。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-07.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-04.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-07</p>
+    <p>覆盖范围：2026-09-04 ~ 09-07（AMD 推进 Rust 深入 GPU 栈 · NVIDIA 为开源 Nova 提交 vGPU 管理器与 VFIO 变体驱动 · Nouveau 落地 Blackwell 显示修复迈向 HDMI 2.1 · Mesa 26.3 准备 Nova Lake P 64 位 GPU 寻址 · Vulkan 1.4.362 带来 Valve 扩展 · Apple A18 Pro / MacBook Neo Linux 初步支持 · KDE Plasma 6.8 自动滚动与 Breeze 省 vRAM）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
