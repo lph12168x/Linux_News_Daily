@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-07</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 8 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-08.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-07.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.4-DRM-Misc-Next-1" target="_blank">Nouveau 准备 HDMI 2.1 DSC、AMD 修复 FreeSync：面向 Linux 7.4 的 DRM-Misc-Next 显示改动</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        上周合入 <b>DRM-Next</b>、面向 <b>Linux 7.4</b> 的 DRM-Misc-Next 拉取带来 AMDGPU 与开源 <b>Nouveau（NVIDIA）</b>驱动的 HDMI 2.1 相关改动。Nouveau 部分支持 <b>Blackwell GPU 的 2.147GHz 像素时钟</b>，为 <b>HDMI 2.1 DSC（显示流压缩）</b>铺路——目前非压缩 HDMI FRL 仅约 1.78GHz，DSC 接好后才够到更高上限；此外终于<b>默认启用 Nouveau 原子模式设置（atomic mode-setting）</b>，追平其它 DRM 驱动。AMDGPU 侧修复了 DRM EDID 解析器对 <b>AMD VSDB FreeSync</b> 的处理，使部分只在 AMD 厂商数据块声明 VRR 的显示器能被正确识别。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示栈的团队，这是「高带宽显示特性要先把链路底层约束修好」的又一次印证：Blackwell 的 2.147GHz 像素时钟上限与原子模式设置是 HDMI 2.1 DSC / VRR 的前置地基，与我们在 zeus 上「先稳显示链路、再上高刷新 / 压缩」的顺序一致；AMD FreeSync 的 EDID/VSDB 解析修复则说明「显示器能力探测」这类看似边角的解析逻辑，常决定 VRR 能否真正启用——做显示兼容清单时要把 EDID/VSDB 的 VRR 声明方式纳入。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Asahi-Linux-Official-M3" target="_blank">Asahi Linux 正式支持 Apple M3 Mac：GPU 仍非性能 / 功耗可用、HDMI 因缺 DCP 不可用</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Asahi Linux 开发者宣布 <b>Apple M3 系列 Mac</b>（M3 / M3 Pro / M3 Max，除 Mac Studio M3 Ultra 外）已达到「几乎所有」功能可用的正式支持状态，接近早先 M1/M2 的成熟度。最大例外是 <b>GPU 支持</b>——目前 3D 加速在性能与功耗上都还不够好，团队期望未来数月有进展。此外 M3 上暂无睡眠支持（缺 <b>DCP</b> 支持），且无 DCP 导致 M3 MacBook 的 <b>HDMI 口也不可用</b>。主线内核已有 M3 基础启动支持，其余补丁仍在向 <b>Linux 7.4+</b> 上游化。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做 GPU/显示移植的团队，M3 的「GPU 仍非性能/功耗可用 + HDMI 因缺 DCP 不可用」是典型 bring-up 中期状态——可对照我们新加速器平台「先点亮、后加速、显示外设最后补」的节奏；且 Asahi 把「基础启动先进主线、图形/显示/DCP 等后续补丁分批上游」的拆分策略，正是评估新 SoC 移植成本与风险时的范本：先拿到能 boot 的最小集合，再按 GPU → 显示 → 功耗的顺序解锁。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Shotcut-26.9-Beta" target="_blank">Shotcut 26.9 视频编辑器 Beta：音频全程 32-bit float、FFmpeg 9.0 修复 VA-API HEVC 硬编</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        开源视频编辑器 <b>Shotcut 26.9 Beta</b> 发布，带来多项改进：音频管线<b>全程保持 32-bit float</b>、避免 16-bit 整数转换以提升音质；时间线性能改善；UI 现代化（圆角等细节）并启用新 logo。底层升级到 <b>FFmpeg 9.0</b>，修复了 Linux 上的 <b>VA-API HEVC 硬件编码</b>，并提供 Linux AppImage、macOS、Windows 多平台构建。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做多媒体/显示栈的团队，Shotcut 26.9 两点值得记：其一，音频管线「全程 32-bit float 不降级」是 DAW/编辑器常见的音质做法，可对照我们合成器/采集链路的位深策略；其二，FFmpeg 9.0 + VA-API HEVC 硬件编码修复说明 Linux 上的硬编（尤其是 HEVC）正在持续被修好，做视频采集/串流/录屏方案时应优先验证 VA-API HEVC 路径是否已被当前 FFmpeg 修复覆盖。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Preps-AMD-BTB-CTX" target="_blank">Linux 准备 AMD Zen 6 BTB 上下文隔离：硬件级分隔 user/kernel 与 guest/host</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        新近发布的 Linux 内核补丁揭示了 <b>Zen 6</b> 的一项安全改进：在受 <b>SRSO</b> 漏洞影响的 Zen 1~4 之后，Zen 6 引入<b>分支目标缓冲（BTB）保护</b>，隔离不同上下文（user/kernel、guest/host）之间。AMD 工程师说明，BTB 隔离使该平台上的 <b>SafeRET</b> 缓解不再必要，仅剩下 user/user 与 guest/guest 攻击面由 Spectre v2 的 IBPB 上下文切换缓解覆盖。补丁已进入 tip/tip.git 的 x86/bugs 分支，预计随 <b>Linux 7.4</b> 合入（或作为 7.3 的修复）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/虚拟化安全栈的团队，Zen 6 的 BTB 上下文隔离意味着「CPU 微架构级把 guest/host、user/kernel 的 BTB 隔离开」，可减少一类跨上下文推测侧信道——这与我们评估加速器上多租户/虚拟化隔离时的硬件信任边界直接相关；同时提示：新的硬件隔离特性会逐步改写下层缓解（如 SafeRET 可被替代），做安全基线时要跟踪 CPU 代次对应的缓解组合变化。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-rc2-Scheduler-Fixes" target="_blank">Linux 7.3-rc2 修复混合 CPU 缓存感知调度 misfit：局部性与算力容量要同时校验</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        在 <b>Linux 7.3-rc2</b> 之前的调度器修复中，重点是修复混合 CPU（如 Intel Core Ultra 大小核）上「<b>缓存感知负载调度（Cache-Aware Load Scheduling）</b>」的 misfit 问题。Cache-Aware Scheduling 把共享末级缓存（LLC）的任务聚到一起以提升缓存局部性，但在 big.LITTLE 混合架构上，分组任务可能被全部压到小核而成为 misfit。Intel 工程师 Tim Chen 的修复在两个入口加护栏：<b>can_migrate_llc_task()</b> 禁止「源 CPU 能容纳、目的 CPU 装不下」的 LLC 迁移；<b>alb_break_llc()</b> 在相同条件下否决主动均衡；两者仅对混合处理器生效，对称系统不受影响；并在负载均衡阶段优先处理 misfit 任务迁移。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做异构计算/调度栈的团队，这条修复是「缓存局部性 vs 算力容量」权衡的教科书案例——在 big.LITTLE（或我们加速器上的异构计算簇）上，单纯按 LLC 亲和把任务聚拢，可能把重负载误推到小核而更伤性能。可借鉴点：其一，亲和/局部性策略必须同时校验「目的算力是否装得下」，否则收益为负；其二，护栏只对混合系统生效、对称系统无感，提示我们在设计调度策略时应按拓扑差异做条件化，避免对对称平台施加无谓开销。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-08.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-07.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-08</p>
+    <p>覆盖范围：2026-09-06 ~ 09-08（Nouveau HDMI 2.1 DSC 与 AMD FreeSync 修复 · Asahi Linux 正式支持 Apple M3 · Shotcut 26.9 视频编辑器 · AMD Zen 6 BTB 上下文隔离 · Linux 7.3-rc2 混合 CPU 缓存感知调度修复）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
+
+</body>
+</html>
