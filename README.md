@@ -19,6 +19,7 @@
 
 | 日期 | 主题亮点 |
 |------|----------|
+| [2026-09-09](linux-news-2026-09-09.html) | DLSS5VKLayer 把 NVIDIA DLSS 5 接入原生 Linux 游戏与 Steam Play（Proton）· KDE KWin 合入 Wayland commit-timing 协议（视频播放与 Adaptive-Sync/FreeSync 时序可控）· 新补丁为 AMD Radeon（AMDGPU）带来 HDMI 1.4 3D 模式（frame packing/上下/左右）· DirectX 后端在 LLVM 升为官方目标（clang-dxc 默认启用、DXIL 编译进主线）· AI 揪出 Linux 内核编译瓶颈（全模块快约 36%、增量最高 70%） |
 | [2026-09-08](linux-news-2026-09-08.html) | Nouveau 准备 HDMI 2.1 DSC 与 AMD FreeSync 修复（面向 Linux 7.4）· Asahi Linux 正式支持 Apple M3（GPU 仍非性能/功耗可用、HDMI 因缺 DCP 不可用）· Shotcut 26.9 视频编辑器 Beta（音频 32-bit float·FFmpeg 9.0 修复 VA-API HEVC 硬编）· AMD Zen 6 BTB 上下文隔离（硬件级分隔 user/kernel 与 guest/host）· Linux 7.3-rc2 修复混合 CPU 缓存感知调度 misfit（局部性与算力容量同时校验） |
 | [2026-09-07](linux-news-2026-09-07.html) | AMD 推进 Rust 深入 GPU 栈（编译器/固件/运行时建制化）· NVIDIA 为开源 Nova 提交 vGPU 管理器与 VFIO 变体驱动（workstation/数据中心虚拟化）· Nouveau 落地 Blackwell 显示修复迈向 HDMI 2.1（GSP/vblank/infoframe）· Mesa 26.3 准备 Nova Lake P 64 位 GPU 寻址（Xe3P 首款 64 位 EU 地址）· Vulkan 1.4.362 带来 Valve 扩展（DXR 1.1 兼容 + D3D12 地址对齐）· Apple A18 Pro / MacBook Neo Linux 初步支持（最小设备树 + 单核起步）· KDE Plasma 6.8 自动滚动与 Breeze 省 vRAM |
 | [2026-09-04](linux-news-2026-09-04.html) | Intel CMRR 内容匹配刷新率将随 Linux 7.4 默认启用（Xe3/Panther Lake 视频帧率更稳）· Mir 2.29 新增 xdg-dialog-v1 等 Wayland 协议（单表面截图/屏幕捕获）· NVIDIA 以 129.3 亿美元收购 Hugging Face（保持开放平台）· Amazon Linux 2027 预览（Linux 7.1·x86-64-v3·LTO）· GCC 17 支持 RISC-V -mtune=native -mcpu=native（原生调优落地） |

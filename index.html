@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-09.html">
+    <span class="entry-date">09-09</span>
+    <span class="entry-main">
+      <div class="entry-title">DLSS5VKLayer 把 NVIDIA DLSS 5 接入原生 Linux 游戏与 Steam Play（Proton）· KDE KWin 合入 Wayland commit-timing 协议（视频播放与 Adaptive-Sync/FreeSync 时序可控）· 新补丁为 AMD Radeon（AMDGPU）带来 HDMI 1.4 3D 模式（frame packing/上下/左右）· DirectX 后端在 LLVM 升为官方目标（clang-dxc 默认启用、DXIL 编译进主线）· AI 揪出 Linux 内核编译瓶颈（全模块快约 36%、增量最高 70%）</div>
+      <div class="entry-hint">今日（9/8 EDT）图形/显示/计算方向 5 条：新开源项目 <b>DLSS5VKLayer</b> 提供 Linux Vulkan 层，把 Windows 的 NGX 神经渲染助手跑在 Wine/Proton 下，经 IPC 把渲染帧传给它、再把 DLSS5 后的帧回灌到 Vulkan swapchain，并借 NVIDIA Optical Flow 消除注入后的抖动伪影，让原生 Linux 与 Steam Play（Proton）Windows 游戏实验性用上 NVIDIA DLSS 5（仍需官方驱动 + 自供 NGX DLL）；<b>KDE KWin</b> 历时半年的合并请求终于合入 Wayland <b>commit-timing 协议</b>，允许应用设定合成器最早可应用 commit 的时间——视频播放提前排帧、Adaptive-Sync 下更稳刷新率，也是 Mesa Vulkan 驱动支持 VK_EXT_present_timing、VKD3D-Proton/Steam Play 拿到精确呈现时序的前提，赶在 Plasma 6.8 Beta 1（9/10）前落地；独立开发者为 <b>AMDGPU</b> 驱动补上 <b>HDMI 1.4 3D 模式</b>（frame packing/上下/左右），EDID 的 HDMI VSDB 早已解析出 3D 信息但 AMDGPU 拖了十余年没消费，补丁借 vendor infoframe 的 3D_Ext_Data 字节让 JVC D-ILA 投影进 3D，RX 7600 上验证双眼几何正确；<b>LLVM DirectX 后端</b>（LLVM IR → DXIL）从此前实验性目标升为官方目标，微软提交加入 clang-dxc 前端、自明年 LLVM 24 起默认开启，影响跨平台 shader 工具链与 Proton/VKD3D 生态底层编译；ARM 工程师用 <b>LLM 辅助</b>定位并修复内核构建单线程瓶颈，提交 23 个补丁把 Kbuild/kallsyms/modpost/objtool 等并行化，全模块构建约快 36%、增量最高 70%、noop 最高 90%，每提交带 Assisted-by 标签…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-09-08.html">
     <span class="entry-date">09-08</span>
     <span class="entry-main">

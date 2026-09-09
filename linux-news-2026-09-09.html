@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux 每日新闻 - 2026-09-07</title>
+  <title>Linux 每日新闻 - 2026-09-09</title>
 <style>
     :root {
       --bg: #ffffff;
@@ -175,101 +175,99 @@
   <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
   <div class="header">
     <h1>🐧 Linux 每日新闻</h1>
-    <p>2026 年 9 月 8 日 · 图形 · 显示 · 计算</p>
+    <p>2026 年 9 月 9 日 · 图形 · 显示 · 计算</p>
   </div>
   <div class="container">
 
 <!--PAGE-NAV-TOP-START-->
   <nav class="page-nav" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-09-09.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-09-07.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-09-09.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-09-09.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-08.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-TOP-END-->
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">1</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.4-DRM-Misc-Next-1" target="_blank">Nouveau 准备 HDMI 2.1 DSC、AMD 修复 FreeSync：面向 Linux 7.4 的 DRM-Misc-Next 显示改动</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/DLSS5VKLayer" target="_blank">DLSS5VKLayer 把 NVIDIA DLSS 5 接入原生 Linux 游戏与 Steam Play（Proton）</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-display">显示</span>
         <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        上周合入 <b>DRM-Next</b>、面向 <b>Linux 7.4</b> 的 DRM-Misc-Next 拉取带来 AMDGPU 与开源 <b>Nouveau（NVIDIA）</b>驱动的 HDMI 2.1 相关改动。Nouveau 部分支持 <b>Blackwell GPU 的 2.147GHz 像素时钟</b>，为 <b>HDMI 2.1 DSC（显示流压缩）</b>铺路——目前非压缩 HDMI FRL 仅约 1.78GHz，DSC 接好后才够到更高上限；此外终于<b>默认启用 Nouveau 原子模式设置（atomic mode-setting）</b>，追平其它 DRM 驱动。AMDGPU 侧修复了 DRM EDID 解析器对 <b>AMD VSDB FreeSync</b> 的处理，使部分只在 AMD 厂商数据块声明 VRR 的显示器能被正确识别。
+        一个新开源项目 <b>DLSS5VKLayer</b> 提供 Linux <b>Vulkan 层</b>，让原生 Linux 游戏与 Steam Play（Proton）Windows 游戏都能实验性用上 <b>NVIDIA DLSS 5</b>。做法是把 Windows 的 <b>NGX 神经渲染助手跑在 Wine/Proton</b> 下，该隐式 Vulkan 层经 <b>IPC 把渲染帧传给它、再把 DLSS5 后的帧回灌到 Vulkan swapchain</b>；并用 <b>NVIDIA Optical Flow</b> 生成向量消除注入 DLSS 5 后的抖动/闪烁，可选启用 NVIDIA Smooth Motion。仍须 <b>NVIDIA 官方驱动 + 自行提供 NGX DLL</b>。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>对做显示栈的团队，这是「高带宽显示特性要先把链路底层约束修好」的又一次印证：Blackwell 的 2.147GHz 像素时钟上限与原子模式设置是 HDMI 2.1 DSC / VRR 的前置地基，与我们在 zeus 上「先稳显示链路、再上高刷新 / 压缩」的顺序一致；AMD FreeSync 的 EDID/VSDB 解析修复则说明「显示器能力探测」这类看似边角的解析逻辑，常决定 VRR 能否真正启用——做显示兼容清单时要把 EDID/VSDB 的 VRR 声明方式纳入。
+        <strong>关注理由：</strong>对做图形/显示的团队，这是「Linux 上吃 DLSS 超分」的又一条非官方但可用的路径——核心是 <b>IPC 把帧交给外部 NGX 推理再回灌 swapchain 的 Vulkan 层方案</b>，可对照我们在加速器上「推理前后处理与显示链路解耦」的思路；同时它依赖 Optical Flow 做向量稳定，提示做 AI 超分时运动向量质量直接决定伪影，与 zeus 上超分/插帧的质量评估要点一致。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">2</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Asahi-Linux-Official-M3" target="_blank">Asahi Linux 正式支持 Apple M3 Mac：GPU 仍非性能 / 功耗可用、HDMI 因缺 DCP 不可用</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-KWin-Wayland-Commit-Timing" target="_blank">KDE KWin 合入 Wayland commit-timing 协议：视频播放与 Adaptive-Sync/FreeSync 时序可控</a></div>
       </div>
       <div class="news-meta">
-        <span class="tag tag-gpu">图形</span>
         <span class="tag tag-display">显示</span>
       </div>
       <div class="news-body">
-        Asahi Linux 开发者宣布 <b>Apple M3 系列 Mac</b>（M3 / M3 Pro / M3 Max，除 Mac Studio M3 Ultra 外）已达到「几乎所有」功能可用的正式支持状态，接近早先 M1/M2 的成熟度。最大例外是 <b>GPU 支持</b>——目前 3D 加速在性能与功耗上都还不够好，团队期望未来数月有进展。此外 M3 上暂无睡眠支持（缺 <b>DCP</b> 支持），且无 DCP 导致 M3 MacBook 的 <b>HDMI 口也不可用</b>。主线内核已有 M3 基础启动支持，其余补丁仍在向 <b>Linux 7.4+</b> 上游化。
+        KDE 开发者 <b>Xaver Hugl</b> 历时半年的合并请求终于合入 <b>KWin</b> 最新开发分支，支持 Wayland 的 <b>commit-timing 协议</b>。该协议允许应用<b>设定合成器「最早可应用该 commit 的时间」</b>，视频播放器可提前排帧、Adaptive-Sync 下更好控制刷新率；也是 <b>Mesa Vulkan 驱动支持 VK_EXT_present_timing</b> 的前提，对 <b>VKD3D-Proton / Steam Play</b> 很重要。恰逢 Plasma 6.8 Beta 1（9/10）与分支点，赶在 6.8 稳定前落地（GNOME Mutter 早在 Wayland Protocols 1.38 / 2024 末已支持）。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>对做 GPU/显示移植的团队，M3 的「GPU 仍非性能/功耗可用 + HDMI 因缺 DCP 不可用」是典型 bring-up 中期状态——可对照我们新加速器平台「先点亮、后加速、显示外设最后补」的节奏；且 Asahi 把「基础启动先进主线、图形/显示/DCP 等后续补丁分批上游」的拆分策略，正是评估新 SoC 移植成本与风险时的范本：先拿到能 boot 的最小集合，再按 GPU → 显示 → 功耗的顺序解锁。
+        <strong>关注理由：</strong>对做显示/合成器的团队，commit-timing 是「<b>应用与合成器对帧呈现时间达成共识</b>」的关键协议——视频播放防撕裂/卡顿、Adaptive-Sync 下稳定刷新率都靠它；且与 VK_EXT_present_timing 直接挂钩，意味着 VKD3D-Proton 这类 D3D12→Vulkan 翻译层能拿到精确呈现时序。可对照我们在 zeus 显示管线上「呈现时序由谁主导、如何回传」的设计，避免合成器与应用各自为政造成抖动。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">3</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Shotcut-26.9-Beta" target="_blank">Shotcut 26.9 视频编辑器 Beta：音频全程 32-bit float、FFmpeg 9.0 修复 VA-API HEVC 硬编</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-HDMI-1.4-3D-Mode" target="_blank">新补丁为 AMD Radeon（AMDGPU）带来 HDMI 1.4 3D 模式：frame packing / 上下 / 左右</a></div>
       </div>
       <div class="news-meta">
         <span class="tag tag-display">显示</span>
-        <span class="tag tag-compute">计算</span>
       </div>
       <div class="news-body">
-        开源视频编辑器 <b>Shotcut 26.9 Beta</b> 发布，带来多项改进：音频管线<b>全程保持 32-bit float</b>、避免 16-bit 整数转换以提升音质；时间线性能改善；UI 现代化（圆角等细节）并启用新 logo。底层升级到 <b>FFmpeg 9.0</b>，修复了 Linux 上的 <b>VA-API HEVC 硬件编码</b>，并提供 Linux AppImage、macOS、Windows 多平台构建。
+        独立开发者 <b>Adrian Betschart</b> 提交 <b>3 个补丁（约 60 行新代码）</b>，为 <b>AMDGPU 内核驱动</b>补上 <b>HDMI 1.4 3D 输出</b>（frame packing、top-and-bottom、side-by-side）。DRM EDID 解析器其实早已从 <b>HDMI VSDB 取出 3D 信息</b>，但 AMDGPU 一直没利用（Intel i915 早在 2012 就用上了）。方案最简洁：源端把双眼打包进一帧、显示核当普通 2D 扫描输出，仅 <b>HDMI vendor infoframe 带 3D 标识</b>；并在 top-and-bottom 的 vendor infoframe 加 <b>3D_Ext_Data 字节</b>（否则 JVC D-ILA 投影不进 3D）。已在 Radeon RX 7600（Navi 33, DCN 3.2.1）驱动 JVC DLA-RS4100、Kodi(LibreELEC, GBM) 为源、7.2.3 内核上验证 1920x1080p24 RGB 12bpc 双眼几何正确。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>对做多媒体/显示栈的团队，Shotcut 26.9 两点值得记：其一，音频管线「全程 32-bit float 不降级」是 DAW/编辑器常见的音质做法，可对照我们合成器/采集链路的位深策略；其二，FFmpeg 9.0 + VA-API HEVC 硬件编码修复说明 Linux 上的硬编（尤其是 HEVC）正在持续被修好，做视频采集/串流/录屏方案时应优先验证 VA-API HEVC 路径是否已被当前 FFmpeg 修复覆盖。
+        <strong>关注理由：</strong>对做显示/EDID 的团队，这条是典型的「<b>能力探测已有、驱动没接</b>」案例：EDID 的 HDMI VSDB 早已给出 3D 信息，AMDGPU 拖了十余年没用——提示做显示器能力清单时要把 VSDB 里的 3D/VRR 字段真正消费起来；且「补 3D_Ext_Data 字节否则特定投影不进 3D」说明 vendor infoframe 的边角字节常决定功能能否真正启用，与 FreeSync 的 VSDB 解析修复如出一辙，是显示兼容的共性坑。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">4</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Preps-AMD-BTB-CTX" target="_blank">Linux 准备 AMD Zen 6 BTB 上下文隔离：硬件级分隔 user/kernel 与 guest/host</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-DirectX-Backend-Official" target="_blank">DirectX 后端在 LLVM 升为官方目标：clang-dxc 默认启用、DXIL 编译进主线</a></div>
       </div>
       <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
         <span class="tag tag-compute">计算</span>
-        <span class="tag tag-kernel">内核</span>
       </div>
       <div class="news-body">
-        新近发布的 Linux 内核补丁揭示了 <b>Zen 6</b> 的一项安全改进：在受 <b>SRSO</b> 漏洞影响的 Zen 1~4 之后，Zen 6 引入<b>分支目标缓冲（BTB）保护</b>，隔离不同上下文（user/kernel、guest/host）之间。AMD 工程师说明，BTB 隔离使该平台上的 <b>SafeRET</b> 缓解不再必要，仅剩下 user/user 与 guest/guest 攻击面由 Spectre v2 的 IBPB 上下文切换缓解覆盖。补丁已进入 tip/tip.git 的 x86/bugs 分支，预计随 <b>Linux 7.4</b> 合入（或作为 7.3 的修复）。
+        过去四年微软推动的 <b>LLVM DirectX 后端</b>（把 LLVM IR 降到 <b>DirectX 中间语言 DXIL</b>，供 Windows DirectX 12 图形驱动执行）从此前实验性目标升为 <b>LLVM 官方目标</b>。微软 HLSL 编译器工程师 Farzon Lotfi 的提交把后端移出 experimental 并加入 <b>clang-dxc 前端</b>；自明年 <b>LLVM 24</b> 起 clang-dxc 与 HLSL 支持默认开启。微软后续重点将转向图形与光追 shader、最新 Shader Model，并进一步收紧 Clang HLSL 前端与后端 Codegen 的集成。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>对做计算/虚拟化安全栈的团队，Zen 6 的 BTB 上下文隔离意味着「CPU 微架构级把 guest/host、user/kernel 的 BTB 隔离开」，可减少一类跨上下文推测侧信道——这与我们评估加速器上多租户/虚拟化隔离时的硬件信任边界直接相关；同时提示：新的硬件隔离特性会逐步改写下层缓解（如 SafeRET 可被替代），做安全基线时要跟踪 CPU 代次对应的缓解组合变化。
+        <strong>关注理由：</strong>对做图形/编译栈的团队，LLVM DirectX 后端成为官方目标意味着「用 LLVM 基础设施编译 DXIL shader」有了稳定、默认的入口，<b>clang-dxc 开箱即用</b>——这直接影响跨平台 shader 工具链与 Proton/VKD3D 生态的底层编译能力；也提示 DXIL 与 SPIR-V/Vulkan 两条 shader 中间表示的工具链正在各自成熟，做跨图形 API 的 shader 移植/验证时要同时跟踪两边进展。
       </div>
     </div>
 
     <div class="news-item">
       <div class="news-header">
         <div class="news-num">5</div>
-        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-rc2-Scheduler-Fixes" target="_blank">Linux 7.3-rc2 修复混合 CPU 缓存感知调度 misfit：局部性与算力容量要同时校验</a></div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AI-To-Faster-Linux-Kernel-Comp" target="_blank">AI 写出「不少丑陋代码」却揪出 Linux 内核编译瓶颈：全模块构建快约 36%、增量最高 70%</a></div>
       </div>
       <div class="news-meta">
         <span class="tag tag-compute">计算</span>
         <span class="tag tag-kernel">内核</span>
       </div>
       <div class="news-body">
-        在 <b>Linux 7.3-rc2</b> 之前的调度器修复中，重点是修复混合 CPU（如 Intel Core Ultra 大小核）上「<b>缓存感知负载调度（Cache-Aware Load Scheduling）</b>」的 misfit 问题。Cache-Aware Scheduling 把共享末级缓存（LLC）的任务聚到一起以提升缓存局部性，但在 big.LITTLE 混合架构上，分组任务可能被全部压到小核而成为 misfit。Intel 工程师 Tim Chen 的修复在两个入口加护栏：<b>can_migrate_llc_task()</b> 禁止「源 CPU 能容纳、目的 CPU 装不下」的 LLC 迁移；<b>alb_break_llc()</b> 在相同条件下否决主动均衡；两者仅对混合处理器生效，对称系统不受影响；并在负载均衡阶段优先处理 misfit 任务迁移。
+        ARM Linux 工程师 <b>Lorenzo Stoakes</b> 用 LLM 辅助定位并修复内核构建的单线程瓶颈，提交 <b>23 个补丁「显著加速内核构建」</b>。他坦言 LLM 生成了大量代码、不少很丑陋，由他逐处审计、重写与修正；LLM 还编排了构建/测试/调试/分析。核心是把 <b>Kbuild、kallsyms、modpost、objtool、mksysmap 及 Rust 构建系统</b>等处的单线程任务并行化。实测全模块构建约快 36%、增量构建最高快 70%、noop 构建最高快约 90%，跨硬件与配置一致；每提交带 Assisted-by 标签，待评审后有望进主线。
       </div>
       <div class="news-reason">
-        <strong>关注理由：</strong>对做异构计算/调度栈的团队，这条修复是「缓存局部性 vs 算力容量」权衡的教科书案例——在 big.LITTLE（或我们加速器上的异构计算簇）上，单纯按 LLC 亲和把任务聚拢，可能把重负载误推到小核而更伤性能。可借鉴点：其一，亲和/局部性策略必须同时校验「目的算力是否装得下」，否则收益为负；其二，护栏只对混合系统生效、对称系统无感，提示我们在设计调度策略时应按拓扑差异做条件化，避免对对称平台施加无谓开销。
+        <strong>关注理由：</strong>对做计算/构建系统的团队，这条是「<b>AI 定位瓶颈 + 人审代码</b>」的务实范本：36%~90% 的构建提速来自把单线程环节并行化（Kbuild/modpost/objtool 等），与我们在加速器上「把串行预处理/编译/链接打散并行」的思路一致；同时提示「LLM 产码需人审、性能须手工核」是底线——可借鉴其把构建 profiling 交给 AI 编排、正确性由人把守的分工，用于我们自己的构建/CI 提速。
       </div>
     </div>
 
@@ -277,17 +275,16 @@
 <!--PAGE-NAV-BOTTOM-START-->
   <nav class="page-nav bottom" aria-label="日报导航">
       <a class="nav-btn" href="index.html">🏠 主页</a>
-      <a class="nav-btn" href="linux-news-2026-09-09.html">📰 最新</a>
-      <a class="nav-btn" href="linux-news-2026-09-07.html">← 上一个</a>
-      <a class="nav-btn" href="linux-news-2026-09-09.html">下一个 →</a>
+      <a class="nav-btn current" href="linux-news-2026-09-09.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-08.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
   </nav>
   <!--PAGE-NAV-BOTTOM-END-->
 <div class="footer">
-    <p>数据来源：Phoronix | 生成时间：2026-09-08</p>
-    <p>覆盖范围：2026-09-06 ~ 09-08（Nouveau HDMI 2.1 DSC 与 AMD FreeSync 修复 · Asahi Linux 正式支持 Apple M3 · Shotcut 26.9 视频编辑器 · AMD Zen 6 BTB 上下文隔离 · Linux 7.3-rc2 混合 CPU 缓存感知调度修复）</p>
+    <p>数据来源：Phoronix | 生成时间：2026-09-09</p>
+    <p>覆盖范围：2026-09-08 ~ 09-09（DLSS5VKLayer 接入 NVIDIA DLSS 5 · KDE KWin 合入 Wayland commit-timing · AMDGPU HDMI 1.4 3D 模式 · DirectX 升为 LLVM 官方目标 · AI 揪出内核编译瓶颈提速 36%~90%）</p>
     <p>关注领域：Linux 图形 · 显示 · 计算</p>
   </div>
-
 <script>
     function toggleTheme() {
       const body = document.body;
@@ -302,8 +299,5 @@
       document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
     })();
 </script>
-</body>
-</html>
-
 </body>
 </html>
