@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-10</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 10 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-10.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-09.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-615.71.09-Linux-Driver" target="_blank">NVIDIA 615.71.09 Linux 驱动发布：Vulkan 改进 + 开源内核驱动终于支持 cgroups 显存分区</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        NVIDIA 今日发布 <b>R615 系列 615.71.09 Linux 驱动</b>，重点是 Vulkan 侧的若干改进：新增 <b>VK_NV_low_latency 修订版 2</b>，让 Vulkan 原生游戏开箱即用 <b>Proton 下的 NVIDIA Reflex</b>；新增 <b>VK_EXT_cluster_acceleration_structure</b> 扩展；并修复了 <b>NVIDIA Smooth Motion 的启动与 Alt-Tab 卡死</b>、Wayland 下加载 PRAGMATA 的 Xid 错误。还新增内核参数 <b>RmDisableDisplayGlitchPerfLimit</b>，可在部分多屏配置下降低待机功耗。更值得关注：<b>开源内核驱动终于支持基于 cgroups 的显存分区（memory partitioning）</b>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形/驱动的团队，这条有两点直接可对照：① <b>VK_NV_low_latency v2 让 Proton 下 Reflex 开箱即用</b>，意味着 Linux 游戏低延迟路径在 Vulkan 层打通，可对照我们在 zeus 上「呈现时序/延迟由谁主导」的设计；② <b>开源驱动支持 cgroups 显存分区</b>是老需求落地——多租户/多容器共享 GPU 时按 cgroup 隔离显存，与我们「加速器显存切分与隔离」的诉求高度一致，值得跟进其内核态实现方式。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Experiment-Nouveau-NVIDIA-GB10" target="_blank">实验补丁让 Nouveau+NVK 跑通 NVIDIA DGX Spark GB10（Grace Blackwell 超级芯片）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Red Hat 的 <b>David Airlie</b> 让逆向内核驱动 <b>Nouveau</b> 与 Mesa <b>NVK Vulkan 驱动</b>在 <b>GB10 Grace Blackwell 超级芯片 / DGX Spark</b> 上跑了起来。内核侧把 Nouveau 适配到较新的 <b>NVIDIA R610 固件</b>（NVIDIA 不保证固件跨版本兼容，此步本身即是工程 feat），并重写显示代码、修 vRAM/L2 cache 处理、补 Spark 专属启动与显示支持；NVK 侧则补了深度/模板缓冲与 vRAM 差异处理。整套 bring-up 约 <b>100 个补丁、改动侵入性强</b>，Airlie 也坦言 GB10/DGX Spark 支持或许该等到 <b>Nova 驱动转型</b>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形栈的团队，这是「<b>开源驱动啃新一代 Blackwell 架构</b>」的真实进度条：R610 固件适配 + 显示代码重写 + vRAM/L2 处理，几乎每一步都是我们在新加速器 bring-up 上也会踩的坑（固件兼容性、显存层级、显示链路）。它和 Nova 驱动的此消彼长也提示：<b>新架构上「继续逆向 Nouveau」还是「等 Nova」是必须早做的技术路线抉择</b>，对我们选型有借鉴意义。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/XWayland-26.1-RC2" target="_blank">XWayland 26.1 RC2 发布：自 XWayland 24.1 以来首个大版本，RC2 再修一批问题</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        <b>XWayland 26.1</b> 是继 2024 年 <b>XWayland 24.1</b> 之后首个重大更新。整体带来<b>更好的 rootful 实现</b>、与 X Input 2 的<b>多席位（multi-seat）兼容</b>、对新 Wayland 协议的支持、<b>更好的 Resize and Rotate（RandR）模拟</b>，并<b>彻底移除 EGLStream 支持</b>。本次 RC2 再补多项修复：多个 <b>XKB 修复</b>、<b>damage tracking 改进</b>、X Input 的 <b>字节序交换（byte-swapping）修正</b>等。同期 X.Org Server 26.1 也在推进，是比 xorg-server 21.1 系列更大的更新。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/合成器的团队，XWayland 26.1 的「<b>rootful 改进 + multi-seat + 移除 EGLStream</b>」是 X11 兼容层与现代 Wayland 收敛的关键一步：EGLStream 移除意味着 NVIDIA 旧显示路径彻底退出历史舞台，统一到 GBM/EGL；RandR 模拟与 multi-seat 改进则直接影响多屏/多用户场景。可对照我们在 zeus 显示栈上「X 兼容层与 Wayland 原生路径如何取舍」的边界划分。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/YSERVER-1.5" target="_blank">YSERVER 1.5 发布：Rust 重写 X11 服务器带来 Reverse PRIME 多 GPU 支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        用 Rust 从零实现的现代 X11 服务器 <b>YSERVER</b> 发布 <b>1.5</b>，已能跑 Cinnamon、MATE、Xfce、Openbox、IceWM 等真实桌面。本次最大亮点是 <b>Reverse PRIME 支持</b>：主 GPU 负责渲染、再把画面交给副 GPU 输出，并补齐了 <b>DRM 设备到 Vulkan GPU 的映射</b>与 <b>RandR provider 拓扑</b>暴露。另含 <b>Mesa OML MSC 速率查询</b>（修 ANGLE/Flatpak 报错）、桌面 accel-profile 设置、DRI3 1.4 同步对象经 DRM 传递、X11 服务端窗口边框等。还修了一个回归：<b>解除了 vsync-off 客户端的帧率封顶</b>——CS2 在 yserver 上测得 180~200 fps、Xorg 约 400 fps，根因是 07-27 的 vblank-pacing 闸门（NVIDIA-WSI 特有的 sync 呈现路径未实现）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/多 GPU 的团队，YSERVER 的 <b>Reverse PRIME + DRM→Vulkan GPU 映射</b>正是「多 GPU 渲染/输出分离」的活样本：主卡渲染、副卡扫描输出这套拓扑，和我们「offload/呈现分离」的思路一致；而它踩到的 <b>vsync-off 帧率封顶（NVIDIA-WSI 的 PresentOptionAsync 差异）</b>也提醒：同样是「关垂直同步」，Mesa 与 NVIDIA 的 WSI 呈现语义不同，做多厂商显示兼容时这段差异必须显式处理。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Steam-Beta-9-September-2026" target="_blank">Steam 客户端 Beta 更新：大画面模式增强 + 多项 Linux 改进</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Valve 发布大型 Steam 客户端 Beta：<b>大画面模式（Big Picture Mode）</b>新增「<b>Big Art Mode</b>」首页选项、首页「推荐」页个人日历、以及支持自定义屏保的<b>屏保功能</b>。通用改进含启动性能与 Steam Input 运行时 CPU 占用下降。Linux 侧：<b>高延迟连接下下载提速</b>、桌面 UI 现会显示 SteamOS 兼容性对话框（安装未验证游戏时）、安装已知不兼容 Proton 的游戏时弹「SteamOS 不支持」提示、<b>SteamRT3 实验 Beta 多项修复</b>，并改进了 Steam 调查用的 Linux 发行版信息收集。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做 Linux 游戏/图形生态的团队，Steam 客户端 Beta 的 Linux 改进（<b>下载提速、Proton 兼容性提示、SteamRT3 运行时修复</b>）是 Valve「把游戏体验压到 Linux 原生」的持续推进——其中 Proton/兼容层提示逻辑直接关乎我们「游戏/AI 应用能否在 Linux 加速器上顺畅跑」的验证链路；SteamRT3 运行时修复也提示运行时容器化的稳定性仍是高频打磨点。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/System76-Thelio-Mira-AI" target="_blank">System76 推出 Thelio Mira AI：AMD Ryzen + NVIDIA/AMD 多 GPU 的 Linux AI 工作站</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        System76 发布 <b>Thelio Mira AI</b> 桌面工作站，面向 <b>多 GPU AI 训练、模型微调、推理、计算机视觉与图像生成</b>，也可用于仿真等 HPC 负载。沿用 Thelio Mira 机箱与 <b>AMD Ryzen 9000 系列</b>平台（Ryzen 7 9700X / 9 9900X / 9 9950X），但增加 GPU 选项与低功耗 CPU 以释放更多给 GPU 的供电余量。GPU 最高可选 <b>AMD Radeon AI PRO R9700</b> 或 <b>NVIDIA RTX PRO 6000</b>，预算充足可上 <b>双 RTX PRO 6000</b>；标配 64GB 内存（可至 192GB）。起价 3,299 美元。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/AI 加速的团队，Thelio Mira AI 是「<b>AMD CPU + 双 NVIDIA/AMD 顶级 GPU</b>」商用多卡工作站的现成参考：多 GPU 供电、散热与内存带宽规划，正是我们部署 zeus 类加速器时要权衡的硬件拓扑；同时它把 AMD Radeon AI PRO 与 NVIDIA RTX PRO 并列可选，也提示 <b>Linux 上多厂商 GPU 混部（ROCm vs CUDA）正成为工作站常态</b>，软件栈的跨厂商兼容值得提前布局。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-10.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-09.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-10</p>
+    <p>覆盖范围：2026-09-09（NVIDIA 615.71.09 驱动 · Nouveau+NVK 跑通 DGX Spark GB10 · XWayland 26.1 RC2 · YSERVER 1.5 Reverse PRIME · Steam 客户端 Beta · System76 Thelio Mira AI）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
