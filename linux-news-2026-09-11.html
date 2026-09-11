@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-11</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 11 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-11.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-10.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-26.3-GFX6-GFX8-Modifiers" target="_blank">Mesa 26.3：RADV + RadeonSI 补齐老 AMD GPU（GCN1.0~Polaris）的 DRM 格式修饰符支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Valve 的 <b>Timur Kristóf</b> 把 <b>AMDGPU GFX6~GFX8（Radeon HD 7000 初代 GCN1.0 一直到 Polaris / Fiji）</b>的 DRM 格式修饰符（format modifiers）合入了当前 <b>Linux 7.3</b> 周期（10 月转 stable），如今对应的<b>用户态一侧（RadeonSI + RADV）也已合入 Mesa 26.3</b>（11 月转 stable，可能回移植到 26.2）。修饰符描述了图像缓冲的 tile / 压缩 / 布局等属性，让这些老卡得以支持<b>基于 Vulkan 的 Wayland 合成器</b>、更好的 <b>OpenGL↔Vulkan 互操作</b>，以及跑在 <b>Zink（OpenGL-on-Vulkan）</b>之上的合成器。GFX9 及更新架构此前已支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形栈的团队，这是「<b>DRM 格式修饰符下沉到老硬件</b>」的补全：它本质是贯通 GPU 厂商布局（tiling/compression）与合成器/跨 API 共享的握手协议。我们 zeus 显示/计算路径若要做多后端 buffer 共享、或让计算产出直接喂给 Wayland 合成器，<b>格式修饰符就是绕不开的互操作原语</b>；而 Valve 亲自推动老卡兼容 Vulkan Wayland，也印证「老硬件 + 新合成栈」是 Linux 桌面的长期主线，值得跟进其 Mesa 侧实现方式。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/NVIDIA-NVK-BAR-Host-Cached" target="_blank">NVIDIA NVK 开源驱动落地一项改进，帮 Valve Gamescope 微合成器提速录制与远程游玩</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        <b>Mary Guillemard</b> 为开源 NVIDIA Vulkan 驱动 <b>NVK</b> 合入一处改动：把 <b>BAR 显存类型暴露为 host cached</b>。改动说明：Nouveau 默认只用 CPU cached 映射（Tegra 需一致性时除外），本补丁让 BAR 内存类型声明为 host cached——<b>Gamescope 会显式寻找「host visible + cached」的内存类型，此前缺这项声明会迫使其对所有可映射分配都选 sysmem</b>。作者称这「至少应能改善游戏录制与远程游玩（remote play）的性能」，已合入 <b>Mesa 26.3</b>，或将回移植到 26.2 stable。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形/显示后端的团队，这条很小但很「教科书」：<b>一个 host cached 内存类型声明的缺失，就让 Gamescope 退化为全 sysmem 分配</b>，直接拖慢录制/串流。它提醒我们：在 zeus 上若要让合成器/串流走显存而非系统内存，<b>内存类型（host visible/cached/coherent）的暴露必须和上层消费者（Gamescope、串流、录制）的预期逐一对齐</b>，否则会静默退化。这类「声明正确但被忽略」的坑，正是 bring-up 期最该提前对照的点。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/X.Org-Server-26.1-Released" target="_blank">X.Org Server 26.1 RC2 发布：自 21.1 以来首个特性版，五年磨一剑逼近稳定</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        <b>X.Org Server 26.1</b> 将是自 <b>2021 年 10 月 X.Org Server 21.1</b> 以来首个新的带版本特性发布，堪称「半代际」更新。本周推出的 <b>RC2</b>（上月已出 RC1）带来 <b>XKB、X Input 等修复</b>与 <b>Meson 构建系统更新</b>，并<b>抬高了 X.Org Server 的扩展版本与视频驱动 ABI</b>——这对 NVIDIA 打包驱动等依赖特定 ABI 版本的各方很关键。稳定版发布在即。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/驱动的团队，X.Org Server 26.1 的 <b>ABI 抬高</b>是必须盯的兼容信号：NVIDIA 闭源驱动、各厂商 DDX 都按 ABI 版本对齐，ABI 一变就要重新适配。它和 XWayland 26.1 的推进一起，勾勒出「<b>X 服务端本体与 XWayland 兼容层同步现代化</b>」的节奏；在 zeus 显示栈上我们要决策「X 兼容层维护到什么程度」，这类发布节点就是评估窗口。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Plasma-6.8-Beta" target="_blank">KDE Plasma 6.8 Beta 发布：vRAM 优化 + KWin 接入 Wayland 提交时序协议 + 多 GPU/多屏增强</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        <b>KDE Plasma 6.8 Beta</b> 已出（稳定版定于 10 月 14 日，恰逢 KDE 项目 30 周年）。亮点含：<b>vRAM 占用优化</b>、Wayland 下 dwell clicker 支持、<b>KWin 接入 Wayland commit-timing 协议</b>、Union 主题引擎改进、远程桌面增强、<b>多 GPU 处理改进</b>、新 <b>kscreenctl</b> 工具、服务端投影（drop shadow）支持、<b>多显示器改进</b>等，并首次把 <b>Kup</b> 作为桌面备份调度器。Wayland 方向打磨尤其密集。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/合成的团队，Plasma 6.8 几乎是「现代显示痛点清单」：<b>vRAM 优化（显存敏感场景）、commit-timing 协议（视频播放/自适应同步时序可控）、多 GPU 与多屏</b>——每一项都和我们在 zeus 上要处理的呈现时序、多屏、多设备拓扑直接对应。KWin 率先吃下 commit-timing 也与 09-09 期 KDE 合入该协议一脉相承，说明 <b>「合成器侧可预测呈现时序」已成主流桌面共识</b>，我们的呈现栈设计应与之对齐而非另起炉灶。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/intel-xeon-600-amd-threadripper-9000" target="_blank">近 400 项基准对决：Intel Xeon 600 工作站 vs. AMD Threadripper 9000（Linux）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        Phoronix 发布大型工作站对比评测，在 Linux 下以 <b>近 400 项基准</b>对 <b>Intel Xeon 600（含新一代平台）</b>与 <b>AMD Threadripper 9000</b> 两大工作站平台做了系统较量，覆盖编译、渲染、编码、HPC 等多类负载，并给出两家的定位差异与适用场景。（注：原文正文因抓取限制未能逐句核对，以下结论来自文章标题与公开摘要。）
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/工作站的团队，这类「<b>近 400 项基准的 Xeon 600 vs Threadripper 9000</b>」是选型最直接的参考：它把「多核吞吐、内存带宽、PCIe 拓扑、单核延迟」在多负载下的真实取舍摆出来。我们部署 zeus 类加速器时，<b>主机 CPU 平台（核心数/内存通道/PCIe lane 数）往往决定加速器能否喂饱</b>——这类对比能帮我们提前判断「计算密集 vs 延迟敏感」负载该选哪条主机路线，也提示 Linux 上的多厂商 CPU 工作站生态已相当成熟。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GIMP-3.2.6-Released" target="_blank">GIMP 3.2.6 发布：启动加载提速，并启动通往 GTK4 的早期准备</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        <b>GIMP 3.2.6</b> 发布，作为去年才从 GTK2 迁移到 GTK3 的 3.0 之后的一次维护性更新，已开始为<b>最终迁移到 GTK4</b>做早期准备（清理废弃 API、使代码更「GTK4 友好」；GTK3→GTK4 比 GTK2→GTK3 侵入性小，但距「GIMP 4.0」仍有时日）。性能上<b>大幅改善了加载大量字体时的卡顿</b>；新增<b>对图层组执行 Cut</b>、绘画用的「Rotation（桶形旋转）」动态输入（适配新 Wacom 笔）；并补齐 macOS 与 Linux/Windows 同步打包、若干安全修复。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形软件/桌面的团队，GIMP 的节奏有两点可借鉴：① <b>「先清废弃 API、再迁 GTK4」的渐进路线</b>比一次性大改更稳，我们若要做 UI 框架升级（如工具链/控件库换代）同样适用；② 它专门优化了「<b>大量字体加载性能</b>」——这类「资源密集初始化」瓶颈在带皮肤/字体的专业图形应用里很常见，提醒我们在 zeus 配套工具上也要对初始化路径做性能审计，而非只看渲染期。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-11.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-10.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-11</p>
+    <p>覆盖范围：2026-09-10（Mesa 26.3 老 AMD GPU 修饰符 · NVK Gamescope 提速 · X.Org Server 26.1 RC2 · KDE Plasma 6.8 Beta · Xeon 600 vs Threadripper 9000 · GIMP 3.2.6）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
