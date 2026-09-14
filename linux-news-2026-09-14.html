@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-14</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 14 日 · 图形 · 显示 · 计算（周末合并版：9/12–9/14）</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-14.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-11.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GTK-4.24-Released" target="_blank">GTK 4.24 发布：更好分数缩放 + 更精准 GDK Frame-Clock，并吃下 Wayland 背景模糊协议</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        周五发布的 <b>GTK 4.24</b> 是 GTK4 工具包最新稳定特性版，紧接下周 <b>GNOME 51</b> 桌面发布。亮点：新增对 Wayland <b>ext-background-effect 协议</b>的支持（可给窗口后方提供模糊背景，如终端毛玻璃效果）；支持 Wayland <b>text input v3.2</b>；<b>更好的分数缩放</b>——通过把内容对齐到设备像素边界（device pixel boundaries）来控制渲染；<b>重新设计了 GDK frame-clock</b> 以提高精度，确保帧按时呈现并减少掉帧（Android 上的 GTK4 也改为与 vsync 对齐帧时序）；SVG 支持大幅改善；并尊重系统的「减少动态效果（reduced motion）」设置。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/桌面的团队，GTK 4.24 把两条主线推到了生产级：① <b>分数缩放「按设备像素边界对齐」</b>——这正是高分屏/混合 DPI 多屏下「糊」与「抖」的根因之一，我们的呈现栈若要支持非整数缩放，应直接借鉴这套对齐策略；② <b>GDK frame-clock 重做 + 与 vsync 对齐</b>——它本质是把「合成器/应用呈现节奏」与显示刷新锁相，与 KDE KWin 的 commit-timing 协议是同一方向的两条腿。在 zeus 显示路径上规划「可预测呈现时序」时，<b>GTK 与 KWin 已分别给出应用层与合成器层的参考实现</b>，值得对照。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.4-AMDGPU-HDMI-2.1-Go" target="_blank">AMDGPU HDMI 2.1 将在 Linux 7.4 默认启用：FreeSync / VRR / ALLM 齐活（FRL 默认开）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        提交到 <b>DRM-Next</b> 的 AMDGPU 新特性拉取请求（由 <b>Alexander Deucher</b> 发出，面向 <b>Linux 7.4</b>）带来：<b>HDMI 2.1 FreeSync、ALLM（Auto Low Latency Mode，自动低延迟模式）、VRR</b> 支持，以及把 <b>HDMI FRL（Fixed Rate Link）默认启用</b>。FRL 此前为避回归默认关闭，待 VRR 等工作就绪后才转正。背景：HDMI Forum 早年拒绝开源驱动实现 HDMI 2.1，今年初（普遍猜测有 Valve 介入）相关补丁开始浮现，FRL 已于 Linux 7.2 落地；7.4 这波将基本补齐。该拉取还带来 <b>GFX12.1 图形引擎、DCN 6 显示引擎、SMU 15</b> 等更新。Linux 7.4 合并窗口预计 10 月下半月随 7.3 stable 就绪后开启。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/驱动的团队，这条是「<b>开源 AMDGPU 终于吃满 HDMI 2.1</b>」的里程碑：FRL + FreeSync + VRR + ALLM 一次性到位，意味着高刷/低延迟游戏与电视场景在主线内核里不再缺功能。它提醒我们两点：① <b>显示引擎（DCN 6）与图形引擎（GFX12.1）是成对演进的</b>，新硬件 bring-up 时显示侧往往滞后于 3D 侧，规划要预留窗口；② HDMI 2.1 这类「标准组织 + 开源实现」的拉锯，说明 <b>合规与功能之间的取舍会长期影响我们对外接口的能力边界</b>，值得跟踪其协议层实现方式。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/KDE-Plasma-6.8-KRDP-Lower-Lat" target="_blank">KDE Plasma 6.8 远程桌面 KRDP 迎来低延迟优化：编码快于客户端时主动丢帧</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        在 <b>KDE Plasma 6.8 Beta</b> 本周发布之外，<b>David Edmundson</b> 还落地了一处 KRDP（KDE 远程桌面）改进：当<b>编码端跑得比客户端能编码更快、导致队列堆积时，主动丢弃到来的帧</b>，作者称这「让延迟保持得非常快（keeps latency very fast）」。本周另有输入法（Input Method）控件改进、剪贴板图像数据与 MIME 动作设置更清晰等打磨。Plasma 6.8.0 稳定版预期 10 月 14 日（正值 KDE 项目 30 周年），Beta 2 在 9 月 24 日。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/串流的团队，这是「<b>远程呈现的背压（back-pressure）处理</b>」的经典一课：当生产者（编码）快于消费者（网络/客户端）时，<b>主动丢帧比无脑排队更能保住交互延迟</b>——和我们做 zeus 远端渲染/串流时的帧调度哲学完全一致。它也印证 <b>「实时性优先于完整性」是远程桌面的第一性原则</b>，我们在设计多屏/远程呈现栈时，应把「队列堆积即丢帧」作为默认策略而非例外。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNOME-Shotwell-33" target="_blank">GNOME Shotwell 33 发布：久违的 GTK4 移植，赶在 GNOME 51 之前</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        <b>Shotwell 33</b> 是这款 GNOME 照片管理器久违的大版本，最显著的变化是从 <b>GTK3 移植到 GTK4</b>。上一次大版本 0.32 还是 2023 年 4 月，之后只有小版本。本期还新增<b>在查看器内打开 URI</b>、重做打印、修复多处内存泄漏与潜在崩溃，并带来大量 bug 修复。发布紧接下周 GNOME 51 桌面。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形/桌面软件的团队，Shotwell 33 是又一个「<b>老牌 GTK 应用完成 GTK3→GTK4 迁移</b>」的范本：它再次印证 GTK4 已是 Linux 桌面应用的事实基线，新项目不应再选 GTK3。对我们而言，若 zeus 配套工具链要绑定桌面环境，<b>GTK4 的向后兼容节奏（ext-background-effect、fractional scaling 等持续增强）就是选型的安全区</b>；同时它「先小版本打磨再大版本迁移」的节奏，也提示大型 UI 迁移宜稳不宜快。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Erik-Faye-Lund-Mesa-Arm" target="_blank">知名 Mesa 开发者 Erik Faye-Lund 离开 Collabora 加入 Arm，继续主攻 PanVK / Panfrost</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        在 Mesa 3D 图形栈贡献多年的 <b>Erik Faye-Lund</b>（以 <b>Zink</b>、以及面向 Arm Mali 的 <b>PanVK（Vulkan）与 Panfrost（Gallium3D）</b>驱动闻名）宣布在 Collabora 工作 8 年后加入 <b>Arm</b>。他表示将继续在上游维护 PanVK / Panfrost 的 Mali 图形驱动，并继续担任 <b>X.Org 董事会成员</b>；长期目标是「让 Arm 在上游协作上做到尽可能好」。其离开 Collabora 的主因是与公司顶层在经营方向上的根本分歧。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形栈的团队，这是一条「<b>厂商亲自下场养开源图形驱动</b>」的信号：Arm 把核心 Mesa 贡献者纳入麾下，意味着 Mali 的 PanVK/Panfrost 上游投入会更稳定、更持续。它印证我们一直押注的方向——<b>开源图形生态里，芯片厂商直接参与上游才是长期正解</b>。对 zeus 这类自研加速器，也可参照：要么自己养上游驱动团队，要么深度绑定社区，避免「外包式贡献」因人事变动而断档。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Linux-NPU-Driver-1.38" target="_blank">Intel Linux NPU 驱动 1.38 发布：正式支持 Ubuntu 26.04 LTS（覆盖 Meteor~Wildcat Lake 全系）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-npu">NPU</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        周五发布的 <b>Intel Linux NPU Driver 1.38</b> 是配合上游 <b>IVPU</b> 内核加速器驱动、用于驱动 Core Ultra 系列 <b>NPU</b> 的用户态开源组件。本期唯一的列明改动却很关键：<b>正式支持 Ubuntu 26.04 LTS</b>（默认 Linux 7.0 内核）——尽管此前已能跑，但这是 Intel 首次在其打包用户态驱动栈中正式认领。已在 <b>Meteor Lake、Arrow Lake、Lunar Lake、Panther Lake、Wildcat Lake</b> 上验证；Ubuntu 24.04 LTS 仍受支持。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做 NPU/计算栈的团队，这条虽「只改了一行支持声明」，却暴露一个常见陷阱：<b>驱动能跑 ≠ 被官方支持</b>——新发行版发布 5 个月后才补齐正式认领，中间用户全靠社区/自行验证。它提醒我们：在 zeus 的 NPU/加速器配套软件栈上，<b>「功能可用」与「发行版官方支持矩阵」必须分开管理</b>，对外承诺要以官方认领的版本为准；同时 Intel 一口气覆盖 5 代 NPU 平台，也提示「多代硬件同栈支持」是加速器软件的基本盘。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-rc3-Released" target="_blank">Linux 7.3-rc3 发布：又一个「相当大」的 RC，文件系统占比偏高</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        <b>Linux 7.3</b> 的第三个每周候选版 <b>rc3</b> 发布，Linus 称之为「又一个相当大（another fairly large）的 RC」。本期文件系统补丁占比偏高（主要是 <b>xfs 与 smb 客户端，外加 netfs、afs、erofs、btrfs</b>）；但 RC 主体仍是驱动侧（这次以声卡与网络驱动为主），另有核心内核/网络、landlock、以及 s390/powerpc 等架构修复。值得注意的是，<b>EROFS 因潜在数据损坏风险停用了 LZ4 rolling 解压</b>。7.3 稳定版预计 10 月下半月，本周期因 AI/LLM 辅助产生的大量修复而格外繁忙。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做内核/计算栈的团队，7.3-rc3 有两点值得盯：① <b>AI/LLM 辅助生成的修复正在大量涌入主线</b>——这是前所未有的节奏变化，意味着我们 review 内核补丁时也要适应「机器辅助产出 + 人工把关」的新常态；② <b>EROFS 因数据损坏风险回退 LZ4 rolling 解压</b>——提醒我们任何「为性能启用优化路径」都要先有可验证的正确性护栏，压缩/解压这类「 silent corruption（静默损坏）」隐患在存储与镜像分发场景尤其致命，zeus 上的数据通路也要建立同样的回归防护。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">8</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Cache-Aware-Scheduling-4-Patch" target="_blank">Cache-Aware Scheduling 再获修复：避免任务被「困在」或「拽离」首选 LLC，并修 use-after-free</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        自 <b>Linux 7.2</b> 合入的 <b>Cache Aware Scheduling（缓存感知调度）</b>持续收到修复：该功能把相关任务聚到<b>共享同一末级缓存（LLC）的核心</b>上，以提升缓存局部性、降低延迟（避免缓存颠簸 cache bouncing）。本周由 Intel 工程师 <b>Tim Chen</b> 领衔的新补丁系列处理两类问题：任务可能被「困在（stranded）」首选 LLC 之外、或被「拽离（yanked away）」其首选 LLC；并修复一处调度代码的 <b>use-after-free</b>。已知未解决的问题：该特性会与 <b>Intel Turbo Boost Max（ITMT）</b>相互干扰，本次未涉及。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/调度栈的团队，缓存感知调度直接关乎「<b>多核上的任务亲和与延迟</b>」——这正是我们部署 zeus 加速器时主机侧 CPU 调度要面对的核心命题：计算任务若跨 LLC 乱跳，缓存命中率崩塌会直接拖累整体吞吐。它提醒我们：① 引入亲和性优化要同步防「任务被困/被拽」的副作用；② <b>新调度特性与既有节能/加速特性（ITMT）的冲突必须提前枚举</b>，否则上线即退化。这类「好意优化引入新干扰」正是系统性调试要提前对照的清单。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">9</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-IO-uring-Crazy-Friday" target="_blank">IO_uring 迎来「疯狂」补丁：阻塞类操作改为内联执行，仅在真正阻塞时才 offload</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        IO_uring 主导者、块子系统维护者 <b>Jens Axboe</b> 放出一组「疯狂（crazy）」RFC 补丁，显著改善内核阻塞行为。现状：对 <b>fsync、statx、openat、xattr、fadvise、splice</b> 等「无 nonblocking 路径」的操作，io_uring 会<b>无条件 punt 到 io-wq</b>——每次请求都付出线程唤醒 + 上下文切换 + task_work 完成往返的开销。新方案改为<b>以阻塞模式内联发出</b>，<b>仅当请求真正阻塞时才付出 offload 代价</b>；一旦阻塞，由空闲 io-wq worker 接管提交者的用户态身份（tid、信号、凭证、调度属性、cgroup 等）完成调用并返回，对用户态透明（同一个 tid 回来，只是换了个 task_struct）。目标合入 Linux 7.4。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/存储栈的团队，这组补丁把「<b>过度保守的 offload 改为按需阻塞</b>」的优化思路讲得很透：原来的设计为了「绝不意外阻塞」宁可每次都付上下文切换税，新版用「身份迁移」技术把税降到只在真阻塞时发生。它对我们设计 zeus 的异步 I/O / 数据搬运路径很有启发——<b>「宁可错杀（全 offload）」与「按需阻塞（身份接管）」之间的工程取舍</b>，直接决定高 IOPS 下的尾延迟；同时它也是「用巧妙机制替代粗粒度锁/线程模型」的范例。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-14.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-11.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-14</p>
+    <p>覆盖范围：2026-09-12 ~ 09-14（GTK 4.24 · AMDGPU HDMI 2.1 默认启用 Linux 7.4 · KDE KRDP 低延迟 · Shotwell 33 GTK4 · Erik Faye-Lund 加入 Arm · Intel NPU 1.38 · Linux 7.3-rc3 · Cache-Aware Scheduling 修复 · IO_uring 优化）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
