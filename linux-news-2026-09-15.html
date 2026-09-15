@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-15</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 15 日 · 图形 · 显示 · 计算（常规单日版）</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-15.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-14.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/linux-73-panther-lake" target="_blank">Linux 7.3 在 Intel Panther Lake / Framework Laptop 13 Pro 上带来性能提升（Arc B390 Xe3 集成显卡接力增益）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在 Ubuntu 26.04 LTS 上，用 Framework Laptop 13 Pro 旗舰机（<b>Intel Core Ultra X9 388H</b>）对比了 <b>Linux 7.2</b> 与 <b>Linux 7.3</b> Git 内核（取自 Ubuntu Mainline Kernel PPA）。背景：Linux 7.1 为 Panther Lake 带来性能改进，7.2 增强了集成 <b>Arc B390 Xe3</b> 显卡性能，7.3 则整体又有多处提升。本次实测未发现明显回退（no scary regressions），在若干项目上有性能增益；结合此前 7.3 在其他硬件（如 AMD EPYC）上的基准，即将到来的 7.3 内核对热门 Panther Lake 笔记本也有收益。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形/计算栈的团队，这条把「<b>内核版本代际对集成显卡与整体性能的实际影响</b>」落到具体硬件：Arc B390 Xe3 在 7.2→7.3 持续吃增益，说明新硬件的驱动/调度红利要在数个内核版本里逐步释放。我们评估 zeus 主机侧内核版本（尤其是调度器、GPU 电源管理、内存子系统）对加速器整体吞吐的影响时，<b>不能只看首版支持，要跟踪 2~3 个版本的累积收益</b>；同时「无回退但有增益」也提示升级内核时的回归测试重点应放在这些增益路径上。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Valve-Steam-Frame-1059" target="_blank">Valve Steam Frame 现已开售，起价 $1059：骁龙 8 驱动的 VR/游戏一体机，100+ 验证游戏</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        Valve 期待已久的 <b>Steam Frame</b> 头显现已开售：256GB 版 <b>$1059</b>，1TB 版 <b>$1299</b>（各地区定价同步公布）。套装含无线 VR 头显与控制器，随购附赠《Half-Life: Alyx》，目前已有 <b>100+ 款 Steam Frame Standalone Verified</b> 游戏。设备由<b>高通骁龙 8（Snapdragon 8）SoC</b> 驱动，采用预约（reservation）系统以限制黄牛。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形/计算栈的团队，Steam Frame 是「<b>独立 VR/游戏一体机跑 Linux 生态</b>」的又一个重量级落地：骁龙 8 SoC 意味着它走 Arm + 移动 GPU 路线，与我们在「异构加速器 + 统一内存」上的关注点一致。100+ 验证游戏说明 Valve 的 Proton/兼容层在 Arm 移动 GPU 上已能撑起一摊生意，对 zeus 这类自研加速器评估「上层运行时兼容（Vulkan/游戏/多媒体）」有参考价值；其预约限量的发行策略也值得在做硬件产品发布时借鉴。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-Enhanced-SMT-Protection" target="_blank">AMD 为 EPYC 虚拟机准备增强型 SMT 保护「ESMTP」：硬件级隔离缓解侧信道（SEV-SNP，opt-in）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        AMD 工程师向 Linux 内核邮件列表提交补丁，开始在 <b>EPYC</b> 服务器处理器（配合 <b>SEV-SNP</b>）上为虚拟机启用 <b>Enhanced SMT Protection（ESMTP）</b>。这是该机制首次出现在内核列表（AMD 白皮书此前已低调发布，推测是 EPYC 9006「Venice」的特性）。与已有的 core scheduling 不同，ESMTP 是<b>硬件级保障</b>：当一个 vCPU 处于 guest 模式时，其所在物理核的 SMT 兄弟线程要么在 host 模式空闲，要么运行该 guest 自己声明的合法兄弟 vCPU，从而缓解 SMT/Hyper-Threading 侧信道风险。需配合 QEMU 与 OVMF 补丁，且仅在启用 SEV-SNP 时可用；因有性能代价（VMRUN 要等兄弟线程就绪），<b>目前为 opt-in 默认不开启</b>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/虚拟化栈的团队，ESMTP 把「SMT 兄弟线程的信任边界」从内核策略（core scheduling 的 cookie 协调）上移到<b>硬件强制</b>，是侧信道防护的范式升级。它提醒我们：① 在 zeus 做多租户/虚拟化隔离时，「兄弟线程共享核资源」本身就是攻击面，硬件级隔离优于 OS 级策略；② <b>opt-in + 性能代价</b>的设计哲学值得借鉴——安全特性默认不强制，留给租户按威胁模型自选，避免一刀切拖垮普遍负载。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Firefox-156" target="_blank">Firefox 156 发布：内置 PDF 阅读器启动最快提速 45%，Vulkan Video 解码仍留 nightly</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Mozilla 提前发布了 <b>Firefox 156.0</b> 二进制（正式公告周二）。主打<b>内置 PDF 阅读器启动最快提速 45%</b>；性能侧还改进了显示大幅缩放后适配网页的大尺寸 <b>JPEG</b> 时的内存与 CPU 占用。修复包括部分网站高采样率 <b>FLAC in MP4</b> 失败等问题。值得注意：<b>nightly</b> 中已为较新 NVIDIA GPU + 新版驱动启用 <b>Vulkan Video 解码</b>，但 156 正式版仍将其留在 nightly 门后。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/渲染栈的团队，这条有两点启发：① PDF 阅读器启动 45% 提速与「大 JPEG 缩放后内存/CPU 优化」都指向同一命题——<b>渲染管线的冷启动与内存 footprint 直接决定交互体感</b>，和我们做 zeus 呈现层「首帧延迟/资源占用」的优化目标一致；② Vulkan Video 解码已在 nightly 为 NVIDIA 启用却未进正式版，印证「<b>新图形后端先夜间版灰度、再随驱动成熟转正</b>」的稳妥节奏——我们评估给 zeus 引入新渲染后端/硬件加速路径时，也应先做可选/实验通道，而非默认开启。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNU-Coreutils-9.12" target="_blank">GNU Coreutils 9.12 发布：cut -w 吞吐最高 4 倍、uniq -c 快 2.5 倍，新增 uname 标注选项</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        <b>GNU Coreutils 9.12</b> 发布，包含一系列修复、新选项与性能改进。修复了 chcon/chgrp/chmod/chown/du/ls 用递归 <b>-R</b> 遍历时若文件被并行删除会失败的长期 bug；stat 与 tail 现支持新的 <b>FailFS</b> 与 <b>NULLFS</b> 文件系统类型；uname 新增 <b>-A/--all-labeled</b> 选项，逐行标注并展示全部输出。性能侧：<b>cut -w</b> 吞吐最高提升 4 倍，<b>uniq -c</b> 在使用未锁 stdio 的系统上最高快 2.5 倍，<b>sort</b> 在读取管道等未知大小输入时更好地利用可用内存与并行；cp/install/mv 在 <b>--reflink=auto</b> 因各类错误（如 XFS 元数据空间耗尽）失败时回退到标准拷贝。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/工具链栈的团队，Coreutils 虽属「基础用户态」，其优化却击中我们日常数据流与构建流水线的痛点：① cut -w/uniq -c 的吞吐与并行改进，对日志/数据处理脚本的端到端耗时直接相关；② sort 更好地用满内存与并行、cp/mv 的 reflink 回退，暗示「<b>现代文件/文本工具已默认吃多核与 CoW 文件系统</b>」——我们在 zeus 配套脚本与数据搬运逻辑上应主动利用 reflink/并行，而非仍按单线程思维写。基础件的小版本也可能显著改变大规模流水线的尾部延迟。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-15.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-14.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-15</p>
+    <p>覆盖范围：2026-09-14 ~ 09-15（Linux 7.3 性能提升 Panther Lake · Valve Steam Frame 开售 · AMD ESMTP EPYC 虚拟机 · Firefox 156 PDF 提速 45% · GNU Coreutils 9.12）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
