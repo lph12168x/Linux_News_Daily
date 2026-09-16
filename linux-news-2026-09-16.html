@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-16</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 16 日 · 图形 · 显示 · 计算（常规单日版）</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-16.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-15.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.4-Land-AVX-512-xor-gen" target="_blank">Linux 7.4 将合入 AVX-512 优化版 xor_gen()：软件 RAID 奇偶校验提速显著（Google 主导）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        过去数月在社区流转的 <b>AVX-512 优化版 xor_gen()</b> 补丁现已排队，预计随 <b>Linux 7.4</b> 合入主线。该函数用于 Linux <b>软件 RAID</b> 代码中生成与校验 <b>RAID5 / RAID6 的奇偶校验块</b>，此前已显示出相当可观的性能增益。这项由 <b>Google 的 Eric Biggers</b> 主导的工作，延续了他为 Linux 加密/校验代码引入 AVX-512 等现代 ISA 能力的一贯路线。受益对象为 <b>AMD Zen 4 及更新</b>、以及当前支持 AVX-512 的 <b>Intel 服务器 CPU</b>；公开基准基于 <b>AMD Ryzen 9 9950X</b>。最新第 5 版修订已在上周通过 TIP 的 <b>x86/fpu</b> 分支排队（commit c0a44d1），7.4 合并窗口在 <b>10 月下半</b>开启。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/存储栈的团队，这条是「<b>用宽 SIMD 指令重写内核热路径</b>」的典型样本：xor_gen() 是软件 RAID 每个写操作都要走的校验内核，把它从标量/SSE 提升到 AVX-512 能在不换硬件的前提下拿到可观吞吐。启发有三：① 我们在 zeus 侧做数据搬运、校验、聚合类内核时，应系统性排查「仍停留在标量/窄 SIMD」的热点，宽 SIMD 的性价比往往高于加机器；② 值得关注 512 位向量在能效（频率回落、许可切换）上的权衡，避免只看峰值吞吐；③ 上游经验表明<b>这类补丁通常要迭代 4~5 版才进主线</b>，团队内部推动类似优化时应预留多轮评审周期。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.4-AMD-P-State-Zen-6" target="_blank">AMD P-State 驱动将为 Zen 6 客户端 CPU 调优：三类核心 EPP 分别调参（瞄准 Linux 7.4）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在 <b>Linux 7.4</b> 合并窗口前，针对 <b>Zen 6 客户端 CPU</b> 的 <b>AMD P-State 能效偏好（EPP）</b>调整已被提交。关键变化：ACPI EPP 在 Zen 6 客户端 CPU 上将表现出不同行为，并<b>针对性能核与密集/能效核分别给出不同调参</b>，同时纳入 <b>AMD 新增的低功耗核心类型</b>（该 core type 机制在 Linux 7.3 引入）。除三类核心使用不同数值外，驱动还改为<b>由频率值计算 boost ratio</b>，而不再使用任意的性能刻度。这批补丁随 AMD P-State 的其他修复一起通过 pull request 发往 Linux 电源管理子系统的 <b>-next</b> 分支，明确标记为 Linux 7.4。同期 AMD Radeon 侧，<b>HDMI 2.1</b> 也将在 Linux 7.4 默认启用（含 HDMI FreeSync、VRR、ALLM）。7.4 稳定版按进度可能于 12 月底发布，与传闻中 CES / 2027 上半年的下一代 Ryzen 上市节奏基本吻合。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/能效调优的团队，这条的价值在于「<b>异构核心的调度与调频已从内核通用逻辑下沉到厂商专属调参</b>」：Zen 6 把核心分成性能核、密集能效核与新的低功耗核三类，EPP 需要按核心类型分别标定，这本质上和我们在 zeus 上区分加速器/通用核的能效策略同构。另外「boost ratio 从任意性能刻度改为按频率值计算」是一次<b>从近似模型回到物理量</b>的修正，提醒我们做功耗/性能建模时应尽量以频率、电压等可测物理量为基准，避免引入难以校准的经验刻度。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/ubuntu-2610-wildcat-lake" target="_blank">Ubuntu 26.10 将为 Intel Core 3 Wildcat Lake 笔电带来更好性能（Linux 7.2 + Mesa 26.2）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        在 CHUWI UniBook（<b>Intel Core 3 304 SoC</b>、8GB 内存、256GB NVMe）这类低价笔电上，<b>Ubuntu 26.04 LTS</b> 已可开箱即用，而 10 月发布的 <b>Ubuntu 26.10</b> 会进一步释放性能。差异来自软件栈整体升级：<b>内核从 Linux 7.0 升到 Linux 7.2</b>，图形栈升级为 <b>Mesa 26.2</b>。本次对比使用截至 <b>9 月 13 日</b>的 26.10 开发版与打了全部稳定更新的 26.04 LTS。Ubuntu 26.10 beta 预计 9 月底发布，正式版 <b>10 月 15 日</b>。文章还预告将有后续一篇，专门探讨可选的 <b>amd64v3 二进制</b>对 Wildcat Lake 的影响；Intel <b>Panther Lake</b> 同样受益于这一轮升级。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形/计算栈的团队，这条把「<b>发行版升级的实际收益拆成内核代际 + Mesa 代际两个来源</b>」，是评估新硬件平台可用性的好参照：新低功耗 SoC 图形性能的大头往往不在首发，而在随后一两个内核与 Mesa 版本中释放。结合此前 Panther Lake 在 7.2→7.3 仍在增益的结论，可以给 zeus 相关平台的适配定一条经验线——<b>把「图形栈版本代际」列为交付基线的一部分</b>，并在选型评估中做跨发行版/跨 Mesa 版本的对照基准，而非只看单一发行版的首发表现。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Fedora-45-Beta" target="_blank">Fedora 45 Beta 发布：KMSCON 取代内核控制台、GNOME 51、新增 DRM Panic 前端</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        <b>Fedora 45 Beta</b> 如期发布。显示与内核侧的重点：用 <b>KMSCON</b> 取代内核内控制台（in-kernel console，改为用户态控制台实现），并引入 <b>DRM Panic 前端</b>，在内核出错时给出更友好、更易用的显示界面。桌面为 <b>GNOME 51</b>。其余更新包括 Anaconda 安装器支持 <b>Stratis</b> 存储、默认限制 <b>ptrace</b> 以提升安全性、默认强制签名校验、并推进包构建可重现。工具链版本：<b>GCC 16.2、LLVM 23、Glibc 2.44、Go 1.27、Python 3.15、RPM 6.1</b>。正式版计划 <b>10 月 20 日</b>发布，兜底日期 10 月 27 日。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/系统栈的团队，两个变化值得记下：① <b>KMSCON 取代内核控制台</b>，意味着控制台渲染从内核态搬到用户态、复用 DRM/KMS 路径，方向与我们做显示透明化、把复杂渲染逻辑留在用户态的原则一致；② <b>DRM Panic 前端</b>把内核崩溃信息变成可读画面，是「<b>底层子系统直接参与呈现</b>」的又一例证。同时注意 LLVM 23 / GCC 16.2 这类激进工具链版本配合默认 ptrace 限制与强制签名，会让用户态组件的编译与调试约束变严——我们为 zeus 准备发行版适配层时，需要把「默认安全策略收紧」当作显式的兼容性风险项来评估。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/OpenAPV-1.1.1" target="_blank">OpenAPV 1.1.1 发布：APV 专业视频编解码参考实现大更新（PBU 解码 + AVX2 / ARM NEON）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        作为 <b>Advanced Professional Video（APV）</b>编解码器的开源参考实现，<b>OpenAPV 1.1.1</b> 发布，接替此前的 v0.3.0。版本号跨度较大是因为项目采用 <b>APISET.MAJOR.MINOR.PATCH</b> 方案：<b>v0.3.0.0 是 API set 0 的收官版本，本次是首个携带 API set 1 的版本</b>，而 API set 0 完全保留、未做任何删除，仍受支持。新版本引入基于 <b>PBU（Primary Block Unit）</b>的解码；新增使用<b>更小 tile</b> 的 profile，以更好利用并行度并支持更细粒度的部分解码。此外新增<b>自定义内存分配器</b>支持，可让编解码器脱离 C 库堆；并加入新的 <b>AVX2 与 ARM NEON</b> 优化、SIMD kernel 代码清理与健壮性改进。项目由 Academy Software Foundation 托管，后续将在不同硬件上公布 APV CPU 基准。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形/媒体栈的团队，APV 瞄准的是专业级（近无损、帧内、高色深）制作流程，而 OpenAPV 1.1.1 的三个动作都指向<b>可并行性与内存可控性</b>：更小 tile 提升解码并行度、PBU 解码细化粒度、自定义分配器把内存受控权交回上层。这与我们在 zeus 上把多媒体编解码从通用堆搬到自有内存管理、并追求片内并行的思路高度一致。另一个可借鉴点是它的<b>API set 版本策略</b>——通过「API set 递增 + 旧集合完全兼容」实现大版本演进而不破坏既有集成，比语义化大版本断裂更适合被长周期产品依赖。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/SDL3-Ported--To-HarmonyOS" target="_blank">SDL3 上游新增 HarmonyOS / OpenHarmony 支持：已合并进上游 SDL Git</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        广泛用于游戏与应用的跨平台软硬件抽象库 <b>SDL3</b>，现已获得对华为 <b>HarmonyOS / OpenHarmony</b> 的上游支持。这项工作由知名 Linux 游戏移植者 <b>Ryan "Icculus" Gordon</b> 完成，由游戏工作室 <b>Outfit7</b> 赞助。HarmonyOS 是华为面向手机、平板、PC、智能设备等开发的分布式操作系统，采用<b>微内核设计</b>；OpenHarmony 则是其开源分布式系统分支。据 Icculus 介绍，该移植<b>已在真实硬件上测试通过，并已有商业游戏在实际使用</b>，且自即日起<b>已合并到上游 SDL Git</b>（PR #16281）。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做图形/游戏栈的团队，这条的意义在于「<b>跨平台图形抽象层多覆盖一个操作系统</b>」所释放的杠杆：SDL3 一并抽象了窗口、输入、音频、GPU（Vulkan/Metal/D3D 等后端），它一旦支持某个平台，上层引擎与游戏就能以极低成本进入。我们评估 zeus 的软件生态时，应把「<b>是否被 SDL/SDL_GPU、Vulkan、FFmpeg 这类事实标准抽象层覆盖</b>」作为比自研 SDK 更硬的采纳门槛；同时「由社区移植者 + 一家游戏工作室赞助完成、并直接上游合入」这种低成本落地路径，也值得作为推动外部生态适配 zeus 的参考范式。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-16.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-15.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-16</p>
+    <p>覆盖范围：2026-09-15 ~ 09-16（Linux 7.4 AVX-512 xor_gen · AMD P-State Zen 6 客户端调优 · Ubuntu 26.10 Wildcat Lake 性能 · Fedora 45 Beta KMSCON/DRM Panic · OpenAPV 1.1.1 · SDL3 支持 HarmonyOS）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
