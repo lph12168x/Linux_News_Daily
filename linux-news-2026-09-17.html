@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-17</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 17 日 · 图形 · 显示 · 计算（常规单日版）</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-17.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-16.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/GNOME-51-Released" target="_blank">GNOME 51 正式发布：Mutter 帧调度改进提升响应性，移除旧版 NVIDIA EGLStreams 支持</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        <b>GNOME 51</b> 如期正式发布，正好赶在 <b>Ubuntu 26.10</b> 与 <b>Fedora Workstation 45</b> 的采纳窗口之前。本次最核心的是 <b>Mutter</b> 的一组改进：通过<b>更好的帧调度（frame scheduling）</b>提升桌面响应性与整体流畅度，并新增若干 <b>Wayland 协议</b>支持（例如 <b>ext-background-effect-v1</b>），同时<b>移除了对旧版 NVIDIA 驱动的 EGLStreams 支持</b>。Mutter 还开始支持<b>自定义指针加速曲线（custom pointer acceleration profiles）</b>。应用层也有一批更新：设置项改进、GNOME Maps 支持离线地图、GNOME Software 启动更快、GNOME Calendar 更快，以及 <b>GNOME File Previewer 界面全面重做</b>。完整变更见官方发布说明 release.gnome.org/51/。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/合成栈的团队，GNOME 51 的三个动作值得单独记下：① <b>帧调度成为桌面合成器的核心竞争点</b>——Mutter 这轮改进与 GTK 4.24 的 GDK frame-clock 重做、KDE KWin 合入 commit-timing 是同一波趋势，说明「<b>谁能把帧的提交时机交给应用并精确控制</b>」正在决定桌面流畅度上限；② <b>彻底移除 EGLStreams</b> 标志着一个历史兼容分支正式谢幕，也提醒我们旧路径的清理通常滞后硬件支持数年，维护自有显示栈时需显式规划弃用节点；③ <b>帧调度 + 背景模糊协议 + 指针曲线</b>都属于「时序与感知质量」类优化，成本低、收益直接，是 zeus 侧显示方案中优先级很高的投入方向。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Mesa-26.2.3-Released" target="_blank">Mesa 26.2.3 发布：回移 AMD GFX1171（RDNA 4m）目标，RADV/RadeonSI/ANV/NVK 齐修</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        <b>Mesa 26.2.3</b> 发布，是 26.2 系列最新的稳定点版本。这个由 <b>Eric Engestrom</b> 维护的<b>双周节奏</b>点版本，把当前 <b>Mesa 26.3</b> 开发代码中的大量修复回移：AMD GPU 方面有多个 <b>RadeonSI 与 RADV</b> 修复；Qualcomm Adreno 方面有 <b>Freedreno 与 Turnip</b> 修复；Intel <b>ANV</b> 修复中包含针对 <b>X-Plane 12</b> 飞行模拟器的 workaround；<b>Asahi Gallium3D</b> 把原先只对 Firefox 生效的 workaround 扩展到 <b>Zen 浏览器</b>，以解决撕裂与渲染问题；<b>NVK</b> 修复了内存泄漏。此外 <b>AMD GFX1171</b> 目标也被回移到 26.2.3——它上月才进 Mesa 26.3，属于 GFX117x 系列中的又一个 <b>「RDNA 4m」</b>变体，特点是<b>并非完整的 GFX12/RDNA4 实现</b>，目前公开信息仍然有限。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做 GPU 驱动/图形栈的团队，这条有两个可操作信号：① <b>「RDNA 4m」这类降级/裁剪变体正在稳定地进入 Mesa 主线与稳定回移通道</b>，意味着 AMD 在消费级之外的衍生 SKU 会持续以既有驱动栈为基础小步适配，而不是另立驱动分支——我们做自有加速器命名与驱动分层时，可参考这种<b>「同一后端 + 细粒度目标开关」</b>的收敛策略，避免为每个 SKU 分裂代码路径；② 点版本把<b>游戏 workaround 与内存泄漏修复</b>作为主要回移内容，说明驱动栈的稳定性成本大头在「应用兼容 + 资源生命周期」而非新特性，zeus 侧的驱动验收清单应把这两类列为常规回归项。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Miracle-WM-0.11" target="_blank">Miracle-WM 0.11 发布：新增「华丽的」overview 模式，吃下整批 ext_ 协议</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示</span>
+      </div>
+      <div class="news-body">
+        Canonical 工程师 <b>Matthew Kosarek</b> 发布了 <b>Miracle-WM 0.11</b>，这是构建在 <b>Mir 库</b>之上的 Wayland 合成器的夏末更新。本次主推特性是全新的 <b>overview 模式</b>，作者形容其「非常华丽」，目的是帮助在多个窗口与工作区之间快速选取，可通过单击或双击主操作键呼出。0.11 还新增了<b>窗口 urgency 支持</b>（某个窗口或非当前工作区请求聚焦时给出提示），并让插件支持<b>发布 IPC 事件与处理 IPC 命令</b>。合成器同时用上了 Mir 更新版的协议支持，包括 <b>ext_image_copy_capture_manager_v1</b>、<b>ext_output_image_capture_source_manager_v1</b>、<b>ext_foreign_toplevel_list_v1</b>、<b>ext_data_control_manager_v1</b>、<b>ext_input_trigger_action_manager_v1</b> 与 <b>ext_input_trigger_registration_manager_v1</b>。该版本基于 <b>Mir 2.29</b> 构建。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做显示/合成栈的团队，Miracle-WM 的价值不在知名度，而在它<b>是一个由单个厂商工程师维护、把新协议快速落地的「先行样本」</b>：<b>ext_image_copy_capture</b> 系列（屏幕捕获）、<b>ext_foreign_toplevel_list</b>（跨合成器窗口列表）、<b>ext_data_control</b>（剪贴板管理）都是目前桌面体验短板所在，抢先把它们做通的项目会暴露真实的协议边界与性能问题。另外 <b>overview 模式</b>这类全屏合成效果对 GPU 有明确要求（多窗口实时缩放合成），正是能压出驱动瓶颈的负载类型，值得作为我们验证显示/合成路径的参考场景；而「<b>插件 + IPC 事件/命令</b>」的扩展模型也比编译期插件更利于生态生长，可作为 zeus 侧显示扩展机制的设计参考。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/ubuntu-2610-amd64v3-lowend" target="_blank">Ubuntu 26.10 amd64v3 对低端笔电同样有效：$449 Wildcat Lake 机型实测（1P+4LPE / 8GB）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        Canonical 近期开始产出 <b>Ubuntu 26.10 的 amd64v3 每日 ISO</b>，配套其已试运行数个版本周期的<b>试验性 amd64v3 软件包仓库</b>，不过官方是否在 26.10 正式采用仍未公布。<b>amd64v3 / x86_64-v3</b> 构建可以假定 CPU 具备 <b>AVX/AVX2、BMI2、MOVBE、FMA</b> 等较新的 ISA 能力——这些能力在 <b>Intel Haswell 之后</b>或 <b>AMD Excavator 之后</b>的 CPU 上已经具备。此前 Phoronix 的 amd64v3 基准多在高性能硬件上进行，本次刻意下沉到入门级：使用 <b>$449 的 CHUWI UniBook</b>（Intel Wildcat Lake 平台、<b>Core 3 304</b>、<b>1 个 P 核 + 4 个 LPE 核</b>、<b>8GB 内存</b>），先在纯 amd64 每日构建上跑一遍，再在同一台机器上把全部二进制换成 amd64v3 重跑对照。结论是：<b>即便在低端/预算级硬件上，amd64v3 带来的性能收益仍相当可观</b>。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算栈与平台适配的团队，这条提供了一个重要的<b>反直觉结论</b>：ISA 基线提升的收益并不只属于高端 CPU——低端小核平台同样吃得到，因为 <b>AVX2/FMA 这类能力对向量化代码路径是开关式的</b>，而不取决于绝对算力。可落地的启发有三：① 评估 zeus 相关软件栈时，应把「<b>发行版是否提供 x86-64-v3 及以上基线构建</b>」作为显式选项，尤其在算力受限的入门场景中性价比极高；② 反过来也提醒我们做<b>多基线分发</b>的成本管理——amd64 / v3 / v4 多份二进制会放大构建与验证矩阵；③ 低端平台往往是<b>内存带宽与核数受限</b>，向量化收益会被访存瓶颈稀释，评价时应以端到端工作负载而非微基准为准。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/OpenVDB-SIMD--Framework" target="_blank">OpenVDB 13.1 引入 SIMD 框架：点传输算法在 AVX-512 上获得 2~4 倍提升</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">图形</span>
+      </div>
+      <div class="news-body">
+        <b>OpenVDB</b> 是 Academy Software Foundation 维护的<b>稀疏体积数据结构与工具库</b>，被 Houdini、RenderMan、Cinema 4D 乃至开源 Blender 等 CGI 软件用于处理稀疏体数据，还曾获得<b>奥斯卡技术成就奖</b>；如今在 2026 年，它终于建立了自己的 <b>SIMD 框架</b>以更好利用现代 x86 ISA 能力。随 <b>OpenVDB 13.1</b> 发布的主要变化是引入面向 ISA 向量化的 SIMD 框架，先在 x86 上提供<b>显式 intrinsics 支持</b>，初期采用 <b>Agner Fog 的 VectorClass Library</b>，覆盖到 <b>AVX-512</b>。当以 <b>USE_VCL=ON</b> 选项构建时，收益相当可观：<b>首批改造的「点传输（point transfer）」算法在具备 AVX-512 的现代 x86_64 CPU 上取得 2 倍到 4 倍性能提升</b>。该版本同时带来 NanoVDB 在 <b>CUDA 资源管理</b>与更快 kernel 上的增强，以及 <b>vdb_tool</b> 命令行程序的改进。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算/图形核心库的团队，这条是最好的「<b>老牌标量代码向量化</b>」案例研究：一个拿过技术成就奖、被大量商业 DCC 依赖的成熟库，直到 13.1 才有体系化的 SIMD 框架，说明<b>存量代码里沉睡的向量化空间普遍被低估</b>。三点可借鉴：① 它<b>先用成熟的 VectorClass Library 拿到收益，而不是自研 intrinsics 封装</b>——在 zeus 侧同样应优先复用力学验证过的向量库，把自研预算留给真正特殊的算子；② 收益集中在<b>点传输这类规则访存密集算子</b>（2~4x），与我们做数据搬运/重排/聚合内核的场景高度同构，可作为筛选优化目标的启发式；③ 以 <b>编译开关（USE_VCL=ON）</b>方式引入而非默认开启，兼顾了可移植性与收益，值得作为我们引入新 ISA 路径的发布策略模板。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-SEV-TIO-TDISP-Linux-Patches" target="_blank">AMD 提交 SEV-TIO TDISP 补丁：为 EPYC 9006「Venice」打通 PCIe 6.0 机密计算直通 I/O</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        AMD 发布了面向 <b>EPYC 9006「Venice」</b>处理器的最新一批内核补丁，目标是启用 <b>SEV-TIO TDISP</b>——该能力由 <b>PCI Express 6.0 及更新版本</b>支持。名字很长：<b>Secure Encrypted Virtualization Trusted I/O Trusted Execution Environment Device Interface Security Protocol</b>。其中的 <b>TEE Device Interface Security Protocol（TDISP）</b>由 PCIe 6.0+ 提供，用于在<b>机密计算环境中安全地做直通 I/O 设备分配</b>；在 AMD 这边就是配合其 <b>SEV（安全加密虚拟化）虚拟机</b>使用。本次共 <b>17 个内核补丁</b>发往内核邮件列表，让 guest 能够对<b>支持 PCIe TDISP 规范的设备建立信任</b>，并通过<b>私有内存</b>与该设备交互。值得注意的是，这项工作包含一个<b>通用 TEE Security Manager（TSM）</b>，由 AMD 与 <b>Intel、Arm、RISC-V</b> 协作开发，用于处理 TDISP、PCIe 加密、设备证明等各 CPU 厂商实现之间的共性部分。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做加速器与 I/O 数据通路的团队，这条的价值在「<b>设备直通的安全边界正在从软件约定升级为 PCIe 协议级能力</b>」：过去 confidential VM 里把设备透给 guest，加密与可信性靠驱动约定；TDISP 把<b>设备身份证明、私有内存交互、接口安全状态机</b>写进链路层规范，意味着以后加速器要在 confidential 场景被采用，<b>协议支持会成为硬门槛而非可选项</b>。三点需提前布局：① 关注通用 <b>TSM</b> 这一跨厂商抽象层——它能显著降低设备厂商分别适配 Intel/Arm/RISC-V/AMD 的成本，zeus 若要走这条路线，跟进 TSM 比自建更划算；② <b>TDISP 绑定 PCIe 6.0+</b>，说明安全特性与链路代际强耦合，硬件规划时要把代际选择与安全路线一起定；③ 此类能力默认对<b>性能与驱动复杂度都有代价</b>，建议按业务敏感度分级启用，而非全量打开。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-17.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-16.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-17</p>
+    <p>覆盖范围：2026-09-16 ~ 09-17（GNOME 51 正式发布 · Mesa 26.2.3 回移 AMD GFX1171 · Miracle-WM 0.11 overview 模式 · Ubuntu 26.10 amd64v3 低端笔电实测 · OpenVDB 13.1 SIMD 框架 · AMD SEV-TIO TDISP + PCIe 6.0）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
