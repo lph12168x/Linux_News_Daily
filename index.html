@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-18.html">
+    <span class="entry-date">09-18</span>
+    <span class="entry-main">
+      <div class="entry-title">内核 DRM 拟统一显存统计口径（新增 sysfs「memstat」接口，Igalia 发起 RFC，附 AMDGPU 示例实现） · Khronos 发布 OpenCL 3.1.2：cl_khr_command_buffer 正式转正（可录制回放命令缓冲区） · Intel Compute Runtime 26.35：Nova Lake S 默认启用基于 Level Zero 的 OpenCL「LEO」，并引入可移植 ISA「PISA」（对标 NVPTX，同步上游 LLVM） · Intel NPU 驱动新增命令队列优先级 ioctl（已有队列可动态改优先级，瞄准 Linux 7.4） · Fujitsu MONAKA 正式发布（144 核 ARMv9 / 2nm 3D 堆叠 / 内存 8800MT/s / 主打主权 AI 推理，11 月供货） · 工作站 SMT 实测：Xeon 678X 开超线程仅 +11%，Threadripper 9980X 开 SMT 快 16~18%</div>
+      <div class="entry-hint">今日（9/17 EDT）图形/显示/计算方向 6 条：Igalia 的 <b>Tvrtko Ursulin</b> 再提 RFC，要为 DRM 驱动建立<b>厂商无关的标准化显存统计</b>，形态为 sysfs 的 <b>/sys/class/drm/card1/memstat/</b>，按内存区域（vRAM、GTT）暴露<b>总容量(MB)与已用量</b>，驱动只需实现一个上报区域列表的回调，随附 <b>AMDGPU 示例补丁</b>，起因是安装器需按可用显存计算 swap 大小；<b>OpenCL 3.1.2</b> 由 Khronos 发布，<b>cl_khr_command_buffer 脱离实验状态正式定稿</b>（录制并回放命令缓冲区以削减重复入队开销，NVIDIA/Intel/Google/Codeplay/Qualcomm 共同推进）；<b>Intel Compute Runtime 26.35.39758.10</b> 在即将推出的 <b>Nova Lake S</b> 上于 Linux 端<b>默认启用 LEO</b>（构建在 Level Zero 之上的 OpenCL 实现，现有核显/独显仍为实验状态），并初步支持 <b>Intel PISA</b>——面向 Intel GPU 的<b>可移植 ISA</b>，目标对标 <b>NVIDIA NVPTX</b> 且已在推进 <b>LLVM 上游后端</b>；Intel NPU 经本周 drm-misc-next 引入 <b>DRM_IVPU_PARAM_CMDQ_PRIORITY</b> ioctl，可查询/更新已有命令队列优先级，<b>挂有待处理作业的队列也能动态改</b>且固件需第一时间响应；<b>Fujitsu MONAKA</b> 正式发布，2nm 3D 堆叠（核心 2nm + 缓存/IO 5nm）、最高 3.8GHz、内存 8800MT/s、面向 AI 推理的矩阵运算专用指令 + SVE2，1U 风冷 144 核 @2.1GHz / 液冷 @2.9GHz，每路 12 条 RDIMM + PCIe Gen6，11 月起供货；Phoronix 工作站 SMT 实测（Fedora 44 + Linux 7.1 + GCC 16.2）显示 <b>Xeon 678X 开 HT 提升 11%</b>，而 <b>Threadripper 9980X 在 48 核与 64 核下开 SMT 都快 16~18%</b>，且<b>开 SMT 时功耗反而略低</b>…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-09-17.html">
     <span class="entry-date">09-17</span>
     <span class="entry-main">

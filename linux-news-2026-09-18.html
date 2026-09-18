@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-18</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 18 日 · 图形 · 显示 · 计算（常规单日版）</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-18.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-17.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Standardize-vRAM-Stats" target="_blank">内核 DRM 终于要统一显存统计口径：新提议为跨厂商驱动引入 sysfs「memstat」接口</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        「把不同厂商显卡的显存用量统计统一起来」这件事被讨论过多次，但到 2026 年仍未进入 Linux 主线内核。本周 Igalia 的 <b>Tvrtko Ursulin</b> 再次发起 RFC，希望为 <b>Direct Rendering Manager（DRM）驱动</b>建立一套<b>厂商无关（vendor agnostic）的标准化内存统计</b>接口。背景很朴素：有开发者希望在<b>系统安装阶段依据本机可用显存正确计算 swap 分区大小</b>，但过去各家驱动给出的显存信息格式、位置、语义都不一致，无法通用。新提议的形态是 sysfs 接口，例如 <b>/sys/class/drm/card1/memstat/</b>，在其下按<b>内存区域</b>（如 vRAM、GTT）分目录，每个区域同时暴露<b>总容量（MB）</b>与<b>当前已用量</b>。这套接口需要各 DRM 驱动配合：驱动只需提供一个简单回调，上报<b>内存区域列表及其统计</b>，内核便会以统一形式在 memstat 目录下呈现。随 RFC 一起提交的还有一份针对 <b>AMDGPU 内核驱动</b>的示例实现补丁，便于讨论具体形态。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条对做加速器软件栈的团队是个「<b>把私有指标做成公共契约</b>」的典型样本。当下显存/内存用量监控各家各写一套——amdgpu 的 sysfs 节点、xe/i915 的 debugfs、NVIDIA 私有接口、NPU 驱动自己的 ioctl，上层工具与应用只能逐个适配，误差与维护成本都高。能借鉴三点：① <b>指标定义先于实现</b>——提案选择「按区域暴露 total + used」这一最小且可组合的语义，而没有试图定义复杂的分配器内部统计，这种克制是它能被多厂商接受的前提；zeus 侧对外暴露资源指标时同样应优先固定<b>稳定、语义清晰、跨版本不变</b>的最小集合；② <b>驱动只实现回调、由框架统一呈现</b>的分层，避免了每个驱动自造 ABI，这正好对应我们监控/可观测性接口应有的分层——内核侧最小钩子、用户态统一读取路径；③ 从<b>安装器需要算 swap</b> 这种真实下游需求倒推接口设计，比自顶向下规划更快收敛，值得作为我们收集外部需求的方法论。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/OpenCL-3.1.2-Released" target="_blank">Khronos 发布 OpenCL 3.1.2：cl_khr_command_buffer 正式转正，命令缓冲区可录制回放</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        <b>Khronos Group</b> 发布 OpenCL 规范的 3.1.2 修订版，改动不多但含金量高：核心扩展 <b>cl_khr_command_buffer 已完成定稿、脱离实验状态</b>。该扩展提供的能力是<b>录制并回放 OpenCL 命令缓冲区</b>——把一批命令先录制成缓冲区，之后反复回放，<b>目的是削减同一份负载被反复入队（enqueue）所带来的一次性开销</b>，对固定流水线、迭代求解、推理中反复执行的算子序列尤其有意义。该扩展由 <b>NVIDIA、Intel、Google、Codeplay、Qualcomm</b> 等多方共同参与推进，这通常也是它得以从实验转为正式规范的直接原因。除此之外，3.1.2 还统一了<b>内存对象相关 API 的错误码文档口径</b>，并补充了若干澄清。规范更新已随 <b>KhronosGroup/OpenCL-Docs v3.1.2</b> 标签发布。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做计算栈、尤其是要自己发起 kernel 序列的团队，这条是「<b>降低主机侧发射开销</b>」路线的一个标准化信号。它解决的问题我们并不陌生：算子粒度越来越小、序列越来越长时，单次 kernel 的执行时间可能被宿主侧的命令构建与提交摊薄甚至淹没。三点值得跟进：① <b>command buffer 的语义与 CUDA Graph / Level Zero 的类似机制同源</b>，一旦成为 OpenCL 正式扩展，跨厂商、跨后端复用的「可录制命令序列」抽象就有了公共基础，做后端抽象层时可以把它当作统一落点，而不是为每家 API 各写一套图捕获；② 参与厂商覆盖了三条主要 OpenCL 路线（NVIDIA / Intel / 移动与 ADAS 侧），说明<b>实验到正式的门槛主要不在技术可行性，而在多方驱动的实现共识</b>，评估新扩展时可以把「有多少家实现」作为比规范文本更可靠的成熟度判据；③ 与同期 Intel 在 Compute Runtime 里铺 <b>LEO（基于 Level Zero 的 OpenCL）</b> 的动作合看，OpenCL 生态正被拉回「<b>统一前端 + 厂商后端</b>」的架构，这对我们减少后端碎片化的工作方向是顺风。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Compute-Runtime-26.35.397" target="_blank">Intel Compute Runtime 26.35：Nova Lake S 上默认启用基于 Level Zero 的 OpenCL「LEO」，并引入可移植 ISA「PISA」</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body">
+        Intel 发布月度特性版 <b>Compute Runtime 26.35.39758.10</b>（Windows + Linux 的 OpenCL / Level Zero GPU 计算栈），其中两处变化值得记下。第一，<b>OpenCL LEO 驱动在即将到来的 Nova Lake S（NVL-S）处理器上于 Linux 端默认启用</b>。LEO 是今年登场的<b>实验性 OpenCL 实现，构建在 Level Zero API 之上</b>，而不是像传统 Intel OpenCL 驱动那样直接面向硬件；对现有的 Intel 核显与独显，LEO 目前仍被标记为实验状态。第二，开始引入对 <b>Intel PISA（Portable ISA）</b>格式的初步支持。按 <b>PISA v0.1 文档</b>，它是面向 Intel GPU 的<b>可移植 ISA 规范</b>，作为通用并行编程的编程模型与指令集，目标是：为瞄准 Intel GPU 的编译器提供<b>稳定、可移植的 ISA</b>、提供<b>接近机器的性能</b>、并支撑手写库与内联汇编等高级编程。其定位被类比为 <b>NVIDIA 的 NVPTX</b>，Intel 同时也在推进把 <b>PISA GPU 后端上游到 LLVM</b>。此外本次还合入：基于 host 函数的外部信号量、应用 OpenVINO 相关 AIL 的新钩子、Sysman 的 Info Log API 实现与初始复合温度支持、内存 Vendor ID（VID）读取；Linux 专属部分则是让内核驱动集成能够<b>等待 event 的 host 同步</b>。OpenCL 侧还带来 <b>cl_khr_spirv_queries</b> 支持、<b>cl_khr_command_buffer 基础设施</b>，以及 Crescent Island 的 defer backing 等持续启用工作。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条是本期对加速器软件栈最有参考价值的一条，因为它同时展示了两种战略动作。<b>架构层面</b>：Intel 把 OpenCL 前端架在 Level Zero 之上做成 LEO，并选择在新一代 Nova Lake S 上<b>默认启用</b>，实质是把「<b>统一前端 + 分层后端</b>」确立为主路线——用户态前端只对接一层稳定的运行时抽象（Level Zero），硬件差异下沉。这对 zeus 的直接启发是：<b>应该尽早把「对上层暴露的运行时接口」与「硬件相关的实现细节」切开</b>，让前端与算子层不随硬件代际重写；默认启用也说明 Intel 认为这条路径已可承担真实负载，而非仅作实验。<b>ISA 层面</b>：<b>PISA</b> 对标 NVPTX、并推进 LLVM 上游，意味着 Intel 希望把 GPU 的编译目标从「某代硬件的私有 ISA」提升为<b>跨代稳定的可移植目标</b>，从而让编译器、手写库、内联汇编不必每代重做。三点可落地：① 评估 zeus 的编译/代码生成路径时，优先确认是否已有<b>可视为稳定契约的 ISA 抽象层</b>，没有则这是收益最高的补白；② PISA 走 LLVM 上游意味着将来可以直接借力 LLVM 生态（调试、性能分析、多语言前端），<b>自建 ISA 后端的机会成本会明显上升</b>；③ LEO + PISA 同时推进，本质是在赌「<b>前端统一、后端可移植</b>」能压缩长期维护成本，zeus 的路线选择应把「十年期维护成本」而非「首版实现速度」纳入权重。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-NPU-Linux-7.4-CQ-Priority" target="_blank">Intel NPU 驱动新增命令队列优先级 ioctl：已有队列可动态改优先级，瞄准 Linux 7.4</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-npu">NPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">
+        本周发往 <b>drm-misc-next</b> 的 DRM 素材拉取请求已就绪，赶在 <b>Linux 7.4 合并窗口</b>前进入 DRM-Next。对终端用户而言这一周内容偏平淡——多为小型 DRM 驱动的底层改进与内部调整，硬件支持方面新增 <b>R-Car V4H 的 DSC</b>（用于 RCar-DU 驱动）以及 <b>ssd130x 驱动对 Solomon SSD1351 OLED</b> 的支持。但对使用 Intel NPU 的用户有一个实质新特性：<b>新增的 DRM_IVPU_PARAM_CMDQ_PRIORITY ioctl 可查询并更新 Intel NPU 上一条已存在命令队列的调度优先级</b>。关键在于「已存在」——对于<b>已经挂有待处理作业的命令队列</b>，优先级也能被<b>动态修改</b>，且 NPU 固件应当在<b>第一时间响应</b>这一变更。这对 NPU 上同时跑高、低优先级负载的场景很实用。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条的价值不在功能体量，而在它暴露了加速器调度的真实缺口。当下 NPU/加速器的用户态调度多靠「<b>排队顺序 + 一次性设定</b>」：任务一旦入队，优先级就固定了，遇到长耗时低优先级作业占住队列、而高优先级请求（如交互式推理）后到时，只能等或另开上下文。Intel 这次把优先级做成<b>可在队列存活期内改写</b>的属性，并明确要求固件尽快响应，等于把「<b>抢占/让路</b>」这一调度语义下沉到了驱动固件接口层。三点对 zeus 有直接参考意义：① 如果 zeus 的队列模型目前是<b>创建时定死优先级</b>，那么支持运行时改优先级是低改动、高收益的一步，尤其能改善多租户与交互式负载的尾延迟；② 接口定义选择了「查询 + 更新」对称能力，便于用户态实现反馈式调度策略，我们定义 ioctl 时应保留查询侧，否则策略只能盲调；③ 「固件应在第一时间响应」是<b>把调度响应性写进契约</b>的表述，值得学习——性能接口若不明确响应时限，实际行为会因固件版本而异，长期难以维护。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Fujitsu-MONAKA-Launches" target="_blank">Fujitsu 正式发布 MONAKA：144 核 ARMv9、2nm 3D 堆叠，主打主权 AI 推理，11 月起供货</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        从两年前首批幻灯片流出、到 <b>GCC 15 上游编译器支持</b>，Fujitsu 的 Arm 服务器处理器 <b>MONAKA</b> 一直备受关注，本周终于<b>正式发布，并将于 11 月起开始供货</b>。MONAKA CPU 与 MONAKA 服务器定位于<b>主权 AI 基础设施</b>，Fujitsu 称其具备「世界级 AI 推理性能」。技术要点：采用 <b>2nm 3D 堆叠架构</b>——<b>核心用 2nm、缓存与 I/O 部分用 5nm</b>，按功能选择最优工艺以兼顾成本与能效，并结合其独有<b>超低电压运行技术</b>；<b>最高工作频率 3.8GHz</b>、<b>内存速率最高 8800MT/s</b>。面向 AI 推理最核心的<b>矩阵运算提供专用指令做硬件加速</b>，配合 <b>SVE2 向量运算</b>与软件优化，Fujitsu 宣称实现<b>约为其他 CPU 两倍的 AI 推理吞吐</b>——即仅靠 CPU 就能达到实用的推理性能，从而在供电与散热受限的场所也能按需部署。产品形态上，<b>1U 风冷整机为 144 核 @2.1GHz，液冷版本为 @2.9GHz</b>；<b>2U 风冷同样运行 144 个 ARMv9 核心 @2.1GHz</b>；每路支持 <b>12 条 RDIMM</b>，并支持 <b>PCIe Gen6</b>。欧洲市场要到 2027 年才会更广泛供货。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条的信息量在于「<b>纯 CPU 路线的 AI 推理</b>」正在被重新当作一等目标。多数加速器叙事里 CPU 只是编排者，MONAKA 的做法是反过来：在 CPU 内为<b>矩阵运算专门加指令</b>，叠加 <b>SVE2</b> 与软件优化去争推理吞吐，并以「<b>供电与散热受限场景也能部署</b>」作为卖点。对做加速器与 RDMA 的团队，三点值得留意：① <b>内存速率 8800MT/s、每路 12 条 RDIMM、PCIe Gen6</b> 共同指向一个判断——当推理瓶颈从算力转向<b>数据供给</b>时，带宽与链路代际会比峰值算力更决定实际吞吐，这与我们做 RDMA 关注点的方向完全一致；② 「主权 AI」定位意味着这类芯片会优先出现在<b>对数据出域敏感</b>的部署中，这类环境往往也有自建高速互连需求，是 RDMA/加速器方案的潜在落地场景；③ MONAKA 走的是 <b>ARMv9 + SVE2 + 专用矩阵指令</b> 路线，与 x86 的 AVX-512 优化路线并行——我们在指令路径优化上不宜只盯 x86，<b>SVE 这类向量 ISA 的可变长特性对算子写法的影响</b>值得提前了解。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/amd-zen5-intel-gnr-ws-smt" target="_blank">工作站 SMT 实测：Xeon 678X 开超线程仅 +11%，Threadripper 9980X 开 SMT 快 16~18%</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">
+        这是 Phoronix 在 <b>HP Z4 G6i</b> 工作站送测期间做的最后一批评测，作为本月早些时候「<b>Intel Xeon 600 对决 AMD Threadripper 9000</b>」（400 余项基准）的续篇，专门考察<b>超线程 / SMT 在当代工作站平台上的真实收益</b>。测试配置：<b>Intel Xeon 678X</b>（Granite Rapids WS）默认 <b>48 核 / 96 线程</b>，随后关闭 Hyper Threading 变成 48 核 / 48 线程；<b>AMD Ryzen Threadripper 9980X</b>（装在 System76 Thelio Major 工作站内）默认 <b>64 核 / 128 线程</b>，分别在 SMT 开与关下测试，另外还通过 BIOS 按每 CCD 启用 6 核的方式配成 <b>48 核</b>，与 Xeon 678X 的核心/线程数对齐。软件环境为 <b>Fedora Workstation 44 + Linux 7.1 内核 + GCC 16.2</b>，同时记录 CPU 功耗与温度。结论（几何平均）：<b>Xeon 678X 开启超线程带来 11% 性能提升；Threadripper 9980X 无论在 48 核还是满配 64 核下，开 SMT 都比关闭快 16~18%</b>。此外，<b>开启 SMT 时 CPU 功耗反而略低</b>于关闭时；两种设置下<b>热表现差异不大</b>；9980X 运行在 48 核时峰值频率通常高于 64 核配置，从而影响了两者的热行为。
+      </div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>对做服务器/加速器性能工程的人，这组数据可以拆掉一个常见直觉：「<b>超线程只是给延迟敏感负载凑数、还会推高功耗</b>」。实测反过来——在混合负载下 SMT 是净收益，且<b>开 SMT 时功耗略低</b>（同样工作量由更多逻辑核分担、单位时间更短），热表现基本无差。三点可用结论：① <b>两家 SMT 收益存在明显差距（11% vs 16~18%）</b>，说明 SMT 效率已成微架构差异的重要维度，选型与容量规划时不能只看物理核数与标称 TDP，<b>应按「有效吞吐核数」折算</b>；② 对<b>吞吐型负载（批处理、并行编译、向量化计算）SMT 应默认开启</b>，而为延迟确定性要求极高的场景保留关闭选项并按 profile 切换，比全局统一更合理；③ 由于评测已把 9980X 降到 <b>48 核与 Xeon 精确对齐</b>，这组数据可直接用于「同核数、同线程数」下的横向比较，做容量模型时是一份难得的同基准样本——建议我们内部做性能容量估算时也坚持这种<b>对齐配置再对比</b>的做法，避免把配置差异误读为架构差异。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-18.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-17.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-18</p>
+    <p>覆盖范围：2026-09-17 ~ 09-18（DRM 显存统计标准化提议 · OpenCL 3.1.2 · Intel Compute Runtime 默认启用 OpenCL LEO + PISA · Intel NPU 命令队列优先级 ioctl · Fujitsu MONAKA 144 核 · Granite Rapids WS vs Threadripper Zen 5 SMT）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
