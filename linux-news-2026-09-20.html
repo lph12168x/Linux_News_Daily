@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-20</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 20 日 · 图形 · 显示 · 计算（周末合并版）</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-20.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-18.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Intel-Xe-vRAM-Health-Check" target="_blank">Intel Xe 驱动为 Linux 7.4 加入 vRAM 健康检查与坏页下线：显存坏了也能优雅降级</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">本周又一批面向 <b>Linux 7.4</b> 的 Intel Xe 内核图形驱动改动送出，主题集中在<b>显存健康与硬件显存退化（degraded vRAM）的处理</b>。其一是引入一套<b>基础 vRAM 健康检查</b>：在早期 probe 阶段<b>拿最后一张 vRAM page 当「金丝雀」</b>，用来体检 <b>BAR sizing、CCS sizing、identity map 建立</b>等环节——哪里出错，最后一张 page 往往就是最先暴露问题的地方。Intel 工程师 <b>Matthew Auld</b> 说明主要动机来自 <b>CCS sizing</b>：部分 <b>BMG（Battlemage）</b>显卡上 <b>CCS offset 被错误对齐</b>，而驱动对该情况的处理本身也有缺陷（<b>由 Linus 发现</b>），结果导致<b>一部分 CCS 存储被当作普通 VRAM 纳入分配器</b>。目前该检查由内核编译选项 <b>CONFIG_DRM_XE_DEBUG_MEM</b> 门控，生产环境不会触发。<br>
+        其二是更实质的一步：经过<b>长达 21 轮评审</b>，Xe 驱动终于合入<b>内存页下线（memory page offlining）</b>支持，可<b>永久隔离故障显存、不让后续分配再复用</b>，并把坏页信息通过 <b>DebugFS 暴露给用户态</b>；此外还新增了<b>按引擎（per-engine）idle 状态</b>的 DebugFS 输出。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是「<b>把显存当有寿命的耗材来管</b>」的一次工程化落地，而不是又一个性能补丁。三点值得留意：① <b>最后一张 page 当金丝雀</b>这个手法很值得借鉴——显存地址错误的症状往往在别处（随机崩溃、数据错乱）才浮现，但根因常落在<b>地址空间边界</b>上，用末端 page 做冒烟测试是极低成本的早期暴露手段，我们的加速器/驱动自检设计里可以照搬；② <b>CCS（压缩元数据）与实际数据地址空间错位</b>这类 bug 的破坏力在于「<b>默默吃掉容量</b>」，不崩不报错，只是可用显存莫名变少——这类静默错误比崩溃更难查，也说明<b>元数据区与数据区的一致性需要显式校验</b>；③ <b>把退化显存永久 carve out + 通过 DebugFS 告知用户态</b>是正确方向：硬件坏页不必然导致整卡报废，但前提是<b>驱动、运行时、上层框架对「可用显存会缩水」这件事有统一认知</b>。这也呼应本周 DRM 界在推的<b>显存统计标准化</b>——只有容量/用量口径统一了，上层才能据实做调度与容错。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/More-AMDGPU-For-Linux-7.4" target="_blank">AMD 为 Linux 7.4 再送 HDMI FRL 更新：修音频使能，并顺带把 RDNA1 的 CU 占用率上报接进计算栈</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示 display</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">AMDGPU 维护者 <b>Alex Deucher</b> 于周四送出 <b>amd-drm-next-7.4-2026-09-17</b> 批次的特性更新，赶在 <b>10 月 Linux 7.4 合并窗口</b>之前进入 DRM-Next。显示侧仍是主线：<b>HDMI FRL（Fixed Rate Link）相关修复</b>包括<b>修好音频使能</b>，并<b>补强代码测试覆盖（含针对 HDMI 的 KUNIT 测试）</b>；同时为<b>即将推出的 AMD 图形硬件</b>带来一批修复与更新，覆盖 <b>GFX12.1 图形块、DCN6 显示引擎</b>等 IP。更值得计算方向关注的是，<b>RDNA1 / GFX10 硬件的 CU 占用率（CU occupancy）上报终于接进 AMDKFD 计算驱动</b>，另有 <b>GFX12.1 的 AMDKFD 修复</b>。整批还包含 UALink、UserQ、SDMA 软复位、PCIe 上报、Runtime PM 的 P2P 修复、DC MALL、DP MST 与 USB4 修复等大量条目。Linux 7.4 稳定版预计在<b>今年年底</b>前后发布。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条把<b>显示链路</b>与<b>计算运行时</b>两条线放在了一起看。① <b>HDMI FRL 的「音频使能」修复</b>提醒我们，高带宽链路的验证不能只盯视频：FRL 换用固定速率链路后，音频、元数据、时序包的打包路径都跟着变，<b>音视频不同步或静音</b>这类问题往往源于链路层而非解码层——做显示/媒体通路时要把「音视频联合回归」列成必测项；② <b>RDNA1 的 CU occupancy 上报补齐</b>看似老硬件收尾，实际关乎<b>可观测性</b>：占用率是判断 kernel 是否真把任务压到计算单元、以及 occupancy 低是资源冲突还是调度问题的关键指标，<b>老架构补齐观测能力，才能让旧卡在新负载下有可分析的基线</b>，这与我们做 RDMA/加速器性能分析时强调「先把计数器打通再谈优化」是同一套方法论；③ 条目里 <b>GFX12.1、DCN6</b> 出现在此时点，说明新一代 IP 的 enablement 已经进入合并前密集修复阶段，<b>值得提前对照我们 zeus 架构的 bring-up 节奏，看哪些验证项可以前置</b>。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Apple-Video-Decode-AVD-Linux" target="_blank">Apple 视频解码驱动 AVD 提交上游评审：M1/M2/M3 硬解 H.264/H.265/VP9，M3 起支持 AV1</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示 display</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">Asahi Linux 项目通往上游内核的最新一批 Apple Silicon 使能代码，是用于 Apple <b>M1 / M2 / M3</b> SoC <b>硬件视频解码加速</b>的 <b>AVD（Apple Video Decoder）驱动</b>。<b>Sofus Forstreuter</b> 在周五提交了 <b>14 个补丁</b>供内核邮件列表评审。这是一款<b>反向工程得到的开源驱动</b>，支持 <b>H.264、H.265、VP9</b>；<b>M3 及更新芯片还支持 AV1</b>。驱动实现 <b>V4L2 的 M2M stateless decoder API</b>，预计后续会扩展到 <b>M4 / M5 / M6 以及 Neo SoC</b>，针对新硬件的<b>固件开发已在推进</b>（Asahi 在 <b>AsahiLinux/avd-fw</b> 仓库维护自家 AVD 固件）。<br>
+        硬件设计上 AVD 相当特殊：它<b>不遵循「一个参数一个寄存器」的常规做法，而是通过单个寄存器编程</b>，因此<b>写入顺序很重要，还必须保证写入速度不超过硬件处理速度</b>。驱动的解法是把「指令」写入一串 <b>segment</b> 列表，再由共享函数提交给硬件，并在硬件落后时逐次等待。该 IP 还内含一颗接受未签名代码的 <b>Cortex-M3 协处理器</b>——CM3 并非必需，但它是获取解码状态中断的唯一途径；目前 CM3 只负责解码调参配置并<b>把中断转发给 AP</b>，未来会扩展为承载指令提交，届时<b>有望降低功耗，初步测试甚至显示解码略快</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条的价值不在于「Apple 又能看了」，而在于它展示了<b>从零把一块没有文档的编解码 IP 做进标准内核框架</b>的完整路径，对我们做自研加速器的驱动很直接可用。三点：① <b>V4L2 M2M stateless 是当下视频解码驱动的正确落点</b>——把「解析码流元数据」与「硬件解码」拆开，用户态（如 VA-API/FFmpeg）负责无状态地逐帧喂参数，驱动只做提交与保序。我们的硬件若有类似形态，<b>优先对齐 V4L2 stateless 而不是自造 ioctl</b>，才能直接落到 Firefox/FFmpeg 等已有通路里；② AVD 的「<b>单寄存器 + 必须保序、不能快过硬件</b>」暴露了一个通用陷阱：当命令提交是<b>有状态、有速率限制</b>的，驱动与硬件之间必须有明确的<b>背压（back-pressure）机制</b>，否则表现为偶发花屏或挂死。<b>用 segment 列表 + 逐次等待来建模，比在驱动里散落 delay 更可控</b>；③ 把 <b>Cortex-M3 从「中断中继」演进为「指令提交引擎」以省功耗</b>这一手，是典型的<b>把顺序无关的搬运交给低功耗小核</b>思路——与我们关注的「主机省电、加速器自治」方向一致，值得放进架构备选。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Steam-Frame-Uses-Zink" target="_blank">Steam Frame 的 OpenGL 走 Zink：Valve 在骁龙平台选择「OpenGL on Vulkan」而非原生驱动</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-display">显示 display</span>
+      </div>
+      <div class="news-body">Valve 的 <b>Steam Frame</b> VR 一体机采用高通 <b>Snapdragon 8 Gen 3</b> SoC 与 Adreno 图形核心，此前已知其 <b>Vulkan 侧使用 Mesa 的开源 Turnip 驱动</b>。本周谜底揭开另一半：其 <b>OpenGL 走的是 Mesa 的 Zink 驱动</b>，即在 Vulkan 之上实现 OpenGL。<br>
+        耐人寻味之处在于，Mesa 本身已有面向高通 Adreno 的<b>原生 OpenGL 驱动 Freedreno Gallium3D</b>，但 Valve 仍然选择了通用的 <b>OpenGL-on-Vulkan</b> 路线。Valve Linux 图形团队、Zink 主要开发者之一的 <b>Mike Blumenkrantz</b> 在博客中确认了这一情况，并写道：「<b>在 Android 和原生环境上，一路都是 Zink（zink all the way down）</b>。」Steam Frame 本周已开售，起价 <b>1059 美元</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是一个很有信息量的<b>架构取舍样本</b>：同一个平台上明明有专用驱动，却选了通用翻译层。① 对企业级交付而言，<b>减少驱动组合数比单点性能更值钱</b>——保留一套原生 Gallium3D 意味着要同时维护两条 GL/VK 路径的一致性与 bug 修复，而 Zink 把「<b>GL 语义正确性</b>」集中在一处，剩下的性能问题全部收敛到 Vulkan 驱动（Turnip）这一侧，<b>可维护面显著收窄</b>；② 这也说明 <b>Zink 的成熟度已经跨过了可量产的门槛</b>：早年 Zink 常被诟病翻译开销与兼容性，如今被 Valve 用在消费级量产设备上，等于一次公开背书，<b>对只提供 Vulkan 的 GPU 厂商是利好</b>——只需把 Vulkan 做扎实，GL 生态可低成本继承；③ 对我们做加速器软件栈的启示是：<b>当上层存在多个历史 API 时，用一层薄翻译收敛到单一「源语」，比并行维护多套原生实现更容易保证长期一致性</b>，前提是翻译层要有独立、充分的兼容性回归。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/ubuntu-2610-strix-halo" target="_blank">Strix Halo 在 Ubuntu 26.10 上再获性能提升：切到实验性 amd64v3 包还能再涨一截</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body">在 <b>Ubuntu 26.10</b> beta 发布前，Phoronix 用一批系统做了横向验证，本期聚焦 AMD Ryzen AI Max+「<b>Strix Halo</b>」。测试平台为 <b>Framework Desktop</b>，搭载 <b>AMD Ryzen AI Max+ 395</b> 与 <b>Radeon 8060S</b> 核显，三组对照：<b>Ubuntu 26.04 LTS</b> 基线 → <b>Ubuntu 26.10 每日 ISO（截至 9 月 16 日）</b> → <b>Ubuntu 26.10 且从通用 amd64 包切换到实验性 amd64v3 包</b>。结论方向明确：<b>26.10 相比 26.04 LTS 整体表现更好，而采用 amd64v3（x86_64-v3）快照/每日 ISO 还能再拿到「开箱即得」的额外收益</b>。文中也提到 Strix Halo 在过去一年半里「<b>老化得相当好</b>」，在 Linux 下性能与能效表现俱佳。对于跑 Framework Desktop、Ryzen AI Halo 或 HP ZBook Ultra G1a 的用户，26.10 是一个值得期待的版本。该评测共 <b>7 页</b>，具体分项倍数需查看完整结果页。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条的重要性在于它把「<b>发行版版本</b>」和「<b>二进制 ISA 基线</b>」两个变量分开摆了：<b>前者靠内核/Mesa 新版拿到常规收益，后者靠重新编译整个用户态再吃一层</b>。① <b>amd64v3 的意义是让编译器可以假定 AVX2 / BMI2 / MOVBE / FMA</b>，对向量化密集、字符处理、数据搬运类负载收益最直接。结合用户态整包重编，它不是「换个内核」那种边际改善，而是<b>全栈指令选择的上台阶</b>，对我们的构建流水线有直接参考价值：<b>在自研组件里维护 x86_64-v1/v3 双基线构建，正在从可选项变成常规做法</b>；② 但也必须记住它的<b>代价是硬件兼容门槛</b>——amd64v3 会把老 CPU 排除在外，因此更可能是「按机型/按镜像」而非全站默认，这一点对本项目此前关注的 <b>低端笔电实测</b>结论是一致的（低端但较新的平台同样受益）；③ 方法论上，这组三档对照（LTS / 新版本 / 新版本+v3）是<b>拆分归因的正确姿势</b>：把「版本收益」与「ISA 收益」混在一张表里，很容易把重编译的功劳记到发行版头上，我们内部做性能回归时也应坚持这种分层开关式对比。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-FRED-Fix-For-Wine-Games" target="_blank">「不是 Mesa 的锅」：内核 FRED 缺陷导致 Panther Lake 上《艾尔登法环》《荒野大镖客 2》崩溃，修复已进 x86/urgent</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">近期 Mesa 收到多起报告，称 <b>Intel Panther Lake</b> 图形在部分游戏上快速崩溃或冻结，典型症状为 <b>《荒野大镖客 2》启动即崩溃循环</b>、<b>《艾尔登法环》运行 2~3 分钟后冻结</b>。追查结果出人意料：<b>这不是 Intel Xe3 Arc B390 驱动在 Panther Lake 上的 bug，而是内核侧新引入的 FRED（Flexible Return and Event Delivery）问题</b>——FRED 随 <b>Core Ultra Series 3</b> 处理器登场，并被近期版本的内核启用。<br>
+        Linux 开发者 <b>Matthew Schwartz</b> 定位并修复了该问题：<b>在启用 FRED 的情况下，被拒绝的 INT 指令其 #GP 信号上下文被重建错误</b>。他解释，<b>错误的 error code 与保存的 IP 破坏了 Wine 对 INT 0x2d 的处理</b>，从而使《艾尔登法环》在 Panther Lake 上抛出<b>虚假的访问违例（spurious access violation）</b>。补丁已排入 <b>tip/tip.git 的 x86/urgent 分支</b>，预计当周末即提交主线，目标为 <b>Linux 7.3</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这是一条典型的「<b>症状在图形栈、病灶在内核 ABI 语义</b>」案例，价值远超单款游戏的修复。三点：① <b>报障路径与根因路径可能完全不重合</b>：用户在 Mesa 提 issue，实际是 FRED 对旧式中断指令语义的重建偏差。<b>遇到「新硬件 + 新版内核 + 特定老软件」组合下的诡异崩溃，应优先怀疑新 CPU 特性改变了既有 ABI 的隐含语义</b>，而不是先归罪于最上层的驱动/框架；② <b>FRED 这类「事件投递机制换代」的影响面被低估了</b>——它改的是中断/异常进入与返回的底层契约，而 <b>Wine 这类模拟层恰恰高度依赖对异常上下文（error code、保存 IP）的精确解读</b>。凡是「靠精确模拟 x86 异常行为」过日子的软件（模拟器、兼容层、调试器、热补丁框架）都是潜在受害方，<b>内核在改动此类语义时，应把兼容层列入回归对象</b>；③ 从工程节奏看，问题在 <b>x86/urgent</b> 分支快速收敛并直奔 7.3，也说明 Intel 新平台上市后，<b>「内核 + Mesa + 兼容层」三方联合验证</b>已经是不可省的一环——这正是我们做新架构 bring-up 时最容易漏掉的一段：<b>不只是自己的驱动跑通，而是既有生态的隐式假设是否仍然成立</b>。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Ubuntu-26.10-With-Linux-7.3" target="_blank">Ubuntu 26.10 临时升配内核：从 Linux 7.2 改为 Linux 7.3，10 月 15 日发布</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">一个令人愉快的意外：即将发布的 <b>Ubuntu 26.10（Stonking Stingray）</b>将搭载 <b>Linux 7.3</b> 内核，而非原定的 <b>Linux 7.2</b>。Canonical 内核团队在 5 月时基于当时的对齐计划宣布 26.10 走 7.2，本月早些时候又在一则 Discourse 公告中<b>重新调整为 7.3</b>：理由是<b>上游 Linux 7.1 与 7.2 周期均未出现延迟，且 7.3-rc1 已发布</b>，团队对 7.3 有足够信心。目前 7.3 内核已从 -proposed 口袋<b>推进到 Ubuntu 26.10 归档</b>，用于下周的 beta 发布。<br>
+        时间安排上：Ubuntu 26.10 定于 <b>10 月 15 日发布</b>，<b>内核冻结在 10 月 1 日</b>，因此正式 ISO 会带着<b>尚未稳定的预发布内核状态</b>出货；若 Linux 7.3 按期发布则为 <b>10 月 18 日</b>，若需要追加一个 RC 则顺延至 <b>10 月 25 日</b>——届时可通过稳定版更新补上。由于 26.10 并非 LTS，Canonical 在追新上更为激进。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条对「<b>我该拿哪个版本当性能与兼容基线</b>」有直接决策价值。① <b>26.10 把内核从 7.2 提到 7.3，对本项目近期关注的硬件是有实质意义的</b>——Panther Lake、Strix Halo、Wildcat Lake 等新平台的支持与调优大量落在 7.3 周期内（含本周刚修好的 <b>FRED 游戏崩溃</b>、<b>Btrfs FSID 回归</b>），<b>基线抬一档，等于少踩一批已知坑</b>；② 但要注意 <b>「内核冻结 10/1，正式版 10/15」意味着首发 ISO 会带预发布内核</b>：如果我们的测试机要用 26.10 做正式性能验收，<b>务必记录并锁定具体内核版本号</b>，否则不同时间点的 ISO 之间不可比，这会直接污染性能回归数据；③ 从流程角度看，Canonical「<b>因为上游不延迟就顺势升档</b>」的做法值得学习：<b>把「上游节奏是否健康」作为基线选型的输入条件</b>，而不是机械按时间表锁定一个固定版本——这种「有依据地向上对齐」能在几乎零风险的前提下拿到整代新特性，我们做内部基线升级时也可以引入同样的判断依据。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">8</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Kbuild-Faster-v3" target="_blank">内核编译时间再降一档：kbuild 提速补丁 v3，Apple M2 上增量构建快 45~55%、no-op 构建快 74~76%</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算</span>
+        <span class="tag tag-kernel">内核</span>
+      </div>
+      <div class="news-body">过去数周备受关注的 Linux 内核编译提速补丁迎来<b>第三版</b>：由 <b>Arm 工程师 Lorenzo Stoakes</b> 提交，共 <b>20 个补丁</b>，已 rebase 到最新上游 Linux Git，并处理了 <b>Sashiko</b> 报出的警告，其余多为小改动。这条线的起点颇为特别——最初是 <b>由 AI 辅助发现内核构建代码中的重大瓶颈</b>，随后才进入工程化优化（此前报道的增量构建收益一度可达约 <b>70%</b>，目标是在 <b>Linux 7.4</b> 落地）。<br>
+        本轮新增了 <b>Apple M2</b> 上的数据，收益同样非常可观：<b>用 Clang 做全量内核构建约快 10%</b>；<b>增量构建在 Clang 下快 55%、GCC 下快 45%</b>；<b>no-op 构建（在已编译好的源码树上直接 make）快 74~76%</b>。这一量级与 AMD x86_64 上的结果大致相当，说明优化命中的是<b>与架构无关的构建流程开销</b>，而非某个平台的指令级细节。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条对<b>每天都要编内核的人</b>是实打实的产能收益，也是「<b>构建系统本身就是性能工程对象</b>」的一次有力示范。三点可迁移的经验：① <b>收益最大的恰恰是 no-op 与增量构建（74~76% / 45~55%），而非全量构建（约 10%）</b>——这与实际开发者的用法完全吻合：日常开发几乎全是改一个文件再增量编译。<b>优化要把力气花在高频路径上，而不是只优化「从头构建一次」这个低概率场景</b>，我们自己的构建流水线同样应优先治理增量与空转开销；② <b>x86_64 与 Apple M2 上收益量级相近</b>，说明瓶颈在<b>文件遍历、依赖求解、任务调度等通用逻辑</b>里，与 CPU 架构无关——这类问题在跨平台项目里几乎必然存在，值得对我们的构建系统做一次同类审视；③ 更值得注意的是<b>发现路径：由 AI 辅助定位瓶颈、再由资深工程师完成并多轮迭代（已到 v3）并修复 AI 引入的问题</b>。这是一条健康的人机协作范式——<b>AI 负责在庞大代码里做广域筛查与候选排序，人负责语义正确性与长期可维护性</b>，而不是把「AI 找到的优化」直接合入。v3 处理 Sashiko 报告警告这一步，正是这种把关在流程上的体现。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">9</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.4-Faster-Do-Open" target="_blank">两年前就该做的优化：Linux 7.4 让只读打开文件快约 39%，改动仅三四十行</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">Linux 7.4 将引入一个历时两年多、经过 <b>5 轮修订</b>的小补丁，却能带来相当可观的收益：优化 VFS 的 <b>do_open()</b> 路径，<b>消除一次多余的 dentry 引用操作</b>。开源开发者 <b>Mateusz Guzik</b> 在补丁中解释：打开一个文件会先在 <b>__legitimize_path()</b> 中抓取终端 dentry 的引用，随后又在 <b>do_dentry_open()</b> 中抓一次，最后在 <b>terminate_walk()</b> 中释放最初那次引用——<b>其中一次修改完全是多余的，do_dentry_open() 直接消费已持有的引用即可</b>。<br>
+        收益已在 <b>20 核虚拟机</b>上以 <b>will-it-scale</b> 基准验证：<b>以只读方式反复打开同一文件，ops/sec 提升约 39%</b>。补丁<b>仅三四十行代码</b>，目前已进入 <b>VFS.git 的 vfs-7.4.lookup 分支</b>（commit <b>161ce1e</b>），并明确标注为 <b>7.4</b> 材料，将提交即将到来的 Linux 7.4 合并窗口，稳定版应在 2026 年底之前落地。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条是「<b>低垂果实也可能极难摘</b>」的典型案例，对我们做高频路径优化特别有参照价值。① <b>39% 的吞吐提升来自删掉一次引用操作</b>——说明在被调用千万次的路径上，<b>single-digit 纳秒级的冗余操作会被放大成两位数的百分比收益</b>。凡是被「每次 I/O、每次请求、每次查找」反复经过的函数，都值得用「这里的引用/锁/校验能不能少一次」的视角重审，而不是只看热函数的算法复杂度；② 值得玩味的是<b>这处冗余在树里躺了两年多、历经 5 轮修订才落地</b>。原因不难理解：引用计数语义牵动正确性（提前释放就变 UAF），<b>「优化」与「引入生命周期 bug」之间只隔一层薄纸</b>——这也解释了为何作者坚持多轮打磨、并选择在 VFS 这样的核心子系统走完整流程。这正与我们强调的「<b>高频路径优化必须先证明语义等价，再用基准量化</b>」一致；③ 评测方法同样可借鉴：<b>用 will-it-scale 在受控核数（20 核 VM）下测「反复打开同一文件」的 ops/sec</b>，把一个系统调用路径的收益从系统噪声里干净地抽出来。<b>把指标收敛到单一操作 + 固定并发度</b>，是让回归数据可长期比较的关键。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">10</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Btrfs-Fixes-For-Linux-7.3-rc4" target="_blank">Linux 7.3-rc4 修两个「不幸」的 Btrfs 回归：FSID 变化曾让 VPN 失效，GRUB2 无 initramfs 启动检测也被破坏</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核</span>
+        <span class="tag tag-compute">计算</span>
+      </div>
+      <div class="news-body">本周的 Btrfs 修复集已合入（commit <b>518e5b7</b>），赶在<b>周日 Linux 7.3-rc4</b> 发布前落地，其中包含两个值得记录的 bug。第一个是<b>自 Linux 7.2-rc1 引入并一直存在至今的回归</b>：由于改动了对 <b>fs_fsid</b> 标识符的推导方式，<b>破坏了向后兼容</b>——<b>f_fsid 会在内核更新后改变、并在重启之间发生漂移</b>。对于期望稳定 ID 的应用，这直接造成破坏：例如<b>依赖 FSID 加解密 VPN 密钥文件的程序</b>——Btrfs 用户升级到 Linux 7.2 后，<b>NetworkManager OpenConnect 会直接无法连接 VPN</b>。7.3-rc4 中已把 FSID <b>改回从文件系统 UUID 推导</b>。第二个 bug 只存在于 Linux 7.3 开发周期内：它<b>破坏了 /dev/root 的检测</b>，导致在<b>无 initramfs 的 GRUB2 启动</b>场景下，GRUB2 在 Btrfs 根文件系统上<b>无法识别根设备</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>两个 bug 都指向同一类风险：<b>改动「看似无关紧要的标识/推导逻辑」，却击穿了上层对稳定性的隐含契约</b>。① <b>FSID 这件事最值得记住</b>：文件系统标识看起来只是给工具看的一个数字，但一旦被用户态拿来<b>当密钥派生或绑定的输入</b>，它就从「展示信息」变成了<b>事实上的 API</b>。变更标识推导方式 = <b>破坏性 ABI 变更</b>，影响面还很难在改动当下被识别（VPN 密钥解不开，是几跳之外的后果）。<b>凡是要动「标识符生成规则」的地方，都应默认按 ABI 变更对待并做兼容性评估</b>；② 第二个 bug 则体现了 <b>Btrfs 在启动链路中的位置</b>：根设备识别发生在<b>几乎没有工具可用的极早期阶段</b>，一旦出错就是「根本起不来」，几乎没有可诊断的中间态。这提示我们，<b>越靠近启动早期的路径，越需要保留最小可用能力的冗余手段（如 initramfs）</b>，同时也说明<b>「无 initramfs 直启」这类精简配置虽然诱人，但验证覆盖往往最薄、最容易在升级中被打穿</b>；③ 从运维角度看，这两条再次确认了升级内核前的标准动作：<b>对依赖稳定标识、加密绑定或特殊启动配置的系统，至少要在预发环境把「重启 + 挂载 + 密钥解密 + 网络」链路完整走一遍</b>，而不能只看内核能否引导成功。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-20.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-18.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-20</p>
+    <p>覆盖范围：2026-09-18 ~ 09-20（周末合并版 · Intel Xe vRAM 健康检查与坏页下线 · AMDGPU HDMI FRL 再更新 + RDNA1 CU 占用率上报 · Apple AVD 视频解码驱动进上游评审 · Steam Frame 的 OpenGL 走 Zink · Strix Halo 在 Ubuntu 26.10/amd64v3 再提速 · 内核 FRED 缺陷致 Panther Lake 游戏崩溃 · Ubuntu 26.10 升配 Linux 7.3 · kbuild 提速补丁 v3 · do_open() 优化让只读打开快 39% · Linux 7.3-rc4 修两个 Btrfs 回归）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>

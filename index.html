@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-20.html">
+    <span class="entry-date">09-20</span>
+    <span class="entry-main">
+      <div class="entry-title">Intel Xe 驱动为 Linux 7.4 加入 vRAM 健康检查与坏页下线（显存坏了也能优雅降级，坏页经 DebugFS 告知用户态） · AMDGPU 为 Linux 7.4 再送 HDMI FRL 更新（修音频使能 + 补 KUNIT），RDNA1 的 CU 占用率上报补进 AMDKFD · Apple AVD 视频解码驱动提交上游评审（M1/M2/M3 硬解 H.264/H.265/VP9，M3 起支持 AV1） · Steam Frame 的 OpenGL 走 Zink（OpenGL on Vulkan，Blumenkrantz：「一路都是 Zink」） · Strix Halo 在 Ubuntu 26.10 再提速，切 amd64v3 包还能再涨一截 · 内核 FRED 缺陷致 Panther Lake 上《艾尔登法环》《荒野大镖客 2》崩溃（修复已进 x86/urgent，不是 Mesa 的锅） · Ubuntu 26.10 临时升配内核：由 Linux 7.2 改为 Linux 7.3（10/15 发布） · kbuild 提速补丁 v3：Apple M2 增量构建快 45~55%、no-op 构建快 74~76% · do_open() 优化让只读打开文件快约 39%（改动仅三四十行） · Linux 7.3-rc4 修两个 Btrfs 回归（FSID 变化曾致 NetworkManager OpenConnect 无法连 VPN）</div>
+      <div class="entry-hint">周末合并版（9/18–9/20）图形/显示/计算方向 10 条：<b>Intel Xe</b> 本周面向 Linux 7.4 主打<b>显存健康与退化处理</b>——早期 probe 阶段<b>拿最后一张 vRAM page 当金丝雀</b>体检 BAR/CCS sizing，动机是 <b>BMG 卡 CCS offset 错位</b>导致 CCS 存储被当普通 VRAM 分配（<b>由 Linus 发现</b>）；同时历经 <b>21 轮评审</b>合入<b>内存页下线</b>，可永久 carve out 坏显存并经 DebugFS 暴露。AMD 侧 <b>amd-drm-next-7.4</b> 修好 <b>HDMI FRL 音频使能</b>、补 HDMI KUNIT 覆盖，并罕见地给 <b>RDNA1/GFX10 接上 CU occupancy 上报</b>。Asahi 的 <b>AVD 驱动</b>（14 补丁）实现 <b>V4L2 M2M stateless</b>，硬件走<b>单寄存器编程、必须保序且不得快过硬件</b>，靠 segment 列表 + 背压建模，内含 <b>Cortex-M3</b> 负责解码状态 IRQ。<b>Steam Frame</b> 在已有 Freedreno 原生 GL 的情况下仍选 <b>Zink</b>，Valve 称「Android 与原生一路都是 Zink」。<b>Strix Halo</b> 三档对照（26.04 LTS / 26.10 / 26.10+amd64v3）显示收获明确。一条典型「症状在图形、根因在内核」案例：<b>FRED 重建被拒绝 INT 指令的 #GP 上下文出错</b>，错误的 error code 与保存 IP 破坏 Wine 对 INT 0x2d 的处理，致 Elden Ring 报<b>虚假访问违例</b>，补丁已进 <b>x86/urgent</b> 直奔 Linux 7.3。<b>kbuild v3</b>（Arm 的 Lorenzo Stoakes，20 补丁）在 M2 上增量构建快 <b>45~55%</b>、no-op 快 <b>74~76%</b>。VFS 的 <b>do_open()</b> 删掉一次多余 dentry 引用，will-it-scale 只读打开 <b>ops/sec +39%</b>。最后是 <b>Linux 7.3-rc4</b> 的两个 Btrfs 回归：<b>FSID 推导方式变更</b>让 f_fsid 漂移，直接打断依赖稳定 ID 的 VPN 密钥加解密（升级 7.2 后 OpenConnect 失联），以及无 initramfs 时 GRUB2 识别不到根设备…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-09-18.html">
     <span class="entry-date">09-18</span>
     <span class="entry-main">
