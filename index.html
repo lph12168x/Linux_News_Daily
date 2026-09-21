@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-21.html">
+    <span class="entry-date">09-21</span>
+    <span class="entry-main">
+      <div class="entry-title">Vulkan 1.4.363 发布：Intel 新增 VK_INTEL_device_info，把「图形 IP 版本」从设备 ID 猜谜变成 API 契约 · Starling 0.5 桌面加入可步行 3D 海滨城市视图（场景渲染共享后端，但每块显示器拥有独立相机与渲染目标） · Linux 7.3-rc4 前的关键 x86 修复：Granite Rapids 微码防 MCE（0x1000405 起存在强制迁移点）+ FRED 致 Panther Lake 游戏崩溃 + APX/EGPR 与 -march=native 构建冲突 · Linux 7.3-rc4 发布（LLM 抓到的修复占比继续上升，Linus 点名「文件系统整体被重新审视」） · KDE 公布 2026–2028 三大目标：面向企业部署、文档治理与「下一代样式」（Ocean 设计系统 + Union 主题引擎） · Plasma 6.8 进入打磨期：回归清单仅剩 5 项且多为多屏/焦点错位，KWin 修两处崩溃，6.9 已起步</div>
+      <div class="entry-hint">今日（9/20 EDT）图形/显示/计算方向 6 条：<b>Vulkan 1.4.363</b> 例行更新，除规范澄清、修复与 <b>DMA-BUF 外部内存多实例 VU</b> 外，新增 Intel 厂商扩展 <b>VK_INTEL_device_info</b>，直接读取<b>图形 IP 版本</b>（编码<b>架构世代 / 世代内发布版本 / 硬件修订号</b>三层）——起因是 <b>deviceID 不包含 IP 版本</b>，应用与游戏被迫自维护「deviceID → 世代」对照表。用 Swift 写、自带 Wayland 合成器、大量代码由 AI 生成的 <b>Starling 0.5</b> 加入可选 <b>3D 桌面</b>：保留 2D 桌面，另加一座<b>可步行的 3D 海滨城市</b>（船只、车流、云、钟楼、日落光照），窗口仍是真的，<b>弹窗跟随父窗口</b>，<b>共享渲染后端但每输出独立相机/渲染目标</b>；0.5 还经 <b>WSL2 + RDP 显示模式</b>支持 Windows。x86 侧一批修复赶在 <b>7.3-rc4</b> 前合入：<b>Granite Rapids</b> 上拒绝加载 <b>0x1000405</b> 及更高微码（勘误 <b>GNR98</b> 可能致 <b>MCE</b>，因该版本带来后续修订所依赖的内部改动），已标记回移 stable；同批修 <b>FRED 在 Panther Lake</b> 致 Wine / Steam Play 崩溃、以及 <b>APX/EGPR</b> 在 <b>-march=native</b> 内核构建下造成的问题（内核显式阻止 APX/EGPR 直到支持就绪）。<b>Linux 7.3-rc4</b> 本身规模依旧偏大：约三分之一驱动、三分之一文件系统与网络、三分之一杂项，Linus 特意指出文件系统被整体重新审视；<b>Linux 7.3 将于 10 月发布</b>。<b>KDE Akademy 2026</b> 公布未来两年三大目标，其中<b>「下一代样式」把设计系统（Ocean）与主题引擎（Union）分成设计与技术两条并行线</b>，另两项为面向企业部署（LDAP/口令过期/SSO/无头远程）与文档治理。<b>Plasma 6.8</b> 回归清单仅剩 5 项（注销失焦、通知错位、多屏浮层错位、「切换用户」），本周修 <b>KWin</b> 两处崩溃，6.8 起通知不再每次写缓存文件…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-09-20.html">
     <span class="entry-date">09-20</span>
     <span class="entry-main">
