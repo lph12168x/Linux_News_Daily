@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-22</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 22 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-22.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-21.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMDGPU-Linux-Prep-GDDR7" target="_blank">AMD 开始为 GDDR7 显卡铺路：AMDGPU 新增 GDDR7 显存标识，同步引入 IH 8.0 与 NBIF 7.10</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-kernel">内核 kernel</span>
+      </div>
+      <div class="news-body">AMD 今天送出最新一批 Linux 内核图形驱动补丁，用于<b>启用若干新的硬件 IP 块</b>，其中一项直接指向<b>下一代的 GDDR7 显存</b>。<br>
+        最明确的一处改动是：补丁为 AMDGPU 驱动<b>新增「GDDR7」作为显存类型标识（video memory name）</b>。当前一代 AMD RDNA4 显卡仍使用 <b>GDDR6</b>，而 NVIDIA GeForce RTX 50 桌面卡已经在用 GDDR7；业界普遍传闻下一代 <b>RDNA5</b> 将切到 GDDR7。所以这条本身不算意外，但它把近期零散的 AMDGPU 补丁<b>串成了同一条时间线</b>——即这些新 IP 很可能就是 RDNA5 的组成部分。<br>
+        同一天送出的还有两组 IP 启用补丁：中断处理器 <b>IH 8.0</b>（Interrupt Handler 8.0），以及新版总线接口 <b>NBIF 7.10</b>（New Bus InterFace）。此外还有若干较小的铺垫性补丁。这一批工作延续了此前 <b>Display Core Next 6（DCN6）</b>与 <b>GFX 13.0.x</b> 的推进节奏。<br>
+        针对消费级 GPU 的开源驱动启用工作，明显<b>远早于硬件上市</b>。近期传闻称受行业供应紧张影响，RDNA5 可能在 <b>2027 年</b>只先出少量 SKU，更多型号要等到 <b>2028 年</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条的价值在于<b>看时间线，而不是看单个补丁</b>。<b>① 显存类型的「标识」是 bring-up 的早期信号。</b>把 GDDR7 作为一个显存类型枚举加进去，意味着驱动内部的显存容量 / 时序 / 初始化路径已经开始为这个介质分支——这类改动通常出现在流片后、量产前的早期阶段，比规格表泄露更可靠。跟踪上游提交，往往能比公开路线图更早看到硬件的实际配置。<br>
+        <b>② 把「IP 版本号」当作路线图来读。</b>IH 8.0、NBIF 7.10、DCN 6、GFX 13.0.x 这几个数字是相互独立的推进轴——中断控制器、总线接口、显示核、图形核各自演进。当我们给加速器做驱动适配时，同样应该把自己平台的 IP 版本矩阵整理出来，明确「哪一版配对哪一版」，而不是把整颗芯片当成一个整体版本号来管理。这样在出现某一路径回归时，能快速定位是哪个 IP 的行为变化。<br>
+        <b>③ 「启用工作前置到上市前两年」这件事值得团队内化。</b>开源驱动的价值不只是合规或社区形象，而是它逼着硬件与固件团队提前把寄存器语义、电源序列、错误处理路径写成可被别人读懂、可被上游评审的形式。这个副作用本身就是设计评审。我们做 zeus 与 RDMA 栈时，也应当尽量把内部约定提前外化为接口文档与可验证的补丁切片。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Valve-Steam-Beta-Pyrowave" target="_blank">Valve 在 Steam 客户端 Beta 推出 Pyrowave 视频编解码：带宽 5~10 倍换取极低延迟，面向千兆局域网串流</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示 display</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body">今天更新的 <b>Steam 客户端 Beta</b> 引入了一个实验性视频编解码 <b>Pyrowave</b>，定位是<b>高带宽、极低延迟</b>的视频串流。它已随本次 Beta 一起提供，覆盖 <b>Windows、macOS 与 Linux</b>（Linux 侧需要使用实验性的 <b>SteamRT3</b> 客户端）。用户可在 <b>Steam Remote Play 的高级客户端设置</b>中启用。<br>
+        关键参数：<br>
+        · <b>带宽约为其他串流编解码的 5~10 倍</b>，因此明确面向 <b>局域网</b>场景，建议<b>至少千兆以太网</b>；<br>
+        · <b>基于 Vulkan API</b> 实现；<br>
+        · 设计目标为<b>极低延迟</b>；<br>
+        · 支持 <b>HDR</b> 与 <b>YUV 4:4:4</b>（无色彩子采样损失）。<br>
+        该编解码由 <b>Hans-Kristian Arntzen</b> 开发——他正是 <b>VKD3D-Proton</b> 的核心作者（VKD3D-Proton 是把 D3D12 翻译到 Vulkan 的项目，直接支撑了 Steam Play / Proton 上的大量 Windows 游戏）。本次从「翻译图形 API」跨到了「视频编码器」，其技术取向一脉相承：<b>直接吃 Vulkan、把开销压到最低</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong>这条是「显示 / 串流」方向少见的<b>协议层创新</b>，几个点值得注意。<br>
+        <b>① 这是对「带宽换延迟」的一次正面押注。</b>主流串流编解码（H.264/H.265/AV1）的优化目标长期在「同画质下更省码率」，代价是编码器内部引入<b>更深的参考帧依赖与更大的缓冲</b>，而缓冲深度直接等价于端到端延迟。Pyrowave 反向操作——<b>接受 5~10 倍码率膨胀，换掉几乎全部编码缓冲</b>。在千兆局域网已经普及、而「无线串流手感」仍是痛点的当下，这个取舍成立。凡是做实时交互链路，都该先问一句：<b>瓶颈到底是带宽还是延迟？</b>两者经常被混为一谈，而它们的解法是相反的。<br>
+        <b>② YUV 4:4:4 与 HDR 同时支持，说明目标不只是游戏串流。</b>4:4:4 对<b>文字、UI、细线、彩色边缘</b>的保真至关重要——这正是办公、远程桌面、开发与设计场景的核心诉求，而这些场景在 4:2:0 下会明显发糊。把它理解成「局域网内的高保真远程显示通道」，比「游戏串流编解码」更接近它的上限。<br>
+        <b>③ 用 Vulkan 做编解码的路径值得关注。</b>传统视频链路走 VA-API / V4L2 等专用接口，跨厂商抽象层厚、特性对齐慢。若编码器直接建立在 Vulkan 计算之上，就能复用同一套队列、同步原语、外部内存与零拷贝路径，与渲染管线天然贴合。这与我们在加速器上把「计算」与「数据搬运」统一到同一套调度原语上的思路是一致的——<b>减少层次，往往同时减少延迟和胶水代码</b>。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Gravity-Linux-M4-Mac-Mini-Alpha" target="_blank">Gravity Linux 首个 Early Alpha 发布：专攻 Apple M4 及更新机型，M4 Mac Mini 上跑起 OpenGL 3.3 GPU 加速</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示 display</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body">一个新的 Linux 发行版 <b>Gravity Linux</b> 出现，专注 Apple Silicon Mac 上的 Linux 支持。它是 <b>Fedora Remix 的一个分支（spin）</b>，瞄准<b>仍处于实验性支持状态的 Apple M4 及更新机型</b>。项目除了复用 <b>Asahi Linux</b> 的代码与逆向工程成果之外，也<b>借助 OpenAI Codex 与 Claude Code 参与开发</b>。<br>
+        本次发布 <b>Early Alpha</b>，是项目的第一个版本，<b>初期仅面向 Apple M4 Mac Mini</b>。已实现的能力包括：<b>实验性的 OpenGL 3.3 / OpenGL ES 3.0 支持（带 GPU 加速）</b>，桌面为<b>KDE Plasma（运行在 Wayland 上）</b>。<br>
+        官方同时明确列出<b>已知不可用的硬件功能</b>：<br>
+        · <b>休眠（suspend）不可用</b>；<br>
+        · <b>USB-C 口无显示输出</b>（<b>HDMI 可用</b>）；<br>
+        · <b>Thunderbolt / USB4 不可用</b>；<br>
+        · 功耗可能高于预期（桌面机型影响不大）；<br>
+        · 出于安全考虑，<b>扬声器最大音量被设了保守上限</b>；<br>
+        · <b>关机 / 重启不稳定</b>（可以直接按电源键）。<br>
+        官方表示：<b>上述清单之外的功能均可工作且已测试</b>。后续目标是扩展到其他 <b>M4 / M4 Pro / M4 Max</b> 设备，并已把 <b>MacBook Neo</b> 列入视野。项目方称只做了<b>净室逆向工程（clean room reverse engineering）</b>，并希望最终所有工作都能进入上游 Linux 内核。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 先把「能跑」与「能日常」分开看。</b>这份「不可用清单」本身比发布消息更有信息量：<b>USB-C 无显示输出但 HDMI 可用</b>，说明显示控制器的部分通路已经打通，而 Type-C 侧涉及的 DP Alt Mode / 复用器 / 电源域尚未接管；<b>休眠不可用</b>则几乎总是最晚被攻克的一项——它要求整个 SoC 的电源域、时钟、外设状态机都能正确保存与恢复，是「bring-up 完成度」最诚实的标尺。评估任何新平台支持度时，<b>看它能不能休眠、能不能多屏</b>，比看它能不能点亮屏幕靠谱得多。<br>
+        <b>② OpenGL 3.3 + Wayland + KDE Plasma 的组合，说明图形栈走的是「先可用后性能」路线。</b>OpenGL 3.3 是一个刻意保守的基线——它足以驱动完整桌面环境，又不需要触碰 Mesa 中最激进的部分。先让桌面完全可用，再逐代追平硬件能力，这个顺序是正确且务实的。<br>
+        <b>③ LLM 参与内核与驱动 bring-up，已成为需要认真对待的工程变量。</b>今天这条与 perf 改写、内核修复条目一起出现，构成了一个连续信号（详见本期第 6 条）。对我们的意义是：<b>逆向 / bring-up 这类「大量样板 + 高确定性推理」的工作，正是当前模型收益最高的场景</b>；而「架构取舍、时序边界、硬件勘误判断」仍必须由人负责。把任务按这个维度分类，比笼统讨论「AI 能不能写驱动」有用得多。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/AMD-BC-250-Linux-PSP-Support" target="_blank">AMD BC-250 再获 Linux 支持推进：新补丁启用 PSP 安全处理器，让矿渣板可承担加密与 AI 负载</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body"><b>AMD BC-250</b> 是一块当初为<b>加密货币挖矿</b>设计的产品，基于<b>精简版 Sony PlayStation 5 APU</b>。它在 Linux 上正逐渐被重新利用，从通用计算到 <b>AI 负载</b>都有玩家在跑，形成了一个相当有意思的「第二人生」。本周末送出了最新一批 Linux 内核补丁。<br>
+        硬件构成回顾：<b>6 个 Zen 2 核心</b>、<b>24 CU 的 RDNA2 GPU</b>、<b>16GB GDDR6 显存</b>。<br>
+        本次的具体工作是<b>三补丁系列，用于把 AMD PSP（Platform Security Processor，平台安全处理器）跑起来</b>——需要给 <b>AMD CCP（Crypto Co-Processor，加密协处理器）驱动</b>做几处修改，才能让 BC-250 的安全处理器可用于<b>加密任务</b>。<br>
+        该板卡的 Linux 支持此前已有积累：<b>RADV</b> 驱动补丁、AMDGPU 适配、传感器监控（Linux 6.15 hwmon）等。价格方面也颇为戏剧化：去年二手 BC-250 约 <b>100 美元</b>，而在眼下 PC 零部件价格暴涨的行情下，如今已涨到 <b>200~350 美元</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 这是一个「软件生命周期比硬件生命周期长」的典型案例。</b>BC-250 的原始用途（挖矿）已经消失，但硬件本身还在——<b>16GB GDDR6 与 24 CU RDNA2 的显存/算力组合，在小显存 AI 推理与图形实验场景里仍有实用价值</b>。让它重生的不是任何商业动机，而是开源栈的低门槛：只要有人愿意写补丁，一块被淘汰的板子就能获得新负载。这对我们的启示很直接——<b>长期可维护的开源驱动，本质上是在给固定资产延长折旧年限</b>。<br>
+        <b>② PSP 与 CCP 的启用是「可信计算能力」的开关。</b>PSP 是 AMD 平台上的独立安全核，CCP 提供硬件加解密与压缩卸载。把这两个打通，意味着这块板子从「能算」变成「能<b>安全地算</b>」——可以跑加密任务，也是机密计算特性的前置条件。任何加速器平台，只要涉及多租户或数据保护，<b>安全核与加密卸载是否可用</b>都是必须尽早明确的一项能力，而不是等业务提出合规需求时才发现缺口。<br>
+        <b>③ 二手价格从 100 涨到 200~350 美元，说明社区驱动的「平价算力」需求真实存在。</b>在整机与显卡价格高企时，被重新激活的老硬件会立刻被市场重新定价。这也提醒我们：<b>软件支持度本身就是资产价值的一部分</b>——上游支持越完整，硬件在二级市场的残值越稳。这一点在采购决策时值得写进评估模型。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/review/linux-618-73-amd-epyc" target="_blank">2026 年内核红利实测：Linux 6.18 LTS → 7.3，AMD EPYC 服务器 100+ 项基准几何平均提速约 8%</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-kernel">内核 kernel</span>
+      </div>
+      <div class="news-body">随着开发中的 <b>Linux 7.3</b> 在多个领域相较 7.2 表现出不错提升、<b>Linux 7.2</b> 又尤其为 <b>I/O</b> 带来明显收益，Phoronix 做了一次<b>年度盘点式</b>评测：衡量 2026 年至今 <b>Linux 内核性能究竟进化了多少</b>。<br>
+        <b>对比两端</b>：<b>Linux 6.18.52</b>（<b>2025 年底发布的 LTS</b>）对 <b>Linux 7.3 Git（截至 9 月 17 日）</b>。<br>
+        <b>测试条件</b>：相同硬件、相同 <b>Ubuntu 26.04 LTS</b> 基础系统；内核来自 <b>Ubuntu Mainline Kernel PPA</b>，便于独立复现与核对 Kconfig。<br>
+        <b>测试平台</b>：单路 <b>AMD EPYC 8635P</b>「<b>Sorano</b>」服务器 —— <b>84 个 Zen 5 核心</b>、<b>6 × 64GB DDR5</b> 内存、<b>Kioxia KCD8XPUG1T92 PCIe Gen5 NVMe SSD</b>。<br>
+        <b>测试规模</b>：<b>100 多项 Linux 服务器基准测试</b>，结论是这一年确实出现了不少出色的内核性能优化，<b>几何平均提升约 8%</b>。<br>
+        关于 LTS 归属还有一段悬念：Linux 7.3 稳定版将于 <b>10 月下旬</b>发布，可能成为今年的 LTS；但如果 7.3 与 7.4 都按期，<b>7.4 会在 12 月底前发布</b>，那么 2026 年的 LTS 就可能是 7.4——最终取决于 Greg Kroah-Hartman 的判定。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 「换内核免费拿到 8%」是极其便宜的性能。</b>同一台服务器、同一套软件、同一份业务逻辑，<b>仅更新内核就从 6.18 LTS 到 7.3 获得约 8% 的几何平均提升</b>，而且没有引入新的硬件成本与调优风险。对比之下，靠业务侧优化拿 8% 通常需要大量人力。结论很直接：<b>把内核升级纳入常规容量与成本规划，收益常常被严重低估</b>。对大规模集群而言，8% 等价于把硬件采购预算相应削减一大块。<br>
+        <b>② 8% 的「几何平均」意味着改善是广泛而连续的，而非个别尖峰。</b>几何平均对离群值不敏感——若只是某一两项基准暴涨，几何平均会被显著平缓化。所以这个数字反映的是<b>一整年、上百项负载上的系统性累积</b>：调度器、内存管理、I/O 路径、文件系统、网络栈各处各拿几个百分点。<b>这类「均匀的进步」比单点突破更难获得，也更难被替代</b>——它不是某一项优化的功劳，而是把每个默认路径都打磨了一遍。<br>
+        <b>③ 对性能评估方法论的参考价值。</b>这次评测值得学习的地方在于<b>可复现性设计</b>：固定硬件、固定发行版基线、使用公开的内核 PPA 并公布 Kconfig。当我们要向团队或管理层论证某个平台收益时，<b>「别人能照着复现」比「我测出来很快」重要得多</b>。同时要注意评测的时间截面——这里用的是 7.3 Git 快照而非正式发布版，数字会随后续 rc 略有浮动，引用时应注明。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-Perf-Python-Module" target="_blank">Linux perf script 大改：49 补丁砍掉内嵌 Python/Perl，改用 C 写的 Python 扩展模块，脚本从 3.7 秒降到 0.1 秒</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-kernel">内核 kernel</span>
+      </div>
+      <div class="news-body">本周末送出的大补丁系列，重构了 Linux 内核 <b>perf 子系统</b>中的脚本化能力：<b>移除内嵌的 Python 与 Perl 脚本支持</b>，改为<b>独立 Python 脚本 + 一个全新的 Python perf 模块</b>。该模块是<b>用 C 写的 Python 扩展（C extension module）</b>，性能远优于现状。<br>
+        主导者是 Google 工程师 <b>Ian Rogers</b>。其动机是解决 <b>perf script</b> 长期存在的三个问题：<b>开销高</b>、<b>构建依赖复杂</b>、以及若干设计层面的困难。<br>
+        <b>效果非常直接</b>：一段 Python 脚本原本需要 <b>3.7 秒</b>，改用独立脚本 + 新 perf 模块后只需 <b>0.1 秒</b>。<br>
+        <b>规模</b>：共 <b>49 个补丁</b>，把 Python perf 代码迁移到新模块上，同时<b>删掉基于 libpython 的旧代码与遗留 Python 脚本</b>，整体约 <b>2.1 万行</b>代码的重构。<b>Gemini 3.1 Pro</b> 协助 Rogers 完成了这次改造。补丁目前正在 linux-perf-users 邮件列表上评审。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 37 倍提速的根因值得拆开看，而不只是记一个数字。</b>原方案把 Python 解释器<b>嵌进 perf 二进制</b>，两者通过 libpython 反复跨界调用，每次采样都要跨越「C ↔ Python」边界，且解释器随 perf 一起构建与链接——这才是「开销高 + 构建依赖复杂」的真正来源。<b>改成独立 Python 进程 + C 扩展模块后，边界只在顶层出现一次</b>，热路径完全留在 C 与原生数据结构里。这是一个教科书级的取舍：<b>不要把一个重量级运行时嵌进一个高频工具的主循环</b>。<br>
+        <b>② 它顺带解决了「构建依赖」这个隐性成本。</b>内嵌解释器意味着 perf 的构建必须依赖 libpython，于是内核工具的编译变得脆弱、与发行版 Python 版本强耦合。<b>把依赖从「构建期」挪到「运行期」，是让工具能被更广泛环境编译与分发的有效手段</b>——我们在做内部工具时也常遇到同样的纠缠：为了一点便利把重依赖塞进主程序，结果是 CI 与交叉编译环节长期不稳定。<br>
+        <b>③ 这已经是连续第 N 条「LLM 参与内核级改造」的信号。</b>本期的 Gravity Linux（驱动 bring-up）、昨天的内核修复（error path cleanup）、以及这条 2.1 万行重构，都是同一个趋势在不同层面的体现：<b>模型在「边界清晰、验证成本低、样板量大」的改造任务上收益最高</b>——而「删掉一层间接」恰好属于此类。相应地，<b>评审与验证环节的责任反而更重</b>：当代码生成变快，瓶颈会明确地转移到「怎么快速确认它是对的」。这也是我们团队接下来要重点建设的能力。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Orphaned-VMs-Linux-Patches" target="_blank">「孤儿虚拟机」补丁提交评审：宿主机内核下线重启期间，虚拟机在专用物理核上继续不间断执行</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-kernel">内核 kernel</span>
+      </div>
+      <div class="news-body">来自 Google 的一项相当引人注目的工作：为满足超大规模云厂商对<b>零停机</b>的追求，一组实验性补丁提出 <b>「Orphaned VMs」（孤儿虚拟机）</b>概念——让虚拟机在<b>宿主机内核为了安全更新或重启而下线期间，继续不间断运行</b>，配合 <b>Live Update Orchestrator（LUO）</b>完成。<br>
+        核心思路是：孤儿虚拟机在<b>被保留下来的物理 CPU</b> 上持续执行 guest 指令，<b>在整个宿主机重启期间完全与宿主操作系统及 VMM 解耦</b>。实现这种「执行不对称性」的关键是引入 <b>Caretaker（看护者）</b>——一种运行在 hypervisor 特权硬件状态下的<b>裸金属原语插入层</b>，在宿主内核离线期间<b>就地拦截并解决部分 VM exit</b>。<br>
+        所需机制包括：<b>内存中的 vCPU 状态保存</b>、<b>物理 CPU 保留</b>核心支持、<b>片上调度框架</b>，以及 <b>KVM Caretaker Core</b> 基础设施。<br>
+        该 <b>RFC 系列共 46 个补丁</b>，已在 <b>Intel、AMD、Arm</b> 服务器处理器上测试过，但被明确称为<b>「非常早期」的工作，尚不具备生产可用性</b>。工作由 Google 的 <b>Pasha Tatashin</b> 主导。下个月在布拉格举行的 <b>Linux Plumbers Conference</b> 上会有进一步讨论。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 这解决的是一个真金白银的问题：内核安全更新的停机成本。</b>宿主机打补丁重启，意味着其上所有虚拟机一起中断。对云厂商来说，这直接换算成 SLA 罚金与迁移开销。业界的常规解法是<b>把虚拟机迁走再迁回来</b>（live migration），代价是大量内存与网络带宽的搬运、以及迁移窗口内的性能抖动。<b>「孤儿虚拟机」试图把这个成本压到接近零——不是搬走，而是就地续命</b>。这两种路线的取舍是典型的工程权衡：迁移通用但昂贵，就地保活便宜但机制复杂得多。<br>
+        <b>② 「Caretaker 裸金属原语插入层」这个设计很值得琢磨。</b>难点在于：宿主内核不在时，<b>原来由内核承担的 VM exit 处理没有执行者</b>。解决办法是在 hypervisor 特权态里放一个<b>极简的、只负责必要裁决的层</b>，把能本地解决的 exit 就地解决，解决不了的再挂起等待。这里体现的原则很清晰——<b>关键路径上的组件应当尽可能小、依赖尽可能少</b>，因为它必须在宿主环境完全不可用时仍然独立正确运行。我们设计带外管理、固件、或任何「降级仍须可用」的模块时，都应该按这个标准约束自身的复杂度。<br>
+        <b>③ 需要点名的工程难点：时间基准、游离中断、guest 间 IPI。</b>摘要里提到的<b>时间漂移（timekeeping drift）</b>尤其微妙——宿主内核离线期间，虚拟机感知的时间从哪来？这直接关系到 guest 内的定时器、超时、日志时序与加密协议的有效期判断，处理不当会造成难以复现的诡异故障。<b>凡是引入「局部系统独立运行」的设计，时钟与中断这两件事都要提前设计，而不是留到 bug 阶段</b>。这也是评估任何 live update / 故障隔离方案时，最该追问的两个问题。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-22.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-21.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-22</p>
+    <p>覆盖范围：2026-09-21（EDT）全天 · AMDGPU 开始为 GDDR7 铺路（RDNA5 预铺 + IH 8.0 / NBIF 7.10）· Valve 推出 Pyrowave 低延迟串流编解码（带宽 5~10 倍换延迟，Vulkan + HDR + YUV 4:4:4）· Gravity Linux Early Alpha 支持 Apple M4 Mac Mini（OpenGL 3.3 GPU 加速 + KDE Plasma Wayland）· AMD BC-250 启用 PSP 安全处理器（矿渣板第二人生）· AMD EPYC 从 Linux 6.18 LTS 到 7.3 几何平均提速约 8%（100+ 项基准）· perf script 改为 C 写的 Python 模块（3.7 秒 → 0.1 秒，2.1 万行重构）· 「孤儿虚拟机」46 补丁实现宿主机重启期间虚拟机不间断执行）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>

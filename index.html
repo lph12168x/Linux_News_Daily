@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-22.html">
+    <span class="entry-date">09-22</span>
+    <span class="entry-main">
+      <div class="entry-title">AMDGPU 开始为 GDDR7 铺路：新增 GDDR7 显存标识（RDNA5 预铺），同步引入中断控制器 IH 8.0 与总线接口 NBIF 7.10 · Valve 推出 Pyrowave 串流编解码：带宽是其他编解码的 5~10 倍换取极低延迟，基于 Vulkan、支持 HDR 与 YUV 4:4:4 · Gravity Linux Early Alpha：专攻 Apple M4 及更新机型，M4 Mac Mini 上跑通 OpenGL 3.3 GPU 加速 + KDE Plasma on Wayland · AMD BC-250 启用 PSP 安全处理器（矿渣板第二人生，二手价从 $100 涨到 $200~350） · Linux 6.18 LTS → 7.3 实测：AMD EPYC Zen 5 上 100+ 项基准几何平均提速约 8% · perf script 改用 C 写的 Python 扩展模块：脚本 3.7 秒 → 0.1 秒（49 补丁、约 2.1 万行重构） · 「孤儿虚拟机」46 补丁：宿主机内核下线重启期间，虚拟机在被保留的物理核上不间断执行</div>
+      <div class="entry-hint">今日（9/21 EDT）图形/显示/计算方向 7 条：<b>AMD</b> 送出最新一批 AMDGPU 补丁，最明确的一处是<b>新增「GDDR7」作为显存类型标识</b>——当前 RDNA4 仍是 GDDR6，传闻下一代 <b>RDNA5</b> 将切 GDDR7；同批还启用<b>中断处理器 IH 8.0</b> 与新版总线接口 <b>NBIF 7.10</b>，延续此前 <b>DCN6</b> 与 <b>GFX 13.0.x</b> 的节奏，把零散补丁串成了同一条 RDNA5 时间线（传闻 2027 先出少量 SKU）。<b>Valve</b> 在 Steam 客户端 Beta 推出实验性编解码 <b>Pyrowave</b>（作者为 VKD3D-Proton 的 Hans-Kristian Arntzen）：<b>带宽约为其他串流编解码的 5~10 倍</b>，明确面向<b>至少千兆以太网</b>的局域网，<b>基于 Vulkan</b>、支持 <b>HDR</b> 与 <b>YUV 4:4:4</b>，走 Remote Play 高级设置启用（Win/macOS/Linux，Linux 需 SteamRT3）。新的发行版 <b>Gravity Linux</b>（Fedora Remix 分支 + Asahi 代码 + 借助 Codex/Claude Code）发布 Early Alpha，<b>初期仅支持 M4 Mac Mini</b>，已实现<b>实验性 OpenGL 3.3/ES 3.0 GPU 加速</b>与 <b>KDE Plasma on Wayland</b>；官方明确列出不可用项：<b>休眠、USB-C 显示输出（HDMI 可用）、Thunderbolt/USB4</b>。<b>AMD BC-250</b>（精简版 PS5 APU：6× Zen 2 + 24CU RDNA2 + 16GB GDDR6）新增三补丁通过 <b>AMD CCP 驱动</b>打通 <b>PSP 安全处理器</b>，可承担加密负载。年度盘点实测：<b>Linux 6.18.52 → 7.3 Git</b>（Ubuntu 26.04 + Mainline PPA，<b>EPYC 8635P 84 核 Zen 5</b>，100+ 项基准）<b>几何平均提升约 8%</b>。<b>perf script</b> 迎来 49 补丁、约 <b>2.1 万行</b>重构：砍掉内嵌 Python/Perl（含 libpython 依赖），改为独立脚本 + C 写的 Python 扩展模块，示例脚本 <b>3.7 秒 → 0.1 秒</b>。最后是 Google 的 <b>Orphaned VMs</b>（46 补丁 RFC）：宿主机内核下线重启期间，虚拟机在<b>被保留的物理 CPU</b> 上继续执行，靠 <b>Caretaker</b> 裸金属原语插入层就地拦截 VM exit…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-09-21.html">
     <span class="entry-date">09-21</span>
     <span class="entry-main">
