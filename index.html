@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-23.html">
+    <span class="entry-date">09-23</span>
+    <span class="entry-main">
+      <div class="entry-title">Nouveau 获得 HDMI Deep Color 补丁：开源 NVIDIA 驱动支持 10/12/16 位色深（暂仅 RGB、无 YCbCr，AI 协助开发） · Collabora 提出 VRR「目标帧率限制器」uAPI：用户态可指定刷新率区间或固定靶点，并新增 QMS 连接器属性（25 补丁，落地 HDMI 与 Rockchip RK3588） · ZLUDA 用 hipFFT 实现部分 NVIDIA cuFFT API，stock Folding@Home 的 CUDA 计算核心已在 AMD 显卡上跑通（ZLUDA 7-preview.11） · Strix Halo 实测 Linux 7.2 vs 7.3：图形基本持平、NUMA 大幅改善、llama.cpp Vulkan 后端略快 · Cache Aware Scheduling 修复进 tip/sched/urgent：修 LLC 亲和、活动负载均衡语义与热插拔时 LLC 容量刷新，随 7.3 提交并回移 7.2 · Linux 新增 AMD SEV 状态查询接口 /sys/devices/system/cpu/sev/sev_status（免 sevctl/snpguest，目标 7.4） · systemd 262 发布：内置内存态兜底 unit、可编成静态单二进制 PID 1、--coco= 新增 Intel TDX，并为未经评审的 AI/LLM 代码加「金丝雀」 · SPECviewperf 15.0.1 Linux 原生版发布：终结 Linux 侧长期滞后，x86_64 与 AArch64 双架构（目前仅 OpenGL 4.5）</div>
+      <div class="entry-hint">今日（9/22 EDT）图形/显示/计算方向 8 条：<b>Nouveau</b> 收到 <b>HDMI Deep Color</b> 补丁，支持每通道 <b>10/12/16 位</b>色深以减少色带，据称在「<b>AI 伙伴</b>」协助下完成；限制是<b>仅 RGB、暂不支持 YCbCr</b>，且 <b>16 位档位尚未在支持该能力的显示器上实测</b>——Nouveau 仍是 <b>Nova 可用前</b>的主力开源 NVIDIA 内核驱动。<b>Collabora 的 Nicolas Frattaroli</b> 发出 <b>25 个 RFC 补丁</b>，提议 <b>VRR「目标帧率限制器」uAPI</b>：用户态可指定 VRR 的<b>受限区间</b>或<b>固定靶点</b>，另加 <b>QMS（Quick Media Switching）连接器属性</b>，动机是<b>规避低刷新率区间的可见亮度闪烁</b>并让电视端可提前收到刷新率变更预告；已为 <b>HDMI state helpers</b> 与 <b>Rockchip RK3588</b> 实现，并附 Weston 的 vrr-limiter 分支。<b>ZLUDA</b> 由开发者 AmosKito1 通过 <b>hipFFT</b> 实现部分 <b>cuFFT</b> 核心 API（PR #672），足以让 <b>原版 Folding@Home Core24/Core27 的 CUDA 核心在 AMD 硬件上运行</b>；边界很清晰——<b>只在存在直接 hipFFT 等价接口处映射</b>。<b>Strix Halo</b>（Framework Desktop / Ryzen AI Max+ 395 + Radeon 8060S）实测 <b>Linux 7.2 vs 7.3</b>：<b>图形基本持平</b>（GravityMark 下 7.2 更快、DDNet 下 7.3 略好），<b>Stress-NG NUMA 大幅改善</b>（与 EPYC 盘点呼应），uvg266/x265/内核编译/llama.cpp Vulkan 更快，NAMD/ClickHouse/llama.cpp CPU BLAS 反而 7.2 更快。<b>Cache Aware Scheduling</b> 新一批修复进入 <b>tip/sched/urgent</b>（Intel 的 Tim Chen）：让 nr_pref_llc_running 留在 runnable domain、在主动负载均衡中遵守 migrate_llc_task 语义、<b>CPU 热插拔时刷新 LLC 容量</b>、跳过内核线程，将随 <b>7.3</b> 提交并<b>回移 7.2</b>。内核新增 <b>/sys/devices/system/cpu/sev/sev_status</b>，直接上报 guest 的 <b>SEV_MSR 状态</b>（高位可指示 <b>SEV-ES / SEV-SNP</b> 是否生效），免去 sevctl/snpguest，已排队进入 <b>Linux 7.4</b> 的 x86/sev 分支。<b>systemd 262</b> 发布：<b>内置内存态兜底 unit</b>（磁盘 unit 不可加载或容器未装 unit 时使用）、可编为<b>静态链接单二进制 PID 1</b> 面向极小容器、<b>NUMAPolicy= 支持 preferred-map / weighted-interleave</b>、新增 <b>LUOSession=</b>（Live Update Orchestrator）、<b>systemd-vmspawn --coco= 新增 Intel TDX</b>，并携带<b>检测未经评审 AI/LLM 代码贡献的「AI 金丝雀」</b>。最后 <b>SPECviewperf 15.0.1 Linux 原生版</b>发布（x86_64 + AArch64），相对 Linux 上原有 SPECviewperf 2020 是大更新，但<b>目前仅支持 OpenGL 4.5</b>（Windows 版已含 DX12 与 Vulkan）…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-09-22.html">
     <span class="entry-date">09-22</span>
     <span class="entry-main">

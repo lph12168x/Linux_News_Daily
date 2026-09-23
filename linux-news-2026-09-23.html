@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-23</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 23 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-23.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-22.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Nouveau-Deep-Color-Patches" target="_blank">Nouveau 获得 HDMI Deep Color 补丁：开源 NVIDIA 驱动开始支持 10/12/16 位色深，暂仅 RGB（无 YCbCr）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示 display</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body">开源 NVIDIA 内核图形驱动 <b>Nouveau</b> 收到一组新补丁，用于<b>启用 HDMI Deep Color（深色）支持</b>。Deep Color 允许每色通道以 <b>10 位、12 位或 16 位</b>表示——相比常规的 8 位，能显著减少<b>色带（banding）</b>与渐变断层，是 HDR 与高色深显示链路的基础能力之一。<br>
+        值得注意的两点：<br>
+        · 这批补丁据称是在<b>「AI 伙伴（AI partners）」协助下</b>完成的；<br>
+        · 定位上，Nouveau 仍是<b>在 Nova 驱动达到可用状态之前</b>，承担开源 NVIDIA Linux 支持的主力内核驱动。<br>
+        <b>当前限制也很明确</b>：<br>
+        · <b>仅支持 RGB</b> 输出，<b>暂不支持 YCbCr</b> 色彩空间；<br>
+        · <b>16 位/通道</b>这一档<b>尚未在具备该能力的显示器上实测过</b>。<br>
+        补丁已发到 <b>dri-devel 邮件列表</b>（2026-09-22 提交）公开评审。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 色深（bpc）是显示链路上最容易被忽视、又最影响观感的一环。</b>8 位色深在平滑渐变（天空、烟雾、肤色过渡、暗部）上必然出现色带，专业显示与 HDR 场景对此极其敏感。Deep Color 把每通道提升到 10/12 位，本质上是<b>把量化误差压到人眼阈值以下</b>。对做显示栈的人来说，这里有一条常被混淆的账：<b>「色深」与「色彩空间」是两件独立的事</b>——补丁同时支持 RGB 与 YCbCr 才算完整，因为视频内容天然是 YCbCr 4:2:0，若链路只走 RGB，就得在中间做一次转换，既引入额外带宽也引入额外误差。这次「仅 RGB」的限制，会直接影响它在影音场景的实用性。<br>
+        <b>② 16 位这条路为什么最难，值得留意。</b>10/12 位在 HDMI 的 TMDS 带宽预算里已有成熟做法（靠 FRL 高码率或降刷新率换取）；<b>16 位/通道则要求整条链路——GPU 输出格式、时序参数、链路码率、接收端能力——全部对齐</b>，任何一环缺失就退化。补丁作者标注「未在支持 16 位的显示器上测过」，正是这种端到端依赖的真实写照。<b>评估任何显示特性，都不能只看发送端支持与否，必须把「是否有接收端能验证」当成前置条件。</b><br>
+        <b>③ 这是「Nouveau 与 Nova 双轨并行」策略的又一例证。</b>上游一边推进全新的 Nova（Rust 重写）驱动，一边继续给 Nouveau 打补丁补齐显示能力，说明<b>过渡期会相当长，而存量用户的实际体验不能被搁置</b>。换到我们自己的平台看，同样的道理成立：<b>新架构推进期间，旧栈的维护投入不是成本，而是让新栈可以从容成熟的缓冲。</b>这条经验对 RDMA 栈的代际切换同样适用。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/VRR-Target-Rate-Limiter-uAPI" target="_blank">Collabora 提出 VRR「目标帧率限制器」uAPI：让用户态指定刷新率区间或固定靶点，并新增 QMS 连接器属性</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-display">显示 display</span>
+        <span class="tag tag-kernel">内核 kernel</span>
+      </div>
+      <div class="news-body">Collabora 的 <b>Nicolas Frattaroli</b> 发出一组 <b>RFC 补丁（共 25 个）</b>，提议为 Linux 桌面引入一套<b>新的用户态 API（uAPI）</b>，用于为<b>可变刷新率（VRR，Variable Refresh Rate）</b>机制指定帧率目标。<br>
+        <b>提案内容</b>：<br>
+        · 用户态（游戏 / 应用 / 合成器）可以指定 VRR 工作的<b>受限区间（constrained range）</b>；<br>
+        · 或指定一个<b>固定靶点（fixed target）</b>；<br>
+        · 另新增一个 <b>QMS（Quick Media Switching，快速媒体切换）连接器属性</b>。<br>
+        <b>提案动机（作者原话要点）</b>：为回避现实世界的不完美，通过把 VRR 约束在有限区间或固定点，可以在<b>预期帧率范围内获得无卡顿（judder-free）或低延迟的呈现</b>，同时<b>避免跌入会引起可见亮度闪烁的刷新率区间</b>。QMS 的加入则让连接器能<b>提前向接收端预告即将发生的刷新率变化</b>，适用于媒体播放场景——这样电视等设备端的<b>高级图像处理算法就不必为了「随时能全帧率切换」而被整体关闭</b>。<br>
+        <b>实现范围</b>：补丁为 <b>HDMI state helpers</b> 实现了「Game Mode」VRR，并在 <b>Rockchip RK3588</b> 驱动上做了落地实现。配套还有一份针对 Wayland 参考合成器 <b>Weston</b> 的 <b>vrr-limiter 分支</b>。该议题也在今年的 <b>Display Next Hackfest</b> 上做过讨论。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 这条精准命中 VRR 的真实痛点：低刷新率区间的亮度闪烁。</b>VRR（FreeSync / Adaptive-Sync）的理想叙事是「刷新率跟随帧率，消除撕裂与卡顿」；但现实中<b>面板在刷新率过低时（常见于 40Hz 以下）会出现背光/驱动上的亮度波动</b>，这就是玩家抱怨的 VRR flicker。厂商的常规做法是在面板端设一个 <b>LFC（Low Framerate Compensation）下限</b>或用各种 workaround。<b>这套 uAPI 把「可用区间」这件事从「面板/驱动隐藏兜底」提升为「用户态可显式声明的契约」</b>，是接口设计理念上的一步——把隐含假设变成显式协议。<br>
+        <b>② 「固定靶点 + QMS 预告」是两件不同性质的能力，不要混为一谈。</b>固定靶点解决的是<b>呈现侧</b>问题：内容帧率稳定时，让 VRR 钉在某个刷新率上换取最彻底的稳定；QMS 解决的是<b>链路侧</b>问题：切换刷新率需要时间，接收端（电视）如果不知道要切换，就会用保守的处理模式导致黑屏或重新握手的延迟。<b>QMS 的价值在于把「即将变化」这件事提前告知</b>，从而让接收端可以在切换前夕退出激进处理。任何涉及「动态改变链路参数」的设计——无论是刷新率、编码参数还是链路码率——<b>提前通告（look-ahead signaling）几乎总是比事后补偿便宜</b>。这与我们在 RDMA 上做拥塞通知、在 PCIe 上做链路重训练预告的思路是同一类。<br>
+        <b>③ 落点选在 HDMI 与 RK3588 上，透露了该特性的优先场景。</b>HDMI 走的是消费电视 / 媒体播放路径，RK3588 是嵌入式 / 媒体盒子主力 SoC——<b>两者都指向「影音消费链路」而非游戏桌面</b>，与 QMS 的媒体播放定位一致。这也说明：<b>一个 uAPI 的架构中立性，最终要看它先在哪条最痛的链路上落地</b>；先落地者会反向塑造接口细节。做跨平台接口设计时，这个问题值得提前想清楚。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/ZLUDA-cuFFT-APIs-hipFFT" target="_blank">ZLUDA 用 hipFFT 实现部分 NVIDIA cuFFT API：Stock Folding@Home 的 CUDA 核心已能在 AMD 显卡上跑起来</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body">开源项目 <b>ZLUDA</b>——目标是让 <b>CUDA 应用跑在非 NVIDIA GPU（尤其 AMD Radeon）</b>上——现已实现对 NVIDIA <b>cuFFT</b> 部分核心 API 的支持。cuFFT 是 NVIDIA 的 <b>GPU 加速快速傅里叶变换（FFT）库</b>。<br>
+        <b>实现方式</b>：由开源开发者 <b>「AmosKito1」</b>完成，思路是<b>把 cuFFT 动态翻译到 hipFFT</b>——hipFFT 是 AMD ROCm / HIP 生态中对应的 FFT 库。相关 PR 为 <b>ZLUDA #672</b>。<br>
+        <b>覆盖范围有明确边界</b>：<b>并非全部 cuFFT API 都支持，只覆盖存在直接 hipFFT 等价接口的那部分</b>——这是「有限映射」而非「完整仿真」。<br>
+        <b>实际效果</b>：这一层翻译已经足以让<b>原版（stock）Folding@Home 的 Core24 与 Core27 CUDA 计算核心在 AMD 硬件上正常运行</b>。Folding@Home 是著名的分布式蛋白质折叠计算项目，其计算核心长期只提供 CUDA 版本。<br>
+        该支持已包含在 <b>ZLUDA 7-preview.11</b> 版本中。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 「只做等价映射」是一个诚实且可持续的工程边界。</b>CUDA 到非 NVIDIA 平台的迁移至少有三种路线：<b>源码级移植（改代码，最干净但成本高）</b>、<b>API 翻译层（ZLUDA / HIPIFY 这一类）</b>、<b>完整仿真（最通用但性能与维护都不可接受）</b>。ZLUDA 明确选择中间路线，并且<b>只在语义等价处建立映射，映射不了的地方就直接不支持</b>。这个取舍极其重要：<b>伪支持比不支持更危险</b>——它会让应用「跑起来但结果静默错误」。科学计算类负载（FFT、BLAS、求解器）对数值正确性零容忍，宁可在加载期报错，也不能在结果上悄悄出错。<br>
+        <b>② FFT 是「最后一道硬骨头」之一，它被打通意味着应用可用面显著扩张。</b>在 CUDA 生态里，真正难以绕开的其实不是运行时本身，而是那些被科学计算与工程软件深度依赖的<b>数值库</b>：cuBLAS、cuFFT、cuSPARSE、cuSOLVER 等。其中 FFT 之所以关键，是因为它是<b>大量上层算法的基础组件</b>——信号处理、成像重建、量子化学、分子动力学、深度学习中的卷积加速都直接或间接依赖它。<b>只翻译 API 而不翻译这些数值库，等于只修了门框没装门。</b>这条进展的实际意义，比它表面上「一个库的补丁」大得多。<br>
+        <b>③ 对异构计算选型的启示：生态锁定的机制值得拆解。</b>CUDA 的护城河并不主要在硬件性能，而在于<b>「应用 → 数值库 → 运行时 → 硬件」这条完整链条上每一层都被默认绑定</b>。ZLUDA 这类项目的价值，在于<b>逐层测量这条链条到底有多少层是不可替换的</b>——每打通一层，就为多厂商/多硬件路线打开一扇门。如果我们在自研加速器上要承接既有生态，<b>同样应该先做这件事：把目标应用的实际调用面逐层枚举出来，统计哪些 API、哪些数值库、哪些编译产物形式被真正用到</b>，而不是笼统地讨论「兼容 CUDA 有多难」。这个枚举本身就是最有价值的可行性结论。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-Strix-Halo" target="_blank">Strix Halo 实测 Linux 7.2 vs 7.3：图形基本持平、NUMA 大幅改善，llama.cpp Vulkan 后端略快</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body">上周刚测过 <b>Ubuntu 26.10</b> 上 Ryzen AI Max+「Strix Halo」的性能提升，随后 Canonical 把 Ubuntu 26.10 的内核从 <b>Linux 7.2 切到 Linux 7.3</b>，Phoronix 于是补做了两者在同一台机器上的对照评测。<br>
+        <b>测试平台</b>：<b>Framework Desktop</b>，<b>AMD Ryzen AI Max+ 395</b>，集成 <b>Radeon 8060S Graphics</b>。<br>
+        <b>主要结果</b>：<br>
+        · <b>图形基准基本持平</b>——GravityMark（Vulkan 与 Vulkan 光追）下 <b>Linux 7.2 更快</b>，<b>DDraceNetwork</b>（6144×2560、Vulkan）下 <b>Linux 7.3 略有改善</b>；<br>
+        · <b>NUMA 性能改善明显</b>（Stress-NG NUMA 测试），与此前 EPYC 服务器上观察到的大幅 NUMA 提升相呼应；<br>
+        · Stress-NG 的 <b>MEMFD、Mutex、CPU Cache、Socket Activity</b> 等子项均有提升；<b>ctx_clock 上下文切换</b>也有改善；<br>
+        · <b>网络延迟略降</b>（ethr TCP latency），与其他系统测试趋势一致；<br>
+        · 视频编码 <b>uvg266 / x265</b>、<b>内核编译</b>、<b>llama.cpp Vulkan 后端（Qwen3.5-9B-Q8_0 提示处理）</b>上 7.3 更快；<br>
+        · 也有反向项：<b>NAMD（STMV 106 万原子）、ClickHouse、llama.cpp CPU BLAS（gpt-oss-20b）</b>下 7.2 更快。<br>
+        <b>总体结论</b>：在数十项真实负载上，<b>7.3 相对 7.2 差异不大</b>——但 Linux 7.2 本身已让 Ubuntu 26.10 相对 Ubuntu 26.04 LTS（Linux 7.0）表现出可观提升。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 「差异不大」本身就是有价值的结论，不要只盯着提升项。</b>当一个内核从 7.2 到 7.3 在成熟平台上几乎无差异时，正确的解读是：<b>这个平台的支持已经进入稳态，新一代内核的改动主要落在别处（新硬件、新特性、NUMA/I/O 等结构性路径）</b>。反过来，如果每次小版本升级都在常见负载上出现大幅波动，那才是需要警惕的信号——说明测试覆盖不足或存在未稳定路径。<b>把「无回归」当作一项独立的验收标准</b>，比只追提升项更专业。<br>
+        <b>② NUMA 改善的连续性，说明这是本轮内核的一条主线。</b>从 09-22 的 EPYC 盘点（100+ 项基准几何平均 +8%）到这次 Strix Halo，<b>NUMA 相关路径在两代差异极大的硬件上都出现改善</b>。这种「跨平台可复现的结构性收益」比单机型数字可信得多，也是我们评估内核收益时最该优先采信的形态——<b>它意味着改动打在了公共路径上，而非某个平台的特定勘误</b>。对 AI 推理这类内存带宽敏感、且常跑在统一内存架构上的负载，NUMA 与内存放置策略的收益往往被低估。<br>
+        <b>③ llama.cpp 的「Vulkan 快、CPU BLAS 慢」这一组对比很值得琢磨。</b>同一版本内核、同一台机器，<b>GPU 后端走 Vulkan 转好，CPU 后端走 BLAS 转差</b>，说明 7.3 的收益是<b>路径相关而非全局的</b>——很可能来自调度、内存放置或驱动侧对 GPU 提交路径的改善，而 CPU 侧的 BLAS 计算更多受制于线程调度与缓存行为的细微变化。这提醒我们：<b>「换内核提速 X%」这类结论必须绑定具体执行路径（GPU 还是 CPU、哪种后端、哪种数据布局）</b>，否则引用到生产环境会大幅失真。评估自身 AI 推理栈时，也应按「后端 × 负载 × 数据布局」三个维度分别建基线，而非只看一个总分。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-7.3-CAS-Fixes-Coming" target="_blank">Cache Aware Scheduling 修复批次进入 tip/sched/urgent：将随 Linux 7.3 提交并回移 7.2，瞄准 LLC 亲和与热插拔正确性</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-kernel">内核 kernel</span>
+      </div>
+      <div class="news-body"><b>Cache Aware Scheduling（CAS，缓存感知调度）</b>自 Linux 7.2 进入主线后，一直在修复中。最新一轮修复<b>本周内将合入 Linux 7.3</b>，并<b>标记回移（backport）到 Linux 7.2</b>。<br>
+        这批工作由 Intel 工程师 <b>Tim Chen</b> 主导，核心是让 CAS 的「把相关任务聚到共享<b>最后一级缓存（LLC）</b>的核上」这一目标能够真正生效——CAS 的收益来自<b>更好的缓存局部性与更低延迟</b>，避免潜在的<b>缓存抖动（cache bouncing）</b>开销，<b>前提是 bug 不从中作梗</b>。<br>
+        <b>本次修复的内容</b>：<br>
+        · 让 <b>nr_pref_llc_running 保持在 runnable domain 内</b>（不越界漂移）；<br>
+        · 在<b>主动负载均衡（active load balance）</b>中<b>遵守 migrate_llc_task 的语义</b>；<br>
+        · 在 <b>CPU 热插拔（hotplug）</b>时<b>刷新 LLC 容量信息</b>——避免拓扑变化后仍用过期数据做决策；<br>
+        · <b>跳过内核线程（kernel thread）</b>参与缓存感知调度；<br>
+        · 以及若干其他底层调整。<br>
+        补丁已合入 <b>tip/tip.git 的 sched/urgent 分支</b>。由于进入的是 TIP 的 <b>urgent</b> 分支，预计本周内提交给当前的 Linux 7.3 周期；<b>全部补丁同时标记回移 Linux 7.2</b>。此前本周期还修过 CAS 在<b>混合 CPU（hybrid）</b>上的问题。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 这批修复的共性很清晰：拓扑信息的「时效性」与「作用域」。</b>四条主要修复里有两条（LLC 容量随热插拔刷新、nr_pref_llc_running 不越出 runnable domain）本质是同一类错误——<b>调度决策依赖的拓扑/状态数据，在某些事件后不再有效，或作用范围被错误地放大</b>。这类 bug 的典型特征极其难查：<b>平时完全正常，只在热插拔、CPU 离线、容器绑核、或特定核数组合下偶发</b>，而且表现为性能退化而非功能错误，因此很难被功能测试捕获。我们在自己的调度与资源管理代码里，应当把「<b>什么事件会让缓存下来的拓扑信息失效</b>」列成一张显式清单，而不是依赖开发者的记忆。<br>
+        <b>② 「进 urgent 分支 + 标记回移」的流程信息比修复本身更值得记录。</b>走 <b>sched/urgent</b> 而不是正常的 merge window，意味着维护者判定<b>这是必须尽快修复的正确性/性能缺陷，值得承担破坏 rc 稳定性的风险</b>；同时标记回移 7.2 说明<b>问题是在 7.2 引入的，受影响用户已经存在于生产环境</b>。这个组合本身就是一份清晰的「严重性评级」。对于在生产环境跑 7.2 的团队，<b>这是明确的升级/打补丁信号</b>，而不是可以排进下一季度再看的优化项。<br>
+        <b>③ 从工程角度看，「新特性引入 → 关联路径回归 → 多轮修复」是常态节奏，而不是失职。</b>CAS 从进入主线（7.2）到反复修（7.2 回移 + 7.3 混合 CPU 修复 + 本次热插拔/负载均衡修复），只用了很短时间。真正值得注意的是<b>修复的方向</b>：从「功能不正确」逐步收敛到「边界条件与拓扑变化」。<b>评估任何新调度/资源管理特性的成熟度，看的正是这个收敛速度</b>——如果连续多轮修复都还在改主逻辑，说明设计未定型；如果很快转入热插拔、混合拓扑、越界保护这类边缘场景，说明主干已经稳了。这个判断方法可以迁移到我们平台上的任何调度特性评审。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Linux-sysfs-AMD-SEV-Status" target="_blank">Linux 新增 AMD SEV 状态查询接口：sysfs 暴露 sev_status，免去 sevctl/snpguest 等用户态工具</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-kernel">内核 kernel</span>
+      </div>
+      <div class="news-body">一项<b>令人意外地直到现在才被加入</b>的便利功能即将进入内核：新的 sysfs 接口 <b>/sys/devices/system/cpu/sev/sev_status</b>，用于上报 <b>AMD SEV（Secure Encrypted Virtualization，安全加密虚拟化）</b>的状态。<br>
+        <b>实现细节</b>：补丁已排队进入 <b>tip/tip.git 的 x86/sev 分支</b>，目标为 <b>Linux 7.4</b>（该周期将于 10 月开启）。该文件将上报<b>客户虚拟机（guest VM）中 SEV_MSR 寄存器的状态</b>。<br>
+        <b>价值</b>：有了它，判断 SEV 虚拟机的加密状态<b>不再需要借助 sevctl、snpguest 之类的用户态工具</b>——直接读一个 sysfs 文件即可。<br>
+        <b>信息密度</b>：<b>SEV_STATUS 这个 MSR 不只反映「SEV 是否启用」</b>，其<b>高位还能指示当前生效的能力</b>，例如 <b>SEV-ES</b>（加密状态保存）与 <b>SEV-SNP</b>（安全嵌套分页）是否处于活动状态。<br>
+        对应提交为 tip 树中的 <b>250ee734115bca1c1f7a38d838909aa83cce87ae</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 「状态可观测性由用户态工具下沉到内核 sysfs」是一个反复出现的正确方向。</b>用 sevctl / snpguest 这类外部工具判断状态有三个固有缺陷：<b>需要在 guest 内安装额外软件</b>（在最小化镜像、容器、不可变系统里很麻烦）、<b>工具版本与内核特性可能脱节</b>、<b>结果无法被系统软件的通用采集链路（监控 agent、编排平台、合规扫描）直接拿到</b>。而 sysfs 是<b>统一、稳定、无需额外依赖的可观测面</b>。这个模式在过去几年里反复被验证：CPU 特性、频率、拓扑、显存用量（如本期前后的 DRM memstat 提案）都在向 sysfs/<b>标准节点</b>收敛。<b>当一项能力需要靠「装个工具去问」才能知道时，它一定会在自动化环境里被漏掉。</b><br>
+        <b>② 读 MSR 而非「读一个布尔值」，说明设计者理解能力组合的复杂性。</b>机密计算的能力不是一个开关，而是<b>一组按代际叠加的特性</b>：SEV 基础加密 → <b>SEV-ES</b>（寄存器状态也加密，防止 hypervisor 在异常/中断时窥探）→ <b>SEV-SNP</b>（增加内存完整性保护与证明）。<b>不同的上层安全方案对能力下限的要求完全不同</b>——只支持 SEV 与支持 SEV-SNP 在威胁模型上有实质差别。<b>直接暴露位域而不是替用户归纳成一个「已加密/未加密」的结论，把判断权留给策略层，这是正确的接口粒度。</b>做安全与虚拟化相关接口时，过早地做「友好归纳」往往会丢失关键信息，事后只能靠加新接口补救。<br>
+        <b>③ 对机密计算与加速器直通的直接关联。</b>结合此前 AMD 的 <b>SEV-TIO / TDISP</b> 方向（PCIe 6.0 下的机密计算设备直通），可以看到一条越来越清晰的链路：<b>设备侧的可信直通，必须以平台侧可信状态的完整可观测性为前提</b>。要验证「这台虚拟机是不是真的处于受保护状态、挂给它的设备是不是真的走加密路径」，就必须能<b>在运行时逐项查验每一层的能力位</b>，而不是靠启动参数推断。我们如果要在自研加速器上支持类似场景，<b>对应的状态上报节点应当与加密路径同期设计，而不是等业务提出合规需求时再补</b>——补出来的接口通常既不够用、也无法覆盖早期硬件的差异。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">7</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/systemd-262" target="_blank">systemd 262 发布：内置内存态 unit 作为兜底、可编成静态单二进制 PID 1，并为未经评审的 AI/LLM 代码加「金丝雀」</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-kernel">内核 kernel</span>
+        <span class="tag tag-compute">计算 compute</span>
+      </div>
+      <div class="news-body"><b>systemd 262</b> 正式发布，作为一次特性更新，延续了「功能密集」的风格。主要变化：<br>
+        · <b>内置一组基础 unit 文件</b>：当磁盘上的 unit 无法加载、或在<b>未安装任何 unit 文件的容器</b>中运行时，systemd 会回退到这些<b>内存态兜底定义</b>（涵盖 reboot / shutdown target、systemd-poweroff 服务、multi-user target）；<br>
+        · 可作为<b>静态链接的单一 PID 1 / executor 二进制</b>构建，面向<b>极小型容器</b>；<br>
+        · <b>NUMAPolicy=</b> 现在接受 <b>preferred-map 与 weighted-interleave</b> 两种取值；<br>
+        · service unit 新增 <b>LUOSession=</b> 选项，可由 systemd 创建 <b>Live Update Orchestrator（LUO）</b>会话，并伴随一批 LUO 集成改进；<br>
+        · <b>systemd-firstboot</b> 支持 <b>systemd.firstboot=headless</b>，抑制全部交互提示、走非交互自动配置，服务无人值守安装；<br>
+        · <b>systemd-coredump</b> 支持 Linux 6.17 引入的<b>内核 coredump socket 协议</b>；<br>
+        · <b>systemd-homed</b> 新的 FSCRYPT 后端家目录默认使用 <b>FSCRYPT v2 策略</b>；<br>
+        · <b>systemd-cryptenroll</b> 新增首次启动注册向导；<br>
+        · <b>systemd-vmspawn</b> 的 <b>--coco=</b> 选项在原有 AMD SEV-SNP 之外，<b>新增支持 Intel TDX</b>；<br>
+        · 新增 <b>dm-clone 启动集成</b>；<br>
+        · 以及最受关注的一项——携带 <b>用于检测未经评审的 AI/LLM 代码贡献的「AI 金丝雀（AI canary）」</b>。<br>
+        完整变更列表见 GitHub 上的 v262 发布说明。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 「AI 金丝雀」这件事的意义远超 systemd 本身。</b>注意这里的关键词是<b>「未经评审（un-reviewed）」</b>，而不是「AI 写的」。这一定位很精准：<b>真正的问题从来不是代码由谁生成，而是它有没有经过有效的人工审查</b>。当生成成本趋近于零时，<b>评审环节会成为唯一的质量闸门，也会成为第一个被流量淹没的环节</b>。systemd 作为最核心的用户态基础设施，率先把这件事机制化，等于承认了一个现实：<b>上游的评审带宽已经无法匹配提交量，需要技术手段来标记风险面</b>。对我们的直接启示是——<b>团队应该主动统计「AI 生成代码在合并前的评审覆盖率」，而不是笼统地表态支持或禁止 AI 编程</b>。这个指标才是可管理、可改进的。<br>
+        <b>② 与昨天的「孤儿虚拟机」补丁合起来看，Live Update 这条线正在成形。</b>本期 <b>LUOSession=</b> 让 systemd 能创建 Live Update Orchestrator 会话，而 09-22 期记录的「孤儿虚拟机」46 补丁正是让<b>宿主机内核下线期间虚拟机不间断执行</b>。两者是<b>同一个目标的两端</b>：内核/系统需要「在线替换自己」的机制，而上层需要一个编排者来协调这场替换。这类跨越内核与 init 系统的协同设计，<b>恰恰是「零停机运维」从概念走向可部署的关键一步</b>——单靠任何一侧都无法完成。跟踪这条线的推进会比跟踪单个补丁更有价值。<br>
+        <b>③ 「内存态兜底 unit + 静态单二进制 PID 1」瞄准的是容器与不可变系统。</b>这两个特性合起来解决同一个问题：<b>在「没有传统根文件系统」的环境里，init 系统必须能自给自足</b>。对于最小化容器镜像、initramfs、以及资源极受限的嵌入式场景，<b>少掉一层「必须预先安装配置文件」的依赖，就等于少掉一整类启动失败</b>。这与本期第 1 条（Nouveau 给 Deep Color 补丁）、第 6 条（SEV 状态下沉 sysfs）共享同一思路：<b>把「必须依赖外部预先准备」的东西内化，让系统在更恶劣的条件下仍能正确启动与自描述。</b>这个方向对需要在裁剪环境中部署加速器驱动的场景尤其相关。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">8</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/SPECviewperf-15.0.1-Linux" target="_blank">SPECviewperf 15.0.1 Linux 原生版发布：终结 Linux 侧落后 Windows 一年多的局面，x86_64 与 AArch64 双架构可用</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-display">显示 display</span>
+      </div>
+      <div class="news-body">SPEC 发布了 <b>SPECviewperf 15.0.1 的 Linux 原生版本</b>——这是这一业界标准<b>工作站图形基准测试</b>在 Linux 上的补位。<br>
+        <b>背景</b>：SPECviewperf 15 早在 <b>2025 年 5 月</b>发布，但<b>当时只提供 Windows 版本，Linux 支持再次滞后</b>。今天 Linux 终于追上。<br>
+        <b>版本跨度</b>：<b>15.0.1 相对此前 Linux 上的 SPECviewperf 2020 是一次大幅更新</b>。<br>
+        <b>架构支持</b>：该 Linux 构建提供 <b>x86_64 与 AArch64</b> 两种版本。<br>
+        <b>关键差异（重要）</b>：<br>
+        · Windows 版 SPECviewperf 15 <b>增加了 DirectX 12 与 Vulkan</b> 图形 API 支持；<br>
+        · <b>而 Linux 版 15.0.1 目前只支持 OpenGL 4.5</b>。<br>
+        Phoronix 表示接下来会用 SPECviewperf 15.0.1 Linux 做一批<b>工作站 GPU 与驱动对比基准</b>。详细说明见 SPEC.org 的 GWPG 页面。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 先看「补齐了什么」，再看「还缺什么」——后者往往更说明问题。</b>这次发布的实质价值是<b>把 Linux 工作站基准从 SPECviewperf 2020 拉到了 15.x 世代</b>，让 Linux 侧的评测结论重新具备可对比性。但<b>「Linux 版仅 OpenGL 4.5，Windows 版有 DX12 + Vulkan」这一条差异，才是更值得关注的信号</b>：它说明<b>商业基准套件的投入顺序仍然跟随 Windows 专业软件生态</b>，而 Linux 上的工作站用户长期只能在「降级的测试集」上做对比。对采购与评估工作的直接影响是：<b>用 Linux 版 SPECviewperf 测出的相对排名，不能直接套用到 Vulkan/DX12 路径的结论上</b>——这两条路径在驱动里的实现、优化成熟度、乃至已知勘误都完全不同。<br>
+        <b>② 基准工具的「版本对齐」本身就是一项基础设施，值得作为独立事项管理。</b>当测试工具与目标软件的世代脱节时，会产生一个隐蔽问题：<b>测出来的性能变化无法归因</b>——到底是硬件/驱动变了，还是测试负载变了？这次 Linux 版一次性从 2020 跨到 15.0.1，<b>历史基线数据会全部失效，必须重建</b>。凡是依赖长期基准做容量规划或回归监控的团队，都应当把<b>「基准套件版本 + 负载版本」当作基线元数据的一部分记录下来</b>，否则跨版本对比得出的结论都是不可靠的。<br>
+        <b>③ AArch64 版本的存在，说明 Linux 工作站场景正在向 ARM 延伸。</b>SPECviewperf 的 Linux 版<b>同时提供 x86_64 与 AArch64</b>，这不是顺手的交叉编译，而是对应了真实需求——<b>ARM 工作站（如各类基于 Grace、Ampere、以及国产/自研 ARM 平台的图形工作站）在专业图形场景的份额在上升</b>。对做图形/显示驱动的团队而言，这意味着<b>专业图形这套负载组合（大体量模型、复杂着色、高精度几何）将逐渐进入 ARM 平台的验证清单</b>，而这类负载对显存带宽、驱动成熟度、以及 OpenGL 兼容层的压力，都远高于消费级游戏基准。提前把这类真实专业负载纳入平台验收路径，比只看合成基准更有指导意义。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-23.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-22.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-23</p>
+    <p>覆盖范围：2026-09-22（EDT）全天 · Nouveau 获得 HDMI Deep Color 补丁（10/12/16 位色深，暂仅 RGB，AI 协助开发）· Collabora 提出 VRR「目标帧率限制器」uAPI（25 补丁 + QMS 连接器属性，落地 HDMI 与 RK3588）· ZLUDA 用 hipFFT 实现部分 cuFFT API（Folding@Home CUDA 核心在 AMD 显卡跑通）· Strix Halo 实测 Linux 7.2 vs 7.3（图形持平、NUMA 大改善、llama.cpp Vulkan 略快）· Cache Aware Scheduling 修复进 tip/sched/urgent（LLC 亲和 + 热插拔正确性，回移 7.2）· Linux 新增 AMD SEV 状态 sysfs 接口 /sys/devices/system/cpu/sev/sev_status（免用户态工具）· systemd 262 发布（内存态兜底 unit + 静态单二进制 PID 1 + AI 代码评审金丝雀）· SPECviewperf 15.0.1 Linux 原生版发布（x86_64/AArch64，仅 OpenGL 4.5）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>
