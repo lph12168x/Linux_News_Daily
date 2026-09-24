@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux 每日新闻 - 2026-09-24</title>
+<style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #f1f2f6;
+      --shadow: rgba(0,0,0,0.08);
+    }
+    [data-theme="dark"] {
+      --bg: #1a1a2e;
+      --text: #e0e0e0;
+      --card-bg: #16213e;
+      --border: #2c3e6d;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --tag-gpu: #0984e3;
+      --tag-display: #00b894;
+      --tag-compute: #e17055;
+      --tag-npu: #fd79a8;
+      --tag-kernel: #d63031;
+      --hover: #1e2a4a;
+      --shadow: rgba(0,0,0,0.3);
+    }
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .header p { opacity: 0.9; font-size: 1rem; }
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      z-index: 100;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { background: var(--hover); }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .news-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .news-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .news-num {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .news-title { font-size: 1.3rem; font-weight: 600; flex: 1; }
+    .news-title a { color: var(--text); text-decoration: none; }
+    .news-title a:hover { color: var(--accent); }
+    .news-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+    }
+    .tag-gpu { background: var(--tag-gpu); }
+    .tag-display { background: var(--tag-display); }
+    .tag-compute { background: var(--tag-compute); }
+    .tag-npu { background: var(--tag-npu); }
+    .tag-kernel { background: var(--tag-kernel); }
+    .news-body { color: var(--text); opacity: 0.9; margin-bottom: 0.8rem; }
+    .news-reason {
+      background: var(--hover);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .news-reason strong { color: var(--accent); }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .header h1 { font-size: 1.5rem; }
+      .news-header { flex-direction: column; align-items: flex-start; }
+    }
+  /* PAGE-NAV-CSS-START */
+    .page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg, var(--card, rgba(255,255,255,0.06)));
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      border-radius: 12px;
+    }
+    .page-nav.bottom {
+      max-width: 900px;
+      margin: 2rem auto 0;
+      box-sizing: border-box;
+    }
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border, rgba(255,255,255,0.12));
+      background: var(--bg, #0a0e14);
+      color: var(--text, #cdd6e0);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .nav-btn:hover {
+      background: var(--hover, var(--surface, rgba(255,255,255,0.08)));
+      border-color: var(--accent, #6c5ce7);
+      color: var(--accent, #6c5ce7);
+    }
+    .nav-btn.disabled { opacity: 0.4; pointer-events: none; cursor: default; }
+    .nav-btn.current { background: var(--accent, #6c5ce7); color: #fff; border-color: var(--accent, #6c5ce7); }
+  /* PAGE-NAV-CSS-END */
+  </style>
+</head>
+<body data-theme="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">☀️/🌙 切换主题</button>
+  <div class="header">
+    <h1>🐧 Linux 每日新闻</h1>
+    <p>2026 年 9 月 24 日 · 图形 · 显示 · 计算</p>
+  </div>
+  <div class="container">
+
+<!--PAGE-NAV-TOP-START-->
+  <nav class="page-nav" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-24.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-23.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-TOP-END-->
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">1</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/DXVK-IGDEXT" target="_blank">Intel 开源 DXVK-IGDEXT：让游戏在 Wine/Proton 下真正用上 Intel D3D11 图形扩展，而非静默回退到慢路径</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-display">显示 display</span>
+      </div>
+      <div class="news-body">Intel 工程师一直在低调开发 <b>dxvk-igdext</b>——这是 Intel 自己的一个组件，服务于 <b>DXVK</b>（把 Direct3D 8/9/10/11 翻译到 Vulkan 的兼容层），用于接入 <b>Intel Direct3D 11 Graphics Extensions（IGDEXT）</b>。<br>
+        <b>它具体做什么</b>：提供一个 <b>igdext64.dll</b>，让游戏在 <b>Wine</b> 环境下能够使用 Intel 的 D3D11 图形扩展——<b>把这些扩展转发到 DXVK 的原生实现</b>，而不是在扩展不可用时，<b>让游戏「静默回退（silently fall back）」到较慢的默认 D3D11 行为</b>。<br>
+        <b>覆盖的扩展能力</b>（项目自述）：<br>
+        · <b>UAV overlap</b>（无序访问视图重叠）<br>
+        · <b>MultiDrawIndirect</b>（间接多重绘制）<br>
+        · <b>depth bounds</b>（深度边界测试）<br>
+        <b>落地路径</b>：该 DLL 由 <b>Valve 的 Proton 自动处理</b>，因此可以直接改善 <b>Intel Arc 显卡上的 Linux（Steam Play）游戏体验</b>，用户侧无需手动配置。<br>
+        <b>范围声明</b>：项目明确标注 <b>「仅限 Linux / Wine，不适用于原生 Windows」</b>。<br>
+        代码已在 GitHub 开源：<b>GameTechDev/dxvk-igdext</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 这条的要害是「静默回退」四个字，它揭示了兼容层最容易被忽视的性能损失机制。</b>翻译层的性能问题通常被理解为「翻译本身有开销」，但实际危害更大的是<b>能力探测失败导致的路径降级</b>：游戏的引擎在启动时查询驱动是否暴露某项扩展，得到「否」的答复后，会切到一条<b>功能等价但慢得多的通用实现</b>——而这个切换<b>对用户完全不可见</b>，既不报错也不打日志，只是帧率莫名低了。更麻烦的是，<b>同一款游戏在两家 GPU 上跑出不同性能时，很难判断差距是来自硬件还是来自「扩展被识别/未被识别」</b>。igdext 这类组件的价值，就在于<b>把「能力探测」这一环补齐，让翻译层不再因为缺失声明而自我降级</b>。<br>
+        <b>② 「转发到原生实现」而不是「重新实现」是本项目设计上最正确的一步。</b>面对缺失的扩展有两条路：<b>一是在 DWK 侧真正实现</b>（工作量大、且会与上游 Vulkan 路径重复），<b>二是在扩展声明层做适配，把调用导向已经存在的原生实现</b>。项目选择后者，好处是<b>不引入第二套实现、不产生行为分歧、维护面最小</b>。这与我们在驱动/中间件上做兼容时该守的原则一致：<b>能靠适配层解决的，绝不去复制一份功能实现</b>——因为功能一旦有两份实现，就会有两套 bug 和两套语义。<br>
+        <b>③ 把它交给 Proton 自动分发，是一个非常聪明的生态落点。</b>如果这个 DLL 需要用户手动安装或逐游戏配置，它的实际采用率会接近于零。<b>把组件塞进 Proton 的默认处理链，等于把「厂商私有优化」变成「平台上所有用户默认继承的能力」</b>。这对我们有直接启发：<b>任何平台侧的优化，最终收益取决于它的分发路径是否「默认生效」</b>。做完一个优化只算完成了一半，<b>把它接进默认链路才算真正交付</b>。<br>
+        <b>④ 顺带注意项目归属：它来自 Intel 官方的 GameTechDev 组织。</b>这意味着它不是社区凑合的民间方案，而是<b>厂商为自己的硬件在 Linux 上补短板的正规动作</b>。这种「厂商主动投入向上游/开源生态补齐自家硬件体验」的趋势，过去几年在 AMD（Mesa/RADV）、Intel（ANV/Xe）身上都在加强，对使用这些硬件的团队是实质性利好。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">2</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Qualcomm-Adreno-850-Open-Source" target="_blank">高通为 Adreno 850「Hawi」提交开源内核补丁：首发 Matrix Core（MALU），并一并支持无矩阵单元的 Adreno 845「Maili」</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-compute">计算 compute</span>
+      </div>
+      <div class="news-body">高通在发布新一代旗舰移动平台后<b>仅一天</b>，就向 Linux 内核提交了 <b>Adreno 850 GPU 的初始开源驱动补丁</b>。<br>
+        <b>硬件背景</b>：Adreno 850 属于新宣布的 <b>Snapdragon 8 Elite Extreme Gen 6</b>，内部代号 <b>「Hawi」</b>；本代最重要的变化是<b>首次引入专用矩阵加速单元 Matrix Core（MALU）</b>，面向特定计算/AI 负载做加速。<br>
+        <b>补丁同时覆盖两款 GPU</b>：<br>
+        · <b>Adreno 850（Hawi）</b>——含 MALU 矩阵核心；<br>
+        · <b>Adreno 845（Maili）</b>——与 A850 架构相近，但<b>不含 MALU 块</b>。<br>
+        <b>后续动作</b>：高通表示 <b>Mesa 用户态驱动支持</b>与 <b>linux-firmware 固件更新</b>将随后发布，以启用完整功能。<br>
+        <b>当前能力边界（重要）</b>：由于<b>尚缺显示输出支持</b>，Hawi 与 Maili 目前的测试<b>仅限于离屏渲染（offscreen rendering）</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 「官宣次日就交补丁」这件事本身的信号价值，高于补丁内容本身。</b>移动 GPU 的开源支持传统上滞后于产品发布数月甚至数年，导致上游发行版长期只能跑在「能点亮但跑不快」的状态。<b>把内核使能压缩到发布后 24 小时，说明高通已经把「上游开源支持」纳入了产品发布流程，而不是当作事后补救</b>。对下游的直接影响是：<b>从产品发布到 Linux 生态可用的时间差被显著压缩</b>，厂商在选型时「Linux 支持是否成熟」这一票的权重可以调低。<br>
+        <b>② 把两款 GPU 放在同一份补丁里提交，是刻意降低维护成本的工程决策。</b>A850 与 A845 的差别只在 MALU 这一个块，<b>共享绝大部分 IP 意味着可以共用驱动路径，只把矩阵单元作为可选特性开关</b>。这比拆成两份补丁更省事，也更能避免两条路径长期分叉。设计硬件代际时，<b>「同一代不同档位是否保持寄存器/固件层面的高度同构」直接决定了驱动侧的维护成本</b>——这里是一个正向样板。<br>
+        <b>③ 首次出现 MALU，意味着移动 GPU 的角色正在从「渲染器」转向「渲染 + 推理的执行体」。</b>过去 GPU 上的 AI 加速主要依赖通用着色器指令（如 FP16 打包运算）；<b>引入专用矩阵单元，意味着芯片设计上承认「神经网络推理是一类独立且长期存在的工作负载」</b>。结合同一时期 NVIDIA 在开源 Nova 驱动上推进 vGPU、Apple 在 M 系列上做 NPU 硬解、Intel 在 NPU 驱动上持续加码，可以看出<b>「图形 + 矩阵」的双引擎结构正在从数据中心下沉到移动端，并成为 GPU 的默认形态</b>。<br>
+        <b>④ 「仅离屏渲染」这个限制值得单独留意，因为它是显示链路集成度的真实证据。</b>GPU 计算部分能在短时间内使能，而<b>显示部分永远滞后——因为它要串起 PHY、时序控制器、DP/DSI 链路、电源域与面板初始化序列这一整条长链</b>。任何时候看到某款 GPU「支持了但只能 offscreen」，都可以判定：<b>该平台真正可用的瓶颈不在算力，而在显示与电源子系统的集成成熟度</b>。评估自研/适配平台的进度时，这个判断标准同样适用——<b>看显示路径是否打通，比看算力跑分更能说明「能不能交付」</b>。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">3</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/LLVM-Clang-AVX10_V2_AUX" target="_blank">AMD 把 AVX10_V2_AUX 送进 LLVM Clang 24：为 AI 负载加入 FP4/FP6 数据格式转换与 OCP 微缩放支持，新增 -mavx10v2aux 开关</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+      </div>
+      <div class="news-body">继 AMD 为 GCC 编译器准备 <b>AVX10_V2_AUX</b> 支持之后，其 LLVM/Clang 侧的实现也已于本周一<b>合并进 LLVM 24 Git</b>。<b>初始 AVX10_V2_AUX ISA 支持</b>通过 Clang 的新编译开关 <b>-mavx10v2aux</b> 对外暴露。<br>
+        <b>AVX10_V2_AUX 是什么</b>：它在 AVX10 基础上<b>增加了面向 AI 负载加速的专用数据处理与格式转换指令</b>，具体包括：<br>
+        · 把<b>标准数据类型转换为压缩数据格式，如 FP4 与 FP6</b>；<br>
+        · 额外的 <b>OCP 微缩放（microscaling）格式</b>支持；<br>
+        · 新的<b>舍入模式</b>等。<br>
+        <b>生态归属</b>：AVX10_V2_AUX 是 <b>AI Compute Extensions（ACE）</b>的一部分，由 <b>Intel 与 AMD 在 x86 Ecosystem Advisory Group 框架下共同推进</b>；就此项工作而言，主要由 <b>AMD 工程师负责</b>。<br>
+        <b>规模</b>：该实现<b>横跨 20 个补丁、约 1.5 万行新代码</b>。相关 LLVM PR 为 <b>llvm/llvm-project#206888</b>。<br>
+        <b>时间点</b>：<b>LLVM/Clang 24.1 稳定版预计明年 3 月发布</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 这条的核心信息是「低比特数据格式开始进入 x86 基础指令集」，这比某个编译器补丁重要得多。</b>过去 FP4/FP6 这类格式的转换与缩放，要么靠专用加速器，要么靠软件库绕行（大量移位、掩码、查表组合）。<b>把它做成 ISA 原生指令，意味着低精度格式从「特定硬件的专有能力」变成了「通用 CPU 的基础能力」</b>。这会直接改变软件栈的设计假设：<b>量化推理不再必须绑定特定加速器才能获得可用性能</b>，纯 CPU 路径作为兜底方案的门槛被显著拉低。对我们做异构方案的团队而言，这是一个需要重新评估「CPU 兜底路径定位」的信号——它从「能跑但慢」逐渐向「能跑且够用」移动。<br>
+        <b>② 用「AUX」这种后缀做扩展、而不是直接改主版本，是一个值得学习的接口演进策略。</b>AVX10_V2_AUX 挂靠在 AVX10.2 之上，<b>以附加能力的形式存在</b>，而不是单独开创一条指令集分支。这样做的好处很明确：<b>不对既有的 AVX10 基线造成语义分裂，软件可以选择性地启用「基线 + 扩展」，而不是被迫在两条互斥的路径中选择</b>，同时硬件实现可以分批落地。凡是在指令集、协议、API 上做能力扩展的场景，<b>「附加式扩展」几乎总是优于「新开分支」</b>——因为后者的兼容矩阵会随版本数呈组合式膨胀。<br>
+        <b>③ 这是 Intel 与 AMD 通过 x86 Ecosystem Advisory Group 协作的成果，说明 x86 阵营正在把「AI 相关的指令扩展」当作共同基础设施来建设。</b>历史上两家在 SIMD 上各行其是（SSE/AVX 与 3DNow! 的教训），导致软件必须写多套分支。如今<b>在 ACE 这类面向 AI 的扩展上采取联合推进、统一 ISA、由单方工程师主导实现的多方协作模式</b>，对上层软件是实质减负：<b>一份编译器代码路径即可覆盖两家硬件</b>。这种「先把 ISA 谈拢、再分头实现」的模式，值得在做跨厂商接口标准化时借鉴。<br>
+        <b>④ 从工程节奏上注意一点：指令集从「上游合并」到「生产可用」之间还有很长一段路。</b>LLVM 24 Git 合并（现在）→ Clang 24.1 稳定版（明年 3 月）→ 发行版编译器带上该版本 → 应用真正编译出使用这些指令的二进制 → 硬件实际上市。这四个环节<b>每一个都可能引入数月延迟</b>，而且<b>编译器支持与硬件可用必须同时就位才有意义</b>。评估任何新指令集特性的落地时间时，<b>应当以这条链上最慢的一环为准，而不是以最乐观的一环为准</b>。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">4</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Lemonade-2026.40-RC" target="_blank">Lemonade 2026.40 RC：按 APU 的 GTT 池而非显存切分窗口判定流式模型可行性，并移除比 Vulkan 慢约 40 倍的 OpenMOSS ROCm 后端</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+        <span class="tag tag-gpu">图形 GPU</span>
+      </div>
+      <div class="news-body">AMD 生态的开源本地 AI 服务项目 <b>Lemonade</b> 发布 <b>2026.39.1 稳定版</b>，同时放出下一版 <b>2026.40 的候选版本（RC）</b>，并开始采用<b>「年份 + 周号」的新版本号体系</b>。<br>
+        <b>改进一：修复 AMD 核显 / APU 上的流式模型加载</b><br>
+        此前 Lemonade <b>按固定的显存切分窗口（vRAM carve-out）判断模型能否放下</b>，而 AMD APU 实际可寻址的是更大的 <b>GTT 池</b>。这个错误判定导致 <b>DeepSeek-V4-Flash-IQ2XXS-DS4 等流式模型在 AMD Ryzen AI Max（Strix Halo）上无法运行</b>——尽管内存容量是足够的。修复后改为<b>按 APU 的 GTT 池尺寸来做判定</b>，从而改善 iGPU/APU 上的流式模型支持。<br>
+        <b>改进二：移除 OpenMOSS 的 ROCm 后端（Windows 与 Linux 均移除）</b><br>
+        原因是<b>同一硬件上 OpenMOSS 的 ROCm 后端比 Vulkan 后端慢约 40 倍</b>。从数据看，AMD ROCm 的代码路径中<b>至少发生了部分 CPU 回退</b>，这正是性能差距如此悬殊的原因。相关 MR 为 <b>lemonade-sdk/lemonade PR #3615</b>；官方态度是<b>「在该问题被正确修复之前先移除支持」</b>。<br>
+        <b>其他变化</b>：2026.40 RC 新增面向 <b>JetBrains Junie</b> 的启动代理（launch agent）；2026.39.1 带来<b>可配置的 vRAM 自动驱逐（auto-eviction）</b>等小幅改进。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 「按显存切分窗口判断，而不是按可寻址内存判断」——这是一个典型的把平台差异抽象错了的例子。</b>在独立显卡上，vRAM 就是全部可用显存，按它判断是合理的；但 <b>APU 的内存模型与独显有本质区别</b>：统一内存架构下，显存只是系统内存中一个<b>被预留切分出来的窗口</b>，GPU 真正能通过 GTT 地址空间访问的容量大得多。代码沿用了独显的心智模型，于是<b>在 APU 上把「放得下」误判成「放不下」</b>。这个 bug 的启示很直接：<b>当同一套软件要覆盖内存架构不同的平台时，「可用资源」的定义必须显式建模，不能依赖某个平台的隐含语义</b>。这类错误往往不报错、只是「拒绝服务」，排查起来相当隐蔽。<br>
+        <b>② 「比 Vulkan 慢 40 倍」这个数字本身就是最重要的诊断线索——它几乎必然意味着走了回退路径。</b>在成熟的 GPU 栈上，<b>同一份计算走两个不同后端，性能差距通常在同数量级以内（几成到数倍）</b>；一旦出现几十倍的差距，基本可以排除「后端实现效率差」这种解释，而指向<b>「该后端根本没在 GPU 上执行」</b>——比如算子没有实现、内核编译失败、设备选择错误，于是回落到 CPU。这给了我们一条非常实用的判据：<b>当加速路径的性能差到「不像加速」时，第一件事不是去优化内核，而是去确认它到底有没有在加速器上跑</b>。用 profiler 看一眼 kernel 是否落在 GPU 上，比读代码快得多。<br>
+        <b>③ 选择「直接把后端移除」而不是「挂着但标不推荐」，是一个值得肯定的工程态度。</b>保留一个慢 40 倍的后端，会造成三种损害：<b>用户以为自己在用 GPU 加速、benchmark 数据被污染、以及持续产生「这个后端为什么这么慢」的支持成本</b>。相比之下，<b>明确移除并注明原因、等修好再放回</b>，代价是多了一次版本变动，收益是消除了一个持续产生错误结论的来源。这套逻辑在处理内部性能路径时同样成立：<b>一条不能正确加速的加速路径，比不存在更糟</b>——因为它会误导所有人的性能判断。<br>
+        <b>④ 顺带值得注意的是「按 GTT 判定」这件事背后的方向：APU 正在成为本地推理的重要载体。</b>大模型本地推理的核心约束是<b>内存容量</b>而非峰值算力，而 APU 的「大容量统一内存 + 可寻址 GPU」恰好对上这个需求（这也是 Strix Halo 这类产品受关注的原因）。因此<b>「让软件正确理解 APU 的内存模型」是这条赛道上必须补齐的基础工程</b>。这类修复看起来琐碎，但它决定了这类硬件能否被软件生态真正用起来。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">5</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Qualcomm-Talks-Up-X2-Linux" target="_blank">高通发布 Snapdragon X2 Linux 早期开发者预览：定制内核 + Debian 13 用户态，Adreno 走 Freedreno/Turnip 甚至 Rusticl，Hexagon NPU 走 fastRPC</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-gpu">图形 GPU</span>
+        <span class="tag tag-npu">NPU</span>
+      </div>
+      <div class="news-body">在夏威夷举行的 <b>Snapdragon Summit</b> 上，高通正式<b>展示了 Snapdragon X2 系列笔记本的 Linux 适配进展，并宣布推出面向 X2 的「Linux 早期开发者预览（Early Developer Preview）」</b>。<br>
+        <b>预览版构成</b>：<b>定制构建的 Linux 内核 + Debian 13 用户空间</b>。<br>
+        <b>已上游 / 进行中的关键组件</b>：<br>
+        · <b>大量初始使能工作已经上游</b>；<br>
+        · <b>Adreno GPU</b>：在 Mesa 中通过 <b>Freedreno 与 Turnip 驱动</b>支持，甚至<b>包含 Rusticl（Rust 编写的 OpenCL 实现）</b>；<br>
+        · <b>Hexagon NPU</b>：仍在持续开发中（<b>fastRPC</b> 路径）。<br>
+        <b>仍需完善的部分</b>：<b>电源管理、散热策略与系统可靠性</b>。<br>
+        <b>生态承诺</b>：高通在另一篇博客中表示——<b>「Linux 是整个行业可以共建的基础，而这只是开始。我们的合作伙伴 HP、ASUS 与 HUMAIN 计划在 2027 年第一季度提供 Linux 支持。」</b><br>
+        <b>背景观察</b>：Phoronix 指出，近几个月高通工程师在<b>上游化 Snapdragon X2 Elite 的 Linux 支持</b>、以及<b>为多款 X2 笔记本编写设备树（Device Tree）</b>方面明显提速，活跃度<b>显著高于上一代 X1</b>。目前公布的 Linux 支持<b>仅面向 X2 系列，未覆盖 X1</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 这条最能说明问题的是「芯片厂商在设备树和上游使能上明显比上一代积极」这个趋势判断。</b>ARM 平台 Linux 支持的历史性难题从来不是 CPU 本身，而是<b>外部设备与电源子系统的碎片化</b>——每款笔记本的 GPIO、I2C 布线、PMIC 拓扑都不同，必须靠<b>逐机型的设备树</b>来落地。厂商是否愿意为「每一款具体机型」写设备树并上游，是<b>「支持 Linux」这句承诺到底空不空心的唯一判据</b>。看到设备树工作的活跃度提升，比看到任何路线图都更有说服力。<br>
+        <b>② 「定制内核 + Debian 13 用户态」这个组合选择，透露了该预览的目标用户是开发者而非消费者。</b>用定制内核（而非纯上游内核）是务实的——<b>先把功能跑通再逐块上游，是 ARM 平台使能的标准路径</b>，硬性要求一步上游会拖慢整条链。但这也意味着<b>预览版不能作为「发行版可用性」的证据</b>：真正要判断这台机器是否可用，得看关键补丁（尤其是显示、电源、固件加载相关）是否进了主线。<b>把「预览能跑」与「可以日常用」严格区分，是评估任何 ARM 平台成熟度的第一步。</b><br>
+        <b>③ 图形栈的形态值得单独关注：Freedreno + Turnip 之外还带上了 Rusticl。</b>这意味着高通选择的是一条<b>尽可能复用 Mesa 统一基础设施</b>的路线，而不是自建私有栈。其中 <b>Freedreno 是内核侧与 GL 侧、Turnip 是 Vulkan 侧、Rusticl 是 OpenCL 侧</b>，三者共享同一套 DRM 与固件接口——<b>一份内核驱动支撑多个用户态 API</b>。对做驱动的人来说这是个值得记住的结构：<b>把复杂度沉到内核与固件这一层、上层 API 各自薄薄一层</b>，能在承受多 API 需求的同时避免实现重复。相较之下，为每个 API 各配一套驱动栈的方案，维护成本会随 API 数量线性上涨。<br>
+        <b>④ NPU 与 GPU 的进度差异，再次印证了「加速器使能的瓶颈不在算力」。</b>Adreno 已经能通过成熟的开源驱动跑起来，而 <b>Hexagon NPU 仍在开发、走 fastRPC 路径</b>。原因在于 NPU 生态缺乏像 Mesa 这样的<b>统一开源中间层</b>——每家 NPU 的固件接口、编译器、算子库都是自己的，没有可复用的公共基础。这恰好解释了为什么 Intel 投入大量精力做 NPU 驱动的标准化封装：<b>谁先把 NPU 的抽象层做出来，谁就能显著降低后来者的接入成本</b>。这也是我们自研加速器在对外提供软件栈时最值得优先投入的地方——<b>抽象层的价值远高于把某个算子优化到极致</b>。
+      </div>
+    </div>
+
+    <div class="news-item">
+      <div class="news-header">
+        <div class="news-num">6</div>
+        <div class="news-title"><a href="https://www.phoronix.com/news/Debian-Inference-Portal" target="_blank">Debian Inference Portal 上线：Scaleway 出资，为 Debian 贡献者提供免费 LLM 推理（首批 DeepSeek V4 Flash 与 GLM-5.2）</a></div>
+      </div>
+      <div class="news-meta">
+        <span class="tag tag-compute">计算 compute</span>
+      </div>
+      <div class="news-body">在 Debian 投票通过<b>「允许负责任地使用生成式 AI」</b>之后，一项由 <b>Scaleway 出资</b>的新举措落地：<b>Debian Inference Portal（Debian 推理门户）</b>正式上线，为 Debian 贡献者提供<b>自助式 AI/LLM 推理访问</b>。<br>
+        <b>首批可用模型</b>：<b>DeepSeek V4 Flash</b> 与 <b>GLM-5.2</b>。<br>
+        <b>使用方式</b>：门户<b>对外暴露 API</b>，开发者可将其接入<b>自己惯用的代码编辑器与其他 AI 工具</b>，而非限定在某个门户网页里使用。<br>
+        <b>获取权限的门槛</b>：申请 API key <b>需要 Debian Salsa 账号</b>，面向 <b>Debian Developers 与 Debian Maintainers</b>。<br>
+        <b>额度模型</b>：Scaleway 赞助<b>固定的月度额度池</b>，并按用户<b>分配每周预算</b>。<br>
+        <b>适用场景</b>：打包（packaging）、<b>bug 分类（bug triage）</b>、修复、工具链开发、文档撰写等相关工作。<br>
+        门户地址：<b>inference.debian.net</b>。</div>
+      <div class="news-reason">
+        <strong>关注理由：</strong><b>① 值得注意的不只是「提供免费推理」，而是「以项目为中心建设 AI 基础设施」这一模式的成型。</b>过去两年，AI 工具在开源项目中的使用大多是<b>个体行为</b>：开发者自掏腰包订阅、各自配置。而 Debian 这一步是把<b>推理能力变成项目级公共资源</b>——统一申请、统一额度、统一合规边界。这种转变的意义在于<b>它把「是否使用 AI」从个人判断上升为组织决策，并配套了治理规则（先投票通过负责任使用，再落地基础设施）</b>。<b>任何团队要规模化引入 AI，正确的顺序都应该是「先定使用边界，再建供给通道」</b>，反过来做会积累大量难以追溯的合规债务。<br>
+        <b>② 选择「暴露 API 接入开发者自己的编辑器」而不是「做一个门户网站」，是个关键产品决策。</b>AI 辅助开发的效率几乎完全取决于<b>它是否嵌入了开发者原有的工作流</b>。若只提供网页问答，用户就得在工具之间反复切换、复制粘贴上下文，效率损失往往超过模型能力带来的收益。<b>把接口开放、让工具链自行接入，等于把集成成本转嫁给已经解决这个问题的生态</b>（各家编辑器的 AI 插件都已成熟）。这是「提供能力」而非「提供应用」的经典取舍——<b>做基础设施时，接口优先于界面</b>。<br>
+        <b>③ 按周分配预算的额度模型，反映了共享算力资源的一个现实约束：公平性靠时间粒度来保证。</b>如果只设月度总量，<b>少数高强度用户会在月初把额度耗尽，导致多数人无资源可用</b>；如果按人设死上限，则无法适应不同阶段的工作强度。按周分配是这两种极端之间的折中——<b>它限制了单点囤积的时间跨度，又保留了一定的弹性</b>。凡是要在多方之间分配稀缺资源的场景（GPU 集群、构建机、带宽），这个思路都可直接借用：<b>用时间窗口切分容量，比用静态份额分配更能兼顾公平与效率</b>。<br>
+        <b>④ 对负责平台/基础设施的团队而言，这条还有一个隐含提示：把 AI 能力纳入平台供给的时机已经成熟。</b>当开源发行版这样以保守著称的组织都开始为贡献者提供统一推理服务时，说明<b>配套的治理经验、成本模型和权限体系都已相对清晰，不再是「无先例可循」的状态</b>。需要提前想清楚的核心问题只有几个：<b>谁有权限、额度如何切分、可用于哪些场景、以及如何留痕以便追溯</b>——这四点定下来，剩下的都是工程实现。
+      </div>
+    </div>
+
+  </div>
+<!--PAGE-NAV-BOTTOM-START-->
+  <nav class="page-nav bottom" aria-label="日报导航">
+      <a class="nav-btn" href="index.html">🏠 主页</a>
+      <a class="nav-btn current" href="linux-news-2026-09-24.html">📰 最新</a>
+      <a class="nav-btn" href="linux-news-2026-09-23.html">← 上一个</a>
+      <span class="nav-btn disabled">下一个 →</span>
+  </nav>
+  <!--PAGE-NAV-BOTTOM-END-->
+<div class="footer">
+    <p>数据来源：Phoronix | 生成时间：2026-09-24</p>
+    <p>覆盖范围：2026-09-23（EDT）全天 · Intel 开源 DXVK-IGDEXT（Wine 下转发 D3D11 图形扩展至 DXVK 原生实现，避免静默回退慢路径）· 高通为 Adreno 850「Hawi」提交开源内核补丁（首发 Matrix Core MALU，并支持无 MALU 的 Adreno 845「Maili」，暂仅离屏渲染）· AMD 把 AVX10_V2_AUX 上游到 LLVM Clang 24（FP4/FP6 转换 + OCP 微缩放 + 新舍入模式，-mavx10v2aux，20 补丁约 1.5 万行）· Lemonade 2026.40 RC（APU 按 GTT 池判定流式模型 + 移除慢 40 倍的 OpenMOSS ROCm 后端）· 高通 Snapdragon X2 Linux 早期开发者预览（定制内核 + Debian 13，Adreno 走 Freedreno/Turnip/Rusticl，HP/ASUS/HUMAIN 计划 2027 Q1 支持）· Debian Inference Portal 上线（Scaleway 出资，DeepSeek V4 Flash 与 GLM-5.2）</p>
+    <p>关注领域：Linux 图形 · 显示 · 计算</p>
+  </div>
+<script>
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.setAttribute('data-theme', saved || (prefersLight ? 'light' : 'dark'));
+    })();
+</script>
+</body>
+</html>

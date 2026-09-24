@@ -292,6 +292,15 @@
     🔗 <a href="https://github.com/lph12168x/Linux_News_Daily">GitHub 仓库 →</a>
   </div>
 
+  <a class="entry" href="linux-news-2026-09-24.html">
+    <span class="entry-date">09-24</span>
+    <span class="entry-main">
+      <div class="entry-title">Intel 开源 DXVK-IGDEXT：在 Wine/Proton 下把 Intel D3D11 图形扩展转发到 DXVK 原生实现，避免游戏静默回退慢路径（UAV overlap / MultiDrawIndirect / depth bounds） · 高通为 Adreno 850「Hawi」提交开源内核补丁：首发 Matrix Core（MALU）矩阵加速单元，并一并支持无 MALU 的 Adreno 845「Maili」（当前仅离屏渲染） · AMD 把 AVX10_V2_AUX 上游进 LLVM Clang 24：FP4/FP6 数据格式转换 + OCP 微缩放 + 新舍入模式，新增 -mavx10v2aux（20 补丁约 1.5 万行） · Lemonade 2026.40 RC：APU 改按 GTT 池判定流式模型可行性，并移除比 Vulkan 慢约 40 倍的 OpenMOSS ROCm 后端 · 高通发布 Snapdragon X2 Linux 早期开发者预览：定制内核 + Debian 13 用户态，Adreno 走 Freedreno/Turnip 甚至 Rusticl、Hexagon NPU 走 fastRPC · Debian Inference Portal 上线：Scaleway 出资，为 Debian 贡献者免费提供 LLM 推理（首批 DeepSeek V4 Flash 与 GLM-5.2）</div>
+      <div class="entry-hint">今日（9/23 EDT）图形/显示/计算方向 6 条：<b>Intel</b> 开源 <b>DXVK-IGDEXT</b>——提供 <b>igdext64.dll</b>，让游戏在 <b>Wine/Proton</b> 下用上 <b>Intel D3D11 图形扩展</b>（<b>UAV overlap / MultiDrawIndirect / depth bounds</b>），做法是把扩展<b>转发到 DXVK 的原生实现</b>，而非在扩展不可用时<b>静默回退到较慢的默认 D3D11 行为</b>；该 DLL 由 <b>Valve 的 Proton 自动处理</b>，直接改善 <b>Intel Arc</b> 上的 Steam Play 体验（<b>仅限 Linux/Wine，不用于原生 Windows</b>）。高通在发布 <b>Snapdragon 8 Elite Extreme Gen 6</b> 后<b>仅一天</b>，就为 <b>Adreno 850「Hawi」</b>提交初始 Linux 内核补丁，本代<b>首发专用矩阵加速单元 Matrix Core（MALU）</b>；同批还支持<b>不含 MALU 的 Adreno 845「Maili」</b>，<b>Mesa 支持与 linux-firmware 更新将随后发布</b>，当前因缺显示输出<b>仅能离屏渲染</b>。<b>AMD</b> 把 <b>AVX10_V2_AUX</b> 合并进 <b>LLVM 24 Git</b>（20 补丁、约 1.5 万行），为 AI 负载加入<b>标准类型转 FP4/FP6 压缩格式、额外 OCP 微缩放格式与新舍入模式</b>，Clang 新增 <b>-mavx10v2aux</b>，属 Intel/AMD 共建的 <b>AI Compute Extensions（ACE）</b>，LLVM 24.1 稳定版预计明年 3 月。<b>Lemonade 2026.40 RC</b> 把 APU 上的可用性判定<b>从固定显存切分窗口改为按 GTT 池</b>，修好 <b>DeepSeek-V4-Flash-IQ2XXS-DS4 等流式模型在 Ryzen AI Max（Strix Halo）上无法运行</b>的问题；同时<b>移除 OpenMOSS 的 ROCm 后端</b>——同硬件实测比 <b>Vulkan 后端慢约 40 倍</b>，疑有 <b>CPU 回退</b>；并开始采用<b>年份+周号</b>版本号。高通在 <b>Snapdragon Summit</b> 发布 <b>Snapdragon X2 Linux 早期开发者预览</b>（<b>定制内核 + Debian 13 用户态</b>），<b>初始使能大多已上游</b>，Adreno 在 Mesa 中走 <b>Freedreno 与 Turnip 甚至 Rusticl</b>，<b>Hexagon NPU 走 fastRPC</b> 仍在开发，<b>电源、散热与可靠性待完善</b>，<b>HP、ASUS、HUMAIN 计划 2027 Q1 提供 Linux 支持</b>（仅 X2，未覆盖 X1）。最后 <b>Debian Inference Portal</b> 上线（<b>inference.debian.net</b>）：由 <b>Scaleway</b> 出资赞助固定月度额度池、按用户分配每周预算，为 <b>Debian Developers / Maintainers</b>（需 Salsa 账号）免费提供推理，首批 <b>DeepSeek V4 Flash</b> 与 <b>GLM-5.2</b>，以 <b>API 形式</b>接入开发者自己的编辑器与工具…</div>
+    </span>
+    <span class="entry-arrow">→</span>
+  </a>
+
   <a class="entry" href="linux-news-2026-09-23.html">
     <span class="entry-date">09-23</span>
     <span class="entry-main">
